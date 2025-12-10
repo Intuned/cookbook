@@ -1,3 +1,0 @@
-- How will we keep runtime up to date?
-- how will we sync the cookbook with out templates?
-- update the templates readme files to have valid links
