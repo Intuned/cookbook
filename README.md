@@ -4,7 +4,7 @@ A collection of templates and recipes for building browser automations with [Int
 
 ## What's Inside
 
-### 📁 Templates
+### 📁 [Templates](./templates/README.md)
 
 Complete, ready-to-deploy Intuned projects that you can use as starting points for your own automations.
 
@@ -15,7 +15,7 @@ Complete, ready-to-deploy Intuned projects that you can use as starting points f
 
 Each template includes both **TypeScript** and **Python** implementations.
 
-### 📝 Recipes
+### 📝 [Recipes](./recipes/README.m)
 
 Quick code snippets demonstrating common browser automation patterns.
 
