@@ -13,6 +13,10 @@ Choose the implementation that best fits your stack:
 | **TypeScript** | [`typescript/`](./typescript/) | [README](./typescript/README.md) |
 | **Python** | [`python/`](./python/) | [README](./python/README.md) |
 
+## Website
+
+This template automates: [https://sandbox.intuned.dev/consultations-auth/book](https://sandbox.intuned.dev/consultations-auth/book)
+
 ## Features
 
 - **Authenticated Sessions**: Uses Intuned Auth Sessions for secure, credential-based automation
@@ -21,6 +25,7 @@ Choose the implementation that best fits your stack:
 
 ## Learn More
 
+- [Quickstarts](https://docs.intunedhq.com/docs/00-getting-started/introduction#quickstarts) - Get started with Intuned
 - [AuthSessions (authenticated automations)](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
 - [Intuned in depth](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
