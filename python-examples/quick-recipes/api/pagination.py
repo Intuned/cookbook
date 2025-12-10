@@ -1,5 +1,5 @@
-from playwright.async_api import Page, BrowserContext
 from dataclasses import dataclass
+from playwright.async_api import Page, BrowserContext
 
 
 @dataclass
@@ -9,7 +9,7 @@ class Product:
 
 
 async def extract_data_from_current_page(page: Page) -> list[Product]:
-    results = []
+    results: list[Product] = []
     product_cards = page.locator(".product-item")
     count = await product_cards.count()
 
@@ -37,18 +37,19 @@ async def go_to_next_page(page: Page) -> None:
 
 async def handler(params: dict, page: Page, context: BrowserContext):
     max_pages = params.get("maxPages", 5)
+    # Start on the first pagination page
     await page.goto("https://www.scrapingcourse.com/pagination")
 
-    all_products = []
+    all_products: list[Product] = []
     current_page = 0
 
     while current_page < max_pages:
-        # Extract data from current page
+        # Extract data from the current page
         results = await extract_data_from_current_page(page)
         print(f"Extracted {len(results)} results from page {current_page + 1}")
         all_products.extend(results)
 
-        # Check if there's a next page
+        # Stop if no further pages
         can_continue = await has_next_page(page)
         if not can_continue:
             print("No more pages available.")
@@ -58,8 +59,7 @@ async def handler(params: dict, page: Page, context: BrowserContext):
         if current_page >= max_pages:
             break
 
-        # Navigate to next page
+        # Move to the next page
         await go_to_next_page(page)
 
     return all_products
-

@@ -1,11 +1,10 @@
-import { BrowserContext, Page } from "playwright-core";
+import { BrowserContext, Page } from "playwright";
 
 interface Product {
   name: string;
   price: string;
 }
 
-// Extract products from the current page
 async function extractDataFromCurrentPage(page: Page): Promise<Product[]> {
   const results: Product[] = [];
   const productCards = page.locator(".product-item");
@@ -27,13 +26,13 @@ async function extractDataFromCurrentPage(page: Page): Promise<Product[]> {
   return results;
 }
 
-// Check if next page exists
+// Check if a next page exists
 async function hasNextPage(page: Page): Promise<boolean> {
   const nextButton = page.locator('a:has-text("Next page")');
   return (await nextButton.count()) > 0;
 }
 
-// Navigate to the next page
+// Navigate to the next page and wait for network idle
 async function goToNextPage(page: Page): Promise<void> {
   const nextButton = page.locator('a:has-text("Next page")');
   await nextButton.click();
@@ -46,20 +45,19 @@ export default async function handler(
   context: BrowserContext
 ) {
   const maxPages = params.maxPages ?? 5;
+  // Start on the first page
   await page.goto("https://www.scrapingcourse.com/pagination");
 
   const allProducts: Product[] = [];
   let currentPage = 0;
 
   while (currentPage < maxPages) {
-    // Extract data from current page
+    // Extract data from the current page
     const results = await extractDataFromCurrentPage(page);
-    console.log(
-      `Extracted ${results.length} results from page ${currentPage + 1}`
-    );
+    console.log(`Extracted ${results.length} results from page ${currentPage + 1}`);
     allProducts.push(...results);
 
-    // Check if there's a next page
+    // Stop if no further pages
     const canContinue = await hasNextPage(page);
     if (!canContinue) {
       console.log("No more pages available.");
@@ -71,10 +69,9 @@ export default async function handler(
       break;
     }
 
-    // Navigate to next page
+    // Move to the next page
     await goToNextPage(page);
   }
 
   return allProducts;
 }
-

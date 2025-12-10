@@ -1,143 +1,38 @@
-# Intuned Cookbook Project Rules
+# Intuned Cookbook Rules (concise)
 
-## Writing README Files
+## Main README Structure
+- Two tables: "TypeScript Examples" and "Python Examples"
+- Each table: Example | Description
+- Links point to `typescript-examples/{example}/` and `python-examples/{example}/`
 
-### Template README (Parent Directory)
-When writing a README for a template folder (e.g., `templates/book-consultations-auth/README.md`), include:
+## Examples Structure
+- Examples organized by language: `typescript-examples/` and `python-examples/`
+- Each language folder has README with table listing all examples
+- Examples: `quick-recipes`, `rpa-example`, `rpa-auth-example`
 
-1. **Title**: Use the template name as a heading
-2. **Description**: A brief description of what the template does (taken from the TypeScript/Python sub-project READMEs)
-3. **Available Versions Table**: A table linking to both TypeScript and Python implementations:
-   ```markdown
-   | Version | Directory | Documentation |
-   |---------|-----------|---------------|
-   | **TypeScript** | [`typescript/`](./typescript/) | [README](./typescript/README.md) |
-   | **Python** | [`python/`](./python/) | [README](./python/README.md) |
-   ```
-4. **Features**: Bullet points highlighting key capabilities
-5. **Learn More**: Links to relevant Intuned documentation
+## Quick Recipes
+- Each recipe is an API file in `api/` folder: `{recipe-name}.ts` or `{recipe-name}.py`
+- Recipes: download-file, pagination, upload-to-s3, capture-screenshots
+- Quick recipes README lists all APIs in a table with descriptions
 
-### Example Template README Structure
-```markdown
-# Template Name
+## RPA Examples
+- Complete Intuned projects with full project structure
+- `rpa-example`: Basic automation without authentication
+- `rpa-auth-example`: Authenticated automation with Auth Sessions
 
-Brief description of what this template does.
+## Doc Links
+- AuthSessions: https://docs.intunedhq.com/docs/02-features/auth-sessions
+- Browser SDK: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- Intuned in depth: https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth
+- Introduction / Quickstarts: https://docs.intunedhq.com/docs/00-getting-started/introduction
+- Recipe docs: download-file, pagination, upload-files, capture-screenshots under https://docs.intunedhq.com/docs/01-learn/recipes/
+- SDK method patterns:
+  - TS: https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/{functionName}
+  - PY: https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/{function_name}
+  - Common: downloadFile/download_file, uploadFileToS3/upload_file_to_s3, saveFileToS3/save_file_to_s3
 
-## Available Versions
-
-| Version | Directory | Documentation |
-|---------|-----------|---------------|
-| **TypeScript** | [`typescript/`](./typescript/) | [README](./typescript/README.md) |
-| **Python** | [`python/`](./python/) | [README](./python/README.md) |
-
-## Features
-
-- Feature 1
-- Feature 2
-- Feature 3
-
-## Learn More
-
-- [Relevant Doc 1](url)
-- [Relevant Doc 2](url)
-```
-
-## Writing Recipes
-
-### Recipe Structure
-Each recipe should have its own folder under `recipes/` with:
-
-1. **Code files named after the recipe folder** (not `handler.ts`/`handler.py`):
-   - `{recipe-name}.ts` - TypeScript implementation
-   - `{recipe-name}.py` - Python implementation
-
-2. **README.md** with:
-   - Brief description of what the recipe does
-   - Links to the code files
-   - Related SDK Methods section (if applicable) with links to SDK documentation
-   - Learn More link to the recipe documentation
-
-### Example Recipe README Structure
-```markdown
-# Recipe Name
-
-Brief description of what this recipe does.
-
-## Files
-
-- [`recipe-name.ts`](./recipe-name.ts) - TypeScript implementation
-- [`recipe-name.py`](./recipe-name.py) - Python implementation
-
-## Related SDK Methods
-
-- [methodName (TypeScript)](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/methodName)
-- [method_name (Python)](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/method_name)
-
-## Learn More
-
-- [Recipe Name Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/recipe-slug)
-```
-
-### Recipe Documentation URLs
-- Download Files: `https://docs.intunedhq.com/docs/01-learn/recipes/download-file`
-- Handle Pagination: `https://docs.intunedhq.com/docs/01-learn/recipes/pagination`
-- Upload Files to S3: `https://docs.intunedhq.com/docs/01-learn/recipes/upload-files`
-- Capture Screenshots: `https://docs.intunedhq.com/docs/01-learn/recipes/capture-screenshots`
-
-### SDK Method Documentation URLs
-TypeScript SDK methods:
-- `https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/{functionName}`
-
-Python SDK methods:
-- `https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/{function_name}`
-
-Common SDK methods:
-- downloadFile / download_file
-- uploadFileToS3 / upload_file_to_s3
-- saveFileToS3 / save_file_to_s3
-
-## Documentation Links
-Always use correct Intuned documentation URLs:
-- AuthSessions: `https://docs.intunedhq.com/docs/02-features/auth-sessions`
-- Browser SDK: `https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview`
-- Intuned in depth: `https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth`
-- Introduction: `https://docs.intunedhq.com/docs/00-getting-started/introduction`
-
-## Keeping READMEs in Sync
-
-**CRITICAL**: Always update relevant README files when making changes to the codebase.
-
-### When Adding/Removing Templates
-- Update the main `README.md` template table
-- Create/update the template's parent `README.md` (e.g., `templates/template-name/README.md`)
-- Ensure the template description matches what the code actually does
-
-### When Adding/Removing Recipes
-- Update `recipes/README.md` recipe table
-- Update the main `README.md` recipe table
-- Create/update the recipe's `README.md` (e.g., `recipes/recipe-name/README.md`)
-- Ensure the recipe description matches what the code actually does
-
-### When Modifying Template Code
-- Update the template's parent `README.md` if features or capabilities change
-- Update the description if the template's purpose has changed
-- Update the Features section if new functionality is added
-
-### When Modifying Recipe Code
-- Update the recipe's `README.md` if the recipe's behavior or purpose changes
-- Update the description if what the recipe does has changed
-- Update Related SDK Methods if new SDK methods are used
-- Update file names in the README if code files are renamed
-
-### When Renaming Files or Folders
-- Update all README files that reference the old name
-- Check both parent READMEs and individual template/recipe READMEs
-- Update file links in READMEs to match new file names
-
-### Checklist Before Completing Changes
-- [ ] Main `README.md` template/recipe tables are up to date
-- [ ] Template/recipe parent `README.md` exists and is accurate
-- [ ] File names in READMEs match actual file names
-- [ ] Descriptions accurately reflect what the code does
-- [ ] Features/capabilities listed match the implementation
-- [ ] SDK method links are correct and complete
+## Keep READMEs in Sync
+- Add/remove example: update main README (both TS and Python tables) + language-specific examples README
+- Modify example code: update example README if description/features change
+- Rename files/folders: update all README links and names
+- Quick check: main README tables up to date; examples READMEs accurate; links match; descriptions reflect code

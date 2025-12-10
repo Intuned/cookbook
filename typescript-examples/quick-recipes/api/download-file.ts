@@ -1,4 +1,4 @@
-import { BrowserContext, Page } from "playwright-core";
+import { BrowserContext, Page } from "playwright";
 import { downloadFile } from "@intuned/browser";
 
 interface Params {
@@ -10,19 +10,20 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
+  // Navigate to the sample downloads page
   await page.goto("https://sandbox.intuned.dev/pdfs");
 
-  // Locate the download button
+  // Locate the download button for the first row
   const downloadLocator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']");
 
-  // Trigger download and wait for file
+  // Trigger download and wait for the file to complete
   const downloadedFile = await downloadFile({
     page,
     trigger: downloadLocator,
     timeoutInMs: 15000,
   });
 
+  // Return the suggested filename for reference
   const fileName = downloadedFile.suggestedFilename();
   return fileName;
 }
-

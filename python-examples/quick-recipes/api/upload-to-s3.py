@@ -3,9 +3,10 @@ from intuned_browser import save_file_to_s3
 
 
 async def handler(params: dict, page: Page, context: BrowserContext):
+    # Navigate to the file list
     await page.goto("https://sandbox.intuned.dev/pdfs")
 
-    # Locate the download button
+    # Locate the download trigger for the first row
     download_locator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']")
 
     # Download and upload to S3 in one step
@@ -15,8 +16,7 @@ async def handler(params: dict, page: Page, context: BrowserContext):
         timeout_in_ms=15000,
     )
 
-    # Get signed URL for access
+    # Return signed URL for access
     signed_url = await uploaded_file.get_signed_url()
     print(f"Download uploaded file at: {signed_url}")
     return uploaded_file
-
