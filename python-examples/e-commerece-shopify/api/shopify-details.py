@@ -114,7 +114,7 @@ async def automation(
         raise ValueError("Params are required for this automation")
 
     details_url = params["details_url"]
-    await go_to_url(page, details_url, wait_for_load_state="domcontentloaded")
+    await go_to_url(page, details_url)
     # Build JSON endpoint URL
     json_url = f"{details_url}.json"
     print(f"Fetching: {json_url}")

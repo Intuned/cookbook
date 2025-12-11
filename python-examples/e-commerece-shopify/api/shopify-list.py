@@ -82,7 +82,7 @@ async def automation(
     max_pages = params.get("max_pages", 10)
 
     # Navigate to the store home page
-    await go_to_url(page, store_url, wait_for_load_state="domcontentloaded")
+    await go_to_url(page, store_url)
 
     all_products: List[Product] = []
     current_page = 1
