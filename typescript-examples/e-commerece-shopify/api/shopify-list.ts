@@ -109,7 +109,7 @@ async function handler(
   // Extend payload for each product to scrape details
   for (const product of allProducts) {
     extendPayload({
-      api: "shopify-detail",
+      api: "shopify-details",
       parameters: product,
     });
   }

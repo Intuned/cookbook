@@ -110,8 +110,8 @@ async function handler(
   page: Page,
   context: BrowserContext
 ): Promise<ProductDetails> {
-  if (!params) {
-    throw new Error("Params are required for this automation");
+  if (!params || !params.details_url) {
+    throw new Error("Params with details_url are required for this automation");
   }
 
   const detailsUrl = params.details_url;
