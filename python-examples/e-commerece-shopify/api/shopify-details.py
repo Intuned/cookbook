@@ -76,7 +76,7 @@ def extract_product_from_json(data: dict, params: Params) -> ProductDetails:
             )
 
     # Get price from first variant
-    price = variants[0]["price"] if variants else ""
+    price = raw_variants[0]["price"] if raw_variants else ""
 
     # Filter out options with name "Title" (default/empty options)
     options = [opt for opt in product.get("options", []) if opt.get("name") != "Title"]

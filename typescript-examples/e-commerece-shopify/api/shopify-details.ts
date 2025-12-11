@@ -1,37 +1,13 @@
 import { Page, BrowserContext } from "playwright";
 import { goToUrl } from "@intuned/browser";
+import {
+  shopifyDetailsSchema,
+  ProductDetails,
+  ProductVariant,
+} from "../utils/typesAndSchemas.js";
+import { z } from "zod";
 
-interface Params {
-  name: string;
-  vendor: string;
-  product_type: string;
-  tags: string[];
-  details_url: string;
-}
-
-interface ProductVariant {
-  sku: string;
-  title: string;
-  price: string;
-  compare_at_price: string | null;
-  available: boolean;
-  inventory_quantity: number;
-}
-
-interface ProductDetails {
-  source_url: string;
-  id: number;
-  name: string;
-  handle: string;
-  vendor: string;
-  product_type: string;
-  tags: string[];
-  description: string;
-  price: string;
-  images: string[];
-  options: any[];
-  variants: ProductVariant[];
-}
+type Params = z.infer<typeof shopifyDetailsSchema>;
 
 /**
  * Remove HTML tags from a string
@@ -75,7 +51,7 @@ function extractProductFromJson(data: any, params: Params): ProductDetails {
   }
 
   // Get price from first variant
-  const price = variants.length > 0 ? variants[0].price : "";
+  const price = rawVariants.length > 0 ? rawVariants[0].price : "";
 
   // Filter out options with name "Title" (default/empty options)
   const options = (product.options || []).filter(
@@ -115,7 +91,7 @@ async function handler(
   }
 
   const detailsUrl = params.details_url;
-  await goToUrl(page, detailsUrl);
+  await goToUrl({ page, url: detailsUrl });
 
   // Build JSON endpoint URL
   const jsonUrl = `${detailsUrl}.json`;

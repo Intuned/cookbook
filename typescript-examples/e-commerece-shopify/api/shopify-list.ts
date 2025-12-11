@@ -1,19 +1,10 @@
 import { Page, BrowserContext } from "playwright";
 import { extendPayload } from "@intuned/runtime";
 import { goToUrl } from "@intuned/browser";
+import { shopifyListSchema, Product } from "../utils/typesAndSchemas.js";
+import { z } from "zod";
 
-interface Params {
-  store_url: string; // The Shopify store URL (e.g., "https://the-outrage.com")
-  maxPages?: number; // Maximum number of pages to scrape (default: 10)
-}
-
-interface Product {
-  name: string;
-  vendor: string;
-  product_type: string;
-  tags: string[];
-  details_url: string;
-}
+type Params = z.infer<typeof shopifyListSchema>;
 
 const LIMIT = 250;
 
@@ -75,7 +66,7 @@ async function handler(
   console.log(`Products API: ${baseUrl}`);
 
   // Navigate to the store home page
-  await goToUrl(page, storeUrl);
+  await goToUrl({ page, url: storeUrl });
 
   const maxPages = params.maxPages ?? 10;
 
