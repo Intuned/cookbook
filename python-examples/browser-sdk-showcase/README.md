@@ -44,50 +44,50 @@ The project structure is as follows:
 /
 ├── api/                          # Browser SDK helper examples
 │   ├── ai/                       # AI-powered helpers (requires API keys & credits)
-│   │   ├── extract_structured_data.py  # Extract structured data from content
-│   │   └── is_page_loaded.py           # Check if page is fully loaded
-│   ├── click_until_exhausted.py        # Click button until no more content
-│   ├── download_file.py                # Download files from URL or triggers
-│   ├── extract_markdown.py             # Convert HTML to markdown
-│   ├── filter_empty_values.py          # Remove empty values from data
-│   ├── go_to_url.py                    # Navigate to URLs with options
-│   ├── process_date.py                 # Parse various date formats
-│   ├── resolve_url.py                  # Resolve relative URLs
-│   ├── sanitize_html.py                # Clean and sanitize HTML
-│   ├── save_file_to_s3.py              # Save files to S3
-│   ├── scroll_to_load_content.py       # Scroll to load dynamic content
-│   ├── upload_file_to_s3.py            # Upload files to S3
-│   ├── validate_data_using_schema.py   # Validate data with Pydantic schemas
-│   ├── wait_for_dom_settled.py         # Wait for DOM to stabilize
-│   └── wait_for_network_settled.py     # Wait for network requests to settle
+│   │   ├── extract-structured-data.py  # Extract structured data from content
+│   │   └── is-page-loaded.py           # Check if page is fully loaded
+│   ├── click-until-exhausted.py        # Click button until no more content
+│   ├── download-file.py                # Download files from URL or triggers
+│   ├── extract-markdown.py             # Convert HTML to markdown
+│   ├── filter-empty-values.py          # Remove empty values from data
+│   ├── go-to-url.py                    # Navigate to URLs with options
+│   ├── process-date.py                 # Parse various date formats
+│   ├── resolve-url.py                  # Resolve relative URLs
+│   ├── sanitize-html.py                # Clean and sanitize HTML
+│   ├── save-file-to-s3.py              # Save files to S3
+│   ├── scroll-to-load-content.py       # Scroll to load dynamic content
+│   ├── upload-file-to-s3.py            # Upload files to S3
+│   ├── validate-data-using-schema.py   # Validate data with Pydantic schemas
+│   ├── wait-for-dom-settled.py         # Wait for DOM to stabilize
+│   └── wait-for-network-settled.py     # Wait for network requests to settle
 └── Intuned.jsonc                       # Intuned project configuration file
 ```
 
 ## SDK Helpers Showcase
 
 ### Navigation & Page Management
-- **go_to_url**: Navigate to URLs with advanced options
-- **wait_for_dom_settled**: Wait for DOM mutations to stabilize
-- **wait_for_network_settled**: Wait for all network requests to complete
+- **go-to-url**: Navigate to URLs with advanced options
+- **wait-for-dom-settled**: Wait for DOM mutations to stabilize
+- **wait-for-network-settled**: Wait for all network requests to complete
 
 ### Content Loading & Interaction
-- **click_until_exhausted**: Click "Load More" buttons until all content is loaded
-- **scroll_to_load_content**: Scroll to trigger lazy-loaded content
+- **click-until-exhausted**: Click "Load More" buttons until all content is loaded
+- **scroll-to-load-content**: Scroll to trigger lazy-loaded content
 
 ### Data Extraction & Processing
-- **extract_markdown**: Convert HTML content to clean markdown
-- **sanitize_html**: Clean and sanitize HTML content
-- **filter_empty_values**: Remove null/empty values from objects
-- **validate_data_using_schema**: Validate data against Pydantic schemas
+- **extract-markdown**: Convert HTML content to clean markdown
+- **sanitize-html**: Clean and sanitize HTML content
+- **filter-empty-values**: Remove null/empty values from objects
+- **validate-data-using-schema**: Validate data against Pydantic schemas
 
 ### File Operations
-- **download_file**: Download files from URLs or user interactions
-- **upload_file_to_s3**: Upload files to S3 buckets
-- **save_file_to_s3**: Save content directly to S3
+- **download-file**: Download files from URLs or user interactions
+- **upload-file-to-s3**: Upload files to S3 buckets
+- **save-file-to-s3**: Save content directly to S3
 
 ### Utilities
-- **process_date**: Parse various date formats into standardized format
-- **resolve_url**: Resolve relative URLs to absolute URLs
+- **process-date**: Parse various date formats into standardized format
+- **resolve-url**: Resolve relative URLs to absolute URLs
 
 ### AI-Powered Helpers
 See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.

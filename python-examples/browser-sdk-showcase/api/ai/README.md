@@ -57,7 +57,7 @@ person = await extract_structured_data(
 )
 ```
 
-**Documentation:** [extract_structured_data](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_structured_data)
+**Documentation:** [extract_structured_data](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data)
 
 ### `is_page_loaded`
 Use AI to intelligently determine if a page has finished loading.
@@ -80,7 +80,7 @@ else:
     print("Page is still loading")
 ```
 
-**Documentation:** [is_page_loaded](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/is_page_loaded)
+**Documentation:** [is_page_loaded](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/is_page_loaded)
 
 ## Configuration
 
@@ -104,7 +104,7 @@ When your project is deployed to Intuned:
    - Key: `GOOGLE_API_KEY`, Value: `your-google-key`
 4. Select the environments (development, production) where these should be available
 
-**Documentation:** [Intuned Environment Variables](https://docs.intunedhq.com/docs/platform/develop/environment-variables)
+**Documentation:** [Intuned Environment Variables](https://docs.intunedhq.com/docs-old/platform/develop/environment-variables)
 
 #### In Code (Direct Override)
 ```python
@@ -145,8 +145,8 @@ result = await extract_structured_data(
 ## Examples
 
 See the example files in this directory:
-- `extract_structured_data.py` - Comprehensive extraction examples
-- `is_page_loaded.py` - Page load detection example
+- `extract-structured-data.py` - Comprehensive extraction examples
+- `is-page-loaded.py` - Page load detection example
 
 ## Learn More
 
