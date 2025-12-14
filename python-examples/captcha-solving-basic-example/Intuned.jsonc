@@ -1,0 +1,50 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
+{
+  "projectName": "captcha-solving-basic-example",
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "proxy": {
+    "enabled": false
+  },
+  "headful": true,
+  "captchaSolver": {
+    "enabled": true,
+    "googleRecaptchaV2": {
+      "enabled": true
+    },
+    "cloudflare": {
+      "enabled": true
+    },
+    "geetest": {
+      "enabled": true
+    },
+    "customCaptcha": {
+      "enabled": true,
+      "imageLocators": [
+        "#demoCaptcha_CaptchaImage"
+      ],
+      "inputLocators": [
+        "#captchaCode"
+      ],
+      "submitLocators": [
+        "#validateCaptchaButton"
+      ]
+    },
+    "stealthMode": {
+      "enabled": false
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 10
+    }
+  }
+}
