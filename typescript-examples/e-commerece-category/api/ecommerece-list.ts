@@ -38,7 +38,7 @@ async function loadAllProducts(page: Page): Promise<void> {
     buttonLocator: loadMoreButton,
     containerLocator: productContainer,
     maxClicks: 50,
-    clickDelay: 1.0,
+    clickDelay: 5.0,
   });
 }
 

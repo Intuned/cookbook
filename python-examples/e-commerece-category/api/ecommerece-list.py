@@ -46,7 +46,7 @@ async def load_all_products(page: Page) -> None:
         button_locator=load_more_button,
         container_locator=product_container,
         max_clicks=50,
-        click_delay=1.0,
+        click_delay=5.0,
     )
 
 
