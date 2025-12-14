@@ -28,5 +28,19 @@
   },
   "stealthMode": {
     "enabled": true
+  },
+    "metadata": {
+    "defaultRunPlaygroundInput": {
+      "api": "details",
+      "parameters": {
+        "name": "Mach Street Sweatshirt",
+        "price": "$62",
+        "details_url_item": "https://scrapingcourse.com/ecommerce/product/mach-street-sweatshirt"
+      }
+    },
+    "testAuthSessionInput": {
+      "username": "admin@example.com",
+      "password": "password"
+    }
   }
 }
