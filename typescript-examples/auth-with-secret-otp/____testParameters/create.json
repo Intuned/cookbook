@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Demo User Login",
+    "value": "{\n    \"username\": \"demo@email.com\",\n    \"password\": \"DemoUser2024!\",\n    \"secret\": \"JBSWY3DPEHPK3PXP\"\n}",
+    "lastUsed": true,
+    "id": "f1a2b3c4-d5e6-4789-a0b1-c2d3e4f5g6h7"
+  }
+]
