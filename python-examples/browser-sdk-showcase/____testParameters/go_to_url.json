@@ -1,0 +1,14 @@
+[
+    {
+        "name": "wait_for_load_using_ai",
+        "value": true
+    },
+    {
+        "name": "timeout",
+        "value": 15
+    },
+    {
+        "name": "retries",
+        "value": 3
+    }
+]

@@ -1,0 +1,9 @@
+[{
+    "name": "remove_styles",
+    "value": true
+},
+{
+    "name": "max_attribute_length",
+    "value": 30
+}
+]

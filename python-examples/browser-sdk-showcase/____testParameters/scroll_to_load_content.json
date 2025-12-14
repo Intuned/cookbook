@@ -1,0 +1,10 @@
+[
+    {
+        "name": "extend_timeout_on_scroll",
+        "value": true
+    },
+    {
+        "name": "max_scrolls",
+        "value": 10
+    }
+]

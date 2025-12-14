@@ -1,0 +1,14 @@
+[
+    {
+        "name": "extract_from_content",
+        "value": true
+    },
+    {
+        "name": "extract_from_page",
+        "value": true
+    },
+    {
+        "name": "extract_list",
+        "value": true
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "name": "settle_duration",
+        "value": 0.5
+    },
+    {
+        "name": "timeout_s",
+        "value": 30.0
+    }
+]
