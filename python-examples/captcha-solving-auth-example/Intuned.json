@@ -1,0 +1,32 @@
+{
+  "projectName": "captcha-solving-auth-example",
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API",
+    "saveTraces": true
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "proxy": {
+    "enabled": false
+  },
+  "headful": true,
+  "captchaSolver": {
+    "enabled": true,
+    "cloudflare": {
+      "enabled": true
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 4
+    }
+  },
+  "stealthMode": {
+    "enabled": true
+  }
+}

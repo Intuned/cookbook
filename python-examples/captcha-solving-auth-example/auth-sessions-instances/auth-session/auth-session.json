@@ -1,0 +1,91 @@
+{
+  "cookies": [
+    {
+      "name": "_cfuvid",
+      "value": "Eg5WqcmpBRLh35gr7eq5nVJi1CpNa1GbBEzF5dSUnnk-1765724693661-0.0.1.1-604800000",
+      "domain": ".challenges.cloudflare.com",
+      "path": "/",
+      "expires": -1.0,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.1100461783.1765724694",
+      "domain": ".scrapingcourse.com",
+      "path": "/",
+      "expires": 1800284716.126488,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "AWSALB",
+      "value": "veYfmGoqKVDu6HkYJ1iM2QPreLEHH6qe0day1DUoM+xUuEEizwI2PQ4q+jRbxMcmpsfLt+7UZCfxGLmGuSUQAS52vqELunY63VkNO7oMUHL6fSQ3RlHYFqlzPJIK",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "expires": 1766329515.067875,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "AWSALBCORS",
+      "value": "veYfmGoqKVDu6HkYJ1iM2QPreLEHH6qe0day1DUoM+xUuEEizwI2PQ4q+jRbxMcmpsfLt+7UZCfxGLmGuSUQAS52vqELunY63VkNO7oMUHL6fSQ3RlHYFqlzPJIK",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "expires": 1766329515.068733,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6ImMxTENhYWkySzVLREVsUTB1OStkc3c9PSIsInZhbHVlIjoiY1B1WXVla2VLbEVkQzRobGZPSUVMY2JTMnhQMm9lOExVaEQwOU5DaTRpc1ErOTU5QThKVy9mOWtjNWZ5eThQWHJjaExPcW5Gblg0ZDRwSTNOTXJaOFBjeXM3by9YeEVpZnhwQ3hOZ3BZR2dPcEVleUZyUXUxMnRXU1habHNUcXgiLCJtYWMiOiJiYzM4MTY0OWU5YWY4ZGM3MzYxMzViYjY3YmY3MjBjNjc2NzNkYjZjNDY4NmExMjVkZWE3NDk2ZmY1Zjk3ODk0IiwidGFnIjoiIn0%3D",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "expires": 1765731916.068873,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "scrapingcoursecom_session",
+      "value": "eyJpdiI6Ilh3eE4wZXRrMzBMbTZVSTVOYmN1REE9PSIsInZhbHVlIjoiWloyYTRpL0VpMGtOMVFzMzFxUU9zTWFVeld1c1RaTUpqOVUyYktUbzZFeVdEMWRDbjdyY1NhRFpVVDRxaFVvMjRqcUN1Z0J3S0ZKYnhjTXRPRXVHTzQrbmVqTGhrTFNCcHBkMURaNGZTSmcxelRUdDVyWU16Y0d4WmUzckY2YmYiLCJtYWMiOiIwNmQ0NTcwZmU3MzU0YmY5MzI5ZDdlZTU5MjQwOGZjYTdhZDlhMzMyZjZiOTVhMGNlMGRlY2I4OTFlNGMyMTNjIiwidGFnIjoiIn0%3D",
+      "domain": "www.scrapingcourse.com",
+      "path": "/",
+      "expires": 1765731916.069233,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_NZGD14H87G",
+      "value": "GS2.1.s1765724694$o1$g1$t1765724716$j38$l0$h0",
+      "domain": ".scrapingcourse.com",
+      "path": "/",
+      "expires": 1800284716.126382,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://challenges.cloudflare.com",
+      "localStorage": [
+        {
+          "name": "cf.turnstile.u",
+          "value": "ZSbXiQApX7mfe.Z5NJkbu9V2TGC8BSETOJfnIpBVrzY-1765724694-1.3.1.1-qLjNgwnvpa6PZdj.fbIK7_L7mXQLdeQSY9o7jw8wnxpfiHpgmSTG2EG2mxQBC0fSMyD1_wEPTg4.kMLkGcCbMw"
+        }
+      ]
+    }
+  ],
+  "sessionStorage": [
+    {
+      "origin": "https://www.scrapingcourse.com",
+      "sessionStorage": []
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "createdAt": "2025-12-14T17:05:16.374477",
+  "updatedAt": "2025-12-14T17:05:16.374574",
+  "authSessionId": "auth-session",
+  "authSessionType": "API",
+  "authSessionInput": {
+    "email": "admin@example.com",
+    "password": "password"
+  }
+}

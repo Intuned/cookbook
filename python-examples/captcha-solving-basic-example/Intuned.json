@@ -39,12 +39,12 @@
         "#validateCaptchaButton"
       ]
     },
-    "stealthMode": {
-      "enabled": false
-    },
     "settings": {
       "autoSolve": true,
       "maxRetries": 10
     }
+  },
+  "stealthMode": {
+    "enabled": true
   }
 }
