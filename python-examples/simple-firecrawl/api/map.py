@@ -55,7 +55,5 @@ async def automation(
 
         return {
             "success": True,
-            "url": result.url,
-            "total_links": len(links),
             "links": links,
         }
