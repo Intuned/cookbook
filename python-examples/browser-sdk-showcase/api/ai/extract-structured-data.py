@@ -29,7 +29,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
             model="gpt-4o",
             data_schema=Person,  # Pass Pydantic model directly
             prompt="Extract person information from the text",
-            enable_cache=True, # To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.
+            enable_cache=False, # To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.
         )
         print(f"Found person: {person['name']}, {person['age']} years old")
         
