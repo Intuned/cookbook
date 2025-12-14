@@ -35,7 +35,7 @@ export interface Consultation {
   topic: string;
 }
 
-export const loginOTPSchema = z.object({
+export const createAuthSessionParams = z.object({
   username: z.string().email("Valid email is required"),
   password: z.string().min(1, "Password is required"),
   secret: z.string().min(1, "Secret is required"),
