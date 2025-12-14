@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "_cfuvid",
-      "value": "Eg5WqcmpBRLh35gr7eq5nVJi1CpNa1GbBEzF5dSUnnk-1765724693661-0.0.1.1-604800000",
+      "value": "0cvgS1ITKmnY1jZF54FRpiJkk3xLUXFuTWcRCrBFhSw-1765743632265-0.0.1.1-604800000",
       "domain": ".challenges.cloudflare.com",
       "path": "/",
       "expires": -1.0,
@@ -12,60 +12,60 @@
     },
     {
       "name": "_ga",
-      "value": "GA1.1.1100461783.1765724694",
+      "value": "GA1.1.1594781718.1765743633",
       "domain": ".scrapingcourse.com",
       "path": "/",
-      "expires": 1800284716.126488,
+      "expires": 1800303654.783989,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "AWSALB",
-      "value": "veYfmGoqKVDu6HkYJ1iM2QPreLEHH6qe0day1DUoM+xUuEEizwI2PQ4q+jRbxMcmpsfLt+7UZCfxGLmGuSUQAS52vqELunY63VkNO7oMUHL6fSQ3RlHYFqlzPJIK",
+      "value": "9BzCrc4A4nT73M750SthPIdTptLLGIORwKEp4cjXljyQ883Kkk61bOetju0Z6cfKViI5VeCyHDZi/C9Kzjo1Gd09Na38x84ZoevkDPo+jahEHDDhOe/wdvQPGOGv",
       "domain": "www.scrapingcourse.com",
       "path": "/",
-      "expires": 1766329515.067875,
+      "expires": 1766348454.726935,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "AWSALBCORS",
-      "value": "veYfmGoqKVDu6HkYJ1iM2QPreLEHH6qe0day1DUoM+xUuEEizwI2PQ4q+jRbxMcmpsfLt+7UZCfxGLmGuSUQAS52vqELunY63VkNO7oMUHL6fSQ3RlHYFqlzPJIK",
+      "value": "9BzCrc4A4nT73M750SthPIdTptLLGIORwKEp4cjXljyQ883Kkk61bOetju0Z6cfKViI5VeCyHDZi/C9Kzjo1Gd09Na38x84ZoevkDPo+jahEHDDhOe/wdvQPGOGv",
       "domain": "www.scrapingcourse.com",
       "path": "/",
-      "expires": 1766329515.068733,
+      "expires": 1766348454.727398,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "XSRF-TOKEN",
-      "value": "eyJpdiI6ImMxTENhYWkySzVLREVsUTB1OStkc3c9PSIsInZhbHVlIjoiY1B1WXVla2VLbEVkQzRobGZPSUVMY2JTMnhQMm9lOExVaEQwOU5DaTRpc1ErOTU5QThKVy9mOWtjNWZ5eThQWHJjaExPcW5Gblg0ZDRwSTNOTXJaOFBjeXM3by9YeEVpZnhwQ3hOZ3BZR2dPcEVleUZyUXUxMnRXU1habHNUcXgiLCJtYWMiOiJiYzM4MTY0OWU5YWY4ZGM3MzYxMzViYjY3YmY3MjBjNjc2NzNkYjZjNDY4NmExMjVkZWE3NDk2ZmY1Zjk3ODk0IiwidGFnIjoiIn0%3D",
+      "value": "eyJpdiI6IjR3YVZRTDIwS3lmeERHSzdHV1RWbWc9PSIsInZhbHVlIjoiYmpSaC95WEd6NCtLSm14Zm1hS3d6Y1ZKQ2p5WW9QWUt0ZEtSc1pkeDBlek5iR0owOG5YV09qMjByR0lsOHNZNmJNQVNobGZSY0F6RU53Y3RuNTVIQ0c5VG5HV2t0TkJXSkVsbXp3TWJDR2VCUG4rWWczRFhNSDZlNTMrWG5MWjgiLCJtYWMiOiIyZWQyOWJjNmFiN2U5YTkzOWExMTA1MTBlMTE0ZjVjOGUzNWFjMTM2MjkyMjFiYjQ2NThhMGM3ZWYzNDVhMzRjIiwidGFnIjoiIn0%3D",
       "domain": "www.scrapingcourse.com",
       "path": "/",
-      "expires": 1765731916.068873,
+      "expires": 1765750854.727497,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "scrapingcoursecom_session",
-      "value": "eyJpdiI6Ilh3eE4wZXRrMzBMbTZVSTVOYmN1REE9PSIsInZhbHVlIjoiWloyYTRpL0VpMGtOMVFzMzFxUU9zTWFVeld1c1RaTUpqOVUyYktUbzZFeVdEMWRDbjdyY1NhRFpVVDRxaFVvMjRqcUN1Z0J3S0ZKYnhjTXRPRXVHTzQrbmVqTGhrTFNCcHBkMURaNGZTSmcxelRUdDVyWU16Y0d4WmUzckY2YmYiLCJtYWMiOiIwNmQ0NTcwZmU3MzU0YmY5MzI5ZDdlZTU5MjQwOGZjYTdhZDlhMzMyZjZiOTVhMGNlMGRlY2I4OTFlNGMyMTNjIiwidGFnIjoiIn0%3D",
+      "value": "eyJpdiI6IkpvdFVNeVRNRnJpbTR6TlIvRTltNkE9PSIsInZhbHVlIjoiNFA0RG1qU0trUVV4QWZqUkFka2FEblJoTVVwTVJJVFNqY3BtUmFHVmRRRWVXNzNCT3JndGdVamZuK0x1MzhCODNTT2kvMzBNNVp1ZHYzSXlURVNWM0lYeDZocjhBY1F3cGhyMmZvemQ5WGl4Q3I0ZzMwWDJQeDFTTlltUktPRkUiLCJtYWMiOiI0OTJiMjdiOTMzYmIyNWRhYjU4MDk0MWQzMjU3ODgxYzUwNjYzN2RiNzA3OGVjNDc4NmZmMGExN2JkYjdhMjJlIiwidGFnIjoiIn0%3D",
       "domain": "www.scrapingcourse.com",
       "path": "/",
-      "expires": 1765731916.069233,
+      "expires": 1765750854.727571,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "_ga_NZGD14H87G",
-      "value": "GS2.1.s1765724694$o1$g1$t1765724716$j38$l0$h0",
+      "value": "GS2.1.s1765743632$o1$g1$t1765743654$j38$l0$h0",
       "domain": ".scrapingcourse.com",
       "path": "/",
-      "expires": 1800284716.126382,
+      "expires": 1800303654.783869,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -77,7 +77,7 @@
       "localStorage": [
         {
           "name": "cf.turnstile.u",
-          "value": "ZSbXiQApX7mfe.Z5NJkbu9V2TGC8BSETOJfnIpBVrzY-1765724694-1.3.1.1-qLjNgwnvpa6PZdj.fbIK7_L7mXQLdeQSY9o7jw8wnxpfiHpgmSTG2EG2mxQBC0fSMyD1_wEPTg4.kMLkGcCbMw"
+          "value": "bq1LMlj2mjXiVpoh6S7Kez4S25aMyJak2W4T3r5q.Ls-1765743632-1.3.1.1-r3iEa7UUvzr3lxYox9XnFcEzYcg5HIHDaKQDy_W.mni5u5GeDoFnVcFiiX38JSJQB05SXMe48IJscOSBDLbpoQ"
         }
       ]
     }
