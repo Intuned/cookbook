@@ -1,0 +1,8 @@
+[{
+    "name": "settleDuration",
+    "value": 500
+}, {
+    "name": "timeoutInMs",
+    "value": 30000
+}]
+

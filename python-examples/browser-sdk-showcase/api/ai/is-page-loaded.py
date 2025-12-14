@@ -8,7 +8,7 @@ class Params(TypedDict):
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Wait for page to finish loading
-    await page.goto('https://example.com')
+    await page.goto('https://books.toscrape.com/')
     page_loaded = await is_page_loaded(page)
     if page_loaded:
         # Continue with scraping or interactions

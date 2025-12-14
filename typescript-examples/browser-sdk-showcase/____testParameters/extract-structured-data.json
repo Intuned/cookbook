@@ -1,0 +1,11 @@
+[{
+    "name": "extractFromContent",
+    "value": true
+}, {
+    "name": "extractFromPage",
+    "value": true
+}, {
+    "name": "extractList",
+    "value": true
+}]
+

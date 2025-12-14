@@ -1,0 +1,16 @@
+[{
+    "name": "url",
+    "value": "https://example.com"
+}, {
+    "name": "waitUntil",
+    "value": "load"
+}, {
+    "name": "timeout",
+    "value": 30000
+}, {
+    "name": "waitForLoadingStateUsingAi",
+    "value": true
+}
+
+]
+
