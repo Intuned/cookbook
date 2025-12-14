@@ -1,6 +1,6 @@
-# book-consultations Intuned project
+# bs4-example Intuned project
 
-Booking automation to book a consultation with a consultant and list the consultations
+E-commerce scraper using BeautifulSoup for HTML parsing to extract product listings and details with pagination support.
 
 ## Getting Started
 
@@ -42,15 +42,17 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── api/                      # Your API endpoints 
+│   ├── list.py               # API to scrape product listings with pagination
+│   └── details.py            # API to extract detailed product information
+└── Intuned.jsonc             # Intuned project configuration file
 ```
+
+### How It Works
+
+1. **list.py** - Navigates to the listing page, extracts product title, price, and URL using BeautifulSoup, follows pagination links, and calls `extend_payload` to send each product to the details API.
+
+2. **details.py** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
 ## `Intuned.json` Reference
@@ -124,4 +126,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-  

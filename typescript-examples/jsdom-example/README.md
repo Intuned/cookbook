@@ -1,6 +1,6 @@
-# book-consultations Intuned project
+# jsdom-example Intuned project
 
-Booking automation to book a consultation with a consultant and list the consultations
+E-commerce scraper using JSDOM for HTML parsing to extract product listings and details with pagination support.
 
 ## Getting Started
 
@@ -46,6 +46,9 @@ yarn intuned deploy
 
 
 
+### `@intuned/browser`: Intuned Browser SDK
+
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
 
@@ -54,15 +57,19 @@ yarn intuned deploy
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── api/                      # Your API endpoints 
+│   ├── list.ts               # API to scrape product listings with pagination
+│   └── details.ts            # API to extract detailed product information
+├── utils/
+│   └── typesAndSchemas.ts    # Zod schemas and TypeScript interfaces
+└── Intuned.jsonc             # Intuned project configuration file
 ```
+
+### How It Works
+
+1. **list.ts** - Navigates to the listing page, extracts product title, price, and URL using JSDOM, follows pagination links, and calls `extendPayload` to send each product to the details API.
+
+2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
 ## `Intuned.json` Reference
@@ -136,4 +143,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-  
