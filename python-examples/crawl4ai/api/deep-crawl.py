@@ -1,7 +1,7 @@
 """
 Deep crawl a website, following links across multiple pages.
 
-Supports BFS, DFS, and Best-First crawling strategies with filtering and streaming options.
+Supports BFS, DFS, and Best-First crawling strategies with filtering and streaming.
 
 Based on: https://docs.crawl4ai.com/core/deep-crawling/
 """
@@ -37,19 +37,6 @@ class Params(TypedDict, total=False):
     url_patterns: list[str]
 
 
-DEFAULTS: Params = {
-    "strategy": "bfs",
-    "max_depth": 2,
-    "max_pages": 10,
-    "include_external": False,
-    "stream": True,
-    "keywords": [],
-    "allowed_domains": [],
-    "blocked_domains": [],
-    "url_patterns": [],
-}
-
-
 async def automation(
     page: Page,
     params: Params | None = None,
@@ -58,17 +45,17 @@ async def automation(
 ):
     url = params.get("url")
     if not url:
-        return {"success": False, "error": "URL parameter is required"}
+        return {"success": False, "error": "url parameter is required"}
 
-    strategy_name = params.get("strategy", DEFAULTS["strategy"])
-    max_depth = params.get("max_depth", DEFAULTS["max_depth"])
-    max_pages = params.get("max_pages", DEFAULTS["max_pages"])
-    include_external = params.get("include_external", DEFAULTS["include_external"])
-    stream = params.get("stream", DEFAULTS["stream"])
-    keywords = params.get("keywords", DEFAULTS["keywords"])
-    allowed_domains = params.get("allowed_domains", DEFAULTS["allowed_domains"])
-    blocked_domains = params.get("blocked_domains", DEFAULTS["blocked_domains"])
-    url_patterns = params.get("url_patterns", DEFAULTS["url_patterns"])
+    strategy_name = params.get("strategy", "bfs")
+    max_depth = params.get("max_depth", 2)
+    max_pages = params.get("max_pages", 10)
+    include_external = params.get("include_external", False)
+    stream = params.get("stream", True)
+    keywords = params.get("keywords", [])
+    allowed_domains = params.get("allowed_domains", [])
+    blocked_domains = params.get("blocked_domains", [])
+    url_patterns = params.get("url_patterns", [])
 
     # Build filter chain
     filters = []
@@ -79,14 +66,12 @@ async def automation(
                 blocked_domains=blocked_domains if blocked_domains else None,
             )
         )
-
     if url_patterns:
         filters.append(URLPatternFilter(patterns=url_patterns))
-
     filters.append(ContentTypeFilter(allowed_types=["text/html"]))
     filter_chain = FilterChain(filters)
 
-    # Create a strategy
+    # Create strategy
     if strategy_name == "bfs":
         strategy = BFSDeepCrawlStrategy(
             max_depth=max_depth,
@@ -107,10 +92,7 @@ async def automation(
             max_pages=max_pages,
             include_external=include_external,
             filter_chain=filter_chain,
-            url_scorer=KeywordRelevanceScorer(
-                keywords=keywords,
-                weight=0.7,
-            )
+            url_scorer=KeywordRelevanceScorer(keywords=keywords, weight=0.7)
             if keywords
             else None,
         )
@@ -126,7 +108,6 @@ async def automation(
 
     async with AsyncWebCrawler(config=browser_config) as crawler:
         if stream:
-            # Streaming mode: iterate over results as they arrive
             async for result in await crawler.arun(url=url, config=run_config):
                 if result.success:
                     crawled_pages.append(
@@ -138,11 +119,9 @@ async def automation(
                         }
                     )
         else:
-            # Non-streaming mode: get all results at once
             results = await crawler.arun(url=url, config=run_config)
             if not isinstance(results, list):
                 results = [results]
-
             for result in results:
                 if result.success:
                     crawled_pages.append(
@@ -158,6 +137,5 @@ async def automation(
         "success": True,
         "total_pages": len(crawled_pages),
         "strategy": strategy_name,
-        "stream": stream,
         "pages": crawled_pages,
     }
