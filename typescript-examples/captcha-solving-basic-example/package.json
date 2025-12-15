@@ -1,7 +1,7 @@
 {
-  "name": "captcha-solving-auth-example",
+  "name": "captcha-solving-basic-example",
   "version": "1.0.0",
-  "description": "E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example",
+  "description": "Automation project to demonstrate our captcha solving capabilities",
   "tags": [
     "captcha-solving"
   ],
