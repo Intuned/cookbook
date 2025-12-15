@@ -49,7 +49,7 @@ async def automation(
         if result.success:
             return {
                 "success": True,
-                "markdown": result.markdown,
+                "markdown": result.markdown[:1000],
                 "images": result.media["images"],
                 "links": result.links["internal"],
             }

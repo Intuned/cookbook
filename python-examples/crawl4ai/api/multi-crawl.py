@@ -87,7 +87,7 @@ async def automation(
             ):
                 if result.success:
                     crawled_pages.append(
-                        {"url": result.url, "markdown": result.markdown}
+                        {"url": result.url, "markdown": result.markdown[:1000]}
                     )
                 else:
                     failed_pages.append(
@@ -102,7 +102,7 @@ async def automation(
             for result in results:
                 if result.success:
                     crawled_pages.append(
-                        {"url": result.url, "markdown": result.markdown}
+                        {"url": result.url, "markdown": result.markdown[:1000]}
                     )
                 else:
                     failed_pages.append(

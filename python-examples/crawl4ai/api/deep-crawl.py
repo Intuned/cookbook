@@ -121,7 +121,7 @@ async def automation(
                         "url": result.url,
                         "depth": depth,
                         "score": round(score, 2),
-                        "markdown": result.markdown,
+                        "markdown": result.markdown[:1000],
                     }
                 )
 
