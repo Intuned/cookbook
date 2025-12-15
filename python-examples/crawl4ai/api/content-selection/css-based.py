@@ -44,7 +44,7 @@ EXAMPLE_SCHEMA = {
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: Params,
     context: BrowserContext | None = None,
     **_kwargs,
 ):

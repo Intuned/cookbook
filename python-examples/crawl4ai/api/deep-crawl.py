@@ -1,15 +1,16 @@
 """
 Deep crawl a website, following links across multiple pages.
 
-Supports BFS, DFS, and Best-First crawling strategies with filtering and streaming.
+Supports BFS, DFS, and Best-First crawling strategies with filtering and scoring.
 
 Based on: https://docs.crawl4ai.com/core/deep-crawling/
 """
 
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict, Literal
-from crawl4ai import AsyncWebCrawler
-from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
+from crawl4ai.async_configs import BrowserConfig
+from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling import (
     BFSDeepCrawlStrategy,
     DFSDeepCrawlStrategy,
@@ -30,8 +31,7 @@ class Params(TypedDict, total=False):
     max_depth: int
     max_pages: int
     include_external: bool
-    stream: bool
-    keywords: list[str]  # For best-first strategy
+    keywords: list[str]  # For scoring
     allowed_domains: list[str]
     blocked_domains: list[str]
     url_patterns: list[str]
@@ -39,7 +39,7 @@ class Params(TypedDict, total=False):
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: Params,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
@@ -51,7 +51,6 @@ async def automation(
     max_depth = params.get("max_depth", 2)
     max_pages = params.get("max_pages", 10)
     include_external = params.get("include_external", False)
-    stream = params.get("stream", True)
     keywords = params.get("keywords", [])
     allowed_domains = params.get("allowed_domains", [])
     blocked_domains = params.get("blocked_domains", [])
@@ -71,6 +70,11 @@ async def automation(
     filters.append(ContentTypeFilter(allowed_types=["text/html"]))
     filter_chain = FilterChain(filters)
 
+    # Create scorer if keywords provided
+    url_scorer = (
+        KeywordRelevanceScorer(keywords=keywords, weight=0.7) if keywords else None
+    )
+
     # Create strategy
     if strategy_name == "bfs":
         strategy = BFSDeepCrawlStrategy(
@@ -78,6 +82,7 @@ async def automation(
             max_pages=max_pages,
             include_external=include_external,
             filter_chain=filter_chain,
+            url_scorer=url_scorer,
         )
     elif strategy_name == "dfs":
         strategy = DFSDeepCrawlStrategy(
@@ -85,6 +90,7 @@ async def automation(
             max_pages=max_pages,
             include_external=include_external,
             filter_chain=filter_chain,
+            url_scorer=url_scorer,
         )
     elif strategy_name == "best-first":
         strategy = BestFirstCrawlingStrategy(
@@ -92,50 +98,47 @@ async def automation(
             max_pages=max_pages,
             include_external=include_external,
             filter_chain=filter_chain,
-            url_scorer=KeywordRelevanceScorer(keywords=keywords, weight=0.7)
-            if keywords
-            else None,
+            url_scorer=url_scorer,
         )
 
     browser_config = BrowserConfig(verbose=True)
     run_config = CrawlerRunConfig(
         deep_crawl_strategy=strategy,
-        stream=stream,
+        scraping_strategy=LXMLWebScrapingStrategy(),
+        stream=True,
         verbose=True,
     )
 
-    crawled_pages = []
-
+    # Execute deep crawl with streaming
+    pages = []
     async with AsyncWebCrawler(config=browser_config) as crawler:
-        if stream:
-            async for result in await crawler.arun(url=url, config=run_config):
-                if result.success:
-                    crawled_pages.append(
-                        {
-                            "url": result.url,
-                            "depth": result.metadata.get("depth", 0),
-                            "score": result.metadata.get("score", 0),
-                            "markdown": result.markdown,
-                        }
-                    )
-        else:
-            results = await crawler.arun(url=url, config=run_config)
-            if not isinstance(results, list):
-                results = [results]
-            for result in results:
-                if result.success:
-                    crawled_pages.append(
-                        {
-                            "url": result.url,
-                            "depth": result.metadata.get("depth", 0),
-                            "score": result.metadata.get("score", 0),
-                            "markdown": result.markdown,
-                        }
-                    )
+        async for result in await crawler.arun(url=url, config=run_config):
+            if result.success:
+                score = result.metadata.get("score", 0)
+                depth = result.metadata.get("depth", 0)
+                pages.append(
+                    {
+                        "url": result.url,
+                        "depth": depth,
+                        "score": round(score, 2),
+                        "markdown": result.markdown,
+                    }
+                )
+
+    # Group by depth
+    depth_counts = {}
+    for p in pages:
+        d = p["depth"]
+        depth_counts[d] = depth_counts.get(d, 0) + 1
+
+    # Calculate average score
+    avg_score = sum(p["score"] for p in pages) / len(pages) if pages else 0
 
     return {
         "success": True,
-        "total_pages": len(crawled_pages),
+        "total_pages": len(pages),
+        "average_score": round(avg_score, 2),
+        "pages_by_depth": depth_counts,
         "strategy": strategy_name,
-        "pages": crawled_pages,
+        "pages": pages,
     }
