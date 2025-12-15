@@ -1,56 +1,42 @@
-# default Intuned project
+# crawl4ai
 
-Empty Intuned project
+Quick-start examples for using [crawl4ai](https://crawl4ai.com) on the Intuned platform.
 
-## Getting Started
+This project serves as a reference for the [crawl4ai documentation](https://docs.crawl4ai.com/) tutorials, demonstrating how to integrate crawl4ai with Intuned's browser automation infrastructure.
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+## APIs
 
+### Core Crawling
 
-## Development
+| API | Description |
+|-----|-------------|
+| `simple-crawl` | Crawls a single URL and returns the page content as clean markdown |
+| `deep-crawl` | Deep crawl a website following links with BFS, DFS, or Best-First strategies |
+| `multi-crawl` | Crawl multiple URLs concurrently with dispatchers for rate limiting and memory management |
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+### Content Selection
 
-### Install dependencies
-```bash
-poetry install
-```
+| API | Description |
+|-----|-------------|
+| `content-selection/css-based` | Extract structured data from a webpage using CSS selectors with content filtering |
+| `content-selection/llm-based` | Extract structured data using an LLM with a Pydantic schema |
 
-After installing dependencies, `intuned` command should be available in your environment.
+### Adaptive Crawling
 
-### Run an API
-```bash
-poetry run intuned run api <api-name> <parameters>
-```
+| API | Description |
+|-----|-------------|
+| `adaptive-crawl/statistical` | Adaptive crawling with statistical strategy (term-based analysis) |
+| `adaptive-crawl/embedding` | Adaptive crawling with embedding strategy (semantic understanding) |
 
-### Deploy project
-```bash
-poetry run intuned deploy
-```
+## Learn More
 
-
+- [crawl4ai Documentation](https://docs.crawl4ai.com/)
+- [Intuned Documentation](https://docs.intunedhq.com/)
 
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-
-
-
-## Project Structure
-The project structure is as follows:
-```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
-```
 
 
 ## `Intuned.json` Reference

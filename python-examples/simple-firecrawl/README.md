@@ -1,56 +1,23 @@
-# default Intuned project
+# simple-firecrawl
 
-Empty Intuned project
+Firecrawl-compatible web scraping APIs using [crawl4ai](https://crawl4ai.com) as the backend.
 
-## Getting Started
+This project provides a drop-in replacement for [Firecrawl](https://firecrawl.dev) endpoints, allowing you to switch from Firecrawl to crawl4ai with minimal code changes. All APIs match Firecrawl's request/response interfaces.
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+## APIs
 
+| API | Firecrawl Equivalent | Description |
+|-----|---------------------|-------------|
+| `scrape` | `/scrape` | Scrape a single page (markdown, html, metadata) |
+| `map` | `/map` | Extract all links with title/description |
+| `crawl` | `/crawl` | Crawl multiple pages from a starting URL |
+| `extract` | `/extract` | LLM-powered structured data extraction |
 
-## Development
+## Learn More
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Install dependencies
-```bash
-poetry install
-```
-
-After installing dependencies, `intuned` command should be available in your environment.
-
-### Run an API
-```bash
-poetry run intuned run api <api-name> <parameters>
-```
-
-### Deploy project
-```bash
-poetry run intuned deploy
-```
-
-
-
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-
-
-
-## Project Structure
-The project structure is as follows:
-```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
-```
+- [Firecrawl Documentation](https://docs.firecrawl.dev/)
+- [crawl4ai Documentation](https://docs.crawl4ai.com/)
+- [Intuned Documentation](https://docs.intunedhq.com/)
 
 
 ## `Intuned.json` Reference

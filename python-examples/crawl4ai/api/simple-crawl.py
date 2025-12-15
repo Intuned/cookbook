@@ -13,7 +13,6 @@ from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig, CacheMode
 class Params(TypedDict):
     url: str
 
-# uv run intuned run api simple-crawl '{"url": "https://example.com"}'
 
 async def automation(
     page: Page,
