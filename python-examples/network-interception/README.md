@@ -46,8 +46,6 @@ The project structure is as follows:
 │   └── list.py               # API to intercept network requests and capture paginated data
 ├── utils/
 │   └── types_and_schemas.py  # Pydantic models for type validation
-├── __testParameters/         # Test parameters for local testing
-│   └── list.json
 ├── Intuned.jsonc             # Intuned project configuration file
 └── pyproject.toml            # Python project dependencies
 ```
