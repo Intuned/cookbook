@@ -2,6 +2,9 @@
 Scrape a webpage with multiple output formats.
 
 Firecrawl-compatible /scrape endpoint. Supports markdown, html, rawHtml, links, images, screenshot.
+
+Usage:
+    uv run intuned run api scrape '{"url": "https://example.com", "formats": ["markdown", "html"]}'
 """
 
 from playwright.async_api import Page, BrowserContext
@@ -41,39 +44,46 @@ async def automation(
             return {"success": False, "error": result.error_message}
 
         meta = result.metadata or {}
-        data = {
+
+        response = {
             "metadata": {
                 "title": meta.get("title", ""),
                 "description": meta.get("description", ""),
                 "language": meta.get("language", ""),
                 "keywords": meta.get("keywords", ""),
-                "robots": meta.get("robots", ""),
+                "viewport": meta.get("viewport", ""),
+                "favicon": meta.get("favicon", ""),
                 "ogTitle": meta.get("og:title", ""),
                 "ogDescription": meta.get("og:description", ""),
                 "ogUrl": meta.get("og:url", ""),
                 "ogImage": meta.get("og:image", ""),
                 "ogSiteName": meta.get("og:site_name", ""),
                 "sourceURL": url,
+                "url": result.url,
                 "statusCode": 200,
             }
         }
 
         if "markdown" in formats:
-            data["markdown"] = result.markdown
+            response["markdown"] = result.markdown
 
         if "html" in formats:
-            data["html"] = result.cleaned_html
+            response["html"] = result.cleaned_html
 
         if "rawHtml" in formats:
-            data["rawHtml"] = result.html
+            response["rawHtml"] = result.html
 
         if "links" in formats:
-            data["links"] = [link["href"] for link in result.links.get("internal", [])]
+            response["links"] = [
+                link["href"] for link in result.links.get("internal", [])
+            ]
 
         if "images" in formats:
-            data["images"] = [img.get("src") for img in result.media.get("images", [])]
+            response["images"] = [
+                img.get("src") for img in result.media.get("images", [])
+            ]
 
         if "screenshot" in formats:
-            data["screenshot"] = result.screenshot
+            response["screenshot"] = result.screenshot
 
-        return {"success": True, "data": data}
+        return response

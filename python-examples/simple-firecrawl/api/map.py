@@ -2,6 +2,9 @@
 Extract all links from a webpage with title and description.
 
 Similar to Firecrawl's /map endpoint but using crawl4ai.
+
+Usage:
+    uv run intuned run api map '{"url": "https://example.com", "limit": 10}'
 """
 
 from playwright.async_api import Page, BrowserContext
@@ -12,7 +15,7 @@ from crawl4ai import LinkPreviewConfig
 
 class Params(TypedDict, total=False):
     url: str
-    limit: int  # how many links to fetch metadata for
+    limit: int
 
 
 async def automation(

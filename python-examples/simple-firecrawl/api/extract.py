@@ -3,6 +3,9 @@ Extract structured data from a page using LLM.
 
 Firecrawl-compatible /extract endpoint using crawl4ai.
 Uses LLMExtractionStrategy for AI-powered extraction.
+
+Usage:
+    uv run intuned run api extract '{"url": "https://example.com", "api_key": "sk-..."}'
 """
 
 from playwright.async_api import Page, BrowserContext
@@ -70,6 +73,6 @@ async def automation(
 
         return {
             "success": True,
-            "url": result.url,
             "data": data,
+            "status": "completed",
         }
