@@ -1,19 +1,9 @@
 from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url, click_until_exhausted
-from typing import TypedDict, List
+from typing import List
 from runtime_helpers import extend_payload
 from urllib.parse import urljoin
-
-
-class Params(TypedDict):
-    category_name: str
-    category_url: str
-
-
-class Product(TypedDict):
-    name: str
-    price: str
-    details_url: str
+from utils.types_and_schemas import EcommereceListParams, Product
 
 
 async def handle_modal(page: Page) -> None:
@@ -46,7 +36,7 @@ async def load_all_products(page: Page) -> None:
         button_locator=load_more_button,
         container_locator=product_container,
         max_clicks=50,
-        click_delay=5.0,
+        click_delay=2.0,
     )
 
 
@@ -97,7 +87,7 @@ async def find_entity(page: Page, url: str) -> None:
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: EcommereceListParams,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
@@ -116,11 +106,12 @@ async def automation(
     extend_payload to trigger individual scrapes for each product's details.
     """
     await page.set_viewport_size({"width": 1280, "height": 800})
-    if not params or not params.get("category_url"):
+    params = EcommereceListParams(**params)
+    if not params.category_url:
         raise ValueError("category_url is required in params")
 
-    category_url = params["category_url"]
-    category_name = params.get("category_name", "")
+    category_url = params.category_url
+    category_name = params.category_name
 
     print(f"Scraping category: {category_name}")
     print(f"Category URL: {category_url}")

@@ -1,28 +1,7 @@
 from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url
-from typing import TypedDict, List, Optional
-
-
-class Params(TypedDict):
-    name: str
-    price: str
-    details_url: str
-
-
-class Size(TypedDict):
-    size: str
-    is_available: bool
-
-
-class ProductDetails(TypedDict, total=False):
-    source_url: str
-    name: str
-    price: str
-    sale_price: Optional[str]
-    sale_offer: Optional[str]
-    sizes: List[Size]
-    description: Optional[str]
-    shipping_and_returns: Optional[str]
+from typing import List, Optional
+from utils.types_and_schemas import EcommereceDetailsParams, ProductDetails, Size
 
 
 async def extract_price_info(page: Page) -> dict:
@@ -95,19 +74,14 @@ async def extract_sizes(page: Page) -> List[Size]:
                 is_available = False
 
             sizes.append(
-                {
-                    "size": size_text.strip() if size_text else "",
-                    "is_available": is_available,
-                }
+                Size(
+                    size=size_text.strip() if size_text else "",
+                    is_available=is_available,
+                )
             )
     else:
         # No size options, single size product
-        sizes.append(
-            {
-                "size": "OneSize",
-                "is_available": True,
-            }
-        )
+        sizes.append(Size(size="OneSize", is_available=True))
 
     return sizes
 
@@ -151,10 +125,10 @@ async def find_entity(page: Page, url: str) -> None:
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: EcommereceDetailsParams,
     context: BrowserContext | None = None,
     **_kwargs,
-):
+) -> ProductDetails:
     """
     Fetches product details from a product page.
     Extracts title, price, sizes, description, and shipping/returns info.
@@ -167,10 +141,11 @@ async def automation(
     }
     """
     await page.set_viewport_size({"width": 1280, "height": 800})
-    if not params or not params.get("details_url"):
+    params = EcommereceDetailsParams(**params)
+    if not params.details_url:
         raise ValueError("Params with details_url are required for this automation")
 
-    details_url = params["details_url"]
+    details_url = params.details_url
     print(f"Fetching product details: {details_url}")
 
     await find_entity(page, details_url)
@@ -202,16 +177,16 @@ async def automation(
     # Extract shipping and returns
     shipping_and_returns = await extract_shipping_and_returns(page)
 
-    product_details: ProductDetails = {
-        "source_url": details_url,
-        "name": title.strip() if title else "",
-        "price": price_info["price"],
-        "sale_price": price_info["sale_price"],
-        "sale_offer": price_info["sale_offer"],
-        "sizes": sizes,
-        "description": description,
-        "shipping_and_returns": shipping_and_returns,
-    }
+    product_details: ProductDetails = ProductDetails(
+        source_url=details_url,
+        name=title.strip() if title else "",
+        price=price_info.get("price", ""),
+        sale_price=price_info.get("sale_price", None),
+        sale_offer=price_info.get("sale_offer", None),
+        sizes=sizes,
+        description=description,
+        shipping_and_returns=shipping_and_returns,
+    )
 
-    print(f"Extracted details for: {product_details['name']}")
+    print(f"Extracted details for: {product_details.name}")
     return product_details

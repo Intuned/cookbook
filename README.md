@@ -8,6 +8,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-example](./typescript-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [e-commerece-category](./typescript-examples/e-commerece-category/) | E-commerce category and product scraper |
 
 ## Python Examples
 
@@ -17,3 +18,4 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-example](./python-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |

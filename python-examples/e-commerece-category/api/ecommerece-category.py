@@ -1,17 +1,9 @@
 from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url
-from typing import TypedDict, List
+from typing import List
 from runtime_helpers import extend_payload
 from urllib.parse import urlparse, urljoin
-
-
-class Params(TypedDict, total=False):
-    store_url: str
-
-
-class Category(TypedDict):
-    category_name: str
-    category_url: str
+from utils.types_and_schemas import EcommereceCategoryParams, Category
 
 
 async def handle_cookies(page: Page) -> None:
@@ -61,7 +53,7 @@ async def extract_categories(page: Page, store_url: str) -> List[Category]:
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: EcommereceCategoryParams,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
@@ -78,11 +70,11 @@ async def automation(
     and then uses extend_payload to trigger individual scrapes for each category's products.
     """
     await page.set_viewport_size({"width": 1280, "height": 800})
-
-    if not params or not params.get("store_url"):
+    params = EcommereceCategoryParams(**params)
+    if not params.store_url:
         raise ValueError("store_url is required in params")
 
-    store_url = params["store_url"].rstrip("/")
+    store_url = params.store_url.rstrip("/")
 
     # Parse and validate the store URL
     parsed_url = urlparse(store_url)
