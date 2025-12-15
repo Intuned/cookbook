@@ -45,7 +45,10 @@ The project structure is as follows:
 ├── api/                      # Your API endpoints 
 │   ├── list.py               # API to scrape product listings with pagination
 │   └── details.py            # API to extract detailed product information
-└── Intuned.jsonc             # Intuned project configuration file
+├── utils/
+│   └── types_and_schemas.py  # Pydantic models for type validation
+├── Intuned.jsonc             # Intuned project configuration file
+└── pyproject.toml            # Python project dependencies
 ```
 
 ### How It Works

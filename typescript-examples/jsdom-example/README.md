@@ -62,6 +62,7 @@ The project structure is as follows:
 │   └── details.ts            # API to extract detailed product information
 ├── utils/
 │   └── typesAndSchemas.ts    # Zod schemas and TypeScript interfaces
+├── package.json              # Typescript project dependencies
 └── Intuned.jsonc             # Intuned project configuration file
 ```
 

@@ -1,7 +1,7 @@
 {
-  "name": "book-consultations",
+  "name": "jsdom-example",
   "version": "1.0.0",
-  "description": "Booking automation to book a consultation with a consultant and list the consultations",
+  "description": "JSDOM example to scrape products from a website",
   "main": "index.js",
   "tags": [],
   "scripts": {
