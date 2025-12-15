@@ -1,5 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import Literal
+from pydantic import BaseModel, EmailStr, Field
 
 
 class CreateAuthSessionParams(BaseModel):
@@ -8,32 +7,12 @@ class CreateAuthSessionParams(BaseModel):
     secret: str = Field(min_length=1, description="Secret is required")
 
 
-class BookConsultationSchema(BaseModel):
-    name: str
-    email: EmailStr
-    phone: str
-    date: str
-    time: str
-    topic: Literal["web-scraping", "data-extraction", "automation", "api-integration", "other"]
-
-    @field_validator('name', 'phone', 'date', 'time')
-    @classmethod
-    def validate_not_empty(cls, v: str) -> str:
-        if not v or len(v.strip()) < 1:
-            raise ValueError('Field is required')
-        return v
-
-
-class GetConsultationsByEmailSchema(BaseModel):
-    email: EmailStr
-
-
-class Consultation(BaseModel):
+class Contract(BaseModel):
     id: str
-    status: str
-    clientName: str
-    email: str
-    phone: str
-    date: str
-    time: str
-    topic: str
+    name: str
+    supplier_name: str
+    supplier_phone_number: str
+    effective_date: str
+    expiration_date: str
+    state: str
+    details_url: str

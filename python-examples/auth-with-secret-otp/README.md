@@ -72,8 +72,7 @@ typescript-examples/auth-with-secret-otp/
 │   ├── create.ts          # Create authenticated session with OTP
 │   └── check.ts           # Verify session validity
 ├── api/
-│   ├── book-consultations.ts           # Example: Book consultations
-│   └── get-consultations-by-email.ts   # Example: Retrieve consultations
+│   └── list-contracts.ts  # Example: Extract contracts from authenticated page
 ├── utils/
 │   └── typesAndSchemas.ts # Zod validation schemas
 └── package.json
@@ -87,8 +86,7 @@ python-examples/auth-with-secret-otp/
 │   ├── create_refactored.py # Enhanced version with retry logic
 │   └── check.py            # Verify session validity
 ├── api/
-│   ├── book-consultations.py           # Example: Book consultations
-│   └── get-consultations-by-email.py   # Example: Retrieve consultations
+│   └── list-contracts.py   # Example: Extract contracts from authenticated page
 ├── utils/
 │   └── types_and_schemas.py # Pydantic validation models
 └── pyproject.toml
@@ -155,6 +153,42 @@ params = {
 
 is_authenticated = await create(page, params)
 print(f"Authenticated: {is_authenticated}")
+```
+
+### Using Protected APIs
+
+Once authenticated, you can access protected resources like the contracts list:
+
+#### TypeScript
+```typescript
+import listContracts from "./api/list-contracts";
+
+// After successful authentication
+const result = await listContracts({}, page, context);
+
+if (result.success) {
+  console.log(`Found ${result.contracts.length} contracts`);
+  result.contracts.forEach(contract => {
+    console.log(`- ${contract.name} (${contract.state})`);
+  });
+} else {
+  console.error(`Error: ${result.message}`);
+}
+```
+
+#### Python
+```python
+from api.list_contracts import handler
+
+# After successful authentication
+result = await handler(page)
+
+if result.success:
+    print(f"Found {len(result.contracts)} contracts")
+    for contract in result.contracts:
+        print(f"- {contract.name} ({contract.state})")
+else:
+    print(f"Error: {result.message}")
 ```
 
 ## Environment Variables
