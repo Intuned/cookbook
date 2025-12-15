@@ -1,13 +1,12 @@
 {
-  "name": "book-consultations-with-auth",
+  "name": "auth-with-secret-otp",
   "version": "1.0.0",
-  "description": "Credentials based booking automation to book a consultation with a consultant and list the consultations",
+  "description": "Multi-step authentication with OTP (One-Time Password) verification. Demonstrates automated login flows with username/password and TOTP codes for accessing protected resources.",
   "main": "index.js",
   "tags": [
     "intuned-browser-sdk",
     "intuned-auth-sessions",
-    "intuned-auth-sessions-credentials",
-    "Authenticated"
+    "intuned-auth-sessions-credentials"
   ],
   "scripts": {
     "intuned": "intuned"

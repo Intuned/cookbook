@@ -1,14 +1,12 @@
 from playwright.async_api import Page
+from intuned_browser import go_to_url
 
 
-async def check(page: Page, *args: ..., **kwargs: ...) -> ...:
+async def check(page: Page, **_kwargs) -> bool:
     # Step 1: Navigate to a protected page (dashboard)
-    # If the session is invalid, the website will typically redirect to the login page
-    # wait_until="networkidle" ensures the page has fully loaded before we check
-    await page.goto(
-        "https://sandbox.intuned.dev/",
-        wait_until="networkidle",
-        timeout=30_000
+    await go_to_url(
+        page=page,
+        url="https://sandbox.intuned.dev",
     )
 
     # Step 2: Check if the user menu toggle is visible
