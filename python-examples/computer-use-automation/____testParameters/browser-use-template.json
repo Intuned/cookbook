@@ -1,35 +1,6 @@
 [
   {
-    "name": "check_in_date",
-    "value": "25/12/2025"
-  },
-  {
-    "name": "check_out_date",
-    "value": "27/12/2025"
-  },
-  {
-    "name": "budget",
-    "value": "150"
-  },
-  {
-    "name": "first_name",
-    "value": "John"
-  },
-  {
-    "name": "last_name",
-    "value": "Doe"
-  },
-  {
-    "name": "phone_number",
-    "value": "01234567890"
-  },
-  {
-    "name": "email",
-    "value": "john.doe@example.com"
-  },
-  {
-    "name": "extra_details",
-    "value": "Prefer a room with a view"
+    "name": "query",
+    "value": "Go to https://automationintesting.online. Fill in check-in date 25/12/2025 and check-out date 27/12/2025. Search for rooms within budget of 150 pounds. Book a room with first name John, last name Doe, phone number 01234567890, and email john.doe@example.com"
   }
 ]
-

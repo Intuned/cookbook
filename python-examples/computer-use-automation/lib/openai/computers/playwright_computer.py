@@ -54,6 +54,7 @@ class PlaywrightComputer:
     # --- Common "Computer" actions ---
     async def screenshot(self) -> str:
         """Capture only the viewport (not full_page)."""
+        print("📸 Taking screenshot...")
         png_bytes = await self._page.screenshot(full_page=False)
         return base64.b64encode(png_bytes).decode("utf-8")
 
@@ -65,6 +66,7 @@ class PlaywrightComputer:
         elif button == "wheel":
             await self._page.mouse.wheel(x, y)
         else:
+            print(f"🖱️  Click at ({x}, {y})")
             button_mapping = {"left": "left", "right": "right"}
             button_type = button_mapping.get(button, "left")
             await self._page.mouse.click(x, y, button=button_type)
@@ -73,10 +75,13 @@ class PlaywrightComputer:
         await self._page.mouse.dblclick(x, y)
 
     async def scroll(self, x: int, y: int, scroll_x: int, scroll_y: int) -> None:
+        direction = "⬇️ down" if scroll_y > 0 else "⬆️ up" if scroll_y < 0 else "↔️"
+        print(f"📜 Scroll {direction} ({scroll_x}, {scroll_y})")
         await self._page.mouse.move(x, y)
         await self._page.evaluate(f"window.scrollBy({scroll_x}, {scroll_y})")
 
     async def type(self, text: str) -> None:
+        print(f"⌨️  Typing: {text}")
         await self._page.keyboard.type(text)
 
     async def wait(self, ms: int = 1000) -> None:
@@ -103,10 +108,12 @@ class PlaywrightComputer:
 
     # --- Extra browser-oriented actions ---
     async def goto(self, url: str) -> None:
+        print(f"🌐 Navigating to: {url}")
         try:
             await go_to_url(page=self._page, url=url)
+            print(f"✅ Successfully loaded: {url}")
         except Exception as e:
-            print(f"Error navigating to {url}: {e}")
+            print(f"❌ Error navigating to {url}: {e}")
 
     async def back(self) -> None:
         await self._page.go_back()

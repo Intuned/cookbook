@@ -5,22 +5,20 @@ import os
 
 
 class Params(TypedDict):
-    query: str                        # The task you want the AI to perform
-    api_key: NotRequired[str]         # Your Anthropic API key
-    model: NotRequired[str]           # Model to use (default: 'claude-sonnet-4-20250514')
+    query: str  # The task you want the AI to perform
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
     
-    # Get API key from params or env
-    api_key = params.get("api_key") or os.getenv("ANTHROPIC_API_KEY")
+    # Get API key from environment
+    api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
-        raise ValueError("API key is required (provide via params or ANTHROPIC_API_KEY env var)")
+        raise ValueError("ANTHROPIC_API_KEY environment variable is required")
     
-    # Get model from params or use default
-    model = params.get("model", "claude-sonnet-4-20250514")
+    # Hardcoded model
+    model = "claude-sonnet-4-20250514"
     
     # Set viewport size to match the computer tool's display dimensions
     await page.set_viewport_size({"width": 1280, "height": 720})

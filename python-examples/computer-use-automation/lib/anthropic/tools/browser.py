@@ -61,9 +61,6 @@ class BrowserTool(BaseAnthropicTool):
         try:
             # Navigate to the URL
             await go_to_url(page=self.page, url=url)
-            
-            # Wait a bit for the page to render
-            await self.page.wait_for_timeout(2000)
             response = None  # go_to_url doesn't return a response object
             
             # Take a screenshot

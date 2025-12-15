@@ -64,7 +64,6 @@ export class BrowserTool {
         }
         console.log(`Navigating to URL: ${url}`);
         await goToUrl({ page: this.page, url });
-        await this.page.waitForTimeout(2000);
         console.log(`Successfully navigated to: ${url}`);
         return await this.screenshot();
 

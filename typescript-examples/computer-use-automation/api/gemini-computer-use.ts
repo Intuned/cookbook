@@ -3,9 +3,7 @@ import type { Page, Stagehand } from "@browserbasehq/stagehand";
 import { attemptStore } from "@intuned/runtime";
 
 interface Params {
-  query: string;         // The task you want the AI to perform
-  apiKey?: string;       // Your Google Generative AI API key
-  model?: string;        // Model to use (default: 'google/gemini-2.5-computer-use-preview-10-2025')
+  query: string;  // The task you want the AI to perform
 }
 
 type BrowserContext = Stagehand['context'];
@@ -14,22 +12,19 @@ export default async function handler(
   page: Page,
   _: BrowserContext,
 ) {
-  const {
-    query,
-    model = 'google/gemini-2.5-computer-use-preview-10-2025',
-  } = params;
-  let { apiKey } = params;
-  if (!apiKey) {
-    apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-  }
+  const { query } = params;
 
   if (!query) {
-    throw new Error('query is required');
+    throw new Error('Query is required');
   }
 
+  // Get API key from environment
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error('API key is required (provide via params or GOOGLE_GENERATIVE_AI_API_KEY env var)');
+    throw new Error('GEMINI_API_KEY environment variable is required');
   }
+
+  const model = 'google/gemini-2.5-computer-use-preview-10-2025';
 
   const stagehand: Stagehand = attemptStore.get("stagehand");
 

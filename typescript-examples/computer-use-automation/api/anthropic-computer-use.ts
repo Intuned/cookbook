@@ -3,11 +3,7 @@ import { BrowserContext, Page } from "playwright";
 import { samplingLoop } from "../lib/anthropic/sampling-loop";
 
 interface Params {
-  query: string;        // The task you want the AI to perform
-  apiKey?: string;       // Your Anthropic API key
-  model?: string;       // Model to use (default: 'claude-sonnet-4-20250514')
-  thinkingBudget?: number;  // Token budget for thinking (default: 1024)
-  maxTokens?: number;   // Max tokens per request (default: 4096)
+  query: string;  // The task you want the AI to perform
 }
 
 export default async function handler(
@@ -15,27 +11,22 @@ export default async function handler(
   page: Page,
   _: BrowserContext,
 ) {
-  const {
-    query,
-    model = 'claude-sonnet-4-20250514',
-    thinkingBudget = 1024,
-    maxTokens = 4096,
-  } = params;
-  let { apiKey } = params;
-  if (!apiKey) {
-    apiKey = process.env.ANTHROPIC_API_KEY;
-  }
-
-  // Note: The Playwright page is already initialized and ready to use
-  // Claude can use the go_to_url action to navigate directly without opening a browser
+  const { query } = params;
 
   if (!query) {
     throw new Error('Query is required');
   }
 
+  // Get API key from environment
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    throw new Error('API key is required');
+    throw new Error('ANTHROPIC_API_KEY environment variable is required');
   }
+
+  // Hardcoded configuration
+  const model = 'claude-sonnet-4-5';
+  const thinkingBudget = 1024;
+  const maxTokens = 4096;
 
   // Set viewport size to match the computer tool's display dimensions
   await page.setViewportSize({

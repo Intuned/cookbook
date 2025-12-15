@@ -4,9 +4,7 @@ import { PlaywrightComputer } from "../lib/openai/computer";
 import type { ResponseOutputMessage, ResponseItem } from 'openai/resources/responses/responses';
 
 interface Params {
-  query: string;         // The query you want the AI to perform
-  apiKey?: string;      // Your OpenAI API key
-  model?: string;       // Model to use (default: 'computer-use-preview')
+  query: string;  // The task you want the AI to perform
 }
 
 export default async function handler(
@@ -14,23 +12,20 @@ export default async function handler(
   page: Page,
   _: BrowserContext,
 ) {
-
-  const {
-    query,
-    model = 'computer-use-preview',
-  } = params;
-  let { apiKey } = params;
-  if (!apiKey) {
-    apiKey = process.env.OPENAI_API_KEY;
-  }
+  const { query } = params;
 
   if (!query) {
-    throw new Error('query is required');
+    throw new Error('Query is required');
   }
 
+  // Get API key from environment
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    throw new Error('API key is required (provide via params or OPENAI_API_KEY env var)');
+    throw new Error('OPENAI_API_KEY environment variable is required');
   }
+
+  // Hardcoded model
+  const model = 'computer-use-preview';
 
   // Set viewport size to match the computer tool's display dimensions
   await page.setViewportSize({
@@ -39,6 +34,9 @@ export default async function handler(
   });
 
   const start = Date.now();
+
+  console.log('\n🤖 Starting OpenAI Computer Use Agent...');
+  console.log(`📋 Task: ${query}\n`);
 
   try {
     // Create the computer instance with the Playwright page
@@ -51,7 +49,7 @@ export default async function handler(
       tools: [],
       apiKey,
       acknowledge_safety_check_callback: (m: string): boolean => {
-        console.log(`> safety check: ${m}`);
+        console.log(`⚠️  Safety check: ${m}`);
         return true;
       },
     });
@@ -87,12 +85,14 @@ export default async function handler(
           content: [{ type: 'input_text', text: query }],
         },
       ],
-      print_steps: true,
+      print_steps: false,  // Disable verbose debug output
       debug: false,
       show_images: false,
     });
 
     const elapsed = parseFloat(((Date.now() - start) / 1000).toFixed(2));
+
+    console.log(`\n⏱️  Completed in ${elapsed}s`);
 
     // Filter only LLM messages
     const messages = logs.filter(
@@ -106,21 +106,24 @@ export default async function handler(
     const lastContent = lastContentIndex >= 0 ? assistant?.content?.[lastContentIndex] : null;
     const answer = lastContent && 'text' in lastContent ? lastContent.text : null;
 
-    // Log all assistant messages
-    console.log('\n=== AGENT RESPONSES ===');
-    messages.forEach((msg, idx) => {
+    // Log all assistant messages in a friendly format
+    console.log('\n📝 === AGENT RESPONSES === 📝\n');
+    let responseCount = 0;
+    messages.forEach((msg) => {
       if (msg.role === 'assistant' && Array.isArray(msg.content)) {
         msg.content.forEach((block) => {
           if ('text' in block && block.text) {
-            console.log(`\n[Response ${idx + 1}]:`);
+            responseCount++;
+            console.log(`💬 Response ${responseCount}:`);
             console.log(block.text);
+            console.log('');
           }
         });
       }
     });
-    console.log('\n=== END AGENT RESPONSES ===\n');
+    console.log('=== END RESPONSES ===\n');
 
-    console.log('Final Answer:', answer);
+    console.log('✅ Final Answer:', answer);
 
     return {
       elapsed,

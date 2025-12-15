@@ -137,7 +137,6 @@ export class PlaywrightComputer {
     console.log(`Navigating to: ${url}`);
     try {
       await goToUrl({ page: this._page, url });
-      await this._page.waitForTimeout(2000);
       console.log(`Successfully navigated to: ${url}`);
     } catch (error) {
       console.error(`Error navigating to ${url}:`, error);
