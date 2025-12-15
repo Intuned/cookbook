@@ -3,7 +3,7 @@
 {
   "projectName": "native-crawler",
   "apiAccess": {
-    "enabled": false
+    "enabled": true
   },
   "authSessions": {
     "enabled": false

@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "default"
+name = "native-crawler"
 version = "0.0.1"
-description = "Empty Intuned project"
+description = "Native web crawler using extend_payload and attempt_store for parallel crawling with deduplication"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
 requires-python = ">=3.12,<3.13"
 readme = "README.md"
