@@ -1,6 +1,6 @@
-# e-commerce-shopify Intuned project
+# playwright-basics-python-Intuned project
 
-
+A collection of basic Python code examples for learning and reference.
 
 ## Getting Started
 
@@ -42,10 +42,16 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── api/                      # Your API endpoints 
-│   ├── .py       # API to list all products from a Shopify store
-│   └──.py    # API to fetch detailed product information
-└── intuned.jsonc             # Intuned project configuration file
+├── api/                      # Folder containing all your API endpoint logic
+│   ├── default.py             # Default or main API endpoint file
+│   └── examples/              # Folder with example scripts for reference or testing
+│       |__ submit_form.py     # API example that demonstrating how to fill and submit forms
+│       |__ scrape_list.py     # API example that shows how to scrape lists of data
+│       |__ navigate_all_pages.py  # API example that shows how to navigate through all pages of a paginated site
+│       |__ navigate_n_pages.py    # API example that shows how to navigate a specific number of pages
+│       |__ download_upload_files.py  # API example that demonstrats file download and upload functionality
+└── intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
+
 ```
 
 
