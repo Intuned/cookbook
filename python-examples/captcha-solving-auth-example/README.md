@@ -1,6 +1,6 @@
 # captcha-solving-auth-example Intuned project
 
-E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example
+E-commerce scraper automation to demonstrate our captcha solving and stealth mode capabilities for cloudflare with a real example
 
 ## Getting Started
 

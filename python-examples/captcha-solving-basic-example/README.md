@@ -1,6 +1,6 @@
 # captcha-solving-basic-example Intuned project
 
-Automation project to demonstrate our captcha solving capabilities
+Automation project to demonstrate our captcha solving and stealth mode capabilities
 
 ## Getting Started
 
