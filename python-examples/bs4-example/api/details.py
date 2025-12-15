@@ -1,33 +1,21 @@
 from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, List
 from bs4 import BeautifulSoup
 from intuned_browser import go_to_url
+from utils.types_and_schemas import DetailsParams, ProductDetails
 
 
-class Params(TypedDict):
-    title: str
-    price: str
-    details_url: str
-
-
-class ProductDetails(TypedDict):
-    title: str
-    price: str
-    source_url: str
-    description: str
-    sku: str
-    category: str
-    sizes: List[str]
-    colors: List[str]
-    images: List[str]
-
-
-def extract_product_details(html: str, params: Params) -> ProductDetails:
+def extract_product_details(html: str) -> ProductDetails:
     """
     Extracts detailed product information from the page HTML using BeautifulSoup.
     Replace selectors with appropriate ones for your target site.
     """
     soup = BeautifulSoup(html, "html.parser")
+    # Extract title - replace selector as needed
+    title = soup.select_one("h1.product_title").get_text(strip=True)
+
+    # Extract price - replace selector as needed
+    price_element = soup.select_one(".price")
+    price = price_element.get_text(strip=True) if price_element else None
 
     # Extract description - replace selector as needed
     description_element = soup.select_one("#tab-description p")
@@ -64,9 +52,8 @@ def extract_product_details(html: str, params: Params) -> ProductDetails:
     images = [img.get("src", "") for img in image_elements if img.get("src")]
 
     return {
-        "title": params["title"],
-        "price": params["price"],
-        "source_url": params["details_url"],
+        "title": title,
+        "price": price,
         "description": description,
         "sku": sku,
         "category": category,
@@ -78,7 +65,7 @@ def extract_product_details(html: str, params: Params) -> ProductDetails:
 
 async def automation(
     page: Page,
-    params: Params,
+    params: DetailsParams,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
@@ -98,11 +85,12 @@ async def automation(
     2. Extracts additional product information using BeautifulSoup
     3. Returns complete product details
     """
+    params = DetailsParams(**params)
     # Validate required params
-    if not params.get("details_url"):
+    if not params.details_url:
         raise ValueError("details_url is required in params")
 
-    details_url = params["details_url"]
+    details_url = params.details_url
     print(f"Scraping product details from: {details_url}")
 
     # Navigate to the product page
@@ -115,7 +103,8 @@ async def automation(
     html = await page.content()
 
     # Extract product details using BeautifulSoup
-    product_details = extract_product_details(html, params)
+    product_details = extract_product_details(html)
+    product_details = ProductDetails(**product_details, details_url=details_url)
 
-    print(f"Successfully scraped details for: {product_details['title']}")
+    print(f"Successfully scraped details for: {product_details.title}")
     return product_details

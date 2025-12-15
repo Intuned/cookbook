@@ -1,19 +1,9 @@
 from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, List
+from typing import List
 from bs4 import BeautifulSoup
 from intuned_browser import go_to_url
 from runtime_helpers import extend_payload
-
-
-class Params(TypedDict):
-    url: str  # The URL to scrape (e.g.: https://www.scrapingcourse.com/ecommerce/)
-    max_pages: int | None  # Maximum number of pages to scrape (default: 10)
-
-
-class Product(TypedDict):
-    title: str
-    price: str
-    details_url: str
+from utils.types_and_schemas import ListParams, Product
 
 
 def extract_products(html: str) -> List[Product]:
@@ -42,11 +32,11 @@ def extract_products(html: str) -> List[Product]:
 
         if title and details_url:
             products.append(
-                {
-                    "title": title,
-                    "price": price,
-                    "details_url": details_url,
-                }
+                Product(
+                    title=title,
+                    price=price,
+                    details_url=details_url,
+                )
             )
 
     return products
@@ -70,7 +60,7 @@ def get_next_page_url(html: str) -> str | None:
 
 async def automation(
     page: Page,
-    params: Params,
+    params: ListParams,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
@@ -90,11 +80,12 @@ async def automation(
     3. Follows pagination links to scrape multiple pages
     4. Returns all products found
     """
+    params = ListParams(**params)
     # Set default values
-    url = params["url"]
+    url = params.url
     if not url:
         raise ValueError("url is required in params")
-    max_pages = params["max_pages"] or 10
+    max_pages = params.max_pages
 
     print(f"Starting scrape from: {url}")
     print(f"Max pages: {max_pages}")
