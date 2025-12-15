@@ -5,22 +5,16 @@ Firecrawl-compatible /extract endpoint using crawl4ai.
 """
 
 from playwright.async_api import Page, BrowserContext
-from typing import TypedDict
+from typing import TypedDict, Any
 import json
-from pydantic import BaseModel
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode, LLMConfig
 from crawl4ai import LLMExtractionStrategy
 
 
-class ExtractedData(BaseModel):
-    title: str
-    summary: str
-    key_points: list[str]
-
-
 class Params(TypedDict, total=False):
     url: str
-    instruction: str
+    prompt: str
+    schema: dict[str, Any]
     api_key: str
     provider: str
 
@@ -39,16 +33,15 @@ async def automation(
     if not api_key:
         return {"success": False, "error": "api_key parameter is required"}
 
-    instruction = params.get(
-        "instruction", "Extract the title, summary, and key points from this page."
-    )
+    prompt = params.get("prompt")
+    schema = params.get("schema")
     provider = params.get("provider", "openai/gpt-4o-mini")
 
     llm_strategy = LLMExtractionStrategy(
         llm_config=LLMConfig(provider=provider, api_token=api_key),
-        schema=ExtractedData.model_json_schema(),
-        extraction_type="schema",
-        instruction=instruction,
+        schema=schema,
+        extraction_type="schema" if schema else "block",
+        instruction=prompt,
     )
 
     config = CrawlerRunConfig(
