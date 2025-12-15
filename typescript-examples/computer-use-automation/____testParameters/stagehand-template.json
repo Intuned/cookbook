@@ -1,0 +1,35 @@
+[
+  {
+    "name": "check_in_date",
+    "value": "25/12/2025"
+  },
+  {
+    "name": "check_out_date",
+    "value": "27/12/2025"
+  },
+  {
+    "name": "budget",
+    "value": "150"
+  },
+  {
+    "name": "first_name",
+    "value": "John"
+  },
+  {
+    "name": "last_name",
+    "value": "Doe"
+  },
+  {
+    "name": "phone_number",
+    "value": "01234567890"
+  },
+  {
+    "name": "email",
+    "value": "john.doe@example.com"
+  },
+  {
+    "name": "extra_details",
+    "value": "Prefer a room with a view"
+  }
+]
+

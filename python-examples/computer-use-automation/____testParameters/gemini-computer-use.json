@@ -1,0 +1,7 @@
+[
+  {
+    "name": "query",
+    "value": "Go to https://books.toscrape.com, find the most expensive book on the first page, and tell me its title and price"
+  }
+]
+

@@ -8,3 +8,4 @@ Intuned sample projects in Python.
 | [rpa-example](./rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
+| [computer-use-automation](./computer-use-automation/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
