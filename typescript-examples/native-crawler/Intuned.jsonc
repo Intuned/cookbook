@@ -13,7 +13,11 @@
     "size": "standard"
   },
   "defaultRunPlaygroundInput": {
-    "apiName": "sample",
-    "parameters": {}
+    "apiName": "crawl",
+    "parameters": {
+      "url": "https://books.toscrape.com",
+      "max_depth": 1,
+      "max_pages": 5
+    }
   }
 }

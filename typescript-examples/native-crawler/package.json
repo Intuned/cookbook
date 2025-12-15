@@ -1,7 +1,7 @@
 {
-  "name": "default",
+  "name": "native-crawler",
   "version": "1.0.0",
-  "description": "Empty Intuned project",
+  "description": "Native web crawler using extend_payload and persistent_store for parallel crawling with deduplication",
   "tags": [
     "intuned-browser-sdk"
   ],
@@ -16,5 +16,6 @@
     "@intuned/browser": "0.1.5",
     "@types/node": "^20.10.3",
     "playwright": "~1.56.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

@@ -1,142 +1,129 @@
-# default Intuned project
+# native-crawler
 
-Empty Intuned project
+A simple, library-free web crawler demonstrating Intuned's `extendPayload` and `persistentStore` features for parallel crawling with deduplication.
 
-## Getting Started
+## Architecture
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+This project showcases two key Intuned runtime features:
 
+### `extendPayload`
+Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
 
-## Development
+### `persistentStore`
+A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Install dependencies
-```bash
-# npm
-npm install
-
-# yarn
-yarn
-```
-
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
-
-### Run an API
-
-```bash
-# npm
-npm run intuned run api <api-name> <parameters>
-
-# yarn
-yarn intuned run api <api-name> <parameters>
-```
-
-### Deploy project
-```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+## Flow
 
 ```
-
-
-
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
-
-
-
+                    ┌─────────────────────────────────────────────────┐
+                    │                   JOB RUN                       │
+                    │                                                 │
+                    │    ┌─────────────────────────────────────────┐  │
+                    │    │     SHARED persistentStore              │  │
+                    │    │  (tracks visited URLs)                  │  │
+                    │    └─────────────────────────────────────────┘  │
+                    │                                                 │
+  Start Job ───────►│  1. crawl(seed_url)                            │
+                    │     ├─► Extract markdown content               │
+                    │     ├─► Discover 50 links                      │
+                    │     └─► extendPayload(crawl) × 50              │
+                    │                      │                         │
+                    │     ┌────────────────┼────────────────┐        │
+                    │     ▼                ▼                ▼        │
+                    │  2. crawl(link1)  crawl(link2)    crawl(...)   │
+                    │     ├─► Extract    ├─► Extract    ├─► ...      │
+                    │     ├─► Discover   ├─► Discover   │            │
+                    │     └─► extend...  └─► extend...  │            │
+                    │                                                 │
+                    │  Continues until depth/page limits reached     │
+                    │  All results sent to job sink (webhook/S3)     │
+                    └─────────────────────────────────────────────────┘
+```
 
 ## Project Structure
-The project structure is as follows:
+
 ```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+native-crawler/
+├── api/
+│   └── crawl.ts          # Main API: extract content + discover links + recurse
+├── utils/
+│   ├── index.ts
+│   ├── content.ts        # extractPageContent() - markdown extraction
+│   └── links.ts          # extractLinks() - link discovery + normalization
+├── Intuned.jsonc
+└── README.md
 ```
 
+## API
 
-## `Intuned.json` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
+### `crawl`
 
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
+Crawls a URL: extracts content, discovers links, and queues them for further crawling.
 
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `url` | string | required | URL to crawl |
+| `max_depth` | number | 2 | Maximum crawl depth from seed |
+| `max_pages` | number | 50 | Maximum total pages to process |
+| `depth` | number | 0 | Current depth (set internally by extendPayload) |
 
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
+## Usage
 
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
+### Local Development
 
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
+```bash
+# Install dependencies
+yarn install
 
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
+# Run the crawler
+yarn intuned run api crawl '{"url": "https://books.toscrape.com", "max_depth": 2, "max_pages": 10}'
 ```
-  
+
+### As a Job (Production)
+
+When run as a job, `extendPayload` spawns parallel payloads and `persistentStore` deduplicates across all of them:
+
+```bash
+curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
+  -H "Authorization: Bearer {api_key}" \
+  -d '{
+    "payload": {
+      "api": "crawl",
+      "parameters": {
+        "url": "https://books.toscrape.com",
+        "max_depth": 2,
+        "max_pages": 100
+      }
+    },
+    "sink": {
+      "type": "webhook",
+      "url": "https://your-webhook.com/results"
+    }
+  }'
+```
+
+## Utils
+
+### `utils/content.ts`
+- `extractPageContent(page)` — Returns `{title, markdown, markdown_length}`
+
+### `utils/links.ts`
+- `extractLinks(page, baseDomain, includeExternal)` — Returns list of normalized URLs
+- `normalizeUrl(url)` — Normalize URL (remove fragments, trailing slashes)
+- `getBaseDomain(url)` — Extract domain from URL
+
+## Deduplication Keys
+
+The `persistentStore` uses these key patterns:
+
+| Key Pattern | Purpose |
+|-------------|---------|
+| `visited_{url}` | Tracks URLs that have been visited |
+| `__page_count__` | Global counter for pages processed |
+| `__base_domain__` | Stored config: base domain for filtering |
+
+## Learn More
+
+- [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
+- [Nested Scheduling / extendPayload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

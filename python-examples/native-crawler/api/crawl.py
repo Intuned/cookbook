@@ -16,16 +16,8 @@ class Params(TypedDict, total=False):
 
 
 def sanitize_key(key: str) -> str:
-    """
-    Remove characters not allowed in persistent_store keys.
-
-    persistent_store doesn't allow: / : # ? & = and other URL special chars
-    Replace them with underscores to create valid keys.
-    """
-    # Replace all problematic characters with underscores
     for char in ["://", "/", ":", "#", "?", "&", "=", ".", "-"]:
         key = key.replace(char, "_")
-    # Remove consecutive underscores
     while "__" in key:
         key = key.replace("__", "_")
     return key.strip("_")
