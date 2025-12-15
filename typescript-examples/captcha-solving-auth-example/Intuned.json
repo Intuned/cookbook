@@ -29,7 +29,7 @@
   "stealthMode": {
     "enabled": true
   },
-    "metadata": {
+  "metadata": {
     "defaultRunPlaygroundInput": {
       "api": "details",
       "parameters": {
@@ -39,7 +39,7 @@
       }
     },
     "testAuthSessionInput": {
-      "email": "admin@example.com",
+      "username": "admin@example.com",
       "password": "password"
     }
   }
