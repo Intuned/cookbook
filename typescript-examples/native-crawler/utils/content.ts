@@ -3,7 +3,7 @@ import { extractMarkdown } from "@intuned/browser";
 
 export async function extractPageContent(page: Page) {
   const title = await page.title();
-  const markdown = await extractMarkdown(page);
+  const markdown = await extractMarkdown({ source: page });
 
   return {
     title,

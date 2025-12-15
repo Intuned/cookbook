@@ -1,7 +1,7 @@
 import { BrowserContext, Page } from "playwright";
 import { goToUrl, waitForDomSettled } from "@intuned/browser";
-import { extendPayload } from "@intuned/runtime";
-import { persistentStore } from "@intuned/runtime";
+import { extendPayload, getExecutionContext } from "@intuned/runtime";
+import persistentStore from "@intuned/runtime/persistent-store";
 
 import {
   extractLinks,
@@ -64,19 +64,23 @@ export default async function handler(
   const maxPages = params.max_pages ?? 50;
   const depth = params.depth ?? 0;
 
+  // Get job_run_id to prefix all keys (isolates each job's data)
+  const jobRunId = getExecutionContext().jobRunId || "local";
+  const keyPrefix = `${jobRunId}_`;
+
   const normalizedUrl = normalizeUrl(url);
 
   // Store config for child payloads (only on first call)
   let baseDomain = getBaseDomain(url);
   if (depth === 0) {
-    await persistentStore.set("__base_domain__", baseDomain);
+    await persistentStore.set(`${keyPrefix}__base_domain__`, baseDomain);
   } else {
     baseDomain =
-      (await persistentStore.get<string>("__base_domain__")) || baseDomain;
+      (await persistentStore.get(`${keyPrefix}__base_domain__`)) || baseDomain;
   }
 
   // Deduplicate
-  const visitedKey = sanitizeKey(`visited_${normalizedUrl}`);
+  const visitedKey = sanitizeKey(`${keyPrefix}visited_${normalizedUrl}`);
   if (await persistentStore.get(visitedKey)) {
     return {
       success: true,
@@ -87,7 +91,7 @@ export default async function handler(
   }
 
   // Page limit check
-  const pageCount = (await persistentStore.get<number>("__page_count__")) || 0;
+  const pageCount = (await persistentStore.get(`${keyPrefix}__page_count__`)) || 0;
   if (pageCount >= maxPages) {
     return {
       success: true,
@@ -99,12 +103,12 @@ export default async function handler(
 
   // Mark as visited and increment counter
   await persistentStore.set(visitedKey, true);
-  await persistentStore.set("__page_count__", pageCount + 1);
+  await persistentStore.set(`${keyPrefix}__page_count__`, pageCount + 1);
 
   // Navigate
   console.log(`[crawl] Depth ${depth}/${maxDepth}: ${url}`);
-  await goToUrl(page, url);
-  await waitForDomSettled(page);
+  await goToUrl({ page, url });
+  await waitForDomSettled({ source: page });
 
   // Extract page content
   const content = await extractPageContent(page);
@@ -120,7 +124,7 @@ export default async function handler(
   if (nextDepth <= maxDepth) {
     for (const link of links) {
       // Only queue if not already visited
-      const linkKey = sanitizeKey(`visited_${link}`);
+      const linkKey = sanitizeKey(`${keyPrefix}visited_${link}`);
       if (!(await persistentStore.get(linkKey))) {
         extendPayload({
           api: "crawl",
