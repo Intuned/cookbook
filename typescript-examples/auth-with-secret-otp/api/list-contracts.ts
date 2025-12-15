@@ -94,10 +94,10 @@ export default async function handler(
   context: BrowserContext
 ): Promise<HandlerResponse> {
   try {
-    // Navigate to the contracts authentication page
+    // Navigate to the contracts list authentication page
     await goToUrl({
       page: page,
-      url: "https://sandbox.intuned.dev/contracts-auth",
+      url: "https://sandbox.intuned.dev/list-auth",
     });
 
     const contracts = await extractContractsFromTable(page);
