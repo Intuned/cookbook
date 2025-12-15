@@ -41,12 +41,14 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Project Structure
 The project structure is as follows:
 ```
-/
 ├── api/                          # Your API endpoints 
 │   ├── ecommerece-category.py    # API to scrape category links from the main menu
 │   ├── ecommerece-list.py        # API to list all products from a category page
 │   └── ecommerece-details.py     # API to fetch detailed product information
-└── Intuned.jsonc                 # Intuned project configuration file
+├── utils/
+│   └── types_and_schemas.py      # Pydantic models for type validation
+├── Intuned.jsonc                 # Intuned project configuration file
+└── pyproject.toml                # Python project dependencies
 ```
 
 ## How It Works
