@@ -1,10 +1,7 @@
 """
 Extract all links from a webpage with title and description.
 
-Similar to Firecrawl's /map endpoint but using crawl4ai.
-
-Usage:
-    uv run intuned run api map '{"url": "https://example.com", "limit": 10}'
+Firecrawl-compatible /map endpoint using crawl4ai.
 """
 
 from playwright.async_api import Page, BrowserContext
@@ -20,7 +17,7 @@ class Params(TypedDict, total=False):
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: Params,
     context: BrowserContext | None = None,
     **_kwargs,
 ):

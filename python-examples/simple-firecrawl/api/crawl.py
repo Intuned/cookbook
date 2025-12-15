@@ -2,9 +2,6 @@
 Crawl a website and all its accessible subpages.
 
 Firecrawl-compatible /crawl endpoint using crawl4ai.
-
-Usage:
-    uv run intuned run api crawl '{"url": "https://example.com", "limit": 10}'
 """
 
 from playwright.async_api import Page, BrowserContext
@@ -22,7 +19,7 @@ class Params(TypedDict, total=False):
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: Params,
     context: BrowserContext | None = None,
     **_kwargs,
 ):
