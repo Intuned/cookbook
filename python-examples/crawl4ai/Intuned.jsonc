@@ -10,7 +10,7 @@
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "large"
   },
   "proxy": {
     "enabled": false
