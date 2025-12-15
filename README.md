@@ -8,6 +8,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-example](./typescript-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [network-interception](./typescript-examples/network-interception/) | Network request interception for paginated data |
 
 ## Python Examples
 
@@ -17,3 +18,4 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-example](./python-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [network-interception](./python-examples/network-interception/) | Network request interception for paginated data |

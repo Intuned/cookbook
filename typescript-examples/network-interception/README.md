@@ -56,11 +56,11 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Project Structure
 The project structure is as follows:
 ```
-/
 ├── api/                          # Your API endpoints 
 │   └── list.ts                   # API to intercept network requests and capture paginated data
 ├── utils/
 │   └── typesAndSchemas.ts        # Shared types and Zod schemas
+├── package.json                  # Typescript project dependencies
 └── Intuned.jsonc                 # Intuned project configuration file
 ```
 

@@ -1,25 +1,7 @@
 from playwright.async_api import Page, BrowserContext, Response
-from typing import List, TypedDict, Callable, Awaitable
+from typing import List, Callable, Awaitable
 from intuned_browser import go_to_url, wait_for_network_settled
-
-
-class Params(TypedDict, total=False):
-    url: str  # The URL to navigate to
-    api_pattern: str  # Pattern to match in API URLs (e.g., "/rest/v1/consultations")
-    max_pages: int  # Maximum number of pages to fetch (default: 10)
-
-
-class Consultation(TypedDict):
-    id: str
-    created_at: str
-    name: str
-    email: str
-    phone: str
-    preferred_date: str
-    preferred_time: str
-    topic: str
-    status: str
-    user_id: str
+from utils.types_and_schemas import Params, Consultation
 
 
 # Global variable to store captured API data
@@ -40,9 +22,9 @@ def create_response_handler(pattern: str) -> Callable[[Response], Awaitable[None
             try:
                 data = await response.json()
                 if isinstance(data, list):
-                    api_data.extend(data)
+                    api_data.extend([Consultation(**item) for item in data])
                 else:
-                    api_data.append(data)
+                    api_data.append(Consultation(**data))
             except Exception:
                 # Response might not be JSON
                 pass
@@ -52,7 +34,7 @@ def create_response_handler(pattern: str) -> Callable[[Response], Awaitable[None
 
 async def automation(
     page: Page,
-    params: Params | None = None,
+    params: Params,
     context: BrowserContext | None = None,
     **_kwargs,
 ) -> List[Consultation]:
@@ -75,13 +57,13 @@ async def automation(
     """
     global api_data
     api_data = []
-
-    if not params or not params.get("url"):
+    params = Params(**params)
+    if not params.url:
         raise ValueError("url is required in params")
 
-    url = params["url"]
-    api_pattern = params.get("api_pattern", "/api/")
-    max_pages = params.get("max_pages", 10)
+    url = params.url
+    api_pattern = params.api_pattern
+    max_pages = params.max_pages
 
     print(f"Navigating to: {url}")
     print(f"Listening for API pattern: {api_pattern}")

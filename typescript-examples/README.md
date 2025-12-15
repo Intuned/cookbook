@@ -8,4 +8,5 @@ Intuned sample projects in TypeScript.
 | [rpa-example](./rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
+| [network-interception](./network-interception/) | Network request interception for paginated data |
 
