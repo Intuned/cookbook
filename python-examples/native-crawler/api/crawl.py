@@ -20,6 +20,7 @@ class Params(TypedDict, total=False):
     max_depth: int
     max_pages: int
     include_external: bool
+    schema: dict
     depth: int  # Current depth (internal, set by extend_payload)
 
 
@@ -55,6 +56,7 @@ async def automation(
     max_depth = params.get("max_depth", 2)
     max_pages = params.get("max_pages", 50)
     include_external = params.get("include_external", False)
+    schema = params.get("schema")
     depth = params.get("depth", 0)
 
     # Get job_run_id to prefix all keys (isolates each job's data)
@@ -101,7 +103,7 @@ async def automation(
     await go_to_url(page, url)
 
     # Extract page content
-    content = await extract_page_content(page)
+    content = await extract_page_content(page, schema=schema)
 
     # Find all internal links
     links = await extract_links(page, base_domain, include_external=include_external)
@@ -123,6 +125,7 @@ async def automation(
                             "url": link,
                             "depth": next_depth,
                             "include_external": include_external,
+                            "schema": schema,
                         },
                     }
                 )

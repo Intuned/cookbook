@@ -16,6 +16,7 @@ interface Params {
   max_depth?: number;
   max_pages?: number;
   include_external?: boolean;
+  schema?: any;
   depth?: number; // Current depth (internal, set by extend_payload)
 }
 
@@ -52,6 +53,7 @@ export default async function handler(
   const maxDepth = params.max_depth ?? 2;
   const maxPages = params.max_pages ?? 50;
   const includeExternal = params.include_external ?? false;
+  const schema = params.schema;
   const depth = params.depth ?? 0;
 
   // Get job_run_id to prefix all keys (isolates each job's data)
@@ -100,7 +102,7 @@ export default async function handler(
   await goToUrl({ page, url });
 
   // Extract page content
-  const content = await extractPageContent(page);
+  const content = await extractPageContent(page, schema);
 
   // Find all internal links
   const links = await extractLinks(page, baseDomain, includeExternal);
@@ -121,6 +123,7 @@ export default async function handler(
             url: link,
             depth: nextDepth,
             include_external: includeExternal,
+            schema,
           },
         });
         linksQueued++;
