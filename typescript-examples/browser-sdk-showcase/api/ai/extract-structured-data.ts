@@ -1,0 +1,43 @@
+import { BrowserContext, Page } from "playwright";
+import { goToUrl } from "@intuned/browser";
+import { extractStructuredData } from "@intuned/browser/ai";
+import { z } from "zod";
+
+interface Params {}
+
+const BookSchema = z.object({
+  name: z.string().describe("Book title"),
+  price: z.string().describe("Book price"),
+  description: z.string().nullable().describe("Book description"),
+  in_stock: z.boolean().describe("Stock availability"),
+  rating: z.string().nullable().describe("Book rating"),
+});
+
+export default async function handler(
+  params: Params,
+  page: Page,
+  context: BrowserContext
+) {
+  await goToUrl({
+    page,
+    url: "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+  });
+
+  // Extract from the Page directly using Zod schema.
+  // You can also extract from a specific locator or by passing TextContentItem.
+  // Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extractStructuredData for more details.
+  const product = await extractStructuredData({
+    source: page,
+    strategy: "HTML",
+    model: "claude-haiku-4-5-20251001",
+    dataSchema: BookSchema, // Pass Zod schema directly, or use a normal JSON schema object too.
+    prompt: "Extract book details from this page",
+    enableCache: false, // To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.
+    maxRetries: 3,
+  });
+
+  console.log(`Found product: ${product.name} - ${product.price}`);
+
+  return "Success";
+}
+

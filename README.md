@@ -4,6 +4,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 
 | Example | Description |
 |---------|-------------|
+| [browser-sdk-showcase](./typescript-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
 | [quick-recipes](./typescript-examples/quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./typescript-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
@@ -21,6 +22,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 
 | Example | Description |
 |---------|-------------|
+| [browser-sdk-showcase](./python-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
 | [quick-recipes](./python-examples/quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./python-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
