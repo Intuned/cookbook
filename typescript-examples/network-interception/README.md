@@ -1,6 +1,9 @@
 # network-interception Intuned project
 
-Network interception example that captures API responses while navigating and paginating through pages. Useful for extracting data from APIs that are called when a page loads or when clicking pagination buttons.
+Network interception example that captures CSRF tokens from authenticated requests and uses them to make API calls. This template demonstrates how to:
+- Log in to a website
+- Intercept network requests to capture CSRF tokens
+- Make authenticated API calls using the captured token
 
 ## Getting Started
 
@@ -56,22 +59,25 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Project Structure
 The project structure is as follows:
 ```
-├── api/                          # Your API endpoints 
-│   └── list.ts                   # API to intercept network requests and capture paginated data
+├── api/                              # Your API endpoints 
+│   └── network-interceptor.ts        # API to intercept requests and capture CSRF tokens
 ├── utils/
-│   └── typesAndSchemas.ts        # Shared types and Zod schemas
-├── package.json                  # Typescript project dependencies
-└── Intuned.jsonc                 # Intuned project configuration file
+│   └── typesAndSchemas.ts            # Shared types and Zod schemas
+├── __testParameters/
+│   └── network-interceptor.json      # Test parameters for the API
+├── package.json                      # TypeScript project dependencies
+└── Intuned.jsonc                     # Intuned project configuration file
 ```
 
 ## How It Works
 
-1. Sets up a response listener for a specified API pattern
-2. Navigates to the URL and captures initial data from matching API responses
-3. Clicks the "Next" button to load more pages
-4. Aggregates all captured data and returns it
+1. Logs in to the target website using provided credentials
+2. Sets up a request interceptor to capture CSRF tokens from outgoing requests
+3. Navigates to the target URL and waits for network activity
+4. Captures the CSRF token from request headers (e.g., `x-csrftoken`)
+5. Makes authenticated API calls using the captured token
 
-This is useful when the data you need is loaded via API calls rather than rendered in the HTML.
+This is useful when you need to interact with APIs that require CSRF protection after authentication.
 
 
 ## `Intuned.json` Reference

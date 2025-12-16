@@ -11,5 +11,5 @@ Intuned sample projects in TypeScript.
 | [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |
 | [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha |
-| [network-interception](./network-interception/) | Network request interception for paginated data |
+| [network-interception](./network-interception/) | Network interception with CSRF token capture and authenticated API calls |
 
