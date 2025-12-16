@@ -1,0 +1,25 @@
+{
+  "projectName": "network-interception",
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "defaultRunPlaygroundInput": {
+      "api": "network-interceptor",
+      "parameters": {
+        "url": "https://demo.openimis.org/front/",
+        "api_url": "https://demo.openimis.org/api/graphql",
+        "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
+        "username": "Admin",
+        "password": "admin123"
+      }
+    }
+  }
+}
