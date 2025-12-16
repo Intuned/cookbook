@@ -1,6 +1,6 @@
 # native-crawler
 
-A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `attempt_store` features for parallel crawling with deduplication.
+A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `persistent_store` features for parallel crawling with deduplication.
 
 ## Architecture
 
@@ -8,9 +8,11 @@ This project showcases two key Intuned runtime features:
 
 ### `extend_payload`
 Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
+Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload
 
 ### `persistent_store`
 A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
+Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/persistent-store
 
 ## Flow
 

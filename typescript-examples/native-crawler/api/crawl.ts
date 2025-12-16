@@ -1,5 +1,5 @@
 import { BrowserContext, Page } from "playwright";
-import { goToUrl, waitForDomSettled } from "@intuned/browser";
+import { goToUrl } from "@intuned/browser";
 import { extendPayload, getExecutionContext } from "@intuned/runtime";
 import persistentStore from "@intuned/runtime/persistent-store";
 
@@ -8,29 +8,18 @@ import {
   extractPageContent,
   normalizeUrl,
   getBaseDomain,
+  sanitizeKey,
 } from "../utils";
 
 interface Params {
   url: string;
   max_depth?: number;
   max_pages?: number;
+  include_external?: boolean;
   depth?: number; // Current depth (internal, set by extend_payload)
 }
 
-function sanitizeKey(key: string): string {
-  const chars = ["://", "/", ":", "#", "?", "&", "=", ".", "-"];
-  let sanitized = key;
 
-  for (const char of chars) {
-    sanitized = sanitized.replaceAll(char, "_");
-  }
-
-  while (sanitized.includes("__")) {
-    sanitized = sanitized.replace("__", "_");
-  }
-
-  return sanitized.replace(/^_+|_+$/g, "");
-}
 
 export default async function handler(
   params: Params,
@@ -62,6 +51,7 @@ export default async function handler(
   const url = params.url;
   const maxDepth = params.max_depth ?? 2;
   const maxPages = params.max_pages ?? 50;
+  const includeExternal = params.include_external ?? false;
   const depth = params.depth ?? 0;
 
   // Get job_run_id to prefix all keys (isolates each job's data)
@@ -108,13 +98,12 @@ export default async function handler(
   // Navigate
   console.log(`[crawl] Depth ${depth}/${maxDepth}: ${url}`);
   await goToUrl({ page, url });
-  await waitForDomSettled({ source: page });
 
   // Extract page content
   const content = await extractPageContent(page);
 
   // Find all internal links
-  const links = await extractLinks(page, baseDomain, false);
+  const links = await extractLinks(page, baseDomain, includeExternal);
   console.log(`[crawl] Found ${links.length} links on ${url}`);
 
   // Queue new links for crawling (if under depth limit)
@@ -131,6 +120,7 @@ export default async function handler(
           parameters: {
             url: link,
             depth: nextDepth,
+            include_external: includeExternal,
           },
         });
         linksQueued++;
