@@ -9,6 +9,7 @@ from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
 from crawl4ai import AsyncWebCrawler
 from crawl4ai.async_configs import CrawlerRunConfig, CacheMode
+from intuned_runtime import attempt_store
 
 from utils import (
     LocationParams,
@@ -65,6 +66,7 @@ async def automation(
         location.get("languages"),
     )
     browser_config = create_browser_config(
+        cdp_url=attempt_store.get("cdp_url"),
         mobile=mobile,
         headers=headers if headers else None,
         skip_tls_verification=skip_tls,

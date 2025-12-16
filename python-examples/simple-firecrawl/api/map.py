@@ -9,6 +9,7 @@ from playwright.async_api import Page, BrowserContext
 from typing import TypedDict, Literal, Any
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
 from crawl4ai import LinkPreviewConfig
+from intuned_runtime import attempt_store
 
 from utils import (
     LocationParams,
@@ -53,7 +54,9 @@ async def automation(
         location.get("country", "US"),
         location.get("languages"),
     )
-    browser_config = create_browser_config()
+    browser_config = create_browser_config(
+        cdp_url=attempt_store.get("cdp_url"),
+    )
 
     config = CrawlerRunConfig(
         link_preview_config=LinkPreviewConfig(

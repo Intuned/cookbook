@@ -16,6 +16,7 @@ from crawl4ai.deep_crawling.filters import (
     ContentTypeFilter,
     URLPatternFilter,
 )
+from intuned_runtime import attempt_store
 
 from utils import (
     LocationParams,
@@ -128,6 +129,7 @@ async def automation(
     )
 
     browser_config = create_browser_config(
+        cdp_url=attempt_store.get("cdp_url"),
         mobile=scrape_options.get("mobile", False),
         headers=scrape_options.get("headers"),
     )
