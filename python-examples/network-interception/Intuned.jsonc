@@ -14,7 +14,7 @@
   },
   "metadata": {
     "defaultRunPlaygroundInput": {
-      "api": "list",
+      "api": "api-interceptor",
       "parameters": {
         "url": "https://example.com/products",
         "api_pattern": "/api/v1/products",

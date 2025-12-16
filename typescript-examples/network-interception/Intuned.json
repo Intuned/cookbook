@@ -12,13 +12,11 @@
   },
   "metadata": {
     "defaultRunPlaygroundInput": {
-      "api": "network-interceptor",
+      "api": "api-interceptor",
       "parameters": {
-        "url": "https://demo.openimis.org/front/",
-        "api_url": "https://demo.openimis.org/api/graphql",
-        "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
-        "username": "Admin",
-        "password": "admin123"
+        "url": "https://sandbox.intuned.dev/consultations/list",
+        "api_pattern": "/rest/v1/consultations",
+        "max_pages": 3
       }
     }
   }

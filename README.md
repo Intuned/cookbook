@@ -9,7 +9,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
-| [network-interception](./typescript-examples/network-interception/) | Network interception with CSRF token capture and authenticated API calls |
+| [network-interception](./typescript-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
 
 ## Python Examples
 
@@ -20,4 +20,4 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
-| [network-interception](./python-examples/network-interception/) | Network interception with CSRF token capture and authenticated API calls |
+| [network-interception](./python-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |

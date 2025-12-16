@@ -1,9 +1,9 @@
 # network-interception Intuned project
 
-Network interception example that captures CSRF tokens from authenticated requests and uses them to make API calls. This template demonstrates how to:
-- Log in to a website
-- Intercept network requests to capture CSRF tokens
-- Make authenticated API calls using the captured token
+Network interception examples demonstrating two common patterns:
+
+1. **CSRF Token Capture** (`network-interceptor.ts`) - Log in to a website, intercept requests to capture CSRF tokens, and make authenticated API calls
+2. **Paginated API Data** (`api-interceptor.ts`) - Intercept API responses while paginating through pages to capture all data
 
 ## Getting Started
 
@@ -60,24 +60,33 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 ├── api/                              # Your API endpoints 
-│   └── network-interceptor.ts        # API to intercept requests and capture CSRF tokens
+│   ├── network-interceptor.ts        # CSRF token capture and authenticated API calls
+│   └── api-interceptor.ts            # Paginated API response interception
 ├── utils/
 │   └── typesAndSchemas.ts            # Shared types and Zod schemas
 ├── __testParameters/
-│   └── network-interceptor.json      # Test parameters for the API
+│   ├── network-interceptor.json      # Test parameters for CSRF interceptor
+│   └── api-interceptor.json          # Test parameters for API interceptor
 ├── package.json                      # TypeScript project dependencies
 └── Intuned.jsonc                     # Intuned project configuration file
 ```
 
 ## How It Works
 
+### network-interceptor.ts (CSRF Token Capture)
 1. Logs in to the target website using provided credentials
 2. Sets up a request interceptor to capture CSRF tokens from outgoing requests
 3. Navigates to the target URL and waits for network activity
 4. Captures the CSRF token from request headers (e.g., `x-csrftoken`)
 5. Makes authenticated API calls using the captured token
 
-This is useful when you need to interact with APIs that require CSRF protection after authentication.
+### api-interceptor.ts (Paginated API Data)
+1. Sets up a response listener for a specified API pattern
+2. Navigates to the URL and captures initial data from matching API responses
+3. Clicks the "Next" button to load more pages
+4. Aggregates all captured data and returns it
+
+These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 
 ## `Intuned.json` Reference

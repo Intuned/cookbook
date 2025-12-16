@@ -2,7 +2,7 @@ from playwright.async_api import Page, BrowserContext, Request
 from typing import Optional, Any, Dict
 from intuned_browser import go_to_url
 from intuned_runtime import attempt_store
-from utils.types_and_schemas import Params, InsureeResponse
+from utils.types_and_schemas import NetworkInterceptorParams, InsureeResponse
 
 attempt_store.set("csrf_token", None)
 
@@ -42,7 +42,7 @@ async def intercept_request(request: Request) -> None:
         token = request.headers.get("x-csrftoken")
         if token:
             attempt_store.set("csrf_token", token)
-            print(f"CSRF token captured: {attempt_store.get("csrf_token")[:20]}...")
+            print(f"CSRF token captured: {attempt_store.get('csrf_token')[:20]}...")
 
 
 async def fetch_with_csrf(
@@ -102,7 +102,7 @@ async def fetch_with_csrf(
 
 async def automation(
     page: Page,
-    params: Params,
+    params: NetworkInterceptorParams,
     context: BrowserContext | None = None,
     **_kwargs,
 ) -> InsureeResponse:
@@ -124,7 +124,7 @@ async def automation(
     }
     """
 
-    params = Params(**params)
+    params = NetworkInterceptorParams(**params)
     url = params.url  # URL to navigate after login (where CSRF is captured)
     api_url = params.api_url  # API endpoint to call with CSRF token
     query = params.query  # GraphQL query or request body
