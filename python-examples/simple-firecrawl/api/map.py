@@ -5,8 +5,6 @@ Firecrawl-compatible /map endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/map
 """
 
-import xml.etree.ElementTree as ET
-from urllib.parse import urlparse
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict, Literal, Any
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
@@ -18,6 +16,7 @@ from utils import (
     create_browser_config,
     normalize_url,
     is_subdomain_of,
+    fetch_sitemap_urls,
 )
 
 
@@ -75,7 +74,7 @@ async def automation(
 
         # Get sitemap URLs if mode is "include" or "only"
         if sitemap_mode in ("include", "only"):
-            sitemap_urls = await fetch_sitemap_urls(crawler, url)
+            sitemap_urls = await fetch_sitemap_urls(page, url)
             for sitemap_url in sitemap_urls:
                 normalized = normalize_url(sitemap_url, ignore_query)
                 if normalized in seen_urls:
@@ -133,36 +132,6 @@ async def automation(
             links = [link for link, _ in scored]
 
         return {"success": True, "links": links[:limit]}
-
-
-async def fetch_sitemap_urls(crawler: AsyncWebCrawler, base_url: str) -> list[str]:
-    parsed = urlparse(base_url)
-    sitemap_url = f"{parsed.scheme}://{parsed.netloc}/sitemap.xml"
-
-    try:
-        result = await crawler.arun(
-            url=sitemap_url,
-            config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS, verbose=False),
-        )
-        if not result.success or not result.html:
-            return []
-
-        root = ET.fromstring(result.html)
-        ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-
-        urls = []
-        for loc in root.findall(".//sm:loc", ns):
-            if loc.text:
-                urls.append(loc.text.strip())
-
-        if not urls:
-            for loc in root.iter():
-                if loc.tag.endswith("loc") and loc.text:
-                    urls.append(loc.text.strip())
-
-        return urls
-    except Exception:
-        return []
 
 
 def score_search_match(

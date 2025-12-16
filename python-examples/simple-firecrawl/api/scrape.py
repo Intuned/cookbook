@@ -5,11 +5,10 @@ Firecrawl-compatible /scrape endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/scrape
 """
 
-import base64
 from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Any
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from intuned_browser import upload_file_to_s3
+from typing import TypedDict
+from crawl4ai import AsyncWebCrawler
+from crawl4ai.async_configs import CrawlerRunConfig, CacheMode
 
 from utils import (
     LocationParams,
@@ -17,9 +16,8 @@ from utils import (
     get_locale_settings,
     create_browser_config,
     get_excluded_tags,
-    remove_base64_images,
     build_css_selector,
-    extract_metadata,
+    build_response_item,
 )
 
 
@@ -90,37 +88,10 @@ async def automation(
         if not result.success:
             return {"success": False, "error": result.error_message}
 
-        data: dict[str, Any] = {"metadata": extract_metadata(result, url)}
-
-        if "markdown" in formats:
-            markdown = result.markdown or ""
-            if remove_base64:
-                markdown = remove_base64_images(markdown)
-            data["markdown"] = markdown
-
-        if "html" in formats:
-            data["html"] = result.cleaned_html
-
-        if "rawHtml" in formats:
-            data["rawHtml"] = result.html
-
-        if "links" in formats:
-            internal = [link.get("href") for link in result.links.get("internal", [])]
-            external = [link.get("href") for link in result.links.get("external", [])]
-            data["links"] = internal + external
-
-        if "images" in formats:
-            data["images"] = [img.get("src") for img in result.media.get("images", [])]
-
-        if "screenshot" in formats and result.screenshot:
-            # Upload screenshot to S3 instead of returning it inline
-            screenshot_bytes = base64.b64decode(result.screenshot)
-            uploaded = await upload_file_to_s3(
-                file=screenshot_bytes,
-                file_name_override="screenshot.png",
-                content_type="image/png",
-            )
-            signed_url = await uploaded.get_signed_url()
-            data["screenshot"] = signed_url
+        data = await build_response_item(
+            result,
+            formats,
+            remove_base64_images=remove_base64,
+        )
 
         return {"success": True, "data": data}

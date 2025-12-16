@@ -1,1 +1,26 @@
-[{"name":"firecrawl.dev","value":"{\n  \"url\": \"https://firecrawl.dev\",\n  \"limit\": 10\n}","lastUsed":true,"id":"43cdd92d-43df-4526-88e1-c0612f592ae8"}]
+[
+  {
+    "name": "basic crawl",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5\n}",
+    "lastUsed": false,
+    "id": "basic-crawl"
+  },
+  {
+    "name": "with path filtering",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 10,\n  \"includePaths\": [\"core/.*\"],\n  \"excludePaths\": [\"api/.*\"]\n}",
+    "lastUsed": false,
+    "id": "path-filtering"
+  },
+  {
+    "name": "skip sitemap",
+    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"limit\": 5,\n  \"sitemap\": \"skip\",\n  \"maxDiscoveryDepth\": 1\n}",
+    "lastUsed": false,
+    "id": "skip-sitemap"
+  },
+  {
+    "name": "with scrape options",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"limit\": 3,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\", \"links\"],\n    \"onlyMainContent\": true\n  }\n}",
+    "lastUsed": false,
+    "id": "with-scrape-options"
+  }
+]

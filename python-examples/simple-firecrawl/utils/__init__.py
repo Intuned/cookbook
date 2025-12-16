@@ -12,8 +12,9 @@ from .content import (
     build_css_selector,
     MAIN_CONTENT_EXCLUDED_TAGS,
 )
-from .metadata import extract_metadata
+from .response import extract_metadata, build_response_item
 from .url import normalize_url, is_subdomain_of
+from .sitemap import fetch_sitemap_urls
 
 __all__ = [
     # Types
@@ -31,9 +32,12 @@ __all__ = [
     "remove_base64_images",
     "build_css_selector",
     "MAIN_CONTENT_EXCLUDED_TAGS",
-    # Metadata
+    # Response
     "extract_metadata",
+    "build_response_item",
     # URL
     "normalize_url",
     "is_subdomain_of",
+    # Sitemap
+    "fetch_sitemap_urls",
 ]
