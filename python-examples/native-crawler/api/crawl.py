@@ -5,12 +5,13 @@ from intuned_browser import go_to_url
 from runtime_helpers import extend_payload
 from intuned_runtime import persistent_store
 from runtime.context import IntunedContext
-
+from intuned_sdk import save_file_to_s3
 from utils import (
     extract_links,
     extract_page_content,
     normalize_url,
     get_base_domain,
+    is_file_url,
     sanitize_key,
 )
 
@@ -20,6 +21,7 @@ class Params(TypedDict, total=False):
     max_depth: int
     max_pages: int
     include_external: bool
+    include_attachments: bool
     schema: dict
     depth: int  # Current depth (internal, set by extend_payload)
 
@@ -56,6 +58,7 @@ async def automation(
     max_depth = params.get("max_depth", 2)
     max_pages = params.get("max_pages", 50)
     include_external = params.get("include_external", False)
+    include_attachments = params.get("include_attachments", False)
     schema = params.get("schema")
     depth = params.get("depth", 0)
 
@@ -108,6 +111,7 @@ async def automation(
     # Find all internal links
     links = await extract_links(page, base_domain, include_external=include_external)
     print(f"[crawl] Found {len(links)} links on {url}")
+    attachments = []
 
     # Queue new links for crawling (if under depth limit)
     links_queued = 0
@@ -115,23 +119,38 @@ async def automation(
 
     if next_depth <= max_depth:
         for link in links:
-            # Only queue if not already visited
-            link_key = sanitize_key(f"{key_prefix}visited_{link}")
-            if not await persistent_store.get(link_key):
-                extend_payload(
-                    {
-                        "api": "crawl",
-                        "parameters": {
+            if not is_file_url(link):
+                # Only queue if not already visited
+                link_key = sanitize_key(f"{key_prefix}visited_{link}")
+                if not await persistent_store.get(link_key):
+                    extend_payload(
+                        {
+                            "api": "crawl",
+                            "parameters": {
+                                "url": link,
+                                "depth": next_depth,
+                                "include_external": include_external,
+                                "schema": schema,
+                            },
+                        }
+                    )
+                    links_queued += 1
+            elif include_attachments:
+                try:
+                    uploaded = await save_file_to_s3(
+                        page=page,
+                        trigger=link,
+                    )
+                    attachments.append(
+                        {
                             "url": link,
-                            "depth": next_depth,
-                            "include_external": include_external,
-                            "schema": schema,
-                        },
-                    }
-                )
-                links_queued += 1
+                            "s3_key": uploaded.get_s3_key(),
+                            "signed_url": await uploaded.get_signed_url(),
+                        }
+                    )
+                except Exception as e:
+                    print(f"[crawl] Failed to download {link}: {e}")
 
-    # Return page data + crawl stats
     return {
         "success": True,
         "url": url,
@@ -139,4 +158,5 @@ async def automation(
         "content": content,
         "links_found": len(links),
         "links_queued": links_queued,
+        "attachments": attachments,
     }

@@ -1,5 +1,5 @@
 import { BrowserContext, Page } from "playwright";
-import { goToUrl } from "@intuned/browser";
+import { goToUrl, saveFileToS3 } from "@intuned/browser";
 import { extendPayload, getExecutionContext } from "@intuned/runtime";
 import persistentStore from "@intuned/runtime/persistent-store";
 
@@ -9,6 +9,7 @@ import {
   normalizeUrl,
   getBaseDomain,
   sanitizeKey,
+  isFileUrl,
 } from "../utils";
 
 interface Params {
@@ -16,6 +17,7 @@ interface Params {
   max_depth?: number;
   max_pages?: number;
   include_external?: boolean;
+  include_attachments?: boolean;
   schema?: any;
   depth?: number; // Current depth (internal, set by extend_payload)
 }
@@ -53,6 +55,7 @@ export default async function handler(
   const maxDepth = params.max_depth ?? 2;
   const maxPages = params.max_pages ?? 50;
   const includeExternal = params.include_external ?? false;
+  const includeAttachments = params.include_attachments ?? false;
   const schema = params.schema;
   const depth = params.depth ?? 0;
 
@@ -111,22 +114,39 @@ export default async function handler(
   // Queue new links for crawling (if under depth limit)
   let linksQueued = 0;
   const nextDepth = depth + 1;
+  const attachments: any[] = [];
 
   if (nextDepth <= maxDepth) {
     for (const link of links) {
-      // Only queue if not already visited
-      const linkKey = sanitizeKey(`${keyPrefix}visited_${link}`);
-      if (!(await persistentStore.get(linkKey))) {
-        extendPayload({
-          api: "crawl",
-          parameters: {
+      if (!isFileUrl(link)) {
+        // Only queue if not already visited
+        const linkKey = sanitizeKey(`${keyPrefix}visited_${link}`);
+        if (!(await persistentStore.get(linkKey))) {
+          extendPayload({
+            api: "crawl",
+            parameters: {
+              url: link,
+              depth: nextDepth,
+              include_external: includeExternal,
+              schema,
+            },
+          });
+          linksQueued++;
+        }
+      } else if (includeAttachments) {
+        try {
+          const uploaded = await saveFileToS3({
+            page,
+            trigger: link,
+          });
+          attachments.push({
             url: link,
-            depth: nextDepth,
-            include_external: includeExternal,
-            schema,
-          },
-        });
-        linksQueued++;
+            s3_key: uploaded.getS3Key(),
+            signed_url: await uploaded.getSignedUrl(),
+          });
+        } catch (e) {
+          console.log(`[crawl] Failed to download ${link}: ${e}`);
+        }
       }
     }
   }
@@ -139,5 +159,6 @@ export default async function handler(
     content,
     links_found: links.length,
     links_queued: linksQueued,
+    attachments,
   };
 }

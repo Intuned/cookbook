@@ -64,3 +64,21 @@ async def extract_links(
             links.append(normalized)
 
     return list(set(links))
+
+
+FILE_EXTENSIONS = {
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+    ".csv",
+    ".zip",
+    ".png",
+    ".jpg",
+}
+
+
+def is_file_url(url: str) -> bool:
+    path = urlparse(url).path.lower()
+    return any(path.endswith(ext) for ext in FILE_EXTENSIONS)

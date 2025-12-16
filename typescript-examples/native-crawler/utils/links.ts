@@ -19,6 +19,28 @@ export function normalizeUrl(url: string): string {
   return `${parsed.protocol}//${parsed.hostname.toLowerCase()}${path}`;
 }
 
+const FILE_EXTENSIONS = new Set([
+  ".pdf",
+  ".doc",
+  ".docx",
+  ".xls",
+  ".xlsx",
+  ".csv",
+  ".zip",
+  ".png",
+  ".jpg",
+]);
+
+export function isFileUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const path = parsed.pathname.toLowerCase();
+    return Array.from(FILE_EXTENSIONS).some((ext) => path.endsWith(ext));
+  } catch {
+    return false;
+  }
+}
+
 export async function extractLinks(
   page: Page,
   baseDomain: string,
