@@ -1,25 +1,8 @@
 from playwright.async_api import Page, BrowserContext
-from typing import List, Union, TypedDict
+from typing import List
 from intuned_browser import go_to_url
 
 from utils.types_and_schemas import GetConsultationsByEmailSchema, Consultation
-
-
-class SuccessResponse(TypedDict):
-    success: bool
-    total: int
-    consultations: List[dict]
-
-
-class ErrorResponse(TypedDict):
-    success: bool
-    total: int
-    consultations: List
-    message: str
-    error: str
-
-
-HandlerResponse = Union[SuccessResponse, ErrorResponse]
 
 
 async def search_by_email(page: Page, email: str):
@@ -105,56 +88,35 @@ async def automation(
     params: dict | None = None,
     context: BrowserContext | None = None,
     **_kwargs,
-) -> HandlerResponse:
-    try:
-        if params is None:
-            raise ValueError("Params are required for this automation")
+) -> List[Consultation]:
+    if params is None:
+        raise ValueError("Params are required for this automation")
 
-        # Validate params using pydantic model
-        validated_params = GetConsultationsByEmailSchema(**params)
+    # Validate params using pydantic model
+    validated_params = GetConsultationsByEmailSchema(**params)
 
-        # Step 1: Navigate to the consultations list page
-        # waitUntil: "networkidle" ensures all consultations are loaded
-        await go_to_url(
-            page=page,
-            url="https://sandbox.intuned.dev/consultations/list",
-            wait_for_load_state="networkidle",
-        )
+    # Step 1: Navigate to the consultations list page
+    await go_to_url(
+        page=page,
+        url="https://sandbox.intuned.dev/consultations/list",
+    )
 
-        # Step 2: Wait for the consultations list container to be visible
-        # This ensures the page has loaded before we try to extract data
-        consultations_list = page.locator("#consultations-list")
-        await consultations_list.wait_for(state="visible")
+    # Step 2: Wait for the consultations list container to be visible
+    # This ensures the page has loaded before we try to extract data
+    consultations_list = page.locator("#consultations-list")
+    await consultations_list.wait_for(state="visible")
 
-        # Step 3: Search by email
-        await search_by_email(page, validated_params.email)
+    # Step 3: Search by email
+    await search_by_email(page, validated_params.email)
 
-        # Step 4: Find all consultation items on the page
-        # Each consultation item has the class "consultation-item"
-        consultation_items = await find_consultation_items(page)
+    # Step 4: Find all consultation items on the page
+    # Each consultation item has the class "consultation-item"
+    consultation_items = await find_consultation_items(page)
 
-        # Step 5: Extract data from each consultation item
-        consultations = await extract_consultations_data(consultation_items)
+    # Step 5: Extract data from each consultation item
+    consultations = await extract_consultations_data(consultation_items)
 
-        # Step 6: Return all extracted consultations
-        print(f"Successfully extracted {len(consultations)} consultations")
+    # Step 6: Return all extracted consultations
+    print(f"Successfully extracted {len(consultations)} consultations")
 
-        return {
-            "success": True,
-            "total": len(consultations),
-            "consultations": [c.model_dump() for c in consultations],
-        }
-    except Exception as error:
-        # Handle any errors that occur during the listing process
-        error_message = str(error)
-
-        print(f"Failed to list consultations: {error_message}")
-
-        # Return error response instead of throwing
-        return {
-            "success": False,
-            "total": 0,
-            "consultations": [],
-            "message": f"Failed to list consultations: {error_message}",
-            "error": error_message,
-        }
+    return consultations

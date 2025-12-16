@@ -9,22 +9,6 @@ import {
 
 type Params = z.infer<typeof getConsultationsByEmailSchema>;
 
-interface SuccessResponse {
-  success: true;
-  total: number;
-  consultations: Consultation[];
-}
-
-interface ErrorResponse {
-  success: false;
-  total: 0;
-  consultations: [];
-  message: string;
-  error: string;
-}
-
-type HandlerResponse = SuccessResponse | ErrorResponse;
-
 async function searchByEmail(page: Page, email: string) {
   const searchInput = page.locator(
     "input[placeholder='Search by name, email, or phone']"
@@ -123,64 +107,33 @@ export default async function handler(
   params: Params,
   page: Page,
   context: BrowserContext
-): Promise<HandlerResponse> {
-  try {
-    // Validate params using Zod schema
-    const validatedParams = getConsultationsByEmailSchema.safeParse(params);
-    if (!validatedParams.success) {
-      return {
-        success: false,
-        total: 0,
-        consultations: [],
-        message: validatedParams.error.message,
-        error: validatedParams.error.message,
-      };
-    }
+): Promise<Consultation[]> {
+  // Validate params using Zod schema
+  const validatedParams = getConsultationsByEmailSchema.parse(params);
 
-    // Step 1: Navigate to the consultations list page
-    // waitUntil: "networkidle" ensures all consultations are loaded
-    await goToUrl({
-      page: page,
-      url: "https://sandbox.intuned.dev/consultations-auth/list",
-      waitForLoadState: "networkidle",
-    });
+  // Step 1: Navigate to the consultations list page
+  await goToUrl({
+    page: page,
+    url: "https://sandbox.intuned.dev/consultations-auth/list",
+  });
 
-    // Step 2: Wait for the consultations list container to be visible
-    // This ensures the page has loaded before we try to extract data
-    const consultationsList = page.locator("#consultations-list");
-    await consultationsList.waitFor({ state: "visible" });
+  // Step 2: Wait for the consultations list container to be visible
+  // This ensures the page has loaded before we try to extract data
+  const consultationsList = page.locator("#consultations-list");
+  await consultationsList.waitFor({ state: "visible" });
 
-    // Step 3: Search by email
-    await searchByEmail(page, validatedParams.data.email);
+  // Step 3: Search by email
+  await searchByEmail(page, validatedParams.email);
 
-    // Step 4: Find all consultation items on the page
-    // Each consultation item has the class "consultation-item"
-    const consultationItems = await findConsultationItems(page);
+  // Step 4: Find all consultation items on the page
+  // Each consultation item has the class "consultation-item"
+  const consultationItems = await findConsultationItems(page);
 
-    // Step 5: Extract data from each consultation item
-    const consultations = await extractConsultationsData(consultationItems);
+  // Step 5: Extract data from each consultation item
+  const consultations = await extractConsultationsData(consultationItems);
 
-    // Step 6: Return all extracted consultations
-    console.log(`Successfully extracted ${consultations.length} consultations`);
+  // Step 6: Return all extracted consultations
+  console.log(`Successfully extracted ${consultations.length} consultations`);
 
-    return {
-      success: true,
-      total: consultations.length,
-      consultations: consultations,
-    };
-  } catch (error) {
-    // Handle any errors that occur during the listing process
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    console.error(`Failed to list consultations: ${errorMessage}`);
-
-    // Return error response instead of throwing
-    return {
-      success: false,
-      total: 0,
-      consultations: [],
-      message: `Failed to list consultations: ${errorMessage}`,
-      error: errorMessage,
-    };
-  }
+  return consultations;
 }
