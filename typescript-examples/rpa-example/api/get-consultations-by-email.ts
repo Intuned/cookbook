@@ -1,5 +1,5 @@
-import { BrowserContext, Page } from "playwright";
 import { z } from "zod";
+import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 
 import {
@@ -125,9 +125,16 @@ export default async function handler(
   context: BrowserContext
 ): Promise<HandlerResponse> {
   try {
-    // Validation: Check if email is provided
-    if (!params.email || params.email.trim() === "") {
-      throw new Error("Email parameter is required");
+    // Validate params using Zod schema
+    const validatedParams = getConsultationsByEmailSchema.safeParse(params);
+    if (!validatedParams.success) {
+      return {
+        success: false,
+        total: 0,
+        consultations: [],
+        message: validatedParams.error.message,
+        error: validatedParams.error.message,
+      };
     }
 
     // Step 1: Navigate to the consultations list page
@@ -144,7 +151,7 @@ export default async function handler(
     await consultationsList.waitFor({ state: "visible" });
 
     // Step 3: Search by email
-    await searchByEmail(page, params.email);
+    await searchByEmail(page, validatedParams.data.email);
 
     // Step 4: Find all consultation items on the page
     // Each consultation item has the class "consultation-item"

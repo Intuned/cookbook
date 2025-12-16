@@ -11,18 +11,5 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
-  },
-  "metadata": {
-    "defaultRunPlaygroundInput": {
-      "api": "book-consultations",
-      "parameters": {
-        "name": "Foo Bar",
-        "email": "foo@bar.com",
-        "phone": "1234567890",
-        "date": "2026-11-19",
-        "time": "10:00 AM",
-        "topic": "other"
-      }
-    }
   }
 }
