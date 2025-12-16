@@ -9,6 +9,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
+| [stagehand-template](./typescript-examples/stagehand-template/) | AI browser automation with Stagehand |
 
 ## Python Examples
 
@@ -19,3 +20,5 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
+| [stagehand-template](./python-examples/stagehand-template/) | AI browser automation with Stagehand |
+| [browser-use](./python-examples/browser-use/) | AI browser automation with Browser-Use |
