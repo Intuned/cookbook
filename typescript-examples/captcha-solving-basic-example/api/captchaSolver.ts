@@ -1,8 +1,9 @@
 import { BrowserContext, Page } from "playwright";
-
+import { waitForCaptchaSolve } from "@intuned/runtime";
+import { goToWithCaptchaSolve } from "../helpers/captcha";
 interface Params {}
 
-export async function cloudflare_challenge(
+export async function cloudflareChallenge(
   page: Page,
   params?: Params
 ): Promise<{}> {
@@ -16,12 +17,14 @@ export async function cloudflare_challenge(
    */
   await page.goto("https://2captcha.com/demo/cloudflare-turnstile-challenge");
 
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
-
+  await waitForCaptchaSolve(page, {
+    timeoutInMs: 30_000,
+    settlePeriodInMs: 10_000,
+  });
   return {};
 }
 
-export async function cloudflare_turnstile(
+export async function cloudflareTurnstile(
   page: Page,
   params?: Params
 ): Promise<{}> {
@@ -33,12 +36,14 @@ export async function cloudflare_turnstile(
    *   captchaSolver.cloudflare.enabled: true
    *   captchaSolver.settings: { autoSolve, maxRetries }
    */
-  await page.goto("https://2captcha.com/demo/cloudflare-turnstile");
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
+  await goToWithCaptchaSolve(
+    page,
+    "https://2captcha.com/demo/cloudflare-turnstile"
+  );
   return {};
 }
 
-export async function custom_captcha(page: Page, params?: Params): Promise<{}> {
+export async function customCaptcha(page: Page, params?: Params): Promise<{}> {
   /**
    * Solve custom captcha
    *
@@ -48,8 +53,10 @@ export async function custom_captcha(page: Page, params?: Params): Promise<{}> {
    *   captchaSolver.settings: { autoSolve, maxRetries }
    */
 
-  await page.goto("https://captcha.com/demos/features/captcha-demo.aspx");
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
+  await goToWithCaptchaSolve(
+    page,
+    "https://captcha.com/demos/features/captcha-demo.aspx"
+  );
   return {};
 }
 
@@ -63,9 +70,10 @@ export async function geetest(page: Page, params?: Params): Promise<{}> {
    *   captchaSolver.settings: { autoSolve, maxRetries }
    */
 
-  await page.goto("https://test.cap.guru/demo/geetest#geetest2");
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
-
+  await goToWithCaptchaSolve(
+    page,
+    "https://test.cap.guru/demo/geetest#geetest2"
+  );
   return {};
 }
 
@@ -79,8 +87,10 @@ export async function recaptcha(page: Page, params?: Params): Promise<{}> {
    *   captchaSolver.settings: { autoSolve, maxRetries }
    */
 
-  await page.goto("https://2captcha.com/demo/recaptcha-v2-enterprise");
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
+  await goToWithCaptchaSolve(
+    page,
+    "https://2captcha.com/demo/recaptcha-v2-enterprise"
+  );
   return {};
 }
 
@@ -103,7 +113,7 @@ export default async function handler(
    *     captchaSolver.googleRecaptchaV2.enabled: true
    *     captchaSolver.cloudflare.enabled: true
    */
-  await custom_captcha(page, params);
+  await customCaptcha(page, params);
   await page.waitForTimeout(5000);
 
   await geetest(page, params);
@@ -112,10 +122,10 @@ export default async function handler(
   await recaptcha(page, params);
   await page.waitForTimeout(5000);
 
-  await cloudflare_challenge(page, params);
+  await cloudflareChallenge(page, params);
   await page.waitForTimeout(5000);
 
-  await cloudflare_turnstile(page, params);
+  await cloudflareTurnstile(page, params);
 
   return {};
 }
