@@ -1,5 +1,6 @@
 import { Page, BrowserContext } from "playwright";
 import { goToUrl } from "@intuned/browser";
+import { waitForCaptchaSolve } from "@intuned/runtime";
 
 export interface CreateAuthSessionParams {
   email: string;
@@ -19,7 +20,10 @@ export default async function* create(
   await page.locator("#email").fill(params.email);
   await page.locator("#password").fill(params.password);
 
-  await page.waitForTimeout(3000); // Wait until the captcha is solved
+  await waitForCaptchaSolve(page, {
+    timeoutInMs: 30_000,
+    settlePeriodInMs: 10_000,
+  });
 
   await page.locator("#submit-button").click();
   await page.getByText("Logout").isVisible();
