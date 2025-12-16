@@ -20,7 +20,7 @@ async def create(page: Page, params: Optional[dict] = None, **_kwargs) -> bool:
     # Wait for the page to fully load before proceeding
     await go_to_url(
         page=page,
-        url="https://sandbox.intuned.dev/login-otp-email",
+        url="https://sandbox.intuned.dev/login-email-otp",
     )
 
     # Step 2: Find the email input field and enter the username

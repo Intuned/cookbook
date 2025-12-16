@@ -22,7 +22,7 @@ export default async function* create(
   // Step 1: Navigate to the login page
   await goToUrl({
     page,
-    url: "https://sandbox.intuned.dev/login-otp-email",
+    url: "https://sandbox.intuned.dev/login-email-otp",
   });
 
   // Step 2: Find the email input field and enter the username
