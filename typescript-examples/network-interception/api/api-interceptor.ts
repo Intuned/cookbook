@@ -41,11 +41,11 @@ function createResponseHandler(
  * Clicks the "Next" button to load more pages and captures API responses.
  *
  * Example params:
- * {
- *   "url": "https://example.com/products",
- *   "api_pattern": "/api/v1/products",
- *   "max_pages": 5
- * }
+{
+    "url": "https://sandbox.intuned.dev/consultations/list",
+    "api_pattern": "/rest/v1/consultations",
+    "max_pages": 3
+}
  *
  * This function:
  * 1. Sets up a response listener for the specified pattern
