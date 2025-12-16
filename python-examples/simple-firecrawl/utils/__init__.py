@@ -13,6 +13,7 @@ from .content import (
     MAIN_CONTENT_EXCLUDED_TAGS,
 )
 from .metadata import extract_metadata
+from .url import normalize_url, is_subdomain_of
 
 __all__ = [
     # Types
@@ -32,4 +33,7 @@ __all__ = [
     "MAIN_CONTENT_EXCLUDED_TAGS",
     # Metadata
     "extract_metadata",
+    # URL
+    "normalize_url",
+    "is_subdomain_of",
 ]

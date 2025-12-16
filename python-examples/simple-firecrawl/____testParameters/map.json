@@ -1,1 +1,26 @@
-[{"name":"firecrawl.dev","value":"{\n  \"url\": \"https://firecrawl.dev\",\n  \"limit\": 50\n}","lastUsed":true,"id":"5ba44b82-a8c8-4b25-8534-e1279b81edd1"}]
+[
+  {
+    "name": "basic map",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 20\n}",
+    "lastUsed": false,
+    "id": "basic-map"
+  },
+  {
+    "name": "sitemap only",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"sitemap\": \"only\",\n  \"limit\": 50\n}",
+    "lastUsed": false,
+    "id": "sitemap-only"
+  },
+  {
+    "name": "with search filter",
+    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"search\": \"show\",\n  \"sitemap\": \"skip\",\n  \"limit\": 20\n}",
+    "lastUsed": false,
+    "id": "with-search"
+  },
+  {
+    "name": "no query params",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"ignoreQueryParameters\": true,\n  \"sitemap\": \"skip\",\n  \"limit\": 30\n}",
+    "lastUsed": false,
+    "id": "no-query-params"
+  }
+]
