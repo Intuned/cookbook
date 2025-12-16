@@ -1,26 +1,184 @@
 [
   {
-    "name": "basic crawl",
-    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5\n}",
+    "name": "1. Basic crawl (default)",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"limit\": 3,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
     "lastUsed": false,
-    "id": "basic-crawl"
+    "id": "basic-crawl",
+    "expectation": "Should crawl example.com (no subpages). Returns 1 page with metadata. Tests: basic functionality, default parameters work."
   },
   {
-    "name": "with path filtering",
-    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 10,\n  \"includePaths\": [\"core/.*\"],\n  \"excludePaths\": [\"api/.*\"]\n}",
+    "name": "2. Restrict to child paths (crawlEntireDomain: false)",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com/core/adaptive-crawling\",\n  \"limit\": 5,\n  \"crawlEntireDomain\": false,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
     "lastUsed": false,
-    "id": "path-filtering"
+    "id": "child-paths-only",
+    "expectation": "Should ONLY crawl URLs starting with /core/adaptive-crawling (e.g., /core/adaptive-crawling/sub). Should NOT crawl /advanced/, /api/, or / root. Tests: path restriction logic works."
   },
   {
-    "name": "skip sitemap",
-    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"limit\": 5,\n  \"sitemap\": \"skip\",\n  \"maxDiscoveryDepth\": 1\n}",
+    "name": "3. Crawl entire domain (crawlEntireDomain: true)",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com/core/adaptive-crawling\",\n  \"limit\": 5,\n  \"crawlEntireDomain\": true,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
     "lastUsed": false,
-    "id": "skip-sitemap"
+    "id": "crawl-entire-domain",
+    "expectation": "Should crawl ANY path on docs.crawl4ai.com (e.g., /core/, /advanced/, /api/). Tests: entire domain crawling works, not restricted to starting path."
   },
   {
-    "name": "with scrape options",
-    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"limit\": 3,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\", \"links\"],\n    \"onlyMainContent\": true\n  }\n}",
+    "name": "4. Include paths filter",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5,\n  \"includePaths\": [\"core/.*\"],\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
     "lastUsed": false,
-    "id": "with-scrape-options"
+    "id": "include-paths",
+    "expectation": "Should ONLY crawl URLs matching /core/* pattern. Should NOT crawl /advanced/, /api/, etc. Tests: includePaths regex filter works."
+  },
+  {
+    "name": "5. Exclude paths filter",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5,\n  \"excludePaths\": [\"api/.*\", \"advanced/.*\"],\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "exclude-paths",
+    "expectation": "Should crawl all paths EXCEPT /api/* and /advanced/*. Should crawl /core/, etc. Tests: excludePaths regex filter works."
+  },
+  {
+    "name": "6. Include + Exclude paths combined",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 8,\n  \"includePaths\": [\"core/.*\"],\n  \"excludePaths\": [\"core/ask-ai\"],\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "include-exclude-paths",
+    "expectation": "Should crawl /core/* paths but NOT /core/ask-ai. Tests: both filters work together, exclude takes precedence."
+  },
+  {
+    "name": "7. Skip sitemap mode",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 3,\n  \"sitemap\": \"skip\",\n  \"maxDiscoveryDepth\": 1,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "skip-sitemap",
+    "expectation": "Should NOT fetch sitemap.xml. Only discovers links from page HTML. Tests: sitemap mode works."
+  },
+  {
+    "name": "8. Include sitemap mode (default)",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5,\n  \"sitemap\": \"include\",\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "include-sitemap",
+    "expectation": "Should fetch sitemap.xml URLs + page links. May have more URLs than skip mode. Tests: sitemap fetching works."
+  },
+  {
+    "name": "9. Allow subdomains",
+    "value": "{\n  \"url\": \"https://google.com\",\n  \"limit\": 5,\n  \"allowSubdomains\": true,\n  \"maxDiscoveryDepth\": 1,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "allow-subdomains",
+    "expectation": "Should crawl google.com AND www.google.com, maps.google.com, etc. Tests: subdomain crawling works."
+  },
+  {
+    "name": "10. Disallow subdomains (default)",
+    "value": "{\n  \"url\": \"https://www.google.com\",\n  \"limit\": 5,\n  \"allowSubdomains\": false,\n  \"maxDiscoveryDepth\": 1,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "disallow-subdomains",
+    "expectation": "Should ONLY crawl www.google.com. Should NOT crawl maps.google.com or other subdomains. Tests: exact domain matching works."
+  },
+  {
+    "name": "11. Ignore query parameters",
+    "value": "{\n  \"url\": \"https://github.com/mendableai/firecrawl\",\n  \"limit\": 5,\n  \"ignoreQueryParameters\": true,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "ignore-query-params",
+    "expectation": "URLs like /page?a=1 and /page?b=2 treated as same URL (/page). No duplicates. Tests: query param deduplication works."
+  },
+  {
+    "name": "12. Keep query parameters (default)",
+    "value": "{\n  \"url\": \"https://github.com/mendableai/firecrawl\",\n  \"limit\": 5,\n  \"ignoreQueryParameters\": false,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "keep-query-params",
+    "expectation": "URLs with different query params treated as different URLs. May have more pages than test 11. Tests: query params preserved."
+  },
+  {
+    "name": "13. Max discovery depth (shallow)",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 10,\n  \"maxDiscoveryDepth\": 1,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "shallow-depth",
+    "expectation": "Only crawls starting page + direct links (1 level deep). Tests: depth limit works."
+  },
+  {
+    "name": "14. Max discovery depth (deep)",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 10,\n  \"maxDiscoveryDepth\": 3,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "deep-depth",
+    "expectation": "Crawls 3 levels deep (start → links → links → links). May find more pages than test 13. Tests: deeper crawling works."
+  },
+  {
+    "name": "15. Multiple formats",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"limit\": 2,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\", \"html\", \"links\", \"images\"]\n  }\n}",
+    "lastUsed": false,
+    "id": "multiple-formats",
+    "expectation": "Returns markdown, html, links[], images[] for each page. Tests: multiple output formats work."
+  },
+  {
+    "name": "16. Screenshot format",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"screenshot\"]\n  }\n}",
+    "lastUsed": false,
+    "id": "screenshot-format",
+    "expectation": "Returns screenshot URL (uploaded to S3). No markdown/html. Tests: screenshot capture + S3 upload works."
+  },
+  {
+    "name": "17. Only main content",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"limit\": 2,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"onlyMainContent\": true\n  }\n}",
+    "lastUsed": false,
+    "id": "main-content-only",
+    "expectation": "Markdown excludes nav, header, footer, aside. Cleaner content. Tests: content filtering works."
+  },
+  {
+    "name": "18. Custom exclude tags",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"limit\": 2,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"excludeTags\": [\"table\", \"div.infobox\"]\n  }\n}",
+    "lastUsed": false,
+    "id": "custom-exclude-tags",
+    "expectation": "Markdown excludes <table> and divs with class 'infobox'. Tests: custom tag exclusion works."
+  },
+  {
+    "name": "19. Mobile mode",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"screenshot\"],\n    \"mobile\": true\n  }\n}",
+    "lastUsed": false,
+    "id": "mobile-mode",
+    "expectation": "Screenshot uses mobile viewport (390x844) and mobile user agent. Tests: mobile emulation works."
+  },
+  {
+    "name": "20. Custom headers",
+    "value": "{\n  \"url\": \"https://httpbin.org/headers\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"headers\": {\"X-Custom-Header\": \"test-value\"}\n  }\n}",
+    "lastUsed": false,
+    "id": "custom-headers",
+    "expectation": "Page content shows X-Custom-Header in request headers. Tests: custom headers work."
+  },
+  {
+    "name": "21. Wait before scrape",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"waitFor\": 2000\n  }\n}",
+    "lastUsed": false,
+    "id": "wait-before-scrape",
+    "expectation": "Waits 2 seconds before capturing content. Useful for JS-rendered pages. Tests: delay works."
+  },
+  {
+    "name": "22. Custom timeout",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"timeout\": 60000\n  }\n}",
+    "lastUsed": false,
+    "id": "custom-timeout",
+    "expectation": "Page has 60 seconds to load (instead of default 30s). Tests: custom timeout works."
+  },
+  {
+    "name": "23. Location settings (German)",
+    "value": "{\n  \"url\": \"https://www.google.com\",\n  \"limit\": 1,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\"],\n    \"location\": {\n      \"country\": \"DE\",\n      \"languages\": [\"de-DE\"]\n    }\n  }\n}",
+    "lastUsed": false,
+    "id": "location-german",
+    "expectation": "Page loads with German locale/timezone. May see German content. Tests: location settings work."
+  },
+  {
+    "name": "24. Max concurrency",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 10,\n  \"maxConcurrency\": 3,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "max-concurrency",
+    "expectation": "Crawls max 3 pages simultaneously. May be slower than higher concurrency. Tests: concurrency limit works."
+  },
+  {
+    "name": "25. Delay between requests",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com\",\n  \"limit\": 5,\n  \"delay\": 1000,\n  \"scrapeOptions\": {\"formats\": [\"images\"]}\n}",
+    "lastUsed": false,
+    "id": "delay-requests",
+    "expectation": "Waits 1 second between each page crawl. Takes longer. Tests: delay/rate limiting works."
+  },
+  {
+    "name": "26. Complex: Entire domain + filters + options",
+    "value": "{\n  \"url\": \"https://docs.crawl4ai.com/core/simple-crawling\",\n  \"limit\": 8,\n  \"crawlEntireDomain\": true,\n  \"includePaths\": [\"core/.*\"],\n  \"maxDiscoveryDepth\": 2,\n  \"ignoreQueryParameters\": true,\n  \"scrapeOptions\": {\n    \"formats\": [\"markdown\", \"links\"],\n    \"onlyMainContent\": true\n  }\n}",
+    "lastUsed": false,
+    "id": "complex-scenario",
+    "expectation": "Crawls entire domain BUT only /core/* paths, 2 levels deep, clean content. Tests: multiple features work together correctly."
   }
 ]

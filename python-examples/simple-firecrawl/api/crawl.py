@@ -5,6 +5,7 @@ Firecrawl-compatible /crawl endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/crawl-post
 """
 
+import re
 from urllib.parse import urlparse
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict, Literal, Any
@@ -18,18 +19,20 @@ from crawl4ai.deep_crawling.filters import (
 
 from utils import (
     LocationParams,
+    FormatType,
     get_locale_settings,
     create_browser_config,
     normalize_url,
-    is_subdomain_of,
     fetch_sitemap_urls,
     get_excluded_tags,
     build_response_item,
+    is_same_domain,
+    is_child_path,
 )
 
 
 class ScrapeOptions(TypedDict, total=False):
-    formats: list[str]
+    formats: list[FormatType]
     onlyMainContent: bool
     includeTags: list[str]
     excludeTags: list[str]
@@ -54,6 +57,7 @@ class Params(TypedDict, total=False):
     allowSubdomains: bool
     delay: int  # milliseconds
     scrapeOptions: ScrapeOptions
+    maxConcurrency: int
 
 
 async def automation(
@@ -76,6 +80,7 @@ async def automation(
     allow_external = params.get("allowExternalLinks", False)
     allow_subdomains = params.get("allowSubdomains", False)
     delay_ms = params.get("delay", 0)
+    max_concurrency = params.get("maxConcurrency", 5)
     scrape_options = params.get("scrapeOptions", {})
 
     # Build scrape config from options
@@ -95,17 +100,24 @@ async def automation(
 
     # Build URL filters
     filters = [ContentTypeFilter(allowed_types=["text/html"])]
+
+    # Path filtering
     if exclude_paths:
-        filters.append(URLPatternFilter(patterns=exclude_paths, match_type="exclude"))
+        exclude_patterns = [re.compile(p) for p in exclude_paths]
+        filters.append(URLPatternFilter(patterns=exclude_patterns, reverse=True))
     if include_paths:
-        filters.append(URLPatternFilter(patterns=include_paths, match_type="include"))
+        include_patterns = [re.compile(p) for p in include_paths]
+        filters.append(URLPatternFilter(patterns=include_patterns, reverse=False))
 
     if not crawl_entire_domain:
         # Restrict to child paths only (URLs must start with the base path)
-        base_path = urlparse(url).path.rstrip("/") or ""
+        base_path = urlparse(url).path.rstrip("/")
         if base_path:
+            base_pattern = re.escape(base_path)
             filters.append(
-                URLPatternFilter(patterns=[f".*{base_path}.*"], match_type="include")
+                URLPatternFilter(
+                    patterns=[re.compile(f"^{base_pattern}(/.*)?$")], reverse=False
+                )
             )
 
     strategy = BFSDeepCrawlStrategy(
@@ -131,6 +143,7 @@ async def automation(
         locale=locale,
         timezone_id=timezone_id,
         verbose=True,
+        semaphore_count=max_concurrency,
     )
 
     seen_urls: set[str] = set()
@@ -140,7 +153,15 @@ async def automation(
         seed_urls = [url]
         if sitemap_mode == "include":
             sitemap_urls = await fetch_sitemap_urls(page, url)
-            seed_urls.extend(sitemap_urls[:limit])
+            filtered_sitemap = [
+                sitemap_url
+                for sitemap_url in sitemap_urls
+                if (
+                    allow_external or is_same_domain(sitemap_url, url, allow_subdomains)
+                )
+                and (crawl_entire_domain or is_child_path(sitemap_url, url))
+            ]
+            seed_urls.extend(filtered_sitemap[:limit])
 
         for seed in seed_urls:
             if len(data) >= limit:
@@ -149,10 +170,6 @@ async def automation(
             normalized = normalize_url(seed, ignore_query)
             if normalized in seen_urls:
                 continue
-
-            if not allow_external and not allow_subdomains:
-                if not is_subdomain_of(seed, url):
-                    continue
 
             async for result in await crawler.arun(url=seed, config=run_config):
                 if len(data) >= limit:

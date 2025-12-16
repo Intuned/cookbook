@@ -13,7 +13,12 @@ from .content import (
     MAIN_CONTENT_EXCLUDED_TAGS,
 )
 from .response import extract_metadata, build_response_item
-from .url import normalize_url, is_subdomain_of
+from .url import (
+    normalize_url,
+    is_subdomain_of,
+    is_same_domain,
+    is_child_path,
+)
 from .sitemap import fetch_sitemap_urls
 
 __all__ = [
@@ -38,6 +43,8 @@ __all__ = [
     # URL
     "normalize_url",
     "is_subdomain_of",
+    "is_same_domain",
+    "is_child_path",
     # Sitemap
     "fetch_sitemap_urls",
 ]
