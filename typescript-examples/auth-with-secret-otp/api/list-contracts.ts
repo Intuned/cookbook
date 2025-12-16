@@ -5,19 +5,6 @@ import { Contract } from "../utils/typesAndSchemas";
 
 interface Params {}
 
-interface SuccessResponse {
-  success: true;
-  contracts: Contract[];
-}
-
-interface ErrorResponse {
-  success: false;
-  message: string;
-  error: string;
-}
-
-type HandlerResponse = SuccessResponse | ErrorResponse;
-
 async function extractContractsFromTable(page: Page): Promise<Contract[]> {
   // Wait for the table to be visible on the page
   // The table is wrapped in a div with rounded-md border classes
@@ -92,31 +79,15 @@ export default async function handler(
   params: Params,
   page: Page,
   context: BrowserContext
-): Promise<HandlerResponse> {
-  try {
-    // Navigate to the contracts list authentication page
-    await goToUrl({
-      page: page,
-      url: "https://sandbox.intuned.dev/list-auth",
-    });
+): Promise<Contract[]> {
+  // Navigate to the contracts list authentication page
+  await goToUrl({
+    page: page,
+    url: "https://sandbox.intuned.dev/list-auth",
+  });
 
-    const contracts = await extractContractsFromTable(page);
+  const contracts = await extractContractsFromTable(page);
 
-    // Return the scraped data
-    return {
-      success: true,
-      contracts: contracts,
-    };
-  } catch (error) {
-    // Handle any errors that occur during the scraping process
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    console.error(`Failed to extract contracts: ${errorMessage}`);
-    // Return error response instead of throwing
-    return {
-      success: false,
-      message: "Failed to extract contracts from the page",
-      error: errorMessage,
-    };
-  }
+  // Return the scraped data
+  return contracts;
 }
