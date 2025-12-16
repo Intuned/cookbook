@@ -171,14 +171,6 @@ def score_search_match(
     description: str | None,
     search: str,
 ) -> int:
-    """
-    Score how well a URL matches a search term.
-
-    Uses weighted scoring:
-    - URL matches: 3 points per occurrence
-    - Title matches: 2 points per occurrence
-    - Description matches: 1 point per occurrence
-    """
     search_lower = search.lower()
     score = 0
     score += url.lower().count(search_lower) * 3
