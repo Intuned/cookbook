@@ -12,6 +12,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerce-scrapingcourse](./typescript-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./typescript-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [computer-use-automation](./typescript-examples/computer-use-automation/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Stagehand |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 
 ## Python Examples
@@ -26,4 +27,5 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerce-scrapingcourse](./python-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./python-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [computer-use-automation](./python-examples/computer-use-automation/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
