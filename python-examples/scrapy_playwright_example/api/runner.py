@@ -29,7 +29,7 @@ async def run_scrapy_crawl(url: str) -> List[Quote]:
         cmd = [
             "scrapy",
             "crawl",
-            "quotes",
+            "quotes",  # replace with the name of the spider you want to run
             "-a",
             f"url={url}",
             "-O",
