@@ -1,24 +1,8 @@
-from typing import Optional, List, Union
+from typing import Optional, List
 from playwright.async_api import Page
-from pydantic import BaseModel
 from intuned_browser import go_to_url
 
-
 from utils.types_and_schemas import Contract
-
-
-class SuccessResponse(BaseModel):
-    success: bool = True
-    contracts: List[Contract]
-
-
-class ErrorResponse(BaseModel):
-    success: bool = False
-    message: str
-    error: str
-
-
-HandlerResponse = Union[SuccessResponse, ErrorResponse]
 
 
 async def extract_contracts_from_table(page: Page) -> List[Contract]:
@@ -89,28 +73,14 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
 
 async def handler(
     page: Page, params: Optional[dict] = None, **_kwargs
-) -> HandlerResponse:
-    try:
-        # Navigate to the contracts list authentication page
-        await go_to_url(
-            page=page,
-            url="https://sandbox.intuned.dev/list-auth",
-        )
+) -> List[Contract]:
+    # Navigate to the contracts list authentication page
+    await go_to_url(
+        page=page,
+        url="https://sandbox.intuned.dev/list-auth",
+    )
 
-        contracts = await extract_contracts_from_table(page)
+    contracts = await extract_contracts_from_table(page)
 
-        # Return the scraped data
-        return SuccessResponse(success=True, contracts=contracts)
-
-    except Exception as error:
-        # Handle any errors that occur during the scraping process
-        error_message = str(error)
-
-        print(f"Failed to extract contracts: {error_message}")
-
-        # Return error response instead of raising
-        return ErrorResponse(
-            success=False,
-            message="Failed to extract contracts from the page",
-            error=error_message,
-        )
+    # Return the scraped data
+    return contracts
