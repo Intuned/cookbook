@@ -5,9 +5,11 @@ Firecrawl-compatible /scrape endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/scrape
 """
 
+import base64
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict, Any
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+from intuned_browser import upload_file_to_s3
 
 from utils import (
     LocationParams,
@@ -110,7 +112,15 @@ async def automation(
         if "images" in formats:
             data["images"] = [img.get("src") for img in result.media.get("images", [])]
 
-        if "screenshot" in formats:
-            data["screenshot"] = result.screenshot
+        if "screenshot" in formats and result.screenshot:
+            # Upload screenshot to S3 instead of returning it inline
+            screenshot_bytes = base64.b64decode(result.screenshot)
+            uploaded = await upload_file_to_s3(
+                file=screenshot_bytes,
+                file_name_override="screenshot.png",
+                content_type="image/png",
+            )
+            signed_url = await uploaded.get_signed_url()
+            data["screenshot"] = signed_url
 
         return {"success": True, "data": data}
