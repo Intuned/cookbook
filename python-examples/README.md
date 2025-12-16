@@ -14,6 +14,7 @@ Intuned sample projects in Python.
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
+| [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use-automation](./computer-use-automation/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [bs4-example](./bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving & stealth mode usage examples |
