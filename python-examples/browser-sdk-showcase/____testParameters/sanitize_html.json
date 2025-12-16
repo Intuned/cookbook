@@ -1,9 +1,8 @@
-[{
-    "name": "remove_styles",
-    "value": true
-},
-{
-    "name": "max_attribute_length",
-    "value": 30
-}
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"remove_styles\": true,\n  \"max_attribute_length\": 30\n}",
+    "lastUsed": true,
+    "id": "d4e5f6a7-b8c9-0123-def1-234567890123"
+  }
 ]

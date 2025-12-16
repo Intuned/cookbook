@@ -1,5 +1,8 @@
-[{
-    "name": "maxScrolls",
-    "value": 5
-}]
-
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"maxScrolls\": 5\n}",
+    "lastUsed": true,
+    "id": "f2a3b4c5-d6e7-8901-6789-012345678901"
+  }
+]

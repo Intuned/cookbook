@@ -1,14 +1,8 @@
-[{
-    "name": "bucket",
-    "value": null
-}, {
-    "name": "region",
-    "value": null
-}, {
-    "name": "access_key",
-    "value": null
-}, {
-    "name": "secret_key",
-    "value": null
-}]
-
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"bucket\": null,\n  \"region\": null,\n  \"access_key\": null,\n  \"secret_key\": null\n}",
+    "lastUsed": true,
+    "id": "e5f6a7b8-c9d0-1234-ef12-345678901234"
+  }
+]

@@ -1,8 +1,8 @@
-[{
-    "name": "settleDuration",
-    "value": 500
-}, {
-    "name": "timeoutInMs",
-    "value": 30000
-}]
-
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"settleDuration\": 500,\n  \"timeoutInMs\": 30000\n}",
+    "lastUsed": true,
+    "id": "b4c5d6e7-f8a9-0123-8901-234567890123"
+  }
+]
