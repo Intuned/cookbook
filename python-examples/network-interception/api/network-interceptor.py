@@ -33,8 +33,6 @@ async def login(page: Page, username: str, password: str, login_url: str) -> Non
 
 
 async def intercept_request(request: Request) -> None:
-    global csrf_token
-
     # Replace "graphql" with the URL pattern that contains CSRF tokens on your site
     if "graphql" in request.url and attempt_store.get("csrf_token") is None:
         # Replace "x-csrftoken" with your site's CSRF header name
@@ -52,8 +50,6 @@ async def fetch_with_csrf(
     body: Optional[Dict[str, Any]] = None,
     headers: Optional[Dict[str, str]] = None,
 ) -> Any:
-    global csrf_token
-
     # Customize the headers below to match your API requirements
     fetch_script = """
         async (options) => {
