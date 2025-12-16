@@ -58,7 +58,7 @@ async def automation(
                 {
                     "url": page["url"],
                     "score": page["score"],
-                    "content": page["content"][:1000],
+                    "content": page["content"],
                 }
                 for page in relevant_pages
             ],
