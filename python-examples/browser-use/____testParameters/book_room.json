@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"check_in_date\": \"12 sep. 2025\",\n  \"check_out_date\": \"14 sep. 2025\",\n  \"budget\": 200,\n  \"first_name\": \"Test\",\n  \"last_name\": \"User\",\n  \"phone_number\": \"012345678900\",\n  \"email\": \"test@user.me\",\n  \"extra_details\": \"Wifi is preferable but not required\"\n}",
+    "lastUsed": true,
+    "id": "5db5d935-de48-4169-9de5-563930eec8d4"
+  }
+]
