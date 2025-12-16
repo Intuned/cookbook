@@ -17,7 +17,9 @@ export default async function handler(
   const waitUntil = params.waitUntil || "load";
   const timeout = params.timeout || 30000;
   const waitForLoadingStateUsingAi = params.waitForLoadingStateUsingAi || false; // You must provide an API Key in the environment variables for this to work. Or use Intuned's Gateway.
-  // Navigate with custom options
+  // Navigate with custom options and enhanced reliability and automatic retries.
+  // Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/goToUrl for more details.
+  // waitForLoadingStateUsingAi uses isPageLoaded to determine if the page has finished loading.
   await goToUrl({
     page,
     url,

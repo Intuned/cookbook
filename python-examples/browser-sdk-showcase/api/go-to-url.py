@@ -15,6 +15,10 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     wait_for_load_using_ai = params.get("wait_for_load_using_ai", False) #  You must provide an API Key in the environment variables for this to work. Or use Intuned's Gateway.
     timeout = params.get("timeout", 15)
     retries = params.get("retries", 3)
+    # Navigate to the URL with enhanced reliability and automatic retries.
+    # This will wait for the networkidle state more reliably than the default playwright behavior.
+    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/go_to_url for more details.
+    # wait_for_load_using_ai uses is_page_loaded to determine if the page has finished loading.
     await go_to_url(page, "https://books.toscrape.com", wait_for_load_using_ai=wait_for_load_using_ai, timeout_s=timeout, retries=retries)
     # Start your automation here, the page is already loaded and ready to use.
     return "Success"

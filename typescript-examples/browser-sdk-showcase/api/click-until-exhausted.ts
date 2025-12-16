@@ -16,7 +16,8 @@ export default async function handler(
     "xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']"
   );
 
-  // Click until exhausted
+  // Click on the button to load more content 5 times.
+  // Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/clickUntilExhausted for more details.
   await clickUntilExhausted({
     page,
     buttonLocator,

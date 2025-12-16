@@ -9,7 +9,8 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     await go_to_url(page, "https://careers.qualcomm.com/careers")
     button_locator = page.locator("xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']")
-    # Click until exhausted
+    # Click on the button to load more content 5 times.
+    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/click_until_exhausted for more details.
     await click_until_exhausted(page=page, button_locator=button_locator, max_clicks=5)
-    # Now all content is loaded and visible
+    # Now content is loaded and visible
     return "Success"

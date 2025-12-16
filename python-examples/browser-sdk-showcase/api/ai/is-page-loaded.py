@@ -8,8 +8,9 @@ class Params(TypedDict):
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Wait for page to finish loading
-    await page.goto('https://books.toscrape.com/')
-    page_loaded = await is_page_loaded(page)
+    await page.goto('https://www.booking.com/')
+    page_loaded = await is_page_loaded(page) # Use AI vision to determine if the page has finished loading.
+    # At this point, the AI has determined if the page has finished loading based on a screenshot taken of the page.
     if page_loaded:
         # Continue with scraping or interactions
         print("Page is fully loaded")

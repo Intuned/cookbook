@@ -13,7 +13,7 @@ export default async function handler(
   await page.goto("https://books.toscrape.com");
   
   const headerLocator = page.locator("h1");
-  const markdown = await extractMarkdown({ source: headerLocator });
+  const markdown = await extractMarkdown({ source: headerLocator }); // Extract markdown from the header locator.
   
   console.log(markdown);
   return markdown;

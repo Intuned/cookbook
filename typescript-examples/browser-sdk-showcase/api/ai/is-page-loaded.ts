@@ -11,9 +11,10 @@ export default async function handler(
   context: BrowserContext
 ) {
   // Wait for page to finish loading
-  await page.goto("https://books.toscrape.com/");
+  await page.goto("https://www.booking.com/");
   
-  const pageLoaded = await isPageLoaded({ page });
+  const pageLoaded = await isPageLoaded({ page }); // Use AI vision to determine if the page has finished loading.
+  // At this point, the AI has determined if the page has finished loading based on a screenshot taken of the page.
   
   if (pageLoaded) {
     // Continue with scraping or interactions
