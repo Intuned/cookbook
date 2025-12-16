@@ -1,0 +1,38 @@
+[
+  {
+    "name": "basic search",
+    "value": "{\n  \"query\": \"web scraping python\",\n  \"limit\": 5,\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "basic-search"
+  },
+  {
+    "name": "search with images",
+    "value": "{\n  \"query\": \"machine learning\",\n  \"limit\": 5,\n  \"sources\": [\"web\", \"images\"],\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "search-images"
+  },
+  {
+    "name": "github search",
+    "value": "{\n  \"query\": \"web crawler\",\n  \"limit\": 5,\n  \"categories\": [{\"type\": \"github\"}],\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "github-search"
+  },
+  {
+    "name": "news search",
+    "value": "{\n  \"query\": \"AI news today\",\n  \"limit\": 5,\n  \"sources\": [\"news\"],\n  \"tbs\": \"past_week\",\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "news-search"
+  },
+  {
+    "name": "search with content",
+    "value": "{\n  \"query\": \"python async programming\",\n  \"limit\": 3,\n  \"scrapeOptions\": {\"formats\": [\"markdown\"]},\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "search-content"
+  },
+  {
+    "name": "research search",
+    "value": "{\n  \"query\": \"transformer neural networks\",\n  \"limit\": 5,\n  \"categories\": [{\"type\": \"research\"}],\n  \"api_key\": \"tvly-YOUR_API_KEY\"\n}",
+    "lastUsed": false,
+    "id": "research-search"
+  }
+]

@@ -21,6 +21,7 @@ dependencies = [
     "intuned-browser==0.1.9",
     "crawl4ai @ git+https://github.com/izzat5233/crawl4ai.git",
     "pytz>=2024.1",
+    "tavily-python>=0.5.0",
 ]
 
 [tool.uv]
