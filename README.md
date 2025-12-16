@@ -19,3 +19,4 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
+| [scrapy-playwright-example](./python-examples/scrapy_playwright_example/) | Scrapy with Playwright integration for dynamic web scraping |

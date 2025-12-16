@@ -11,3 +11,4 @@ Intuned sample projects in Python.
 | [bs4-example](./bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving & stealth mode usage examples |
 | [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha solving & stealth mode |
+| [scrapy-playwright-example](./scrapy_playwright_example/) | Scrapy with Playwright integration for dynamic web scraping |
