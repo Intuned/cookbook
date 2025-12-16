@@ -1,10 +1,8 @@
 from playwright.async_api import Page, BrowserContext, Request
 from typing import Optional, Any, Dict
-from intuned_browser import go_to_url
+from intuned_browser import go_to_url, wait_for_network_settled
 from intuned_runtime import attempt_store
 from utils.types_and_schemas import NetworkInterceptorParams, InsureeResponse
-
-attempt_store.set("csrf_token", None)
 
 
 async def login(page: Page, username: str, password: str, login_url: str) -> None:
@@ -19,11 +17,12 @@ async def login(page: Page, username: str, password: str, login_url: str) -> Non
     try:
         print(f"Navigating to login page: {login_url}")
         await go_to_url(page, login_url)
-        await page.wait_for_load_state("networkidle")
         # Replace selectors below with your site's login form selectors
         print(f"Filling login form for user: {username}")
-        await page.locator("input[type='text']").fill(username)
-        await page.locator("input[type='password']").fill(password)
+        await page.locator("input[type='text']").type(username, delay=100)
+        await page.wait_for_timeout(100)
+        await page.locator("input[type='password']").type(password, delay=100)
+        await page.wait_for_timeout(100)
         await page.locator("button[type='submit']").click()
         await page.wait_for_timeout(3000)
         print("Login completed")
@@ -129,7 +128,8 @@ async def automation(
     login_url = (
         params.login_url or url
     )  # URL to the login page, if not provided, use the main URL
-
+    attempt_store.set("csrf_token", None)
+    
     print("Starting network interception automation")
     await login(page, username, password, login_url)
 
@@ -137,9 +137,11 @@ async def automation(
 
     try:
         print(f"Navigating to: {url}")
-        await go_to_url(page, url)
-        await page.wait_for_load_state("networkidle")
-
+        await wait_for_network_settled(
+            page=page,
+            func=lambda: go_to_url(page, url),
+            timeout_s=20,
+        )
         if not attempt_store.get("csrf_token"):
             raise ValueError("No CSRF token found")
 

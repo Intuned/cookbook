@@ -4,7 +4,7 @@ import { z } from "zod";
 import {
   consultationSchema,
   apiInterceptorParamsSchema,
-} from "../utils/typesAndSchemas.js";
+} from "../utils/typesAndSchemas";
 
 type Params = z.infer<typeof apiInterceptorParamsSchema>;
 
