@@ -33,14 +33,15 @@ export default async function* create(
   const submitButton = page.locator("#submit-button");
   await submitButton.click();
 
-  // Step 5: Wait for the page to load after login
-  // We wait for the network to be idle, indicating the page has finished loading
-  await page.waitForLoadState("networkidle");
-
-  // Step 6: Verify successful login by checking if the user menu is visible
-  // If the user menu toggle is visible, it means we successfully logged in
-  const userMenuToggle = page.locator("#user-menu-toggle");
-  const isLoggedIn = await userMenuToggle.isVisible();
+  // Step 5: Verify successful login by checking if the protected page is visible
+  // If the protected page is visible, it means we successfully logged in
+  const protectedPage = page.locator("#book-consultations-title");
+  let isLoggedIn = true;
+  try {
+    await protectedPage.waitFor({ state: "visible" });
+  } catch (error) {
+    isLoggedIn = false;
+  }
 
   // Return true if login was successful, false otherwise
   return isLoggedIn;
