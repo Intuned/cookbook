@@ -1,1 +1,32 @@
-[{"name":"firecrawl.dev","value":"{\n  \"url\": \"https://firecrawl.dev\",\n  \"formats\": [\"markdown\", \"html\", \"rawHtml\", \"links\", \"images\"]\n}","lastUsed":false,"id":"6e531e40-c812-4d41-ae1f-716b67743701"},{"name":"example.com screenshot","value":"{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"screenshot\"]\n}","lastUsed":false,"id":"86afdfad-c7e4-4f36-bb26-f17474cd18c0"}]
+[
+  {
+    "name": "basic markdown",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\"]\n}",
+    "lastUsed": false,
+    "id": "basic-markdown"
+  },
+  {
+    "name": "all formats",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\", \"html\", \"rawHtml\", \"links\", \"images\", \"screenshot\"]\n}",
+    "lastUsed": false,
+    "id": "all-formats"
+  },
+  {
+    "name": "content filtering",
+    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"formats\": [\"markdown\"],\n  \"onlyMainContent\": true,\n  \"excludeTags\": [\"nav\", \"footer\"]\n}",
+    "lastUsed": false,
+    "id": "content-filtering"
+  },
+  {
+    "name": "mobile screenshot",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"screenshot\"],\n  \"mobile\": true,\n  \"timeout\": 5000\n}",
+    "lastUsed": false,
+    "id": "mobile-screenshot"
+  },
+  {
+    "name": "with location",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\"],\n  \"location\": {\n    \"country\": \"DE\",\n    \"languages\": [\"de-DE\"]\n  }\n}",
+    "lastUsed": false,
+    "id": "with-location"
+  }
+]

@@ -20,6 +20,7 @@ dependencies = [
     "intuned-runtime==1.3.11",
     "intuned-browser==0.1.9",
     "crawl4ai @ git+https://github.com/izzat5233/crawl4ai.git",
+    "pytz>=2024.1",
 ]
 
 [tool.uv]
