@@ -10,6 +10,7 @@ Intuned sample projects in TypeScript.
 | [auth-with-secret-otp](./auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) verification |
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with email-based OTP verification |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
+| [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
 | [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |

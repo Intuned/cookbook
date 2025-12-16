@@ -108,8 +108,8 @@ async def extract_product_details(page: Page, params: DetailsSchema) -> ProductD
     price_element = page.locator(".summary .price .woocommerce-Price-amount").first
     price = await price_element.text_content()
 
-    # Extract id
-    id_element = page.locator(".sku_wrapper .id")
+    # Extract id (Stock Keeping Unit)
+    id_element = page.locator(".sku_wrapper .sku")
     id = await id_element.text_content() or ""
 
     # Extract category

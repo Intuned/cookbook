@@ -1,12 +1,12 @@
 import { BrowserContext, Page } from "playwright";
-import { goToUrl, saveFileToS3, type Attachment } from "@intuned/browser";
-
+import { goToUrl, saveFileToS3 } from "@intuned/browser";
+import { Attachment } from "@intuned/browser";
 import {
   ProductDetails,
   ProductVariant,
   DetailsInputSchema,
   detailsSchema,
-} from "../utils/typesAndSchemas";
+} from "../utils/typeAndSchemas";
 
 type Params = DetailsInputSchema;
 
@@ -126,9 +126,9 @@ export async function extractProductDetails(
     .first();
   const price = await priceElement.textContent();
 
-  // Extract ID
-  const idElemnent = page.locator(".sku_wrapper .sku");
-  const id = (await idElemnent.textContent()) || "";
+  // Extract id (Stock Keeping Unit)
+  const idElement = page.locator(".sku_wrapper .sku");
+  const id = (await idElement.textContent()) || "";
 
   // Extract category
   const categoryElement = page.locator(".posted_in a");
