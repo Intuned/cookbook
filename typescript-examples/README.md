@@ -7,6 +7,7 @@ Intuned sample projects in TypeScript.
 | [quick-recipes](./quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
+| [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) verification |
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with email-based OTP verification |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
