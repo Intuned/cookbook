@@ -21,7 +21,10 @@ To get started developing browser automation projects with Intuned, check out ou
 ## Prerequisites
 
 - Valid email address registered with the target website
-- Access to the email inbox (Resend API credentials)
+- **Resend API Key** - Required for retrieving OTP codes from email inbox
+  - Sign up at [resend.com](https://resend.com)
+  - Generate an API key from your dashboard
+  - Set as `RESEND_API_KEY` environment variable
 - Internet connection
 
 ## Development
@@ -127,12 +130,20 @@ The `get_recent_otp()` function automatically:
 
 ## Environment Variables
 
-Create a `.env` file (don't commit to version control):
+**Required:** You must set up your Resend API key before running this example.
+
+Create a `.env` file in the project root (don't commit to version control):
 
 ```bash
+# Required: Your email address for authentication
 APP_USERNAME=your-email@example.com
-RESEND_API_KEY=your-resend-api-key
+
+# Required: Resend API key for retrieving OTP codes from email
+# Get your key from: https://resend.com/api-keys
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
+
+**Important:** The `RESEND_API_KEY` is **required** for this example to work. Without it, the automation cannot retrieve OTP codes from your email inbox.
 
 ## Common Issues
 
