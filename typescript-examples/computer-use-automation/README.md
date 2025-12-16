@@ -21,7 +21,7 @@ Before running the examples, you'll need:
 - API keys for the AI provider(s) you want to use:
   - `ANTHROPIC_API_KEY` - For Anthropic Computer Use
   - `OPENAI_API_KEY` - For OpenAI Operator API
-  - `GOOGLE_GENERATIVE_AI_API_KEY` - For Gemini Computer Use
+  - `GEMINI_API_KEY` - For Gemini Computer Use
   - For Stagehand template: Any Anthropic-compatible API key
 
 Create a `.env` file in the project root:
@@ -29,7 +29,7 @@ Create a `.env` file in the project root:
 INTUNED_API_KEY=your_intuned_api_key_here
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
-GOOGLE_GENERATIVE_AI_API_KEY=your_google_api_key_here
+GEMINI_API_KEY=your_google_api_key_here
 ```
 
 ## APIs
@@ -44,10 +44,6 @@ Uses Anthropic's Claude with native computer use capabilities and extended think
 ```typescript
 {
   query: string;        // The task you want the AI to perform
-  apiKey?: string;      // Your Anthropic API key (optional, falls back to env)
-  model?: string;       // Model to use (default: 'claude-sonnet-4-20250514')
-  thinkingBudget?: number; // Token budget for thinking (default: 1024)
-  maxTokens?: number;   // Max tokens per request (default: 4096)
 }
 ```
 
@@ -73,8 +69,6 @@ Uses OpenAI's computer-use-preview model (Operator API) with native computer use
 ```typescript
 {
   query: string;        // The task you want the AI to perform
-  apiKey?: string;      // Your OpenAI API key (optional, falls back to env)
-  model?: string;       // Model to use (default: 'computer-use-preview')
 }
 ```
 
@@ -100,8 +94,6 @@ Uses Google's Gemini 2.5 with Stagehand for computer use automation.
 ```typescript
 {
   query: string;        // The task you want the AI to perform
-  apiKey?: string;      // Your Google Generative AI API key (optional, falls back to env)
-  model?: string;       // Model to use (default: 'google/gemini-2.5-computer-use-preview-10-2025')
 }
 ```
 
@@ -114,7 +106,6 @@ npm run intuned run api gemini-computer-use '{"query":"Go to https://books.toscr
 - Gemini 2.5 computer use preview
 - Stagehand integration for enhanced automation
 - Built-in element detection
-- Automatic viewport configuration
 
 ### Stagehand Template
 
@@ -125,21 +116,13 @@ A reusable template for building non-computer use Stagehand-based automation (Ty
 **Parameters**:
 ```typescript
 {
-  check_in_date: string;    // Check-in date in DD/MM/YYYY format
-  check_out_date: string;   // Check-out date in DD/MM/YYYY format
-  budget: number;           // Maximum budget in pounds
-  first_name: string;       // Guest first name
-  last_name: string;        // Guest last name
-  phone_number: string;     // Guest phone number
-  email: string;            // Guest email
-  extra_details?: string;   // Additional requirements or preferences
-  model?: string;           // Model to use (default: 'anthropic/claude-sonnet-4-20250514')
+ query: string;
 }
 ```
 
 **Example Usage**:
 ```bash
-npm run intuned run api stagehand-template '{"check_in_date":"25/12/2025","check_out_date":"27/12/2025","budget":150,"first_name":"John","last_name":"Doe","phone_number":"01234567890","email":"john.doe@example.com","extra_details":"Prefer a room with a view"}';
+npm run intuned run api stagehand-template '{"query":"Go to https://automationintesting.online. Fill in check-in date 25/12/2025 and check-out date 27/12/2025. Search for rooms within budget of 150 pounds. Book a room with first name John, last name Doe, phone number 01234567890, and email john.doe@example.com"}';
 ```
 
 **Features**:
@@ -315,6 +298,10 @@ export default async function setupContext({ page, context }) {
 ### Intuned Configuration
 
 See the main README section on `Intuned.json` for project configuration options.
+
+## Acknowledgments
+
+The Anthropic and OpenAI implementations (`api/anthropic-computer-use.ts` and `api/openai-computer-use.ts`) were built using templates from [create-kernel-app](https://github.com/onkernel/create-kernel-app), a CLI tool for scaffolding Kernel browser automation applications.
 
 ## Resources
 
