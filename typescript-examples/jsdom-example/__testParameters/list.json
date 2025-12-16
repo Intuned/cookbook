@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Default test - 2 pages",
+    "value": "{\n  \"url\": \"https://www.scrapingcourse.com/ecommerce/\",\n  \"maxPages\": 2\n}",
+    "lastUsed": true,
+    "id": "f6a7b8c9-d0e1-2345-f012-3456789abcde"
+  },
+  {
+    "name": "Full scrape - 10 pages",
+    "value": "{\n  \"url\": \"https://www.scrapingcourse.com/ecommerce/\",\n  \"maxPages\": 10\n}",
+    "lastUsed": false,
+    "id": "a7b8c9d0-e1f2-3456-0123-456789abcdef"
+  },
+  {
+    "name": "Single page only",
+    "value": "{\n  \"url\": \"https://www.scrapingcourse.com/ecommerce/\",\n  \"maxPages\": 1\n}",
+    "lastUsed": false,
+    "id": "b8c9d0e1-f2a3-4567-1234-56789abcdef0"
+  }
+]
+

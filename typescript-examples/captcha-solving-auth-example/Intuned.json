@@ -39,7 +39,7 @@
       }
     },
     "testAuthSessionInput": {
-      "username": "admin@example.com",
+      "email": "admin@example.com",
       "password": "password"
     }
   }
