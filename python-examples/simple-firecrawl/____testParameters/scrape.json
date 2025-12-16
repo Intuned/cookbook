@@ -1,31 +1,31 @@
 [
   {
     "name": "basic markdown",
-    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\"]\n}",
+    "value": "{\n  \"url\": \"https://openai.com/blog/chatgpt\",\n  \"formats\": [\"markdown\"]\n}",
     "lastUsed": false,
     "id": "basic-markdown"
   },
   {
     "name": "all formats",
-    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\", \"html\", \"rawHtml\", \"links\", \"images\", \"screenshot\"]\n}",
+    "value": "{\n  \"url\": \"https://en.wikipedia.org/wiki/Web_scraping\",\n  \"formats\": [\"markdown\", \"html\", \"rawHtml\", \"links\", \"images\"]\n}",
     "lastUsed": false,
     "id": "all-formats"
   },
   {
     "name": "content filtering",
-    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"formats\": [\"markdown\"],\n  \"onlyMainContent\": true,\n  \"excludeTags\": [\"nav\", \"footer\"]\n}",
+    "value": "{\n  \"url\": \"https://github.com/trending\",\n  \"formats\": [\"markdown\"],\n  \"onlyMainContent\": true,\n  \"excludeTags\": [\"nav\", \"footer\"]\n}",
     "lastUsed": false,
     "id": "content-filtering"
   },
   {
     "name": "mobile screenshot",
-    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"screenshot\"],\n  \"mobile\": true,\n  \"timeout\": 5000\n}",
+    "value": "{\n  \"url\": \"https://news.ycombinator.com\",\n  \"formats\": [\"screenshot\"],\n  \"mobile\": true,\n  \"timeout\": 10000\n}",
     "lastUsed": false,
     "id": "mobile-screenshot"
   },
   {
-    "name": "with location",
-    "value": "{\n  \"url\": \"https://example.com\",\n  \"formats\": [\"markdown\"],\n  \"location\": {\n    \"country\": \"DE\",\n    \"languages\": [\"de-DE\"]\n  }\n}",
+    "name": "with location (German)",
+    "value": "{\n  \"url\": \"https://www.google.com\",\n  \"formats\": [\"markdown\"],\n  \"location\": {\n    \"country\": \"DE\",\n    \"languages\": [\"de-DE\"]\n  }\n}",
     "lastUsed": false,
     "id": "with-location"
   }

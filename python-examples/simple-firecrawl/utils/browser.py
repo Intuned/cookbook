@@ -19,27 +19,20 @@ def create_browser_config(
     headless: bool = True,
     verbose: bool = True,
 ) -> BrowserConfig:
-    """
-    Create a BrowserConfig with common settings.
-
-    Args:
-        mobile: If True, use mobile viewport and user agent
-        headers: Optional custom HTTP headers
-        skip_tls_verification: Skip TLS certificate verification
-        headless: Run browser in headless mode
-        verbose: Enable verbose logging
-
-    Returns:
-        Configured BrowserConfig instance
-    """
     viewport = MOBILE_VIEWPORT if mobile else DESKTOP_VIEWPORT
 
-    return BrowserConfig(
-        headless=headless,
-        viewport_width=viewport[0],
-        viewport_height=viewport[1],
-        user_agent=MOBILE_USER_AGENT if mobile else None,
-        headers=headers if headers else None,
-        ignore_https_errors=skip_tls_verification,
-        verbose=verbose,
-    )
+    config_kwargs = {
+        "headless": headless,
+        "viewport_width": viewport[0],
+        "viewport_height": viewport[1],
+        "ignore_https_errors": skip_tls_verification,
+        "verbose": verbose,
+    }
+
+    if mobile:
+        config_kwargs["user_agent"] = MOBILE_USER_AGENT
+
+    if headers:
+        config_kwargs["headers"] = headers
+
+    return BrowserConfig(**config_kwargs)
