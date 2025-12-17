@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "dependencyDashboard": true,
   "enabledManagers": ["npm", "pep621"],
   "packageRules": [
     {
@@ -27,7 +28,8 @@
       "matchFileNames": ["typescript-examples/**"],
       "excludePackageNames": ["@intuned/browser", "@intuned/runtime"],
       "schedule": ["every weekend"],
-      "groupName": "typescript-examples-deps"
+      "groupName": "typescript-examples-deps",
+      "dependencyDashboardApproval": false
     },
     {
       "description": "Weekly updates for all other Python dependencies",
@@ -35,7 +37,8 @@
       "matchFileNames": ["python-examples/**"],
       "excludePackageNames": ["intuned-browser", "intuned-runtime"],
       "schedule": ["every weekend"],
-      "groupName": "python-examples-deps"
+      "groupName": "python-examples-deps",
+      "dependencyDashboardApproval": false
     }
   ]
 }
