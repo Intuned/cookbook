@@ -3,7 +3,9 @@ from pydantic import BaseModel, Field
 
 class ListParams(BaseModel):
     url: str = Field(..., description="The URL to scrape")
-    max_pages: int = Field(5, description="The maximum number of pages to scrape")
+    max_pages: int = Field(
+        default=10, description="The maximum number of pages to scrape"
+    )
 
 
 class Quote(BaseModel):

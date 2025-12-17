@@ -62,12 +62,10 @@ async def automation(
     items: list[Quote] = []
 
     current_page = 1
-    next_url = params.url
+    await go_to_url(page=page, url=params.url)
 
-    while next_url and current_page <= max_pages:
-        print(f"Visiting page {current_page}: {next_url}")
-
-        await go_to_url(page=page, url=next_url)
+    while current_page <= max_pages:
+        print(f"Visiting page {current_page}: {page.url}")
 
         html = await page.content()
 
