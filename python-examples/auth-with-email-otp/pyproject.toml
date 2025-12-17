@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "auth-with-email-otp"
+version = "0.0.1"
+description = "Multi-step authentication with OTP (One-Time Password) verification. Demonstrates automated login flows with username/password and TOTP codes for accessing protected resources."
+authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+keywords = [
+    "Python",
+    "intuned-browser-sdk",
+    "intuned-auth-sessions",
+    "intuned-auth-sessions-credentials"
+]
+dependencies = [
+    "playwright==1.56",
+    "intuned-runtime==1.3.11",
+    "intuned-browser==0.1.9",
+    "pydantic[email]==2.10.6",
+    "resend>=2.0.0",
+]
+
+[tool.uv]
+package = false

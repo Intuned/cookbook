@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"query\": \"Go to https://books.toscrape.com, find the most expensive book on the first page, and tell me its title and price\"\n}",
+    "lastUsed": true,
+    "id": "c0d1e2f3-a4b5-6789-0123-456789012345"
+  }
+]
