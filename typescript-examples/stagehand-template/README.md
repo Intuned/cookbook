@@ -1,17 +1,83 @@
-# stagehand Intuned project
+# Stagehand Template
 
-Using Stagehand in Intuned
+A template for building browser automations using [Stagehand](https://github.com/browserbase/stagehand) with Intuned. This project demonstrates how to integrate Stagehand's AI-powered agent capabilities with Intuned's browser automation infrastructure for intelligent web interaction and data extraction.
+
+## Overview
+
+This template showcases:
+- AI-powered web navigation using Stagehand agents
+- Intelligent data extraction with structured schemas
+- Integration with Intuned's managed browser infrastructure
+- Custom context setup for Stagehand within Intuned
+- Automatic AI Gateway configuration (no API keys required)
+
+## Project Structure
+
+```
+/
+├── api/                      # Your API endpoints
+│   └── getStockDetails.ts   # Example API using Stagehand agent
+├── hooks/                    # Lifecycle hooks
+│   └── setupContext.ts      # Stagehand initialization hook
+├── .parameters/              # Test parameters for local development
+│   └── getStockDetails/
+│       └── default.json     # Default parameters for getStockDetails API
+└── Intuned.jsonc            # Intuned project configuration
+```
+
+## Example: Stock Details Extraction
+
+The `getStockDetails.ts` API demonstrates Stagehand's capabilities:
+
+```typescript
+import { Stagehand } from "@browserbasehq/stagehand";
+import { getAiGatewayConfig } from "@intuned/runtime";
+
+// Get AI Gateway configuration (no API keys needed!)
+const { baseUrl, apiKey } = await getAiGatewayConfig();
+
+// Use Stagehand agent to intelligently navigate and find information
+const agent = stagehand.agent({
+  modelName: "claude-sonnet-4-5",
+  modelClientOptions: {
+    apiKey,
+    baseURL: baseUrl,
+  },
+});
+await agent.execute({
+  instruction: `Find and open the page on one stock based on the following criteria: ${criteria}.`,
+});
+
+// Extract structured data using AI
+const stockDetails = await stagehand.extract(
+  "Extract the stock details from the page",
+  stockDetailsSchema,
+  {
+    page: page,
+    modelName: "claude-sonnet-4-5",
+    modelClientOptions: {
+      apiKey,
+      baseURL: baseUrl,
+    },
+  }
+);
+```
+
+## AI Gateway Integration
+
+This template uses Intuned's AI Gateway, which means **you don't need to provide your own Anthropic or OpenAI API keys**. The `getAiGatewayConfig()` function from `@intuned/runtime` automatically provides a temporary AI gateway with the necessary credentials.
+
+This makes it easy to:
+- Get started quickly without setting up API keys
+- Run AI-powered automations without additional costs
+- Test and develop Stagehand agents seamlessly
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -20,125 +86,57 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
+> **Note:** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
 
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api getStockDetails
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api getStockDetails
+```
+
+The API will use the default parameters from `.parameters/getStockDetails/default.json`. You can also pass parameters inline:
+
+```bash
+# npm
+npm run intuned run api getStockDetails -- --parameters '{"criteria": "highest volume stock today"}'
+
+# yarn
+yarn intuned run api getStockDetails --parameters '{"criteria": "highest volume stock today"}'
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
 
 # yarn
 yarn intuned deploy
-
 ```
 
+## About Stagehand
 
+[Stagehand](https://github.com/browserbase/stagehand) is an AI-powered browser automation framework that allows you to:
+- Use natural language instructions for web navigation
+- Extract structured data with AI-powered understanding
+- Build resilient automations that adapt to page changes
 
+## About Intuned Runtime SDK
 
+All Intuned projects use the Intuned runtime SDK (`@intuned/runtime`). This project uses:
 
+- **`setupContext` hook**: Initializes the Stagehand instance with Intuned's managed browser
+- **`attemptStore`**: Stores and retrieves the Stagehand instance across API calls
+- **`getAiGatewayConfig`**: Provides automatic AI Gateway credentials (no API keys required)
 
-### `@intuned/runtime`: Intuned Runtime SDK
+For more information, check out the [Intuned documentation](https://docs.intunedhq.com).
 
-All intuned projects use the Intuned runtime SDK. It also exposes some helpers for nested scheduling and auth sessions. This project uses some of these helpers. For more information, check out the documentation coming soon.
+## Learn More
 
-This project uses the `setupContext` hook from the Intuned runtime SDK. This hook is used to set up the browser context and page for the project. For more information, check out the documentation coming soon.
-
-
-## Project Structure
-The project structure is as follows:
-```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
-```
-
-
-## `Intuned.json` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-  
+- [Intuned Documentation](https://docs.intunedhq.com/docs/00-getting-started/introduction)
+- [Stagehand GitHub Repository](https://github.com/browserbase/stagehand)
+- [Intuned.json Reference](https://docs.intunedhq.com/docs/05-references/intuned-json)

@@ -39,13 +39,19 @@ uv run intuned run api list
 
 # List products with custom page limit
 uv run intuned run api list '{"limit": 5}'
+
+# List products using test parameters from .parameters folder
+uv run intuned run api list .parameters/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-uv run intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+uv run intuned run api details '{"name": "Abominable Hoodie", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie/"}'
+
+# Get details using test parameters from .parameters folder
+uv run intuned run api details .parameters/details/default.json
 ```
 
 ### Deploy project
@@ -62,12 +68,17 @@ intuned deploy
 The project structure is as follows:
 ```
 /
+├── .parameters/              # Test parameters for APIs
+│   ├── list/
+│   │   └── default.json     # Default parameters for list API
+│   └── details/
+│       └── default.json     # Default parameters for details API
 ├── api/                      # Your API endpoints
 │   ├── list.py              # API to scrape product list with pagination
 │   └── details.py           # API to scrape detailed product information
 ├── utils/                    # Utility files
 │   └── types_and_schemas.py # Python types and Pydantic models
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
@@ -112,7 +123,7 @@ Product details object with:
 - `variants`: List of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings
@@ -141,6 +152,11 @@ Product details object with:
 
   // Default job configuration
   "metadata": {
+    // Template information
+    "template": {
+      "name": "E-Commerce Product Scraper",
+      "description": "E-commerce scraping automation that extracts product information from an online store with pagination support"
+    },
     "defaultJobInput": {
       "configuration": {
         // Number of concurrent API calls within the job

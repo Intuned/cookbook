@@ -1,14 +1,25 @@
-# Playwright Basics IN Typescript Intuned project
+# Playwright Basics
+
 A simple and reusable TypeScript template for Playwright that covers the core automation basics like navigation, interactions, scraping, pagination, and file handling.
+
+## Features
+
+This template includes examples for common automation patterns:
+
+- **Form Submission** (`examples/submitForm`) - Fill and submit multi-step forms with validation
+- **Web Scraping** (`examples/scrapeList`) - Extract structured data from tables and lists
+- **Pagination** - Navigate through paginated content:
+  - `examples/navigateAllPages` - Navigate through all available pages
+  - `examples/navigateNPages` - Navigate a specific number of pages
+- **File Handling** (`examples/downloadAndUploadFile`) - Download files and upload them to S3
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
 ```bash
@@ -25,11 +36,17 @@ yarn
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api <api-name> <parameters>
+# Run the sample API
+yarn intuned run api sample
 
-# yarn
-yarn intuned run api <api-name> <parameters>
+# Run the examples with parameters from .parameters folder
+yarn intuned run api examples/submitForm --parameters-file .parameters/examples/submitForm/default.json
+yarn intuned run api examples/navigateNPages --parameters-file .parameters/examples/navigateNPages/default.json
+
+# Run the examples without parameters
+yarn intuned run api examples/navigateAllPages
+yarn intuned run api examples/scrapeList
+yarn intuned run api examples/downloadAndUploadFile
 ```
 
 ### Deploy project
@@ -45,6 +62,31 @@ yarn intuned deploy
 
 
 
+### Environment Variables
+
+Some APIs in this project may require environment variables to be set. Create a `.env` file based on `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Then configure the following variables:
+
+- `INTUNED_API_KEY`: Your Intuned API key (required for running APIs locally)
+
+#### S3 Upload Configuration (downloadAndUploadFile example)
+
+The `downloadAndUploadFile` example requires AWS S3 credentials. Update the configuration in `api/examples/downloadAndUploadFile.ts`:
+
+```typescript
+const s3Config: S3Configs = {
+  bucket: "your-bucket-name",
+  region: "your-region",
+  accessKeyId: "your-access-key-id",
+  secretAccessKey: "your-secret-access-key",
+};
+```
+
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
@@ -59,84 +101,53 @@ The project structure is as follows:
 ├── api/                      # Folder containing all your API endpoint logic
 │   ├── sample.ts            # Default or main API endpoint file
 │   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submitForm.ts     # Example script demonstrating how to fill and submit forms
-│       |__ scrapeList.ts     # Example script showing how to scrape lists of data
-│       |__ navigateAllPages.ts  # Example showing how to navigate through all pages of a paginated site
-│       |__ navigateNPages.ts   # Example showing how to navigate a specific number of pages
-│       |__ downloadAndUploadFile.ts  # Example demonstrating file download and upload functionality
-└── intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
+│       ├── submitForm.ts     # Example script demonstrating how to fill and submit forms
+│       ├── scrapeList.ts     # Example script showing how to scrape lists of data
+│       ├── navigateAllPages.ts  # Example showing how to navigate through all pages of a paginated site
+│       ├── navigateNPages.ts   # Example showing how to navigate a specific number of pages
+│       └── downloadAndUploadFile.ts  # Example demonstrating file download and upload functionality
+├── .parameters/              # Folder containing test parameters for APIs
+│   ├── sample/
+│   │   └── default.json     # Default parameters for sample API
+│   └── examples/
+│       ├── submitForm/
+│       │   └── default.json # Parameters for submitForm example
+│       └── navigateNPages/
+│           └── default.json # Parameters for navigateNPages example
+└── Intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
 ```
 
 
-## `Intuned.json` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
+## API Examples
 
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
+### sample.ts
 
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
+A basic template API endpoint for getting started.
 
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
+### examples/submitForm.ts
 
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": false,
+Demonstrates multi-step form submission with address and payment information. Parameters include:
+- Personal details (firstName, lastName)
+- Address details (address1, address2, city, state, zipCode, country)
+- Payment details (nameOnCard, cardNumber, expiration, cvv)
 
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
+### examples/scrapeList.ts
 
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
+Scrapes structured data from a table, extracting ID, name, and status for each row.
 
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
+### examples/navigateAllPages.ts
 
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
+Navigates through all pages of a paginated website and scrapes book titles from each page.
 
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
+### examples/navigateNPages.ts
 
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
+Navigates through a specific number of pages. Requires the `pagesToNavigate` parameter.
 
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
+### examples/downloadAndUploadFile.ts
+
+Downloads a file from a website and uploads it to AWS S3. Returns signed URL and file path.
+
+## Configuration
+
+For detailed configuration options, see the [Intuned.jsonc reference documentation](https://docs.intunedhq.com/docs/05-references/intuned-json).
   

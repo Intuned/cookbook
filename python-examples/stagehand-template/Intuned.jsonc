@@ -2,6 +2,12 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "stagehand-template",
+  "metadata": {
+    "template": {
+      "name": "Stagehand Stock Details Template",
+      "description": "A template for using Stagehand AI agent with Intuned to extract stock details from Nasdaq"
+    }
+  },
   "apiAccess": {
     "enabled": true
   },

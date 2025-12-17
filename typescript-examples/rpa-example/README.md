@@ -1,6 +1,6 @@
-# book-consultations Intuned project
+# RPA Example
 
-Booking automation to book a consultation with a consultant and list the consultations
+A basic RPA example demonstrating consultation booking automation. This project shows how to automate form filling, data extraction, and interaction with web applications without authentication.
 
 ## Getting Started
 
@@ -25,12 +25,29 @@ yarn
 
 ### Run an API
 
+Run the APIs with the default parameters from the `.parameters` folder:
+
+```bash
+# Book a consultation
+npm run intuned run api book-consultations .parameters/book-consultations/default.json
+
+# Get consultations by email
+npm run intuned run api get-consultations-by-email .parameters/get-consultations-by-email/default.json
+```
+
+Or with custom parameters:
+
 ```bash
 # npm
 npm run intuned run api <api-name> <parameters>
 
 # yarn
 yarn intuned run api <api-name> <parameters>
+```
+
+Example with inline parameters:
+```bash
+yarn intuned run api book-consultations '{"name":"John Doe","email":"john@example.com","phone":"+1-555-0123","date":"2024-12-25","time":"14:30","topic":"web-scraping"}'
 ```
 
 ### Deploy project
@@ -43,8 +60,16 @@ yarn intuned deploy
 
 ```
 
+## Environment Variables
 
+This project uses environment variables for configuration. Create a `.env` file in the root directory based on `.env.example`:
 
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
+### Variables:
+- `INTUNED_API_KEY` - Your Intuned API key for authentication (required for deployment and production use)
 
 
 
@@ -54,18 +79,45 @@ yarn intuned deploy
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── api/                          # Your API endpoints
+│   ├── book-consultations.ts    # API to book a consultation
+│   └── get-consultations-by-email.ts  # API to retrieve consultations by email
+├── .parameters/                  # Test parameters for local development
+│   ├── book-consultations/
+│   │   └── default.json
+│   └── get-consultations-by-email/
+│       └── default.json
+├── utils/                        # Shared utilities and schemas
+│   └── typesAndSchemas.ts        # Zod schemas and TypeScript types
+├── Intuned.jsonc                 # Intuned project configuration file
+└── .env.example                  # Environment variables template
 ```
 
 
-## `Intuned.json` Reference
+## APIs
+
+This project includes two APIs:
+
+### 1. book-consultations
+Books a consultation appointment with the following parameters:
+- `name` (string): Client's full name
+- `email` (string): Client's email address
+- `phone` (string): Client's phone number
+- `date` (string): Consultation date (YYYY-MM-DD format)
+- `time` (string): Consultation time (HH:MM format)
+- `topic` (enum): Consultation topic - one of: "web-scraping", "data-extraction", "automation", "api-integration", "other"
+
+**Returns:** Booking confirmation with success status, date, and message.
+
+### 2. get-consultations-by-email
+Retrieves all consultations for a specific email address.
+
+**Parameters:**
+- `email` (string): Email address to search for
+
+**Returns:** Array of consultation objects with details including ID, status, client information, date, time, and topic.
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 
@@ -75,6 +127,18 @@ The project structure is as follows:
   // The name of your Intuned project. 
   // Optional - If not provided here, it must be supplied via the command line when deploying.
   "projectName": "your_project_name",
+
+  // API access settings
+  "apiAccess": {
+    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
+    "enabled": true
+  },
+
+  // Auth session settings (disabled for this project)
+  "authSessions": {
+    // Whether auth sessions are enabled for this project.
+    "enabled": false
+  },
 
   // Replication settings
   "replication": {
@@ -88,43 +152,6 @@ The project structure is as follows:
     // "large": Large machine size (8 shared vCPUs, 4GB RAM)
     // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
     "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
   },
 
   // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".

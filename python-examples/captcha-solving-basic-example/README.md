@@ -24,8 +24,27 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
+Run individual captcha solver APIs:
+
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Solve custom captcha
+uv run intuned run api custom_captcha
+
+# Solve GeeTest captcha
+uv run intuned run api geetest
+
+# Solve Google reCAPTCHA v2 Enterprise
+uv run intuned run api recaptcha
+
+# Solve Cloudflare challenge
+uv run intuned run api cloudflare_challenge
+
+# Solve Cloudflare Turnstile
+uv run intuned run api cloudflare_turnstile
+
+# Run all captcha solvers sequentially
+uv run intuned run api automation
 ```
 
 ### Deploy project
@@ -37,13 +56,32 @@ uv run intuned deploy
 The project structure is as follows:
 ```
 /
-├── api/                     # Your API endpoints 
-│   └──  captcha_solver.py   # Automation to checkout samples for our captcha solving capabailities 
-└── intuned.jsonc            # Intuned project configuration file
+├── api/                     # Your API endpoints
+│   └── captcha_solver.py    # Multiple captcha solver APIs (custom_captcha, geetest, recaptcha, cloudflare_challenge, cloudflare_turnstile, automation)
+├── helpers/                 # Helper functions
+│   └── captcha.py           # Captcha solving decorator for page.goto
+├── .env.example             # Example environment variables file
+├── .gitignore               # Git ignore file
+├── Intuned.jsonc            # Intuned project configuration file
+├── pyproject.toml           # Python project configuration
+└── README.md                # This file
 ```
 
 
-## `Intuned.json` Reference
+## Environment Variables
+
+This project requires the following environment variables:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `INTUNED_API_KEY` | Your Intuned API key for authentication | Yes |
+
+Copy `.env.example` to `.env` and fill in your values:
+```bash
+cp .env.example .env
+```
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "template": {
+      "name": "Auth with Secret OTP",
+      "description": "Authentication automation with multi-step OTP (One-Time Password) verification. Handles login flows requiring username/password and time-based OTP codes (similar to Google Authenticator)."
+    }
+  },
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  }
+}

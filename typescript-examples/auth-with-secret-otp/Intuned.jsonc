@@ -1,0 +1,25 @@
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "Auth with Secret OTP",
+      "description": "Authentication automation with multi-step OTP (One-Time Password) verification. Demonstrates how to handle login flows that require both username/password and time-based OTP codes (similar to Google Authenticator)."
+    },
+    "defaultJobInput": {},
+    "testAuthSessionInput": {
+      "username": "demo@email.com",
+      "password": "DemoUser2024!",
+      "secret": "JBSWY3DPEHPK3PXP"
+    }
+  }
+}

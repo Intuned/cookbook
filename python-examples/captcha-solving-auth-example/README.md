@@ -18,9 +18,34 @@ uv sync
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Run an API
+### Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
 ```bash
-uv run intuned run api <api-name> <parameters>
+INTUNED_API_KEY=your_api_key_here
+```
+
+### Run an API
+
+Run the list API (scrapes product grid):
+```bash
+uv run intuned run api list --parameters-path .parameters/list/default.json
+```
+
+Run the details API (scrapes product details):
+```bash
+uv run intuned run api details --parameters-path .parameters/details/default.json
+```
+
+Run auth session create:
+```bash
+uv run intuned run api auth-sessions/create --parameters-path .parameters/auth/create.json
+```
+
+Run auth session check:
+```bash
+uv run intuned run api auth-sessions/check --parameters-path .parameters/auth/check.json
 ```
 
 ### Deploy project
@@ -39,18 +64,28 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
+├── .parameters/              # Test parameters for APIs
+│   ├── details/
+│   │   └── default.json     # Parameters for details API
+│   ├── list/
+│   │   └── default.json     # Parameters for list API
+│   └── auth/
+│       ├── create.json      # Parameters for auth session creation
+│       └── check.json       # Parameters for auth session check
+├── api/                      # Your API endpoints
+│   ├── list.py              # Scrapes product grid
+│   └── details.py           # Scrapes product details
 ├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
+│   ├── check.py             # API to check if the auth session is still valid
+│   └── create.py            # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+├── .env.example              # Example environment variables
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

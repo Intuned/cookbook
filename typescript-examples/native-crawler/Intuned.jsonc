@@ -2,6 +2,10 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "native-crawler",
+  "template": {
+    "name": "Native Crawler",
+    "description": "A simple, library-free web crawler demonstrating Intuned's extendPayload and persistentStore features for parallel crawling with deduplication"
+  },
   "apiAccess": {
     "enabled": true
   },

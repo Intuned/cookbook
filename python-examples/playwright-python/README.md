@@ -20,7 +20,19 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Run default API
+uv run intuned run api default
+
+# Run form submission example with parameters
+uv run intuned run api examples/submit_form .parameters/param_fill_form/default.json
+
+# Run pagination example with parameters
+uv run intuned run api examples/naviate_n_pages .parameters/number_of_pages/default.json
+
+# Run other examples
+uv run intuned run api examples/scrape_list
+uv run intuned run api examples/navigate_all_pages
+uv run intuned run api examples/download_upload_files
 ```
 
 ### Deploy project
@@ -28,8 +40,16 @@ uv run intuned run api <api-name> <parameters>
 uv run intuned deploy
 ```
 
+## Environment Variables
 
+This project requires the following environment variables for local development:
 
+- `INTUNED_API_KEY`: Your Intuned API key (required for running APIs locally)
+
+Copy `.env.example` to `.env` and fill in your values:
+```bash
+cp .env.example .env
+```
 
 ### `intuned-browser`: Intuned Browser SDK
 
@@ -42,20 +62,26 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── api/                      # Folder containing all your API endpoint logic
-│   ├── default.py             # Default or main API endpoint file
-│   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submit_form.py     # API example that demonstrating how to fill and submit forms
-│       |__ scrape_list.py     # API example that shows how to scrape lists of data
-│       |__ navigate_all_pages.py  # API example that shows how to navigate through all pages of a paginated site
-│       |__ navigate_n_pages.py    # API example that shows how to navigate a specific number of pages
-│       |__ download_upload_files.py  # API example that demonstrats file download and upload functionality
-└── intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
+├── api/                           # Folder containing all your API endpoint logic
+│   ├── default.py                  # Default or main API endpoint file
+│   └── examples/                   # Folder with example scripts for reference or testing
+│       ├── submit_form.py          # API example that demonstrates how to fill and submit forms
+│       ├── scrape_list.py          # API example that shows how to scrape lists of data
+│       ├── navigate_all_pages.py   # API example that shows how to navigate through all pages of a paginated site
+│       ├── naviate_n_pages.py      # API example that shows how to navigate a specific number of pages
+│       └── download_upload_files.py # API example that demonstrates file download and upload functionality
+├── .parameters/                    # Test parameters for local development
+│   ├── param_fill_form/            # Parameters for submit_form API
+│   │   └── default.json
+│   └── number_of_pages/            # Parameters for naviate_n_pages API
+│       └── default.json
+├── .env.example                    # Example environment variables file
+└── Intuned.jsonc                   # Intuned project configuration file (defines project settings, environment, etc.)
 
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

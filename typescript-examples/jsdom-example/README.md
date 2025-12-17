@@ -1,11 +1,73 @@
-# jsdom-example Intuned project
+# JSDOM Example
 
 E-commerce scraper using JSDOM for HTML parsing to extract product listings and details with pagination support.
+
+This example demonstrates how to use JSDOM for efficient HTML parsing in browser automation workflows, enabling you to scrape product data without executing JavaScript.
+
+## Overview
+
+This project showcases a two-API workflow for e-commerce scraping:
+- **list API**: Scrapes product listings with pagination support
+- **details API**: Extracts detailed product information from individual product pages
+
+The example uses JSDOM for HTML parsing, which is faster and more efficient than browser-based scraping for static content.
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
+## Examples
+
+### Run the list API
+
+Scrape product listings from the e-commerce site:
+
+```bash
+# Default: 2 pages
+npm run intuned run api list -- --parameters-file .parameters/list/default.json
+
+# Full scrape: 10 pages
+npm run intuned run api list -- --parameters-file .parameters/list/full-scrape-10-pages.json
+
+# Single page only
+npm run intuned run api list -- --parameters-file .parameters/list/single-page-only.json
+```
+
+Or with inline parameters:
+
+```bash
+npm run intuned run api list -- --parameters '{"url": "https://www.scrapingcourse.com/ecommerce/", "maxPages": 3}'
+```
+
+### Run the details API
+
+Extract detailed information from a specific product page:
+
+```bash
+# Default product
+npm run intuned run api details -- --parameters-file .parameters/details/default.json
+
+# Specific product
+npm run intuned run api details -- --parameters-file .parameters/details/chaz-kangeroo-hoodie.json
+```
+
+Or with inline parameters:
+
+```bash
+npm run intuned run api details -- --parameters '{"title": "Product Name", "price": "$50.00", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example/"}'
+```
+
+## Envs
+
+This project requires the following environment variables:
+
+- `INTUNED_API_KEY`: Your Intuned API key (required for local development)
+
+Copy `.env.example` to `.env` and add your API key:
+
+```bash
+cp .env.example .env
+```
 
 ## Development
 
@@ -54,26 +116,36 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
-├── api/                      # Your API endpoints 
-│   ├── list.ts               # API to scrape product listings with pagination
-│   └── details.ts            # API to extract detailed product information
+├── api/                       # Your API endpoints
+│   ├── list.ts                # API to scrape product listings with pagination
+│   └── details.ts             # API to extract detailed product information
+├── .parameters/               # Test parameters for APIs
+│   ├── list/                  # Parameters for list API
+│   │   ├── default.json
+│   │   ├── full-scrape-10-pages.json
+│   │   └── single-page-only.json
+│   └── details/               # Parameters for details API
+│       ├── default.json
+│       └── chaz-kangeroo-hoodie.json
 ├── utils/
-│   └── typesAndSchemas.ts    # Zod schemas and TypeScript interfaces
-├── package.json              # Typescript project dependencies
-└── Intuned.jsonc             # Intuned project configuration file
+│   └── typesAndSchemas.ts     # Zod schemas and TypeScript interfaces
+├── package.json               # TypeScript project dependencies
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 ### How It Works
 
 1. **list.ts** - Navigates to the listing page, extracts product title, price, and URL using JSDOM, follows pagination links, and calls `extendPayload` to send each product to the details API.
 
-2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
+2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images) using JSDOM.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

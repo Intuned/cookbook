@@ -1,6 +1,6 @@
-# stagehand-stock-details Intuned project
+# Stagehand Stock Details Template
 
-Using Stagehand with Intuned
+This template demonstrates how to use Stagehand AI agent with Intuned to extract stock details from Nasdaq. The project uses Stagehand's AI capabilities to find and analyze stock information based on natural language criteria.
 
 ## Getting Started
 
@@ -19,8 +19,15 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
+Run the stock details API with default parameters:
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api get_stock_details .parameters/get_stock_details/default.json
+```
+
+Or run with custom criteria:
+```bash
+uv run intuned run api get_stock_details '{"criteria": "highest market cap tech stock"}'
 ```
 
 ### Deploy project
@@ -47,18 +54,35 @@ This project uses the `setup_context` hook from the Intuned runtime SDK. This ho
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── .parameters/                      # Test parameters for APIs
+│   └── get_stock_details/
+│       └── default.json              # Default parameters for stock details API
+├── api/                              # Your API endpoints
+│   └── get_stock_details.py          # Stock details extraction API
+├── hooks/                            # Runtime hooks
+│   └── setup_context.py              # Sets up Stagehand context
+├── .env.example                      # Example environment variables
+├── Intuned.jsonc                     # Intuned project configuration file
+├── pyproject.toml                    # Python project dependencies
+└── README.md                         # This file
 ```
 
 
-## `Intuned.json` Reference
+## Environment Variables
+
+This project requires the following environment variables:
+
+- `INTUNED_API_KEY`: Your Intuned API key (required for local development)
+- `OPENAI_API_KEY`: (Optional) Your OpenAI API key for local development. When deployed to Intuned, the AI gateway configuration is provided automatically via `get_ai_gateway_config()` from runtime_helpers.
+
+Copy `.env.example` to `.env` and fill in your API keys:
+```bash
+cp .env.example .env
+```
+
+Note: In production/deployed environments, the project automatically uses Intuned's AI gateway, so no OpenAI API key is needed.
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

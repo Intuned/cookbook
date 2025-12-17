@@ -1,0 +1,13 @@
+{
+  "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+  "max_depth": 0,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string" },
+      "price": { "type": "string" },
+      "availability": { "type": "string" }
+    },
+    "required": ["title", "price"]
+  }
+}

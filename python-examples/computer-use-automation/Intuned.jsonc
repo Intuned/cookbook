@@ -2,6 +2,12 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "test",
+  "metadata": {
+    "template": {
+      "name": "Computer Use Automation",
+      "description": "AI-powered browser automation using computer use capabilities from multiple providers (Anthropic, OpenAI, Gemini, Browser Use) with Intuned's infrastructure"
+    }
+  },
   "apiAccess": {
     "enabled": false
   },

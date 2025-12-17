@@ -13,12 +13,26 @@
     "size": "standard"
   },
   "metadata": {
-    "defaultRunPlaygroundInput": {
-      "api": "shopify-list",
-      "parameters": {
-        "store_url": "https://the-outrage.com",
-        "maxPages": 10
-      }
+    "template": {
+      "name": "Shopify Store Scraper",
+      "description": "Shopify store scraper to list all products and fetch detailed product information from any Shopify store using the JSON API"
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "shopify-list",
+          "parameters": {
+            "store_url": "https://the-outrage.com",
+            "maxPages": 10
+          }
+        }
+      ]
     }
   }
 }

@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "Network Interception",
+      "description": "Network interception examples demonstrating CSRF token capture for authenticated API calls and paginated API response interception"
+    },
     "defaultRunPlaygroundInput": {
       "api": "api-interceptor",
       "parameters": {

@@ -23,6 +23,21 @@ After installing dependencies, `intuned` command should be available in your env
 uv run intuned run api <api-name> <parameters>
 ```
 
+Examples:
+```bash
+# Run with default parameters
+uv run intuned run api download-file .parameters/download-file/default.json
+
+# Run go-to-url with AI-powered loading detection
+uv run intuned run api go-to-url .parameters/go-to-url/default.json
+
+# Run sanitize-html example
+uv run intuned run api sanitize-html .parameters/sanitize-html/default.json
+
+# Run AI-powered extract-structured-data
+uv run intuned run api ai/extract-structured-data .parameters/ai/extract-structured-data/default.json
+```
+
 ### Deploy project
 ```bash
 uv run intuned deploy
@@ -60,8 +75,45 @@ The project structure is as follows:
 │   ├── validate-data-using-schema.py   # Validate data with Pydantic schemas
 │   ├── wait-for-dom-settled.py         # Wait for DOM to stabilize
 │   └── wait-for-network-settled.py     # Wait for network requests to settle
-└── Intuned.jsonc                       # Intuned project configuration file
+├── .parameters/                  # Test parameters for APIs
+│   ├── ai/
+│   │   └── extract-structured-data/
+│   │       └── default.json
+│   ├── download-file/
+│   │   └── default.json
+│   ├── go-to-url/
+│   │   └── default.json
+│   ├── sanitize-html/
+│   │   └── default.json
+│   ├── save-file-to-s3/
+│   │   └── default.json
+│   ├── scroll-to-load-content/
+│   │   └── default.json
+│   └── upload-file-to-s3/
+│       └── default.json
+├── .env.example                  # Environment variables template
+└── Intuned.jsonc                 # Intuned project configuration file
 ```
+
+## Environment Variables
+
+Some APIs require environment variables to be set. Copy `.env.example` to `.env` and fill in your credentials:
+
+```bash
+cp .env.example .env
+```
+
+Required environment variables:
+- `INTUNED_API_KEY` - Your Intuned API key (required for local development)
+- `ANTHROPIC_API_KEY` - Anthropic API key (required for AI-powered helpers using Claude)
+- `OPENAI_API_KEY` - OpenAI API key (required for AI-powered helpers using GPT)
+- `GOOGLE_API_KEY` - Google API key (required for AI-powered helpers using Gemini)
+- `INTUNED_S3_BUCKET` - S3 bucket name (required for S3 file operations)
+- `INTUNED_S3_REGION` - S3 region (required for S3 file operations)
+- `INTUNED_S3_ACCESS_KEY_ID` - S3 access key (required for S3 file operations)
+- `INTUNED_S3_SECRET_ACCESS_KEY` - S3 secret key (required for S3 file operations)
+
+Note: AI-powered helpers (in `api/ai/`) use AI credits and require appropriate API keys.
 
 ## SDK Helpers Showcase
 
@@ -93,7 +145,7 @@ The project structure is as follows:
 See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

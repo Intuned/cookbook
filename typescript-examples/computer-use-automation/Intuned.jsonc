@@ -2,6 +2,10 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "computer-use-automation",
+  "template": {
+    "name": "Computer Use Automation",
+    "description": "Demonstrates how to use AI models with computer use capabilities (Anthropic, OpenAI, Gemini) to automate browser tasks using Intuned's infrastructure"
+  },
   "apiAccess": {
     "enabled": true
   },
@@ -12,8 +16,16 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
+  "defaultJobInput": {
+    "apiName": "anthropic-computer-use",
+    "parameters": {
+      "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices"
+    }
+  },
   "defaultRunPlaygroundInput": {
-    "apiName": "sample",
-    "parameters": {}
+    "apiName": "anthropic-computer-use",
+    "parameters": {
+      "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices"
+    }
   }
 }

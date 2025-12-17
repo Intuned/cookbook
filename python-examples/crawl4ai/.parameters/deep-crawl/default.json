@@ -1,0 +1,8 @@
+{
+  "url": "https://playwright.dev/docs/intro",
+  "strategy": "bfs",
+  "max_depth": 3,
+  "max_pages": 20,
+  "url_patterns": ["*docs*"],
+  "stream": true
+}

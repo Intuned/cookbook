@@ -2,16 +2,41 @@
 
 Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions.
 
+## Features
+
+- Authenticated dashboard access using Auth Sessions
+- Product list scraping from protected pages
+- Detailed product information extraction including variants and images
+- Automatic image uploads to S3 storage
+- Dynamic payload extension to trigger detail scraping for each product
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
+## Prerequisites
+
+Before running this project, you need:
+
+1. An Intuned account and API key
+2. Valid credentials for the e-commerce site (default: admin@example.com / password)
+
+## Envs
+
+Set the following environment variables:
+
+```bash
+export INTUNED_API_KEY=your_api_key_here
+```
+
+You can find your API key in the [Intuned Dashboard](https://app.intunedhq.com).
 
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -20,8 +45,7 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
+> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
 
@@ -38,16 +62,23 @@ yarn intuned run api <api-name> <parameters>
 ```bash
 # List products from authenticated dashboard
 yarn intuned run api list
+
+# Using parameter file
+yarn intuned run api list --parameters-file .parameters/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-yarn intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+yarn intuned run api details '{"name": "Abominable Hoodie", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie"}'
+
+# Using parameter file
+yarn intuned run api details --parameters-file .parameters/details/product-example.json
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -56,12 +87,12 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 
-
 ## Auth Sessions
 
 This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create <parameters>
@@ -71,9 +102,13 @@ yarn intuned run authsession create <parameters>
 
 # Example
 yarn intuned run authsession create '{"username": "admin@example.com", "password": "password"}'
+
+# Using parameter file
+yarn intuned run authsession create --parameters-file .parameters/auth/create.json
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update <auth-session-id>
@@ -83,6 +118,7 @@ yarn intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate <auth-session-id>
@@ -91,22 +127,30 @@ npm run intuned run authsession validate <auth-session-id>
 yarn intuned run authsession validate <auth-session-id>
 ```
 
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
-├── api/                      # Your API endpoints
-│   ├── list.ts              # API to scrape product list from dashboard
-│   └── details.ts           # API to scrape detailed product information
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts             # API to check if the auth session is still valid
-│   └── create.ts            # API to create/recreate the auth session programmatically
-├── utils/                    # Utility files
-│   └── typeAndSchemas.ts    # TypeScript types and Zod schemas
-└── Intuned.json              # Intuned project configuration file
+├── .parameters/              # Test parameters for APIs and auth sessions
+│   ├── list/                # Parameters for list API
+│   │   └── default.json     # Empty params (no input required)
+│   ├── details/             # Parameters for details API
+│   │   └── product-example.json  # Example product details params
+│   └── auth/                # Parameters for auth sessions
+│       ├── create.json      # Auth session creation credentials
+│       └── check.json       # Empty params for session check
+├── api/                     # Your API endpoints
+│   ├── list.ts             # API to scrape product list from dashboard
+│   └── details.ts          # API to scrape detailed product information
+├── auth-sessions/           # Auth session related APIs
+│   ├── check.ts            # API to check if the auth session is still valid
+│   └── create.ts           # API to create/recreate the auth session programmatically
+├── utils/                   # Utility files
+│   └── typeAndSchemas.ts   # TypeScript types and Zod schemas
+└── Intuned.jsonc           # Intuned project configuration file
 ```
-
 
 ## APIs
 
@@ -126,6 +170,12 @@ Array of products with:
 - Requires authenticated session
 - Automatically navigates to dashboard
 - Triggers `details` API for each product using `extendPayload`
+
+**Example:**
+
+```bash
+yarn intuned run api list
+```
 
 ### `details` - Product Details Scraper
 
@@ -148,10 +198,49 @@ Product details object with:
 - `availableColors`: Array of available colors
 - `variants`: Array of product variants with stock information
 
+**Example:**
 
-## `Intuned.json` Reference
+```bash
+yarn intuned run api details '{"name": "Abominable Hoodie", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie"}'
+```
+
+## `Intuned.jsonc` Reference
+
 ```jsonc
 {
+  // Project name identifier
+  "projectName": "e-commerce-auth-scrapingcourse",
+
+  // Template metadata
+  "template": {
+    "name": "E-Commerce Auth Product Scraper",
+    "description": "Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions."
+  },
+
+  // Test credentials for auth session creation
+  "testAuthSessionInput": {
+    "username": "admin@example.com",
+    "password": "password"
+  },
+
+  // Default job input configuration
+  "defaultJobInput": {
+    "configuration": {
+      // Number of concurrent API calls within the job
+      "maxConcurrentRequests": 2,
+      // Retry configuration
+      "retry": {
+        "maximumAttempts": 3
+      }
+    },
+    "payload": [
+      {
+        "apiName": "list",
+        "parameters": {}
+      }
+    ]
+  },
+
   // API access settings
   "apiAccess": {
     // Whether to enable consumption through Intuned API
@@ -176,31 +265,6 @@ Product details object with:
     // "large": Large machine size (8 shared vCPUs, 4GB RAM)
     // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
     "size": "standard"
-  },
-
-  // Default job configuration
-  "metadata": {
-    "defaultJobInput": {
-      "configuration": {
-        // Number of concurrent API calls within the job
-        "maxConcurrentRequests": 2,
-        // Retry configuration
-        "retry": {
-          "maximumAttempts": 3
-        }
-      },
-      "payload": [
-        {
-          "apiName": "list",
-          "parameters": {}
-        }
-      ]
-    },
-    // Test credentials for auth session creation
-    "testAuthSessionInput": {
-      "username": "admin@example.com",
-      "password": "password"
-    }
   }
 }
 ```

@@ -1,6 +1,6 @@
 import z from "zod";
 import type { Page, Stagehand } from "@browserbasehq/stagehand";
-import { attemptStore } from "@intuned/runtime";
+import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
 
 interface Params {
   criteria: string;
@@ -15,7 +15,16 @@ export default async function handler(
 
   await page.goto("https://www.nasdaq.com/market-activity/stocks");
 
-  const agent = stagehand.agent({});
+  // Get AI Gateway configuration from Intuned
+  const { baseUrl, apiKey } = await getAiGatewayConfig();
+
+  const agent = stagehand.agent({
+    modelName: "claude-sonnet-4-5",
+    modelClientOptions: {
+      apiKey,
+      baseURL: baseUrl,
+    },
+  });
 
   // Agent runs on current Stagehand page
   await agent.execute({
@@ -41,6 +50,11 @@ export default async function handler(
     stockDetailsSchema,
     {
       page: page,
+      modelName: "claude-sonnet-4-5",
+      modelClientOptions: {
+        apiKey,
+        baseURL: baseUrl,
+      },
     }
   );
 }

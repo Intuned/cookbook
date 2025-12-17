@@ -36,18 +36,27 @@ yarn intuned run api <api-name> <parameters>
 #### Example: List Products
 
 ```bash
-# List products with default page limit (50)
+# List products with default parameters
 yarn intuned run api list
 
 # List products with custom page limit
 yarn intuned run api list '{"limit": 5}'
+
+# List all products (up to 50 pages)
+yarn intuned run api list '{"limit": 50}'
 ```
 
 #### Example: Get Product Details
 
 ```bash
+# Get details using default parameters
+yarn intuned run api details
+
 # Get details for a specific product
-yarn intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+yarn intuned run api details '{"name": "Abominable Hoodie", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie"}'
+
+# Get details for another product
+yarn intuned run api details '{"name": "Chaz Kangeroo Hoodie", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/chaz-kangeroo-hoodie"}'
 ```
 
 ### Deploy project
@@ -69,7 +78,12 @@ The project structure is as follows:
 │   └── details.ts           # API to scrape detailed product information
 ├── utils/                    # Utility files
 │   └── typesAndSchemas.ts   # TypeScript types and Zod schemas
-└── Intuned.json              # Intuned project configuration file
+├── .parameters/              # Default parameter files for testing
+│   ├── list/
+│   │   └── default.json     # Default parameters for list API
+│   └── details/
+│       └── default.json     # Default parameters for details API
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
@@ -104,7 +118,7 @@ Scrapes detailed information for a specific product.
 Product details object with:
 - `name`: Product name
 - `price`: Product price
-- `sku`: Stock Keeping Unit
+- `id`: Product ID (SKU)
 - `category`: Product category
 - `shortDescription`: Brief product description
 - `fullDescription`: Complete product description
@@ -114,7 +128,12 @@ Product details object with:
 - `variants`: Array of product variants with stock information
 
 
-## `Intuned.json` Reference
+## Envs
+
+This project does not require any environment variables.
+
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings
@@ -141,8 +160,15 @@ Product details object with:
     "size": "standard"
   },
 
-  // Default job configuration
+  // Metadata configuration
   "metadata": {
+    // Template information
+    "template": {
+      "name": "E-Commerce Product Scraper",
+      "description": "E-commerce scraping automation that extracts product information from an online store with pagination support"
+    },
+
+    // Default job configuration
     "defaultJobInput": {
       "configuration": {
         // Number of concurrent API calls within the job

@@ -4,6 +4,42 @@ Quick-start examples for using [crawl4ai](https://crawl4ai.com) on the Intuned p
 
 This project serves as a reference for the [crawl4ai documentation](https://docs.crawl4ai.com/) tutorials, demonstrating how to integrate crawl4ai with Intuned's browser automation infrastructure.
 
+## Project Structure
+
+```
+crawl4ai/
+├── api/
+│   ├── simple-crawl.py           # Single URL crawling
+│   ├── deep-crawl.py              # Deep crawling with strategies
+│   ├── multi-crawl.py             # Concurrent URL crawling
+│   ├── content-selection/
+│   │   ├── css-based.py           # CSS selector extraction
+│   │   └── llm-based.py           # LLM-based extraction
+│   └── adaptive-crawl/
+│       ├── statistical.py         # Statistical adaptive crawling
+│       └── embedding.py           # Embedding-based adaptive crawling
+├── .parameters/                   # Test parameters for each API
+│   ├── simple-crawl/
+│   │   └── default.json
+│   ├── deep-crawl/
+│   │   └── default.json
+│   ├── multi-crawl/
+│   │   └── default.json
+│   ├── content-selection/
+│   │   ├── css-based/
+│   │   │   └── default.json
+│   │   └── llm-based/
+│   │       └── default.json
+│   └── adaptive-crawl/
+│       ├── statistical/
+│       │   └── default.json
+│       └── embedding/
+│           └── default.json
+├── Intuned.jsonc                  # Intuned project configuration
+├── pyproject.toml                 # Python dependencies
+└── README.md
+```
+
 ## APIs
 
 ### Core Crawling
@@ -28,6 +64,36 @@ This project serves as a reference for the [crawl4ai documentation](https://docs
 | `adaptive-crawl/statistical` | Adaptive crawling with statistical strategy (term-based analysis) |
 | `adaptive-crawl/embedding` | Adaptive crawling with embedding strategy (semantic understanding) |
 
+## Run API Examples
+
+Run APIs locally using the Intuned CLI with test parameters:
+
+```bash
+# Core Crawling
+intuned run api/simple-crawl.py --parameters .parameters/simple-crawl/default.json
+intuned run api/deep-crawl.py --parameters .parameters/deep-crawl/default.json
+intuned run api/multi-crawl.py --parameters .parameters/multi-crawl/default.json
+
+# Content Selection
+intuned run api/content-selection/css-based.py --parameters .parameters/content-selection/css-based/default.json
+intuned run api/content-selection/llm-based.py --parameters .parameters/content-selection/llm-based/default.json
+
+# Adaptive Crawling
+intuned run api/adaptive-crawl/statistical.py --parameters .parameters/adaptive-crawl/statistical/default.json
+intuned run api/adaptive-crawl/embedding.py --parameters .parameters/adaptive-crawl/embedding/default.json
+```
+
+## Environment Variables
+
+Some APIs require environment variables. Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+# Required for LLM-based content selection and embedding adaptive crawling
+INTUNED_API_KEY=your_api_key_here
+```
+
+Note: For LLM-based APIs (`content-selection/llm-based`, `adaptive-crawl/embedding`), you'll also need to provide API keys in the parameters JSON (e.g., OpenAI API key for the LLM provider).
+
 ## Learn More
 
 - [crawl4ai Documentation](https://docs.crawl4ai.com/)
@@ -39,7 +105,7 @@ This project serves as a reference for the [crawl4ai documentation](https://docs
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

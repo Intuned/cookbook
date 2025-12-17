@@ -25,12 +25,27 @@ yarn
 
 ### Run an API
 
-```bash
-# npm
-npm run intuned run api <api-name> <parameters>
+You can run APIs with custom parameters or use the default parameters from the `.parameters` folder:
 
-# yarn
-yarn intuned run api <api-name> <parameters>
+```bash
+# Run with default parameters
+yarn intuned run api go-to-url --parameters-file .parameters/go-to-url/default.json
+
+# Run with custom parameters
+yarn intuned run api go-to-url --parameters '{"url": "https://example.com", "waitUntil": "load", "timeout": 30000}'
+
+# Other examples with default parameters
+yarn intuned run api download-file --parameters-file .parameters/download-file/default.json
+yarn intuned run api scroll-to-load-content --parameters-file .parameters/scroll-to-load-content/default.json
+yarn intuned run api wait-for-dom-settled --parameters-file .parameters/wait-for-dom-settled/default.json
+yarn intuned run api wait-for-network-settled --parameters-file .parameters/wait-for-network-settled/default.json
+
+# AI-powered helpers (requires API keys)
+yarn intuned run api ai/extract-structured-data --parameters-file .parameters/extract-structured-data/default.json
+
+# S3 file operations (requires S3 credentials in .env)
+yarn intuned run api upload-file-to-s3 --parameters-file .parameters/upload-file-to-s3/default.json
+yarn intuned run api save-file-to-s3 --parameters-file .parameters/save-file-to-s3/default.json
 ```
 
 ### Deploy project
@@ -56,6 +71,23 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
+├── .parameters/                  # Default parameters for API testing
+│   ├── download-file/
+│   │   └── default.json
+│   ├── extract-structured-data/
+│   │   └── default.json
+│   ├── go-to-url/
+│   │   └── default.json
+│   ├── save-file-to-s3/
+│   │   └── default.json
+│   ├── scroll-to-load-content/
+│   │   └── default.json
+│   ├── upload-file-to-s3/
+│   │   └── default.json
+│   ├── wait-for-dom-settled/
+│   │   └── default.json
+│   └── wait-for-network-settled/
+│       └── default.json
 ├── api/                          # Browser SDK helper examples
 │   ├── ai/                       # AI-powered helpers (requires API keys & credits)
 │   │   ├── extract-structured-data.ts  # Extract structured data from content
@@ -74,6 +106,7 @@ The project structure is as follows:
 │   ├── validate-data-using-schema.ts   # Validate data with JSON schemas
 │   ├── wait-for-dom-settled.ts         # Wait for DOM to stabilize
 │   └── wait-for-network-settled.ts     # Wait for network requests to settle
+├── .env.example                        # Example environment variables
 └── Intuned.jsonc                       # Intuned project configuration file
 ```
 
@@ -106,8 +139,40 @@ The project structure is as follows:
 ### AI-Powered Helpers
 See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.
 
+## Environment Variables
 
-## `Intuned.json` Reference
+This project uses environment variables for API keys and credentials. Copy `.env.example` to `.env` and fill in your values:
+
+```bash
+cp .env.example .env
+```
+
+### Required Environment Variables
+
+#### Intuned API Key
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+Required for all Intuned operations.
+
+#### AI Provider Keys (for AI-powered helpers)
+```bash
+ANTHROPIC_API_KEY=your_anthropic_api_key
+OPENAI_API_KEY=your_openai_api_key
+GOOGLE_API_KEY=your_gemini_api_key
+```
+Required when using AI-powered helpers like `extract-structured-data` and `is-page-loaded`.
+
+#### AWS S3 Credentials (for S3 file operations)
+```bash
+INTUNED_S3_SECRET_ACCESS_KEY=your_s3_secret_access_key
+INTUNED_S3_ACCESS_KEY_ID=your_s3_access_key
+INTUNED_S3_REGION=region
+INTUNED_S3_BUCKET=bucket_name
+```
+Required when using S3 file operations like `upload-file-to-s3` and `save-file-to-s3`.
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

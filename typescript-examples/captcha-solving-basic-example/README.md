@@ -1,6 +1,6 @@
 # captcha-solving-basic-example Intuned project
 
-Automation project to demonstrate our captcha solving capabilities
+Comprehensive demonstration of Intuned's captcha solving capabilities across multiple captcha types.
 
 ## Getting Started
 
@@ -25,12 +25,31 @@ yarn
 
 ### Run an API
 
+Run the main captcha solver API (runs all captcha types sequentially):
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api captchaSolver -- --parameters-file .parameters/captchaSolver/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api captchaSolver --parameters-file .parameters/captchaSolver/default.json
+```
+
+Run individual captcha solver functions:
+```bash
+# Custom Captcha
+yarn intuned run api captchaSolver:customCaptcha --parameters-file .parameters/captchaSolver/default.json
+
+# GeeTest
+yarn intuned run api captchaSolver:geetest --parameters-file .parameters/captchaSolver/default.json
+
+# reCAPTCHA v2 Enterprise
+yarn intuned run api captchaSolver:recaptcha --parameters-file .parameters/captchaSolver/default.json
+
+# Cloudflare Challenge
+yarn intuned run api captchaSolver:cloudflareChallenge --parameters-file .parameters/captchaSolver/default.json
+
+# Cloudflare Turnstile
+yarn intuned run api captchaSolver:cloudflareTurnstile --parameters-file .parameters/captchaSolver/default.json
 ```
 
 ### Deploy project
@@ -43,12 +62,15 @@ yarn intuned deploy
 
 ```
 
+## Envs
+
+This project does not require any environment variables.
 
 
 
 ### `@intuned/browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
 
@@ -56,26 +78,79 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Project Structure
 The project structure is as follows:
 ```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── .parameters/
+│   └── captchaSolver/
+│       └── default.json          # Default parameters for captchaSolver API
+├── api/
+│   └── captchaSolver.ts          # Main API with all captcha solving examples
+├── helpers/
+│   └── captcha.ts                # Helper function for captcha solving with decorator pattern
+├── package.json                  # TypeScript project dependencies
+└── Intuned.jsonc                 # Intuned project configuration file
+```
+
+## How It Works
+
+This project demonstrates solving 5 different types of captchas:
+
+1. **Custom Captcha** - Basic image-based captcha with custom selectors
+2. **GeeTest** - Popular sliding puzzle captcha
+3. **reCAPTCHA v2 Enterprise** - Google's enterprise reCAPTCHA
+4. **Cloudflare Challenge** - Cloudflare's bot detection challenge
+5. **Cloudflare Turnstile** - Modern Cloudflare verification
+
+Each captcha type can be tested individually using the exported functions, or all can be run sequentially using the default handler.
+
+### Two Solving Patterns
+
+**Callable Pattern:**
+```typescript
+await page.goto("https://example.com");
+await waitForCaptchaSolve(page, {
+  timeoutInMs: 30_000,
+  settlePeriodInMs: 10_000
+});
+```
+
+**Decorator Pattern:**
+```typescript
+await goToWithCaptchaSolve(page, "https://example.com");
+```
+
+## Configuration
+
+All captcha solving is configured in `Intuned.jsonc`:
+
+```jsonc
+{
+  "captchaSolver": {
+    "enabled": true,
+    "googleRecaptchaV2": { "enabled": true },
+    "cloudflare": { "enabled": true },
+    "geetest": { "enabled": true },
+    "customCaptcha": {
+      "enabled": true,
+      "imageLocators": ["#demoCaptcha_CaptchaImage"],
+      "inputLocators": ["#captchaCode"],
+      "submitLocators": ["#validateCaptchaButton"]
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 10
+    }
+  }
+}
 ```
 
 
 ## `Intuned.json` Reference
 ```jsonc
 {
-  // Your Intuned workspace ID. 
+  // Your Intuned workspace ID.
   // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
   "workspaceId": "your_workspace_id",
 
-  // The name of your Intuned project. 
+  // The name of your Intuned project.
   // Optional - If not provided here, it must be supplied via the command line when deploying.
   "projectName": "your_project_name",
 
@@ -106,7 +181,7 @@ The project structure is as follows:
     // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
     // "MANUAL" type uses a recorder to manually create the auth session.
     "type": "API",
-    
+
 
     // Recorder start URL for the recorder to navigate to when creating the auth session.
     // Required if "type" is "MANUAL". Not used if "type" is "API".
@@ -122,7 +197,7 @@ The project structure is as follows:
     // Only applicable for "MANUAL" type.
     "browserMode": "fullscreen"
   }
-  
+
   // API access settings
   "apiAccess": {
     // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
@@ -139,4 +214,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-  

@@ -25,12 +25,22 @@ yarn
 
 ### Run an API
 
+Run the book-consultations API:
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api book-consultations .parameters/book-consultations/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api book-consultations .parameters/book-consultations/default.json
+```
+
+Run the get-consultations-by-email API:
+```bash
+# npm
+npm run intuned run api get-consultations-by-email .parameters/get-consultations-by-email/default.json
+
+# yarn
+yarn intuned run api get-consultations-by-email .parameters/get-consultations-by-email/default.json
 ```
 
 ### Deploy project
@@ -51,10 +61,10 @@ This project uses Intuned Auth Sessions. To learn more, check out the [Authentic
 ### Create a new auth session
 ```bash
 # npm
-npm run intuned run authsession create <parameters>
+npm run intuned run authsession create .parameters/auth/create.json
 
 # yarn
-yarn intuned run authsession create <parameters>
+yarn intuned run authsession create .parameters/auth/create.json
 ```
 
 ### Update an existing auth session
@@ -83,22 +93,41 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 
 
+## Envs
+
+This project uses environment variables for configuration. Create a `.env` file based on the `.env.example` file:
+
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
 ## Project Structure
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
+├── api/                      # Your API endpoints
+│   ├── book-consultations.ts
+│   └── get-consultations-by-email.ts
 ├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
+│   ├── check.ts              # API to check if the auth session is still valid
+│   └── create.ts             # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+├── .parameters/              # Test parameters for APIs and auth sessions
+│   ├── book-consultations/
+│   │   └── default.json
+│   ├── get-consultations-by-email/
+│   │   └── default.json
+│   └── auth/
+│       ├── create.json
+│       └── check.json
+├── utils/                    # Utility functions and schemas
+│   └── typesAndSchemas.ts
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

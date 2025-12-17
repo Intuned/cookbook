@@ -1,0 +1,48 @@
+{
+  "projectName": "e-commerce-auth-scrapingcourse",
+
+  // Template metadata
+  "template": {
+    "name": "E-Commerce Auth Product Scraper",
+    "description": "Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions."
+  },
+
+  // Test credentials for auth session creation
+  "testAuthSessionInput": {
+    "username": "admin@example.com",
+    "password": "password"
+  },
+
+  // Default job input configuration
+  "defaultJobInput": {
+    "configuration": {
+      "maxConcurrentRequests": 2,
+      "retry": {
+        "maximumAttempts": 3
+      }
+    },
+    "payload": [
+      {
+        "apiName": "list",
+        "parameters": {}
+      }
+    ]
+  },
+
+  // API access settings
+  "apiAccess": {
+    "enabled": true
+  },
+
+  // Auth session settings
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+
+  // Replication settings
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  }
+}

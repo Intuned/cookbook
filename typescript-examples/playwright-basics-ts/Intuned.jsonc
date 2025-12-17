@@ -2,6 +2,10 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "playwright-basics-ts",
+  "template": {
+    "name": "Playwright Basics",
+    "description": "A simple and reusable TypeScript template for Playwright that covers the core automation basics like navigation, interactions, scraping, pagination, and file handling."
+  },
   "apiAccess": {
     "enabled": true
   },

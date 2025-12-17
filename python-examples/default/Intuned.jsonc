@@ -1,0 +1,24 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
+{
+  "projectName": "default",
+  "metadata": {
+    "template": {
+      "name": "Default Project",
+      "description": "Empty Intuned project template for browser automation"
+    }
+  },
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "proxy": {
+    "enabled": false
+  }
+}

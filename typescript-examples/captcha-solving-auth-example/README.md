@@ -1,142 +1,233 @@
-# captcha-solving-auth-example Intuned project
+# Captcha Solving with Auth Sessions Example
 
-E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example
+This example demonstrates how to build a web scraper that automatically solves Cloudflare Turnstile captchas using Intuned's captcha solver, combined with authenticated sessions for protected content.
+
+## Features
+
+- **Cloudflare Turnstile Solving**: Automatically solves Cloudflare Turnstile captchas during authentication
+- **Auth Sessions**: Maintains authenticated state across multiple API calls
+- **Product Scraping**: Scrapes product information from protected e-commerce pages
+- **Two APIs**:
+  - `list`: Lists all products from the dashboard
+  - `details`: Gets detailed information for a specific product
+
+## Prerequisites
+
+- Node.js and npm/yarn installed
+- Intuned account with captcha solver enabled
+- Intuned API key set in `.env` file
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+### 1. Install Dependencies
 
-
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Install dependencies
 ```bash
-# npm
+# Using npm
 npm install
 
-# yarn
+# Using yarn
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+### 2. Configure Environment
 
-
-### Run an API
+Create a `.env` file in the project root:
 
 ```bash
-# npm
-npm run intuned run api <api-name> <parameters>
-
-# yarn
-yarn intuned run api <api-name> <parameters>
+INTUNED_API_KEY=your_api_key_here
 ```
 
-### Deploy project
-```bash
-# npm
-npm run intuned deploy
+### 3. Test Locally
 
-# yarn
+Run APIs locally with test parameters:
+
+```bash
+# Test the list API (uses .parameters/api/list/default.json)
+yarn intuned run api list
+
+# Test the details API (uses .parameters/api/details/default.json)
+yarn intuned run api details
+
+# Test with custom parameters
+yarn intuned run api details '{"name":"Product Name","price":"$50","details_url_item":"https://scrapingcourse.com/ecommerce/product/example"}'
+```
+
+### 4. Deploy to Intuned
+
+```bash
 yarn intuned deploy
-
 ```
-
-
-
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
-
-
-
 
 ## Project Structure
-The project structure is as follows:
+
 ```
-/
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+captcha-solving-auth-example/
+├── api/                          # API endpoints
+│   ├── details.ts               # Get product details
+│   └── list.ts                  # List all products
+├── auth-sessions/               # Authentication handlers
+│   ├── create.ts               # Create auth session (handles captcha)
+│   └── check.ts                # Validate auth session
+├── .parameters/                 # Test parameters
+│   ├── api/
+│   │   ├── details/
+│   │   │   └── default.json
+│   │   └── list/
+│   │       └── default.json
+│   └── auth/
+│       ├── create/
+│       │   └── default.json
+│       └── check/
+│           └── default.json
+├── Intuned.jsonc               # Project configuration
+├── .env                        # Environment variables (not tracked)
+└── package.json
 ```
 
+## Envs
 
-## `Intuned.json` Reference
+This project uses environment variables for configuration. Create a `.env` file with:
+
+```bash
+# Required: Your Intuned API key for authentication
+INTUNED_API_KEY=your_api_key_here
+```
+
+## Auth Sessions
+
+This project uses **API-based auth sessions** to handle authentication with captcha solving.
+
+### How It Works
+
+1. **create.ts**: Navigates to login page, fills credentials, waits for captcha to be solved automatically, and submits the form
+2. **check.ts**: Validates the session by checking if the user is still logged in
+3. Auth state is preserved across API calls, eliminating the need to re-authenticate for each request
+
+### Testing Auth Session Creation
+
+```bash
+# Test creating an auth session with default credentials (uses .parameters/auth/create/default.json)
+yarn intuned run auth-session create
+
+# Test with custom credentials
+yarn intuned run auth-session create '{"email":"user@example.com","password":"pass123"}'
+```
+
+Learn more about Auth Sessions: https://docs.intunedhq.com/docs/02-features/auth-sessions
+
+## API Examples
+
+### List Products
+
+Scrapes all products from the dashboard:
+
+```bash
+# Uses .parameters/api/list/default.json
+yarn intuned run api list
+```
+
+### Get Product Details
+
+Scrapes detailed information for a specific product:
+
+```bash
+# Uses .parameters/api/details/default.json
+yarn intuned run api details
+
+# Or with custom parameters
+yarn intuned run api details '{"name":"Mach Street Sweatshirt","price":"$62","details_url_item":"https://scrapingcourse.com/ecommerce/product/mach-street-sweatshirt"}'
+```
+
+## Captcha Solver Configuration
+
+The `Intuned.jsonc` file includes captcha solver settings:
+
 ```jsonc
 {
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
+  "captchaSolver": {
     "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
+    "cloudflare": {
+      "enabled": true
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 4
+    }
   }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
 }
 ```
-  
+
+- **autoSolve**: Automatically detects and solves captchas
+- **maxRetries**: Number of retry attempts if captcha solving fails
+- **cloudflare.enabled**: Specifically enables Cloudflare Turnstile solving
+
+## Development Commands
+
+```bash
+# Install dependencies
+yarn
+
+# Run an API locally
+yarn intuned run api <api-name> [parameters]
+
+# Create/test auth session
+yarn intuned run auth-session create [parameters]
+
+# Deploy to Intuned cloud
+yarn intuned deploy
+
+# Get help on any command
+yarn intuned --help
+yarn intuned run --help
+```
+
+## Key Implementation Details
+
+### Captcha Handling in create.ts
+
+```typescript
+import { waitForCaptchaSolve } from "@intuned/runtime";
+
+// Fill login credentials
+await page.locator("#email").fill(params.email);
+await page.locator("#password").fill(params.password);
+
+// Wait for captcha to be automatically solved
+await waitForCaptchaSolve(page, {
+  timeoutInMs: 30_000,
+  settlePeriodInMs: 10_000,
+});
+
+// Submit the form
+await page.locator("#submit-button").click();
+```
+
+The `waitForCaptchaSolve` function:
+- Detects when a captcha is present
+- Waits for the captcha solver to complete
+- Has configurable timeout and settle period
+- Automatically retries based on `maxRetries` config
+
+### Session Validation in check.ts
+
+```typescript
+export default async function check(
+  page: Page,
+  context: BrowserContext
+): Promise<boolean> {
+  await goToUrl({
+    page,
+    url: "https://www.scrapingcourse.com/dashboard",
+  });
+
+  return await page.getByText("Logout").isVisible();
+}
+```
+
+## Resources
+
+- [Intuned Documentation](https://docs.intunedhq.com)
+- [Browser SDK Reference](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Auth Sessions Guide](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Captcha Solving Documentation](https://docs.intunedhq.com/docs/02-features/captcha-solving)
+- [Recipe: Captcha Solving](https://docs.intunedhq.com/docs/01-learn/recipes/captcha-solving)

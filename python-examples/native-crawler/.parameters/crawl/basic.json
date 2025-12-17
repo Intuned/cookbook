@@ -1,0 +1,5 @@
+{
+   "url": "https://books.toscrape.com",
+   "max_depth": 2,
+   "max_pages": 100
+}

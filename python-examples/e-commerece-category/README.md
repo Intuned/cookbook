@@ -18,9 +18,22 @@ uv sync
 
 After installing dependencies, `intuned` command should be available in your environment.
 
+### Environment Variables
+Create a `.env` file in the project root (use `.env.example` as a template):
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Run ecommerece-category API
+uv run intuned run api ecommerece-category --parameters-file .parameters/ecommerece-category/default.json
+
+# Run ecommerece-list API
+uv run intuned run api ecommerece-list --parameters-file .parameters/ecommerece-list/default.json
+
+# Run ecommerece-details API
+uv run intuned run api ecommerece-details --parameters-file .parameters/ecommerece-details/default.json
 ```
 
 ### Deploy project
@@ -41,12 +54,20 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Project Structure
 The project structure is as follows:
 ```
-├── api/                          # Your API endpoints 
+├── .parameters/                  # Test parameters for each API
+│   ├── ecommerece-category/
+│   │   └── default.json          # Parameters for category scraping
+│   ├── ecommerece-list/
+│   │   └── default.json          # Parameters for product listing
+│   └── ecommerece-details/
+│       └── default.json          # Parameters for product details
+├── api/                          # Your API endpoints
 │   ├── ecommerece-category.py    # API to scrape category links from the main menu
 │   ├── ecommerece-list.py        # API to list all products from a category page
 │   └── ecommerece-details.py     # API to fetch detailed product information
 ├── utils/
 │   └── types_and_schemas.py      # Pydantic models for type validation
+├── .env.example                  # Environment variables template
 ├── Intuned.jsonc                 # Intuned project configuration file
 └── pyproject.toml                # Python project dependencies
 ```
@@ -60,7 +81,7 @@ The project structure is as follows:
 Each API uses `extend_payload` to chain to the next step in the scraping flow.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -14,6 +14,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "Authenticated Consultation Booking",
+      "description": "Automates booking consultations and retrieving consultation data with credential-based authentication. Demonstrates auth sessions with login/logout flows."
+    },
     "defaultRunPlaygroundInput": {
       "api": "book-consultations",
       "parameters": {

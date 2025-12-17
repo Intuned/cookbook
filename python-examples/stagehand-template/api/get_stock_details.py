@@ -2,7 +2,7 @@ from typing import TypedDict, cast
 from intuned_runtime import attempt_store
 from pydantic import BaseModel
 from stagehand import Stagehand, StagehandPage
-import os
+from runtime_helpers import get_ai_gateway_config
 
 
 class Params(TypedDict):
@@ -15,10 +15,13 @@ async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: 
 
     await page.goto("https://www.nasdaq.com/market-activity/stocks")
 
+    # Get AI gateway configuration from Intuned runtime
+    ai_config = await get_ai_gateway_config()
+
     agent = stagehand.agent(
         provider="openai",
         model="computer-use-preview",
-        options={"apiKey": os.getenv("OPENAI_API_KEY")},
+        options={"apiKey": ai_config.api_key, "baseURL": ai_config.base_url},
     )
 
     # Agent runs on current Stagehand page

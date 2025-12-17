@@ -2,6 +2,7 @@ from playwright.async_api import Page
 from typing import TypedDict
 from browser_use import Agent, ChatOpenAI, Browser, Tools
 from intuned_runtime import attempt_store
+from runtime_helpers import get_ai_gateway_config
 
 
 class Params(TypedDict):
@@ -29,6 +30,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     email = params["email"]
     extra_details = params["extra_details"]
 
+    # Get AI gateway configuration from Intuned runtime
+    ai_config = await get_ai_gateway_config()
+
     tools = Tools()
 
     agent = Agent(
@@ -37,7 +41,12 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 2. Fill in the check-in date '{check_in_date}' and check-out date '{check_out_date}' in the format DD/MM/YYYY (all numbers). Hit search.
 3. Find a room that is within the budget of '{budget} pounds'. {f"Keep in mind the following: '{extra_details}'" if extra_details else ""}
 4. Book the room with first name '{first_name}' last name '{last_name}' phone number '{phone_number}' email '{email}'""",
-        llm=ChatOpenAI(model="gpt-5-nano", temperature=0),
+        llm=ChatOpenAI(
+            model="gpt-5-nano",
+            temperature=0,
+            base_url=ai_config.base_url,
+            api_key=ai_config.api_key
+        ),
         flash_mode=True,
         tools=tools,
     )

@@ -13,6 +13,10 @@
       "size": "standard"
     },
     "metadata": {
+      "template": {
+        "name": "E-Commerce Category Scraper",
+        "description": "E-commerce store scraper template for sites with category-based navigation. Scrapes categories, product listings, and detailed product information."
+      },
       "defaultRunPlaygroundInput": {
         "api": "ecommerece-category",
         "parameters": {

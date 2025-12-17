@@ -11,5 +11,21 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "Browser-Use Integration",
+      "description": "AI-powered browser automation using the browser-use library to autonomously complete web tasks"
+    },
+    "defaultJobInput": {
+      "check_in_date": "12 sep. 2025",
+      "check_out_date": "14 sep. 2025",
+      "budget": 200,
+      "first_name": "Test",
+      "last_name": "User",
+      "phone_number": "012345678900",
+      "email": "test@user.me",
+      "extra_details": "Wifi is preferable but not required"
+    }
   }
 }

@@ -2,6 +2,7 @@ from playwright.async_api import Page
 from typing import TypedDict, NotRequired
 from browser_use import Agent, ChatOpenAI, Browser, Tools
 from intuned_runtime import attempt_store
+from runtime_helpers import get_ai_gateway_config
 
 
 class Params(TypedDict):
@@ -11,18 +12,26 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
-    
+
     # Set viewport size to match the computer tool's display dimensions
     await page.set_viewport_size({"width": 1280, "height": 720})
-    
+
     browser: Browser = attempt_store.get("browser")
+
+    # Get AI gateway configuration from Intuned runtime
+    ai_config = await get_ai_gateway_config()
 
     tools = Tools()
 
     agent = Agent(
         browser=browser,
         task=params["query"],
-        llm=ChatOpenAI(model="gpt-4o", temperature=0),
+        llm=ChatOpenAI(
+            model="gpt-4o",
+            temperature=0,
+            base_url=ai_config.base_url,
+            api_key=ai_config.api_key
+        ),
         flash_mode=True,
         tools=tools,
     )

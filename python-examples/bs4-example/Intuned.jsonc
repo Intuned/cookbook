@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "BeautifulSoup E-commerce Scraper",
+      "description": "E-commerce scraper using BeautifulSoup for HTML parsing to extract product listings and details with pagination support"
+    },
     "defaultRunPlaygroundInput": {
       "api": "list",
       "parameters": {

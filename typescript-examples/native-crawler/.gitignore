@@ -49,3 +49,6 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Old test parameters (deprecated - use .parameters/ instead)
+____testParameters/

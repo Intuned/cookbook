@@ -2,6 +2,12 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "browser-sdk-showcase",
+  "metadata": {
+    "template": {
+      "name": "Browser SDK Showcase",
+      "description": "A comprehensive collection of browser automation helper functions from the Intuned Browser SDK, demonstrating utilities for web scraping, data processing, file handling, and AI-powered operations."
+    }
+  },
   "apiAccess": {
     "enabled": true
   },
@@ -13,7 +19,7 @@
     "size": "standard"
   },
   "defaultRunPlaygroundInput": {
-    "apiName": "sample",
+    "apiName": "go-to-url",
     "parameters": {}
   }
 }

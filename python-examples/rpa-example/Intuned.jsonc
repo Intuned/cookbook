@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "RPA Example Project",
+      "description": "A basic RPA (Robotic Process Automation) example demonstrating consultation booking and retrieval automation without authentication"
+    },
     "defaultRunPlaygroundInput": {
       "api": "book-consultations",
       "parameters": {

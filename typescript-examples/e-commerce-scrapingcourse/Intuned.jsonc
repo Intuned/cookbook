@@ -1,0 +1,32 @@
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "E-Commerce Product Scraper",
+      "description": "E-commerce scraping automation that extracts product information from an online store with pagination support"
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {}
+        }
+      ]
+    }
+  }
+}

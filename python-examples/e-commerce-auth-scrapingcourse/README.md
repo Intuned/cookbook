@@ -34,14 +34,17 @@ intuned run api <api-name> <parameters>
 #### Example: List Products
 
 ```bash
-# List products from authenticated dashboard
+# List products from authenticated dashboard (no parameters required)
 uv run intuned run api list
 ```
 
 #### Example: Get Product Details
 
 ```bash
-# Get details for a specific product
+# Get details for a specific product using default parameters
+uv run intuned run api details --parameters-file .parameters/details/default.json
+
+# Or with custom parameters
 uv run intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
 ```
 
@@ -61,13 +64,13 @@ This project uses Intuned Auth Sessions to maintain authenticated access to the 
 
 ### Create a new auth session
 ```bash
-# Using uv
-uv run intuned run authsession create <parameters>
+# Using uv with parameters file
+uv run intuned run authsession create --parameters-file .parameters/auth/create.json
 
-# Using pip
-intuned run authsession create <parameters>
+# Using pip with parameters file
+intuned run authsession create --parameters-file .parameters/auth/create.json
 
-# Example
+# Or with inline parameters
 uv run intuned run authsession create '{"username": "admin@example.com", "password": "password"}'
 ```
 
@@ -94,6 +97,12 @@ intuned run authsession validate <auth-session-id>
 The project structure is as follows:
 ```
 /
+├── .parameters/              # Example parameters for testing
+│   ├── auth/                # Auth session parameters
+│   │   ├── create.json      # Parameters for creating auth session
+│   │   └── check.json       # Parameters for checking auth session
+│   └── details/             # Details API parameters
+│       └── default.json     # Default parameters for details API
 ├── api/                      # Your API endpoints
 │   ├── list.py              # API to scrape product list from dashboard
 │   └── details.py           # API to scrape detailed product information
@@ -102,7 +111,7 @@ The project structure is as follows:
 │   └── create.py            # API to create/recreate the auth session programmatically
 ├── utils/                    # Utility files
 │   └── types_and_schemas.py # Python types and Pydantic models
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
@@ -147,7 +156,7 @@ Product details object with:
 - `variants`: List of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings

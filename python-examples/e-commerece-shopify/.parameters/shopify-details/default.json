@@ -1,0 +1,7 @@
+{
+  "name": "Example Product",
+  "vendor": "Example Vendor",
+  "product_type": "Example Type",
+  "tags": ["example", "tag"],
+  "details_url": "https://the-outrage.com/products/example-product"
+}

@@ -13,6 +13,10 @@
       "size": "standard"
     },
     "metadata": {
+      "template": {
+        "name": "Shopify Store Scraper",
+        "description": "Scrape product listings and detailed information from any Shopify store using the JSON API. This template includes two APIs: one for listing all products with pagination, and another for fetching detailed product information including variants, images, and descriptions."
+      },
       "defaultRunPlaygroundInput": {
         "api": "shopify-list",
         "parameters": {

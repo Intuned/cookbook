@@ -41,25 +41,42 @@ npm install
 #### Run create auth session
 
 ```bash
-npm run create-session -- --username "user@example.com"
+intuned auth create --parameters .parameters/auth/create.json
 ```
 
 #### Run check auth session
 
 ```bash
-npm run check-session
+intuned auth check --parameters .parameters/auth/check.json
+```
+
+#### Run an API
+
+```bash
+# List contracts (requires authenticated session)
+intuned api list-contracts --parameters .parameters/list-contracts/default.json
 ```
 
 ## Project Structure
 
 ```
 typescript-examples/auth-with-email-otp/
+├── api/
+│   └── list-contracts.ts  # API to list contracts (requires auth)
 ├── auth-sessions/
 │   ├── create.ts          # Create authenticated session with email OTP
 │   └── check.ts           # Verify session validity
 ├── utils/
 │   ├── typesAndSchemas.ts # Zod validation schemas
 │   └── resend.ts          # Email OTP retrieval helper
+├── .parameters/
+│   ├── auth/
+│   │   ├── create.json    # Parameters for auth creation
+│   │   └── check.json     # Parameters for auth check
+│   └── list-contracts/
+│       └── default.json   # Parameters for list-contracts API
+├── Intuned.jsonc          # Project configuration
+├── .env.example           # Environment variables template
 └── package.json
 ```
 
@@ -126,21 +143,6 @@ The `getRecentOTP()` function automatically:
 2. Extracts OTP code from email content
 3. Returns the code for submission
 
-## Environment Variables
-
-**Required:** You must set up your Resend API key before running this example.
-
-Create a `.env` file in the project root (don't commit to version control):
-
-```bash
-# Required: Your email address for authentication
-APP_USERNAME=your-email@example.com
-
-# Required: Resend API key for retrieving OTP codes from email
-# Get your key from: https://resend.com/api-keys
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
 **Important:** The `RESEND_API_KEY` is **required** for this example to work. Without it, the automation cannot retrieve OTP codes from your email inbox.
 
 ## Common Issues
@@ -179,3 +181,13 @@ RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Playwright Documentation](https://playwright.dev/)
 - [Resend API Documentation](https://resend.com/docs)
+
+
+## Environment Variables
+
+This project requires the following environment variables. Create a `.env` file in the project root:
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `RESEND_API_KEY` | Yes | Resend API key for retrieving OTP codes from email inbox. Get your key from [resend.com/api-keys](https://resend.com/api-keys) |
+

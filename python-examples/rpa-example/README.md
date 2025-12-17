@@ -1,6 +1,6 @@
-# book-consultations Intuned project
+# RPA Example Project
 
-Booking automation to book a consultation with a consultant and list the consultations
+A basic RPA (Robotic Process Automation) example demonstrating consultation booking and retrieval automation without authentication
 
 ## Getting Started
 
@@ -18,9 +18,32 @@ uv sync
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Run an API
+### Environment Variables
+
+This project requires the following environment variables:
+
+1. Copy the `.env.example` file to `.env`:
 ```bash
-uv run intuned run api <api-name> <parameters>
+cp .env.example .env
+```
+
+2. Edit `.env` and add your Intuned API key:
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
+You can obtain your API key from the [Intuned Dashboard](https://app.intunedhq.com).
+
+### Run an API
+
+Run the book-consultations API:
+```bash
+uv run intuned run api book-consultations --parameters-file .parameters/book-consultations/default.json
+```
+
+Run the get-consultations-by-email API:
+```bash
+uv run intuned run api get-consultations-by-email --parameters-file .parameters/get-consultations-by-email/default.json
 ```
 
 ### Deploy project
@@ -42,18 +65,23 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── api/                              # Your API endpoints
+│   ├── book-consultations.py        # API to book a consultation
+│   └── get-consultations-by-email.py # API to retrieve consultations by email
+├── .parameters/                      # Test parameters for running APIs locally
+│   ├── book-consultations/
+│   │   └── default.json              # Default parameters for book-consultations API
+│   └── get-consultations-by-email/
+│       └── default.json              # Default parameters for get-consultations-by-email API
+├── utils/                            # Utility functions and schemas
+│   └── types_and_schemas.py          # Type definitions and validation schemas
+├── Intuned.jsonc                     # Intuned project configuration file
+├── pyproject.toml                    # Python project dependencies
+└── .env.example                      # Example environment variables file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

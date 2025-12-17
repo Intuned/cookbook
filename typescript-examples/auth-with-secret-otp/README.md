@@ -33,14 +33,24 @@ cd typescript-examples/auth-with-secret-otp
 npm install
 ```
 
-#### Run create auth session
+#### Run an API
+
+To run an API with parameters:
+
 ```bash
-npm run create-session -- --username "user@example.com" --password "your-password" --secret "JBSWY3DPEHPK3PXP"
+npx intuned run api list-contracts --parameters .parameters/list-contracts/default.json
 ```
 
-#### Run check auth session
+#### Run Auth Session Operations
+
+Create an auth session:
 ```bash
-npm run check-session
+npx intuned run auth-session create --parameters .parameters/auth/create.json
+```
+
+Check an auth session:
+```bash
+npx intuned run auth-session check --parameters .parameters/auth/check.json
 ```
 
 ### Python
@@ -73,8 +83,15 @@ typescript-examples/auth-with-secret-otp/
 │   └── check.ts           # Verify session validity
 ├── api/
 │   └── list-contracts.ts  # Example: Extract contracts from authenticated page
+├── .parameters/
+│   ├── auth/
+│   │   ├── create.json    # Parameters for creating auth session
+│   │   └── check.json     # Parameters for checking auth session
+│   └── list-contracts/
+│       └── default.json   # Parameters for list-contracts API
 ├── utils/
 │   └── typesAndSchemas.ts # Zod validation schemas
+├── Intuned.jsonc          # Project configuration
 └── package.json
 ```
 
@@ -191,7 +208,15 @@ else:
     print(f"Error: {result.message}")
 ```
 
-## Environment Variables
+## Envs
+
+This project requires the following environment variables for authentication:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `APP_USERNAME` | Login username/email | `demo@email.com` |
+| `APP_PASSWORD` | Account password | `DemoUser2024!` |
+| `OTP_SECRET` | TOTP secret key (Base32 encoded) | `JBSWY3DPEHPK3PXP` |
 
 Create a `.env` file (don't commit to version control):
 
@@ -200,6 +225,8 @@ APP_USERNAME=your-email@example.com
 APP_PASSWORD=your-secure-password
 OTP_SECRET=JBSWY3DPEHPK3PXP
 ```
+
+You can reference these environment variables in your parameter files using the syntax: `{{ env.VARIABLE_NAME }}`
 
 ## Common Issues
 

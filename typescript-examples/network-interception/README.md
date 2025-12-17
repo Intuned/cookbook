@@ -1,4 +1,4 @@
-# network-interception Intuned project
+# Network Interception Examples
 
 Network interception examples demonstrating two common patterns:
 
@@ -8,7 +8,6 @@ Network interception examples demonstrating two common patterns:
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
-
 
 ## Development
 
@@ -25,15 +24,24 @@ yarn
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
-
 ### Run an API
 
+Run the API interceptor example:
 ```bash
-# npm
-npm run intuned run api <api-name> <parameters>
+# Using default parameters from .parameters/api-interceptor/default.json
+yarn intuned run api api-interceptor
 
-# yarn
-yarn intuned run api <api-name> <parameters>
+# With custom parameters
+yarn intuned run api api-interceptor --parameters '{"url": "https://sandbox.intuned.dev/consultations/list", "api_pattern": "/rest/v1/consultations", "max_pages": 5}'
+```
+
+Run the network interceptor example:
+```bash
+# Using default parameters from .parameters/network-interceptor/default.json
+yarn intuned run api network-interceptor
+
+# With custom parameters
+yarn intuned run api network-interceptor --parameters '{"url": "https://demo.openimis.org/front/insuree/insurees", "api_url": "https://demo.openimis.org/api/graphql", "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }", "username": "Admin", "password": "admin123"}'
 ```
 
 ### Deploy project
@@ -43,30 +51,32 @@ npm run intuned deploy
 
 # yarn
 yarn intuned deploy
-
 ```
 
+## Envs
 
+This project uses the following environment variables:
 
+- `INTUNED_API_KEY` - Your Intuned API key (required for deployment)
 
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-
-
+Copy `.env.example` to `.env` and fill in your values:
+```bash
+cp .env.example .env
+```
 
 ## Project Structure
 The project structure is as follows:
 ```
-├── api/                              # Your API endpoints 
+├── api/                              # Your API endpoints
 │   ├── network-interceptor.ts        # CSRF token capture and authenticated API calls
 │   └── api-interceptor.ts            # Paginated API response interception
 ├── utils/
 │   └── typesAndSchemas.ts            # Shared types and Zod schemas
-├── __testParameters/
-│   ├── network-interceptor.json      # Test parameters for CSRF interceptor
-│   └── api-interceptor.json          # Test parameters for API interceptor
+├── .parameters/                      # Parameter files for local testing
+│   ├── network-interceptor/
+│   │   └── default.json              # Default parameters for CSRF interceptor
+│   └── api-interceptor/
+│       └── default.json              # Default parameters for API interceptor
 ├── package.json                      # TypeScript project dependencies
 └── Intuned.jsonc                     # Intuned project configuration file
 ```
@@ -74,29 +84,75 @@ The project structure is as follows:
 ## How It Works
 
 ### network-interceptor.ts (CSRF Token Capture)
-1. Logs in to the target website using provided credentials
-2. Sets up a request interceptor to capture CSRF tokens from outgoing requests
-3. Navigates to the target URL and waits for network activity
-4. Captures the CSRF token from request headers (e.g., `x-csrftoken`)
-5. Makes authenticated API calls using the captured token
+
+This example demonstrates how to:
+1. Log in to the OpenIMIS demo site using provided credentials
+2. Set up a request interceptor to capture CSRF tokens from outgoing requests
+3. Navigate to the target URL and wait for network activity
+4. Capture the CSRF token from request headers (`x-csrftoken`)
+5. Make authenticated GraphQL API calls using the captured token
+
+**Example parameters:**
+```json
+{
+  "url": "https://demo.openimis.org/front/insuree/insurees",
+  "api_url": "https://demo.openimis.org/api/graphql",
+  "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
+  "username": "Admin",
+  "password": "admin123"
+}
+```
+
+**Customization points:**
+- Login selectors: Update the `login()` function with your site's selectors
+- CSRF header name: Change `x-csrftoken` to match your API (common: `x-csrf-token`, `x-xsrf-token`)
+- Request URL pattern: Modify the pattern in `interceptRequest()` to match your API endpoints
+- API headers: Customize headers in `fetchWithCsrf()` to match your API requirements
 
 ### api-interceptor.ts (Paginated API Data)
-1. Sets up a response listener for a specified API pattern
-2. Navigates to the URL and captures initial data from matching API responses
-3. Clicks the "Next" button to load more pages
-4. Aggregates all captured data and returns it
 
-These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
+This example demonstrates how to:
+1. Set up a response listener for a specified API pattern
+2. Navigate to the URL and capture initial data from matching API responses
+3. Click through pagination to load more pages
+4. Aggregate all captured data and return it
 
+**Example parameters:**
+```json
+{
+  "url": "https://sandbox.intuned.dev/consultations/list",
+  "api_pattern": "/rest/v1/consultations",
+  "max_pages": 3
+}
+```
 
-## `Intuned.json` Reference
+**Customization points:**
+- API pattern: Change `api_pattern` to match the API endpoints you want to capture
+- Pagination selector: Update `#next-page-btn` to match your site's next button selector
+- Data structure: Modify the response handler to handle different API response formats
+- Max pages: Adjust `max_pages` to control how many pages to scrape
+
+## Use Cases
+
+These patterns are useful when you need to:
+- Interact with APIs that require CSRF protection
+- Extract data that is loaded via API calls rather than rendered in HTML
+- Bypass rate limits by using the browser's authenticated session
+- Collect paginated data without parsing HTML
+- Make authenticated API calls without managing cookies manually
+
+## `@intuned/browser`: Intuned Browser SDK
+
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
-  // Your Intuned workspace ID. 
+  // Your Intuned workspace ID.
   // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
   "workspaceId": "your_workspace_id",
 
-  // The name of your Intuned project. 
+  // The name of your Intuned project.
   // Optional - If not provided here, it must be supplied via the command line when deploying.
   "projectName": "your_project_name",
 
@@ -127,7 +183,7 @@ These patterns are useful when you need to interact with APIs that require CSRF 
     // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
     // "MANUAL" type uses a recorder to manually create the auth session.
     "type": "API",
-    
+
 
     // Recorder start URL for the recorder to navigate to when creating the auth session.
     // Required if "type" is "MANUAL". Not used if "type" is "API".
@@ -143,7 +199,7 @@ These patterns are useful when you need to interact with APIs that require CSRF 
     // Only applicable for "MANUAL" type.
     "browserMode": "fullscreen"
   }
-  
+
   // API access settings
   "apiAccess": {
     // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.

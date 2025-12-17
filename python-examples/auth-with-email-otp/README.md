@@ -29,27 +29,29 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ## Development
 
-### Python
-
-#### Install dependencies
+### Install dependencies
 
 ```bash
 cd python-examples/auth-with-email-otp
-poetry install
-# or
-pip install -r requirements.txt
+uv sync
 ```
 
-#### Run create auth session
+### Run create auth session
 
 ```bash
-poetry run intuned run auth-session create
+uv run intuned run auth create
 ```
 
-#### Run check auth session
+### Run check auth session
 
 ```bash
-poetry run intuned run auth-session check
+uv run intuned run auth check
+```
+
+### Run list contracts API
+
+```bash
+uv run intuned run api list-contracts
 ```
 
 ## Project Structure
@@ -59,9 +61,18 @@ python-examples/auth-with-email-otp/
 ├── auth-sessions/
 │   ├── create.py          # Create authenticated session with email OTP
 │   └── check.py           # Verify session validity
+├── api/
+│   └── list-contracts.py  # Extract contracts from authenticated page
 ├── utils/
 │   ├── types_and_schemas.py # Pydantic validation models
 │   └── resend.py          # Email OTP retrieval helper
+├── .parameters/
+│   ├── auth/
+│   │   ├── create.json    # Parameters for create auth session
+│   │   └── check.json     # Parameters for check auth session
+│   └── list-contracts/
+│       └── default.json   # Parameters for list-contracts API
+├── Intuned.jsonc          # Project configuration
 └── pyproject.toml
 ```
 
@@ -71,7 +82,7 @@ python-examples/auth-with-email-otp/
 
 ```
 1. Navigate to login page
-   └─> https://sandbox.intuned.dev/login-otp-email
+   └─> https://sandbox.intuned.dev/login-email-otp
 
 2. Enter email address
    └─> Fill email input
@@ -128,16 +139,13 @@ The `get_recent_otp()` function automatically:
 2. Extracts OTP code from email content
 3. Returns the code for submission
 
-## Environment Variables
+## Envs
 
 **Required:** You must set up your Resend API key before running this example.
 
 Create a `.env` file in the project root (don't commit to version control):
 
 ```bash
-# Required: Your email address for authentication
-APP_USERNAME=your-email@example.com
-
 # Required: Resend API key for retrieving OTP codes from email
 # Get your key from: https://resend.com/api-keys
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx

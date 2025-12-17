@@ -1,0 +1,50 @@
+{
+  "projectName": "captcha-solving-auth-example",
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API",
+    "saveTraces": true
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "proxy": {
+    "enabled": false
+  },
+  "headful": true,
+  "captchaSolver": {
+    "enabled": true,
+    "cloudflare": {
+      "enabled": true
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 4
+    }
+  },
+  "stealthMode": {
+    "enabled": true
+  },
+    "metadata": {
+    "template": {
+      "name": "Captcha Solving with Auth Sessions",
+      "description": "E-commerce scraper automation demonstrating captcha solving (Cloudflare Turnstile) and stealth mode capabilities with authenticated sessions"
+    },
+    "defaultRunPlaygroundInput": {
+      "api": "details",
+      "parameters": {
+        "name": "Mach Street Sweatshirt",
+        "price": "$62",
+        "details_url_item": "https://scrapingcourse.com/ecommerce/product/mach-street-sweatshirt"
+      }
+    },
+    "testAuthSessionInput": {
+      "email": "admin@example.com",
+      "password": "password"
+    }
+  }
+}

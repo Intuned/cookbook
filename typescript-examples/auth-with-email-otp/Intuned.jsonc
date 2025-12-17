@@ -1,0 +1,30 @@
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "Auth with Email OTP",
+      "description": "Authentication automation with email-based OTP verification"
+    },
+    "defaultJobInput": {
+      "api": "list-contracts",
+      "parameters": {
+      }
+    },
+    "testAuthSessionInput": {
+      "name": "Email OTP Login",
+      "value": "{\n  \"email\": \"otp@icrisoothu.resend.app\"\n}",
+      "lastUsed": true,
+      "id": "f1a2b3c4-d5e6-4789-a0b1-c2d3e4f5g6h7"
+    }
+  }
+}

@@ -52,7 +52,15 @@ native-crawler/
 │   ├── __init__.py
 │   ├── content.py        # extract_page_content() - markdown extraction
 │   └── links.py          # extract_links() - link discovery + normalization
+├── .parameters/
+│   └── crawl/
+│       ├── default.json      # Default parameters
+│       ├── basic.json        # Basic crawling example
+│       ├── schema.json       # Structured data extraction example
+│       └── attachments.json  # File download example
 ├── Intuned.jsonc
+├── .env.example
+├── pyproject.toml
 └── README.md
 ```
 
@@ -69,6 +77,21 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 | `max_pages` | int | 50 | Maximum total pages to process |
 | `depth` | int | 0 | Current depth (set internally by extend_payload) |
 
+## Envs
+
+This project requires the following environment variables:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `INTUNED_API_KEY` | Your Intuned API key for authentication | Yes |
+
+Create a `.env` file based on `.env.example`:
+
+```bash
+cp .env.example .env
+# Edit .env and add your INTUNED_API_KEY
+```
+
 ## Usage
 
 ### Local Development
@@ -77,8 +100,16 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 # Install dependencies
 uv sync
 
-# Run the crawler
+# Run the crawler with default parameters
+uv run intuned run api crawl --parameters .parameters/crawl/default.json
+
+# Or run with inline parameters
 uv run intuned run api crawl '{"url": "https://books.toscrape.com", "max_depth": 2, "max_pages": 10}'
+
+# Run with saved parameter sets
+uv run intuned run api crawl --parameters .parameters/crawl/basic.json
+uv run intuned run api crawl --parameters .parameters/crawl/schema.json
+uv run intuned run api crawl --parameters .parameters/crawl/attachments.json
 ```
 
 ### As a Job (Production)
@@ -109,6 +140,10 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
 You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
 
 ```bash
+# Using saved parameters
+uv run intuned run api crawl --parameters .parameters/crawl/schema.json
+
+# Or inline
 uv run intuned run api crawl '{
   "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
   "max_depth": 0,
@@ -129,6 +164,10 @@ uv run intuned run api crawl '{
 You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
 
 ```bash
+# Using saved parameters
+uv run intuned run api crawl --parameters .parameters/crawl/attachments.json
+
+# Or inline
 uv run intuned run api crawl '{
   "url": "https://sandbox.intuned.dev/pdfs",
   "max_depth": 1,

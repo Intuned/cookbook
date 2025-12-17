@@ -1,0 +1,20 @@
+{
+  "template": {
+    "name": "auth-with-email-otp",
+    "description": "Authentication automation with Email-based OTP (One-Time Password) verification. Demonstrates handling login flows that send OTP codes via email using Resend API."
+  },
+  "testAuthSessionInput": {
+    "username": "otp@icrisoothu.resend.app"
+  },
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  }
+}

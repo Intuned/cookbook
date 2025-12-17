@@ -2,6 +2,10 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "stagehand-template",
+  "template": {
+    "name": "Stagehand Template",
+    "description": "A template for building browser automations using Stagehand with Intuned. Includes AI-powered agent capabilities for intelligent web interaction and data extraction."
+  },
   "apiAccess": {
     "enabled": true
   },

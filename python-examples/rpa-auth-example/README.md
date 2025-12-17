@@ -1,11 +1,22 @@
-# book-consultations-with-auth Intuned project
+# rpa-auth-example
 
-Credentials based booking automation to book a consultation with a consultant and list the consultations
+Authenticated consultation booking automation that demonstrates how to use Auth Sessions with credential-based authentication to book consultations and retrieve consultation data.
+
+## Features
+
+- Book consultations with name, email, phone, date, time, and topic
+- Retrieve consultations by email address
+- Credential-based authentication using Auth Sessions
+- Separate APIs for auth session creation and validation
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
+## Prerequisites
+
+- Python 3.12 or higher
+- uv package manager
 
 ## Development
 
@@ -18,9 +29,54 @@ uv sync
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Run an API
+### Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
 ```bash
-uv run intuned run api <api-name> <parameters>
+INTUNED_API_KEY=your_api_key_here
+```
+
+Required environment variables:
+- `INTUNED_API_KEY`: Your Intuned API key for authentication
+
+### Run an API
+
+Run the book-consultations API:
+```bash
+uv run intuned run api book-consultations .parameters/book-consultations/default.json
+```
+
+Run the get-consultations-by-email API:
+```bash
+uv run intuned run api get-consultations-by-email .parameters/get-consultations-by-email/default.json
+```
+
+Additional parameter examples for book-consultations:
+```bash
+# Automation consultation
+uv run intuned run api book-consultations .parameters/book-consultations/automation.json
+
+# Data extraction consultation
+uv run intuned run api book-consultations .parameters/book-consultations/data-extraction.json
+
+# API integration consultation
+uv run intuned run api book-consultations .parameters/book-consultations/api-integration.json
+
+# Other topic consultation
+uv run intuned run api book-consultations .parameters/book-consultations/other.json
+```
+
+### Test Auth Session
+
+Test auth session creation:
+```bash
+uv run intuned auth-session test create .parameters/auth/create.json
+```
+
+Test auth session validation:
+```bash
+uv run intuned auth-session test check .parameters/auth/check.json
 ```
 
 ### Deploy project
@@ -42,18 +98,36 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
+├── .parameters/                          # Parameter files for testing APIs locally
+│   ├── auth/                             # Auth session parameters
+│   │   ├── check.json                    # Parameters for checking auth session (empty)
+│   │   └── create.json                   # Credentials for creating auth session
+│   ├── book-consultations/               # Parameters for book-consultations API
+│   │   ├── default.json                  # Default booking parameters
+│   │   ├── automation.json               # Automation consultation example
+│   │   ├── data-extraction.json          # Data extraction consultation example
+│   │   ├── api-integration.json          # API integration consultation example
+│   │   └── other.json                    # Other topic consultation example
+│   └── get-consultations-by-email/       # Parameters for get-consultations-by-email API
+│       └── default.json                  # Default email search parameters
+├── api/                                  # Your API endpoints
+│   ├── book-consultations.py             # Books a consultation with provided details
+│   └── get-consultations-by-email.py     # Retrieves consultations by email address
+├── auth-sessions/                        # Auth session related APIs
+│   ├── check.py                          # Validates if the auth session is still valid
+│   └── create.py                         # Creates/recreates the auth session programmatically
+├── auth-sessions-instances/              # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+├── utils/                                # Utility modules
+│   └── types_and_schemas.py              # Pydantic schemas for parameter validation
+├── .env.example                          # Example environment variables file
+├── Intuned.jsonc                         # Intuned project configuration file
+├── pyproject.toml                        # Python project dependencies
+└── README.md                             # This file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -22,14 +22,44 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
+Run with default parameters:
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api api-interceptor .parameters/api-interceptor/default.json
+uv run intuned run api network-interceptor .parameters/network-interceptor/default.json
+```
+
+Run with custom parameters:
+```bash
+# API Interceptor - Single page scrape
+uv run intuned run api api-interceptor .parameters/api-interceptor/single-page.json
+
+# API Interceptor - Full scrape (10 pages)
+uv run intuned run api api-interceptor .parameters/api-interceptor/full-scrape.json
+
+# Network Interceptor with custom parameters
+uv run intuned run api network-interceptor '{"url": "https://demo.openimis.org/front/insuree/insurees", "api_url": "https://demo.openimis.org/api/graphql", "query": "{ insurees(first: 5) { edges { node { chfId lastName } } } }", "username": "Admin", "password": "admin123"}'
 ```
 
 ### Deploy project
 ```bash
 uv run intuned deploy
 ```
+
+## Environment Variables
+
+This project requires the following environment variables:
+
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
+Copy `.env.example` to `.env` and fill in your API key:
+```bash
+cp .env.example .env
+```
+
+You can obtain your API key from the [Intuned Dashboard](https://app.intunedhq.com).
 
 
 
@@ -45,16 +75,21 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── api/                              # Your API endpoints 
-│   ├── network-interceptor.py        # CSRF token capture and authenticated API calls
-│   └── api-interceptor.py            # Paginated API response interception
+├── api/                                        # Your API endpoints
+│   ├── network-interceptor.py                  # CSRF token capture and authenticated API calls
+│   └── api-interceptor.py                      # Paginated API response interception
 ├── utils/
-│   └── types_and_schemas.py          # Pydantic models for type validation
-├── __testParameters/
-│   ├── network-interceptor.json      # Test parameters for CSRF interceptor
-│   └── api-interceptor.json          # Test parameters for API interceptor
-├── Intuned.jsonc                     # Intuned project configuration file
-└── pyproject.toml                    # Python project dependencies
+│   └── types_and_schemas.py                    # Pydantic models for type validation
+├── .parameters/                                # Test parameters for APIs
+│   ├── api-interceptor/
+│   │   ├── default.json                        # Default parameters (3 pages)
+│   │   ├── full-scrape.json                    # Full scrape parameters (10 pages)
+│   │   └── single-page.json                    # Single page parameters
+│   └── network-interceptor/
+│       └── default.json                        # Default CSRF interceptor parameters
+├── Intuned.jsonc                               # Intuned project configuration file
+├── pyproject.toml                              # Python project dependencies
+└── .env.example                                # Environment variables template
 ```
 
 ## How It Works
@@ -75,7 +110,7 @@ The project structure is as follows:
 These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

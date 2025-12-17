@@ -48,19 +48,24 @@ npm run check-session
 #### Install dependencies
 ```bash
 cd python-examples/auth-with-secret-otp
-poetry install
+uv sync
 # or
-pip install -r requirements.txt
+pip install -e .
 ```
 
 #### Run create auth session
 ```bash
-poetry run intuned run auth-session create
+uv run intuned run auth-session create --parameters-file .parameters/auth/create.json
 ```
 
 #### Run check auth session
 ```bash
-poetry run intuned run auth-session check
+uv run intuned run auth-session check --parameters-file .parameters/auth/check.json
+```
+
+#### Run list contracts API
+```bash
+uv run intuned run api list-contracts
 ```
 
 ## Project Structure
@@ -83,13 +88,18 @@ typescript-examples/auth-with-secret-otp/
 python-examples/auth-with-secret-otp/
 ├── auth-sessions/
 │   ├── create.py           # Create authenticated session with OTP
-│   ├── create_refactored.py # Enhanced version with retry logic
 │   └── check.py            # Verify session validity
 ├── api/
 │   └── list-contracts.py   # Example: Extract contracts from authenticated page
 ├── utils/
 │   └── types_and_schemas.py # Pydantic validation models
-└── pyproject.toml
+├── .parameters/
+│   └── auth/
+│       ├── create.json     # Parameters for create auth session
+│       └── check.json      # Parameters for check auth session
+├── Intuned.jsonc           # Intuned project configuration
+├── pyproject.toml          # Python dependencies
+└── uv.lock                 # Lock file for uv package manager
 ```
 
 ## How It Works
@@ -191,9 +201,25 @@ else:
     print(f"Error: {result.message}")
 ```
 
-## Environment Variables
+## Configuration
 
-Create a `.env` file (don't commit to version control):
+### Parameters Files
+
+The project uses `.parameters` files to store test data. Update the values in `.parameters/auth/create.json`:
+
+```json
+{
+  "username": "your-email@example.com",
+  "password": "your-secure-password",
+  "secret": "JBSWY3DPEHPK3PXP"
+}
+```
+
+**Note**: Don't commit sensitive credentials to version control. Add `.parameters` to `.gitignore` if needed.
+
+### Environment Variables (Optional)
+
+Alternatively, you can create a `.env` file (don't commit to version control):
 
 ```bash
 APP_USERNAME=your-email@example.com

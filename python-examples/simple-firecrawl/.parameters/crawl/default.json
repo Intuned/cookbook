@@ -1,0 +1,5 @@
+{
+  "url": "https://example.com",
+  "limit": 3,
+  "scrapeOptions": {"formats": ["markdown"]}
+}

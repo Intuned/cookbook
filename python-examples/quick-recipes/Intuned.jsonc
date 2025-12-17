@@ -2,8 +2,12 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "quick-recipes",
+  "template": {
+    "name": "Quick Recipes",
+    "description": "Ready-to-run API examples for common browser automation patterns including file downloads, pagination, S3 uploads, and screenshot capture"
+  },
   "apiAccess": {
-    "enabled": false
+    "enabled": true
   },
   "authSessions": {
     "enabled": false

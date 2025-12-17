@@ -2,6 +2,10 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "book-consultations",
+  "template": {
+    "name": "RPA Example",
+    "description": "A basic RPA example demonstrating consultation booking automation. This project shows how to automate form filling, data extraction, and interaction with web applications without authentication."
+  },
   "apiAccess": {
     "enabled": true
   },

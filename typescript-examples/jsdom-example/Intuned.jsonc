@@ -13,10 +13,15 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "JSDOM Example",
+      "description": "E-commerce scraper using JSDOM for HTML parsing to extract product listings and details with pagination support"
+    },
     "defaultRunPlaygroundInput": {
-      "api": "jsdom-example",
+      "api": "list",
       "parameters": {
-        "url": "https://www.scrapingcourse.com/ecommerce/"
+        "url": "https://www.scrapingcourse.com/ecommerce/",
+        "maxPages": 2
       }
     }
   }

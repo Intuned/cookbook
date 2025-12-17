@@ -2,6 +2,14 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "book-consultations-auth",
+  "template": {
+    "name": "RPA Auth Example",
+    "description": "Complete example of browser automation with authentication using Auth Sessions. Demonstrates booking consultations and retrieving consultation data with credential-based authentication."
+  },
+  "testAuthSessionInput": {
+    "username": "demo@email.com",
+    "password": "DemoUser2024!"
+  },
   "apiAccess": {
     "enabled": true
   },

@@ -1,0 +1,37 @@
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "E-Commerce Auth Product Scraper",
+      "description": "Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions"
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {}
+        }
+      ]
+    },
+    "testAuthSessionInput": {
+      "username": "admin@example.com",
+      "password": "password"
+    }
+  }
+}

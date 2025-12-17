@@ -7,6 +7,23 @@ Shopify store scraper to list all products and fetch detailed product informatio
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
 
+## Environment Variables
+
+This project requires the following environment variables:
+
+- `INTUNED_API_KEY`: Your Intuned API key for authentication
+
+Create a `.env` file based on `.env.example`:
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and add your Intuned API key:
+```
+INTUNED_API_KEY=your_api_key_here
+```
+
+
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
@@ -19,8 +36,20 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
+Run the shopify-list API to scrape products:
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api shopify-list .parameters/shopify-list/default.json
+```
+
+Run the shopify-details API to get detailed product information:
+```bash
+uv run intuned run api shopify-details .parameters/shopify-details/default.json
+```
+
+Or with custom parameters:
+```bash
+uv run intuned run api shopify-list '{"store_url": "https://the-outrage.com", "max_pages": 5}'
 ```
 
 ### Deploy project
@@ -42,14 +71,22 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── api/                      # Your API endpoints 
-│   ├── shopify-list.py       # API to list all products from a Shopify store
-│   └── shopify-details.py    # API to fetch detailed product information
-└── intuned.jsonc             # Intuned project configuration file
+├── api/                              # Your API endpoints
+│   ├── shopify-list.py               # API to list all products from a Shopify store
+│   └── shopify-details.py            # API to fetch detailed product information
+├── .parameters/                      # Parameter files for testing APIs
+│   ├── shopify-list/
+│   │   └── default.json              # Default parameters for shopify-list API
+│   └── shopify-details/
+│       └── default.json              # Default parameters for shopify-details API
+├── Intuned.jsonc                     # Intuned project configuration file
+├── .env.example                      # Environment variable template
+├── pyproject.toml                    # Python project configuration
+└── README.md                         # Project documentation
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -32,6 +32,17 @@ OPENAI_API_KEY=your_openai_api_key_here
 GEMINI_API_KEY=your_google_api_key_here
 ```
 
+## Environment Variables
+
+| Variable | Description | Required For |
+|----------|-------------|--------------|
+| `INTUNED_API_KEY` | Your Intuned API key | All APIs |
+| `ANTHROPIC_API_KEY` | Anthropic API key for Claude | `anthropic-computer-use.py` |
+| `OPENAI_API_KEY` | OpenAI API key | `openai-computer-use.py` |
+| `GEMINI_API_KEY` | Google Gemini API key | `gemini-computer-use.py` |
+
+**Note**: The `browser-use-template.py` API uses Intuned's AI Gateway and doesn't require separate API keys.
+
 ## APIs
 
 ### Anthropic Computer Use
@@ -144,7 +155,7 @@ After installing dependencies, `intuned` command should be available in your env
 uv run intuned run api <api-name> '<json-parameters>'
 ```
 
-**Examples**:
+**Using inline parameters**:
 
 ```bash
 # Anthropic Computer Use
@@ -157,7 +168,23 @@ uv run intuned run api openai-computer-use '{"query":"Go to https://books.toscra
 uv run intuned run api gemini-computer-use '{"query":"Go to https://books.toscrape.com, find the most expensive book on the first page, and tell me its title and price"}';
 
 # Browser Use Template
-uv run intuned run api browser-use-template '{"check_in_date":"25/12/2025","check_out_date":"27/12/2025","budget":150,"first_name":"John","last_name":"Doe","phone_number":"01234567890","email":"john.doe@example.com","extra_details":"Prefer a room with a view"}';
+uv run intuned run api browser-use-template '{"query":"Go to https://automationintesting.online. Fill in check-in date 25/12/2025 and check-out date 27/12/2025. Search for rooms within budget of 150 pounds. Book a room with first name John, last name Doe, phone number 01234567890, and email john.doe@example.com"}';
+```
+
+**Using parameter files**:
+
+```bash
+# Anthropic Computer Use
+uv run intuned run api anthropic-computer-use --parameters .parameters/anthropic-computer-use/default.json
+
+# OpenAI Operator API
+uv run intuned run api openai-computer-use --parameters .parameters/openai-computer-use/default.json
+
+# Gemini Computer Use
+uv run intuned run api gemini-computer-use --parameters .parameters/gemini-computer-use/default.json
+
+# Browser Use Template
+uv run intuned run api browser-use-template --parameters .parameters/browser-use-template/default.json
 ```
 
 ### Deploy project
@@ -209,7 +236,16 @@ The Browser Use implementation provides:
 ## Project Structure
 ```
 /
-├── api/                           # Your API endpoints 
+├── .parameters/                   # Parameter files for testing
+│   ├── anthropic-computer-use/
+│   │   └── default.json
+│   ├── browser-use-template/
+│   │   └── default.json
+│   ├── gemini-computer-use/
+│   │   └── default.json
+│   └── openai-computer-use/
+│       └── default.json
+├── api/                           # Your API endpoints
 │   ├── anthropic-computer-use.py   # Anthropic Claude computer use
 │   ├── openai-computer-use.py      # OpenAI Operator API
 │   ├── gemini-computer-use.py      # Gemini with Stagehand
@@ -223,6 +259,7 @@ The Browser Use implementation provides:
 │       ├── agent.py
 │       ├── computers/
 │       └── toolset.py
+├── .env.example                   # Environment variables template
 ├── pyproject.toml                 # Project dependencies
 └── Intuned.jsonc                  # Intuned project configuration
 ```

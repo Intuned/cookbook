@@ -1,0 +1,9 @@
+{
+  "urls": [
+    "https://example.com",
+    "https://crawl4ai.com",
+    "https://playwright.dev"
+  ],
+  "dispatcher": "semaphore",
+  "max_concurrent": 3
+}

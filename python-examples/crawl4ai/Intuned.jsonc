@@ -2,6 +2,12 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "projectName": "crawl4ai",
+  "metadata": {
+    "template": {
+      "name": "crawl4ai",
+      "description": "Quick-start examples for using crawl4ai on the Intuned platform"
+    }
+  },
   "apiAccess": {
     "enabled": false
   },

@@ -19,13 +19,42 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
+Run the list API to scrape product listings:
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Using default parameters (2 pages)
+uv run intuned run api list .parameters/list/default.json
+
+# Full scrape (10 pages)
+uv run intuned run api list .parameters/list/full-scrape.json
+
+# Single page only
+uv run intuned run api list .parameters/list/single-page.json
+```
+
+Run the details API to extract product details:
+```bash
+# Using default parameters
+uv run intuned run api details .parameters/details/default.json
+
+# Alternative product
+uv run intuned run api details .parameters/details/chaz-kangeroo.json
 ```
 
 ### Deploy project
 ```bash
 uv run intuned deploy
+```
+
+## Environment Variables
+
+This project requires the following environment variables:
+
+- `INTUNED_API_KEY` - Your Intuned API key for authentication
+
+Copy `.env.example` to `.env` and fill in your API key:
+```bash
+cp .env.example .env
 ```
 
 
@@ -42,12 +71,21 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── api/                      # Your API endpoints 
+├── api/                      # Your API endpoints
 │   ├── list.py               # API to scrape product listings with pagination
 │   └── details.py            # API to extract detailed product information
+├── .parameters/              # Test parameters for running APIs locally
+│   ├── list/                 # Parameters for list API
+│   │   ├── default.json      # Default test (2 pages)
+│   │   ├── full-scrape.json  # Full scrape (10 pages)
+│   │   └── single-page.json  # Single page only
+│   └── details/              # Parameters for details API
+│       ├── default.json      # Abominable Hoodie example
+│       └── chaz-kangeroo.json # Chaz Kangeroo Hoodie example
 ├── utils/
 │   └── types_and_schemas.py  # Pydantic models for type validation
 ├── Intuned.jsonc             # Intuned project configuration file
+├── .env.example              # Example environment variables
 └── pyproject.toml            # Python project dependencies
 ```
 
@@ -58,7 +96,7 @@ The project structure is as follows:
 2. **details.py** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

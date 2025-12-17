@@ -189,11 +189,17 @@ Search the web and get full content from results using Tavily.
 cd python-examples/simple-firecrawl
 uv sync
 
-# Run any endpoint locally
-uv run intuned run api scrape '{"url": "https://example.com"}'
-uv run intuned run api map '{"url": "https://example.com"}'
+# Run any endpoint locally with inline JSON
+uv run intuned run api scrape '{"url": "https://example.com", "formats": ["markdown"]}'
+uv run intuned run api map '{"url": "https://example.com", "limit": 20}'
 uv run intuned run api crawl '{"url": "https://example.com", "limit": 5}'
-uv run intuned run api search '{"query": "test", "api_key": "tvly-xxx"}'
+uv run intuned run api search '{"query": "test", "limit": 5, "api_key": "tvly-xxx"}'
+
+# Or use parameter files
+uv run intuned run api scrape --parameters .parameters/scrape/default.json
+uv run intuned run api map --parameters .parameters/map/default.json
+uv run intuned run api crawl --parameters .parameters/crawl/default.json
+uv run intuned run api search --parameters .parameters/search/default.json
 ```
 
 ### Deploy to Intuned
@@ -217,7 +223,44 @@ See [Intuned Documentation](https://docs.intunedhq.com) for deployment details.
 
 ---
 
-## `Intuned.json` Reference
+## Project Structure
+
+```
+python-examples/simple-firecrawl/
+├── .parameters/          # Test parameters for each API
+│   ├── scrape/
+│   │   └── default.json
+│   ├── map/
+│   │   └── default.json
+│   ├── crawl/
+│   │   └── default.json
+│   └── search/
+│       └── default.json
+├── api/                  # API implementations
+│   ├── scrape.py         # Single-page scraping
+│   ├── map.py            # Link discovery
+│   ├── crawl.py          # Deep crawling
+│   └── search.py         # Web search
+├── utils/                # Shared utilities
+├── Intuned.jsonc         # Project configuration
+├── pyproject.toml        # Python dependencies
+├── .env.example          # Environment variables template
+└── README.md
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```bash
+INTUNED_API_KEY=your_api_key_here
+```
+
+The `INTUNED_API_KEY` is required for running APIs locally. Get your API key from the [Intuned Dashboard](https://app.intunedhq.com).
+
+---
+
+## `Intuned.jsonc` Reference
 
 ```jsonc
 {
