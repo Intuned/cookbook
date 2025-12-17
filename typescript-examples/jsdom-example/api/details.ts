@@ -50,7 +50,7 @@ function extractProductDetails(html: string, params: Params): ProductDetails {
   // Extract product images - replace selector as needed
   const imageElements = document.querySelectorAll(
     ".woocommerce-product-gallery__image img"
-  );
+      );
   const images: string[] = [];
   imageElements.forEach((img) => {
     const src = img.getAttribute("src");

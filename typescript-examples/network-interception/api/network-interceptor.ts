@@ -1,15 +1,14 @@
 import { Page, BrowserContext, Request } from "playwright";
-import { goToUrl } from "@intuned/browser";
+import { goToUrl, withNetworkSettledWait } from "@intuned/browser";
 import { attemptStore } from "@intuned/runtime";
 import { z } from "zod";
 import {
   paramsSchema,
   insureeResponseSchema,
   InsureeResponse,
-} from "../utils/typesAndSchemas.js";
+} from "../utils/typesAndSchemas";
 
 type Params = z.infer<typeof paramsSchema>;
-
 async function login(
   page: Page,
   username: string,
@@ -22,11 +21,12 @@ async function login(
   try {
     console.log(`Navigating to login page: ${loginUrl}`);
     await goToUrl({ page, url: loginUrl });
-    await page.waitForLoadState("networkidle");
     // Replace selectors below with your site's login form selectors
     console.log(`Filling login form for user: ${username}`);
-    await page.locator("input[type='text']").fill(username);
-    await page.locator("input[type='password']").fill(password);
+    await page.locator("input[type='text']").type(username, { delay: 100 });
+    await page.waitForTimeout(100);
+    await page.locator("input[type='password']").type(password, { delay: 100 });
+    await page.waitForTimeout(100);
     await page.locator("button[type='submit']").click();
     await page.waitForTimeout(3000);
     console.log("Login completed");
@@ -64,38 +64,45 @@ async function fetchWithCsrf(
   headers?: Record<string, string>
 ): Promise<unknown> {
   // Customize the headers below to match your API requirements
-  const fetchScript = `
-    async (options) => {
-      const { url, method, body, csrfToken, extraHeaders } = options;
-      
-      const headers = {
-        "accept": "*/*",
-        "content-type": "application/json",
-        "x-csrftoken": csrfToken,
-        "x-requested-with": "webapp",
-        ...extraHeaders
-      };
-      
-      const fetchOptions = {
-        method: method,
-        headers: headers,
-        credentials: "include",
-        mode: "cors"
-      };
-      
-      if (body) {
-        fetchOptions.body = JSON.stringify(body);
-      }
-      
-      const response = await fetch(url, fetchOptions);
-      
-      if (!response.ok) {
-        throw new Error(\`Request failed: \${response.status} \${response.statusText}\`);
-      }
-      
-      return await response.json();
+  // Using a real function avoids Playwright treating the string as a plain expression.
+  const fetchScript = async (options: {
+    url: string;
+    method: string;
+    body?: Record<string, unknown>;
+    csrfToken: string | null;
+    extraHeaders: Record<string, string>;
+  }) => {
+    const { url, method, body, csrfToken, extraHeaders } = options;
+
+    const headers = {
+      accept: "*/*",
+      "content-type": "application/json",
+      "x-csrftoken": csrfToken || "",
+      "x-requested-with": "webapp",
+      ...extraHeaders,
+    };
+
+    const fetchOptions: RequestInit = {
+      method: method,
+      headers: headers,
+      credentials: "include",
+      mode: "cors",
+    };
+
+    if (body) {
+      fetchOptions.body = JSON.stringify(body);
     }
-  `;
+
+    const response = await fetch(url, fetchOptions);
+
+    if (!response.ok) {
+      throw new Error(
+        `Request failed: ${response.status} ${response.statusText}`
+      );
+    }
+
+    return await response.json();
+  };
 
   return await page.evaluate(fetchScript, {
     url,
@@ -129,6 +136,7 @@ async function handler(
   const username = params.username; // username to use for authentication
   const password = params.password; // password to use for authentication
   const loginUrl = params.login_url || url; // URL to the login page, if not provided, use the main URL
+  attemptStore.set("csrf_token", null);
 
   console.log("Starting network interception automation");
   await login(page, username, password, loginUrl);
@@ -137,9 +145,17 @@ async function handler(
 
   try {
     console.log(`Navigating to: ${url}`);
-    await goToUrl({ page, url });
-    await page.waitForLoadState("networkidle");
-
+    // Navigate and wait until the network is settled (initial page load)
+    await withNetworkSettledWait(
+      async (page) => {
+        await goToUrl({ page, url });
+      },
+      {
+        page,
+        timeoutInMs: 20000,
+      }
+    );
+    await page.waitForTimeout(5000);
     if (!attemptStore.get("csrf_token")) {
       throw new Error("No CSRF token found");
     }
