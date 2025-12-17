@@ -1,0 +1,26 @@
+{
+  "name": "default",
+  "version": "1.0.0",
+  "description": "Empty Intuned project",
+  "tags": [
+    "intuned-browser-sdk"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "intuned": "intuned"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@browserbasehq/stagehand": "3.0.6",
+    "@intuned/browser": "0.1.7",
+    "@intuned/runtime": "1.3.12",
+    "@types/node": "^20.10.3",
+    "luxon": "^3.7.2",
+    "openai": "^6.10.0",
+    "playwright": "~1.56.0",
+    "sharp": "^0.34.5",
+    "zod": "^3.24.1"
+  }
+}

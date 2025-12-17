@@ -1,0 +1,28 @@
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {}
+        }
+      ]
+    }
+  }
+}
