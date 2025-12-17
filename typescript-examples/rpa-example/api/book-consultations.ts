@@ -6,6 +6,12 @@ import { bookConsultationSchema } from "../utils/typesAndSchemas";
 
 type Params = z.infer<typeof bookConsultationSchema>;
 
+interface BookingResult {
+  success: boolean;
+  date: string;
+  message: string;
+}
+
 async function fillPersonalInformation(
   page: Page,
   name: string,
@@ -59,91 +65,51 @@ export default async function handler(
   params: Params,
   page: Page,
   context: BrowserContext
-) {
-  try {
-    // Set the browser viewport size to 1080x720 pixels
-    // This ensures consistent rendering across different devices and screen sizes
-    // Some websites may display different layouts or elements based on viewport size
-    await page.setViewportSize({
-      width: 1080,
-      height: 720,
-    });
+): Promise<BookingResult> {
+  // Set the browser viewport size to 1080x720 pixels
+  // This ensures consistent rendering across different devices and screen sizes
+  // Some websites may display different layouts or elements based on viewport size
+  await page.setViewportSize({
+    width: 1080,
+    height: 720,
+  });
 
-    // Step 1: Validate input parameters using schema
-    // This ensures all required fields are present and properly formatted
-    const validatedParams = bookConsultationSchema.safeParse(params);
+  // Step 1: Validate input parameters using schema
+  // This ensures all required fields are present and properly formatted
+  const { name, email, phone, date, time, topic } =
+    bookConsultationSchema.parse(params);
 
-    if (!validatedParams.success) {
-      // Return error if validation fails
-      return {
-        success: false,
-        message: "Invalid parameters provided",
-        errors: validatedParams?.error?.errors,
-      };
-    }
+  // Step 2: Navigate to the consultation booking page
+  await goToUrl({
+    page: page,
+    url: "https://sandbox.intuned.dev/consultations/book",
+  });
 
-    // Extract validated parameters
-    const { name, email, phone, date, time, topic } = validatedParams.data;
+  // Step 3: Fill in personal information fields
+  await fillPersonalInformation(page, name, email, phone);
 
-    // Step 2: Navigate to the consultation booking page
-    const sandboxedUrl = "https://sandbox.intuned.dev/consultations/book";
+  // Step 4: Fill in scheduling information
+  await fillSchedulingInformation(page, date, time);
 
-    // Using intuned SDK's goToUrl with enhanced reliability features:
-    // - Automatic retries with exponential backoff
-    // - Intelligent timeout detection
-    // - Optional AI-powered loading verification
-    await goToUrl({
-      page: page,
-      url: sandboxedUrl,
-      // waitForLoadState defaults to "load", but you can specify "networkidle" or "domcontentloaded"
-      // The SDK handles retries and timeout management automatically
-    });
+  // Step 5: Select the consultation topic from dropdown
+  await selectTopic(page, topic);
 
-    // Original Playwright navigation (commented out):
-    // - Basic navigation without retry logic
-    // - Manual timeout handling required
-    // - No automatic loading state verification
-    // await page.goto("https://sandbox.intuned.dev/consultations/book", {
-    //   waitUntil: "networkidle",
-    // });
+  // Step 6: Submit the booking form and wait for confirmation
+  await submitBookingForm(page);
 
-    // Step 3: Fill in personal information fields
-    await fillPersonalInformation(page, name, email, phone);
+  // Step 7: Wait for the success modal to appear
+  // This confirms the booking was processed
+  await waitForSuccessModal(page);
 
-    // Step 4: Fill in scheduling information
-    await fillSchedulingInformation(page, date, time);
+  // Step 8: Verify the success message is displayed
+  const isSuccess = await verifySuccessMessage(page);
 
-    // Step 5: Select the consultation topic from dropdown
-    await selectTopic(page, topic);
-
-    // Step 6: Submit the booking form and wait for confirmation
-    await submitBookingForm(page);
-
-    // Step 7: Wait for the success modal to appear
-    // This confirms the booking was processed
-    await waitForSuccessModal(page);
-
-    // Step 8: Verify the success message is displayed
-    const isSuccess = await verifySuccessMessage(page);
-
-    // Step 9: Return success response with booking details
-    return {
-      success: isSuccess,
-      date: date,
-      message: isSuccess
-        ? `Consultation successfully booked for ${date} at ${time}`
-        : "Booking completed but success confirmation unclear",
-    };
-  } catch (error) {
-    // Handle any errors that occur during the booking process
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    // Return error response instead of throwing
-    // This makes it easier for the calling code to handle failures
-    return {
-      success: false,
-      message: "Failed to complete booking",
-      error: errorMessage,
-    };
-  }
+  // Step 9: Return booking details
+  return {
+    success: isSuccess,
+    date: date,
+    message: isSuccess
+      ? `Consultation successfully booked for ${date} at ${time}`
+      : "Booking completed but success confirmation unclear",
+  };
 }

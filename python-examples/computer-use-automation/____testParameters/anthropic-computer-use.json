@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"query\": \"Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices\"\n}",
+    "lastUsed": true,
+    "id": "d5e6f7a8-b9c0-1234-5678-901234567890"
+  }
+]

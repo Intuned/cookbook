@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"query\": \"Go to https://automationintesting.online. Fill in check-in date 25/12/2025 and check-out date 27/12/2025. Search for rooms within budget of 150 pounds. Book a room with first name John, last name Doe, phone number 01234567890, and email john.doe@example.com\"\n}",
+    "lastUsed": true,
+    "id": "e2f3a4b5-c6d7-8901-2345-678901234567"
+  }
+]
