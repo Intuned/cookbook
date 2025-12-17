@@ -9,7 +9,7 @@ async def extract_page_content(
     schema: dict | None = None,
 ) -> dict:
     if schema:
-        return await extract_structured_data(page=page, data_schema=schema)
+        return await extract_structured_data(source=page, data_schema=schema)
 
     title = await page.title()
     markdown = await extract_markdown(page)

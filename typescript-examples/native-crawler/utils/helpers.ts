@@ -1,3 +1,5 @@
+import { getExecutionContext } from "@intuned/runtime";
+import { randomUUID } from "crypto";
 
 export function sanitizeKey(key: string): string {
   const chars = ["://", "/", ":", "#", "?", "&", "=", ".", "-"];
@@ -12,4 +14,12 @@ export function sanitizeKey(key: string): string {
   }
 
   return sanitized.replace(/^_+|_+$/g, "");
+}
+
+export function getJobRunId(): string {
+  const runContext = getExecutionContext();
+  if (!runContext || !runContext.jobRunId) {
+    return `local-${randomUUID()}`;
+  }
+  return runContext.jobRunId;
 }

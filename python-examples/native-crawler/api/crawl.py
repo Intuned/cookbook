@@ -1,11 +1,10 @@
+from utils.helpers import get_job_run_id
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
 
-from intuned_browser import go_to_url
+from intuned_browser import go_to_url, save_file_to_s3
 from runtime_helpers import extend_payload
 from intuned_runtime import persistent_store
-from runtime.context import IntunedContext
-from intuned_sdk import save_file_to_s3
 from utils import (
     extract_links,
     extract_page_content,
@@ -62,10 +61,7 @@ async def automation(
     schema = params.get("schema")
     depth = params.get("depth", 0)
 
-    # Get job_run_id to prefix all keys (isolates each job's data)
-    job_run_id = IntunedContext.current().run_context.job_run_id or "local"
-    key_prefix = f"{job_run_id}_"
-
+    key_prefix = str(get_job_run_id())
     normalized_url = normalize_url(url)
 
     # Store config for child payloads (only on first call)
@@ -78,7 +74,7 @@ async def automation(
         )
 
     # Deduplicate
-    visited_key = sanitize_key(f"{key_prefix}visited_{normalized_url}")
+    visited_key = sanitize_key(f"{key_prefix}_visited_{normalized_url}")
     if await persistent_store.get(visited_key):
         return {
             "success": True,
@@ -121,7 +117,7 @@ async def automation(
         for link in links:
             if not is_file_url(link):
                 # Only queue if not already visited
-                link_key = sanitize_key(f"{key_prefix}visited_{link}")
+                link_key = sanitize_key(f"{key_prefix}_visited_{link}")
                 if not await persistent_store.get(link_key):
                     extend_payload(
                         {

@@ -1,7 +1,7 @@
 import { BrowserContext, Page } from "playwright";
 import { goToUrl, saveFileToS3 } from "@intuned/browser";
-import { extendPayload, getExecutionContext } from "@intuned/runtime";
-import persistentStore from "@intuned/runtime/persistent-store";
+import { extendPayload } from "@intuned/runtime";
+import { persistentStore } from "@intuned/runtime";
 
 import {
   extractLinks,
@@ -9,8 +9,9 @@ import {
   normalizeUrl,
   getBaseDomain,
   sanitizeKey,
+  getJobRunId,
   isFileUrl,
-} from "../utils";
+} from "../utils/index";
 
 interface Params {
   url: string;
@@ -59,10 +60,7 @@ export default async function handler(
   const schema = params.schema;
   const depth = params.depth ?? 0;
 
-  // Get job_run_id to prefix all keys (isolates each job's data)
-  const jobRunId = getExecutionContext().jobRunId || "local";
-  const keyPrefix = `${jobRunId}_`;
-
+  const keyPrefix = `${getJobRunId()}`;
   const normalizedUrl = normalizeUrl(url);
 
   // Store config for child payloads (only on first call)
@@ -75,7 +73,7 @@ export default async function handler(
   }
 
   // Deduplicate
-  const visitedKey = sanitizeKey(`${keyPrefix}visited_${normalizedUrl}`);
+  const visitedKey = sanitizeKey(`${keyPrefix}_visited_${normalizedUrl}`);
   if (await persistentStore.get(visitedKey)) {
     return {
       success: true,
@@ -120,7 +118,7 @@ export default async function handler(
     for (const link of links) {
       if (!isFileUrl(link)) {
         // Only queue if not already visited
-        const linkKey = sanitizeKey(`${keyPrefix}visited_${link}`);
+        const linkKey = sanitizeKey(`${keyPrefix}_visited_${link}`);
         if (!(await persistentStore.get(linkKey))) {
           extendPayload({
             api: "crawl",

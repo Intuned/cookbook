@@ -104,6 +104,38 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
   }'
 ```
 
+### Structured Data Extraction (Schema)
+
+You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
+
+```bash
+yarn intuned run api crawl '{
+  "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
+  "max_depth": 0,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string" },
+      "price": { "type": "string" },
+      "availability": { "type": "string" }
+    },
+    "required": ["title", "price"]
+  }
+}'
+```
+
+### Download Attachments
+
+You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
+
+```bash
+yarn intuned run api crawl '{
+  "url": "https://sandbox.intuned.dev/pdfs",
+  "max_depth": 1,
+  "include_attachments": true
+}'
+```
+
 ## Utils
 
 ### `utils/content.ts`
