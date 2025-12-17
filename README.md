@@ -34,6 +34,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerce-scrapingcourse](./python-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./python-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [playwright-basics](./python-examples/playwright-python/) | Playwright Basics |
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use-automation](./python-examples/computer-use-automation/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
