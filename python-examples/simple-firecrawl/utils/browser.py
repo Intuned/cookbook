@@ -13,7 +13,6 @@ DESKTOP_VIEWPORT = (1280, 720)
 
 
 def create_browser_config(
-    cdp_url: str,
     mobile: bool = False,
     headers: dict[str, str] | None = None,
     skip_tls_verification: bool = True,
@@ -23,7 +22,6 @@ def create_browser_config(
     viewport = MOBILE_VIEWPORT if mobile else DESKTOP_VIEWPORT
 
     config_kwargs = {
-        "cdp_url": cdp_url,
         "headless": headless,
         "viewport_width": viewport[0],
         "viewport_height": viewport[1],
