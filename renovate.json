@@ -10,14 +10,16 @@
       "matchFileNames": ["typescript-examples/**"],
       "matchPackageNames": ["@intuned/browser", "@intuned/runtime"],
       "schedule": ["at any time"],
-      "groupName": "intuned-ts"
+      "groupName": "intuned-ts",
+      "dependencyDashboardApproval": false
     },
     {
       "description": "Daily updates for Intuned packages (Python)",
       "matchFileNames": ["python-examples/**"],
       "matchPackageNames": ["intuned-browser", "intuned-runtime"],
       "schedule": ["at any time"],
-      "groupName": "intuned-python"
+      "groupName": "intuned-python",
+      "dependencyDashboardApproval": false
     },
     {
       "description": "Weekly updates for all other TypeScript dependencies",
