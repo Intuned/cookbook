@@ -3,20 +3,20 @@
   "extends": [
     "config:recommended"
   ],
-  "enabledManagers": ["npm", "pep621", "uv"],
+  "enabledManagers": ["npm", "pep621"],
   "packageRules": [
     {
       "description": "Daily updates for Intuned packages (TypeScript)",
       "matchFileNames": ["typescript-examples/**"],
       "matchPackageNames": ["@intuned/browser", "@intuned/runtime"],
-      "schedule": ["every day"],
+      "schedule": ["at any time"],
       "groupName": "intuned-ts"
     },
     {
       "description": "Daily updates for Intuned packages (Python)",
       "matchFileNames": ["python-examples/**"],
       "matchPackageNames": ["intuned-browser", "intuned-runtime"],
-      "schedule": ["every day"],
+      "schedule": ["at any time"],
       "groupName": "intuned-python"
     },
     {
@@ -29,7 +29,7 @@
     },
     {
       "description": "Weekly updates for all other Python dependencies",
-      "matchManagers": ["pep621", "uv"],
+      "matchManagers": ["pep621"],
       "matchFileNames": ["python-examples/**"],
       "excludePackageNames": ["intuned-browser", "intuned-runtime"],
       "schedule": ["every weekend"],
