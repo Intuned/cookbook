@@ -17,3 +17,4 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [rpa-example](./python-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [EHR-integration](./python-examples/ehr-integration-python/) | Data Extraction from Openimis Website|
