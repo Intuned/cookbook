@@ -137,13 +137,7 @@ async def automation(
                         page=page,
                         trigger=link,
                     )
-                    attachments.append(
-                        {
-                            "url": link,
-                            "s3_key": uploaded.get_s3_key(),
-                            "signed_url": await uploaded.get_signed_url(),
-                        }
-                    )
+                    attachments.append(uploaded)
                 except Exception as e:
                     print(f"[crawl] Failed to download {link}: {e}")
 
