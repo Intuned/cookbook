@@ -13,6 +13,7 @@ Intuned sample projects in TypeScript.
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
+| [EHR-integration](./typescript-examples/ehr-integration-ts/) | Data Extraction from Openimis Website |
 | [playwright-basics](./playwright-basics-ts/) | Playwright Basics |
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |

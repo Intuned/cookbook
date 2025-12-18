@@ -13,6 +13,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerce-scrapingcourse](./typescript-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./typescript-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [EHR-integration](./typescript-examples/ehr-integration-ts/) | Data Extraction from Openimis Website |
 | [e-commerece-category](./typescript-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use](./typescript-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
