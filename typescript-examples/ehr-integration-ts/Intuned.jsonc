@@ -13,7 +13,7 @@
     "size": "standard"
   },
   "defaultRunPlaygroundInput": {
-    "apiName": "sample",
+    "apiName": "claims",
     "parameters": {}
   }
 }
