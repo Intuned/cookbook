@@ -60,6 +60,10 @@ htmlcov/
 
 # Intuned
 .intuned/
+# Ignore all folders in auth-sessions-instances except test-auth-session
+**/auth-sessions-instances/*
+!**/auth-sessions-instances/test-auth-session/
+!**/auth-sessions-instances/test-auth-session/**
 
 notes.md
 

@@ -14,7 +14,8 @@
   "metadata": {
     "template": {
       "name": "default-template",
-      "description": "Default Intuned project template for browser automation"
+      "description": "Default Intuned project template for browser automation",
+      "tags": ["intuned-browser-sdk"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample",
