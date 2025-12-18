@@ -137,11 +137,7 @@ export default async function handler(
             page,
             trigger: link,
           });
-          attachments.push({
-            url: link,
-            s3_key: uploaded.getS3Key(),
-            signed_url: await uploaded.getSignedUrl(),
-          });
+          attachments.push(uploaded);
         } catch (e) {
           console.log(`[crawl] Failed to download ${link}: ${e}`);
         }
