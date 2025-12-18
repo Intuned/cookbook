@@ -18,12 +18,12 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         raise Exception("params cannot be null")
     browser: Browser = attempt_store.get("browser")
 
-    username = params["username"]
-    password = params["password"]
-    product_name = params["product_name"]
-    first_name = params["first_name"]
-    last_name = params["last_name"]
-    zip_code = params["zip_code"]
+    username = params.get("username")
+    password = params.get("password")
+    product_name = params.get("product_name")
+    first_name = params.get("first_name")
+    last_name = params.get("last_name")
+    zip_code = params.get("zip_code")
 
     tools = Tools()
 

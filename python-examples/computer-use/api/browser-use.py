@@ -29,8 +29,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     result = await agent.run()
     print(result)
 
-    # Use the correct AgentHistoryList methods
-    action_results = result.action_results()
     final = result.final_result()
     
     return {

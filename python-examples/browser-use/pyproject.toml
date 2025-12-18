@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "browser-use-book-room"
+name = "browser-use-purchase-item"
 version = "0.0.1"
 description = "Using Browser-Use with Intuned"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]

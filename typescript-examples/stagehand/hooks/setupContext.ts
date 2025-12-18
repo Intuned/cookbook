@@ -34,9 +34,4 @@ export default async function setupContext({
   await stagehand.init();
 
   attemptStore.set("stagehand", stagehand);
-  return {
-    cleanup: async () => {
-      await stagehand.close();
-    },
-  }
 }

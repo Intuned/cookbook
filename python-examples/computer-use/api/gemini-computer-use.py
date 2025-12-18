@@ -27,9 +27,6 @@ async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: 
 You are currently on the following page: {page.url}.
 Do not ask follow up questions, the user will trust your judgement. 
 If you are getting blocked on google, try another search engine.""",
-        options={
-            "api_key": api_key,
-        },
     )
 
     # Execute the autonomous task with the Computer Use Agent

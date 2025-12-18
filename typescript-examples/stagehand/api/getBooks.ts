@@ -28,7 +28,6 @@ export default async function handler(
   if (category) {
     await agent.execute({
       instruction: `Navigate to the "${category}" category by clicking on it in the sidebar`,
-      page: page,
     });
   }
 
@@ -47,10 +46,7 @@ export default async function handler(
   // Extract all book details from the page using Stagehand
   const books = await stagehand.extract(
     "Extract all books visible on the page with their complete details including title, price, rating, and availability",
-    bookDetailsSchema,
-    {
-      page: page,
-    }
+    bookDetailsSchema
   );
   return books;
 }
