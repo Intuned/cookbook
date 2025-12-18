@@ -1,0 +1,20 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "https://sandbox.intuned.dev",
+      "localStorage": [
+        {
+          "name": "sb-pfaqkmnqacbiimndjwyp-auth-token",
+          "value": "{\"access_token\":\"eyJhbGciOiJIUzI1NiIsImtpZCI6IjVTcjdyazhEa1BKNExCbWciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3BmYXFrbW5xYWNiaWltbmRqd3lwLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI4OTZjYWUwYy03Yjk3LTQyYjEtYTRjYy00NTU5OTJlNDQ0MGUiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzY2MDY0NTQwLCJpYXQiOjE3NjYwNjA5NDAsImVtYWlsIjoiZGVtb0BlbWFpbC5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc2NjA2MDk0MH1dLCJzZXNzaW9uX2lkIjoiZGZjZTJlNTEtYTQ1NS00MDU1LThjMGItMTVhNGZhNDMxZTMwIiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.R5fo5IKfLmdctvV1Yjdhn-0YzCkBjq1AO93f12TmqAw\",\"token_type\":\"bearer\",\"expires_in\":3600,\"expires_at\":1766064540,\"refresh_token\":\"exhuocrre5jp\",\"user\":{\"id\":\"896cae0c-7b97-42b1-a4cc-455992e4440e\",\"aud\":\"authenticated\",\"role\":\"authenticated\",\"email\":\"demo@email.com\",\"email_confirmed_at\":\"2025-11-10T23:56:02.00755Z\",\"phone\":\"\",\"confirmed_at\":\"2025-11-10T23:56:02.00755Z\",\"last_sign_in_at\":\"2025-12-18T12:29:00.888447707Z\",\"app_metadata\":{\"provider\":\"email\",\"providers\":[\"email\"]},\"user_metadata\":{\"email_verified\":true},\"identities\":[{\"identity_id\":\"6041d4c7-22df-4aae-9c18-f2bb3c79e41a\",\"id\":\"896cae0c-7b97-42b1-a4cc-455992e4440e\",\"user_id\":\"896cae0c-7b97-42b1-a4cc-455992e4440e\",\"identity_data\":{\"email\":\"demo@email.com\",\"email_verified\":false,\"phone_verified\":false,\"sub\":\"896cae0c-7b97-42b1-a4cc-455992e4440e\"},\"provider\":\"email\",\"last_sign_in_at\":\"2025-11-10T23:56:01.997364Z\",\"created_at\":\"2025-11-10T23:56:01.998058Z\",\"updated_at\":\"2025-11-10T23:56:01.998058Z\",\"email\":\"demo@email.com\"}],\"created_at\":\"2025-11-10T23:56:01.972446Z\",\"updated_at\":\"2025-12-18T12:29:00.893233Z\",\"is_anonymous\":false},\"weak_password\":null}"
+        }
+      ]
+    }
+  ],
+  "sessionStorage": [
+    {
+      "origin": "https://sandbox.intuned.dev",
+      "sessionStorage": []
+    }
+  ]
+}
