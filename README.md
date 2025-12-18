@@ -38,6 +38,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
+| [scrapy-example](./python-examples/scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |
 | [network-interception](./python-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./python-examples/stagehand/) | AI-powered browser automation with Stagehand |
 | [browser-use](./python-examples/browser-use/) | AI browser automation with Browser-Use |
