@@ -57,15 +57,14 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
-```
+├── apis/                      # API endpoints (data extraction, scraping)
+│   ├── families.ts            # Extract families / groups data
+│   ├── claims.ts              # Extract claims data
+│   └── insurees.ts            # Extract insurees data
+├── auth-sessions/             # Authentication session management
+│   ├── check.ts               # Check if an auth session is still valid
+│   └── create.ts              # Create or recreate an auth session programmatically
+└── intuned.jsonc               # Intuned project configuration
 
 
 ## `Intuned.json` Reference

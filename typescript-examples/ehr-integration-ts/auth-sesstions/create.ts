@@ -1,52 +1,51 @@
-import { Page, BrowserContext } from "playwright";
+import { BrowserContext, Page } from "playwright";
 
-import { goToUrl } from "@intuned/browser";
-import { RunError } from "@intuned/runtime";
+interface Params {
+  username: string;
+  password: string;
+}
 
-
-
-type Params = z.infer<typeof createAuthSessionParams>;
-
-export default async function* create(
+export default async function create(
   params: Params,
-  page: Page,
+  _playwrightPage: Page,
   context: BrowserContext
-): AsyncGenerator<unknown, boolean, string> {
-  const validatedParams = createAuthSessionParams.safeParse(params);
-
-  if (!validatedParams.success) {
-    throw new RunError("Params with username and password are required");
-  }
-
-  const { username, password } = validatedParams.data;
-
+): Promise<void> {
+  const page = _playwrightPage;
   // Step 1: Navigate to the login page
-  await goToUrl(page, "https://demo.openimis.org/front/login", {
+  // Wait for the page to fully load before proceeding
+  await page.goto("https://demo.openimis.org/front/login", {
     waitUntil: "networkidle",
     timeout: 30_000,
   });
 
-  // Step 2: Fill username
+  // Step 2: Find the username input field and enter the username
+
   const usernameInput = page.locator("input[type='text']");
-  await usernameInput.fill(username);
+  await usernameInput.fill(params.username);
 
-  // Step 3: Fill password
+  // Step 3: Find the password input field and enter the password
+
   const passwordInput = page.locator("input[type='password']");
-  await passwordInput.fill(password);
+  await passwordInput.fill(params.password);
 
-  // Step 4: Submit login form
+  // Step 4: Click the button to log in
+  // This will submit the login form with the credentials we just entered
   const submitButton = page.locator("button[type=submit]");
   await submitButton.click();
 
-  // Step 5: Wait for page to finish loading
+  // Step 5: Wait for the page to load after login
+  // We wait for the network to be idle, indicating the page has finished loading
   await page.waitForLoadState("networkidle");
 
-  // Step 6: Verify successful login
+  // Step 6: Verify successful login by checking if wlcome message is visible
+  // If the user menu toggle is visible, it means we successfully logged in
   const userMenuToggle = page.locator("h4.MuiTypography-h4");
   const isLoggedIn = await userMenuToggle.isVisible();
 
-  // Step 7: Small delay to ensure session is established
+  // Step 7: Add a brief delay to ensure session is fully established
+  // This helps prevent race conditions where the session might not be fully saved
   await page.waitForTimeout(2000);
 
+  // Return true if login was successful, false otherwise
   return isLoggedIn;
 }
