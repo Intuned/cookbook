@@ -14,7 +14,7 @@ Ready-to-run Intuned API examples for common patterns. Each recipe lives in `api
 ## Run
 
 ```bash
-uv sync  # or poetry install
+uv sync
 uv run intuned run api <api-name> <params>
 ```
 

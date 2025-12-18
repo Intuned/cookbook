@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Abominable Hoodie",
+    "value": "{\n  \"title\": \"Abominable Hoodie\",\n  \"price\": \"$69.00\",\n  \"detailsUrl\": \"https://www.scrapingcourse.com/ecommerce/product/abominable-hoodie/\"\n}",
+    "lastUsed": true,
+    "id": "c9d0e1f2-a3b4-5678-2345-6789abcdef01"
+  },
+  {
+    "name": "Chaz Kangeroo Hoodie",
+    "value": "{\n  \"title\": \"Chaz Kangeroo Hoodie\",\n  \"price\": \"$52.00\",\n  \"detailsUrl\": \"https://www.scrapingcourse.com/ecommerce/product/chaz-kangeroo-hoodie/\"\n}",
+    "lastUsed": false,
+    "id": "d0e1f2a3-b4c5-6789-3456-789abcdef012"
+  }
+]

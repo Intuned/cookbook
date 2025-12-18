@@ -13,19 +13,19 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-poetry install
+uv sync
 ```
 
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 ```bash
-poetry run intuned run api <api-name> <parameters>
+uv run intuned run api <api-name> <parameters>
 ```
 
 ### Deploy project
 ```bash
-poetry run intuned deploy
+uv run intuned deploy
 ```
 
 
