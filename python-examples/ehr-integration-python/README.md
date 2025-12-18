@@ -1,4 +1,4 @@
-# default Intuned project
+#  Data Extraction from Openimis Website
 
 This template provides a structured starting point for retrieving data from an EHR website.
 
