@@ -91,6 +91,6 @@ yarn intuned deploy
 ## Learn More
 
 - **Stagehand Documentation**: https://docs.stagehand.dev/
-- **Intuned Runtime SDK**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview
-- **Attempt_Store**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/attempt-store
+- **Intuned Runtime SDK**: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- **Setup Hooks**: https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks
 - **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction

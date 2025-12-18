@@ -9,6 +9,7 @@ class Params(TypedDict):
 
 
 async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: ...):
+    # Stagehand in python uses Stagehand V2. It extends Playwright page as a StagehandPage object.
     category = params.get("category")
     stagehand = cast(Stagehand, attempt_store.get("stagehand"))
     await page.set_viewport_size({"width": 1280, "height": 800})
@@ -22,9 +23,6 @@ async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: 
 You are currently on the following page: {page.url}.
 Do not ask follow up questions, the user will trust your judgement. 
 If you are getting blocked on google, try another search engine.""",
-        options={
-            "api_key": os.getenv("GOOGLE_API_KEY"),
-        },
     )
     # Agent runs on current Stagehand page
     if category:

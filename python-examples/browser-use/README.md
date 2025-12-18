@@ -4,7 +4,7 @@ This example demonstrates how to integrate [Browser Use](https://github.com/brow
 
 ## What This Example Does
 
-The `book-room` API demonstrates a practical Browser Use integration that automates an e-commerce checkout flow:
+The `purchase-item` API demonstrates a practical Browser Use integration that automates an e-commerce checkout flow:
 1. Navigates to an e-commerce website (saucedemo.com)
 2. Logs in with provided credentials
 3. Uses a Browser Use AI agent to search for a product and add it to cart
@@ -23,7 +23,7 @@ The `hooks/setup_context.py` file runs before every API call and creates a Brows
 
 ### API Implementation
 
-The `api/book-room.py` handler receives Intuned's Playwright `page` object and also uses the Browser Use browser.
+The `api/purchase-item.py` handler receives Intuned's Playwright `page` object and also uses the Browser Use browser.
 ## Parameters
 
 The API requires the following parameters:
@@ -48,7 +48,7 @@ uv sync
 
 ### Run the API Locally
 ```bash
-uv run intuned run api book-room '{"username":"standard_user","password":"secret_sauce","product_name":"Sauce Labs Backpack","first_name":"John","last_name":"Doe","zip_code":"12345"}'
+uv run intuned run api purchase-item '{"username":"standard_user","password":"secret_sauce","product_name":"Sauce Labs Backpack","first_name":"John","last_name":"Doe","zip_code":"12345"}'
 ```
 
 ### Deploy to Intuned
@@ -60,11 +60,11 @@ uv run intuned deploy
 ```
 /
 ├── api/
-│   └── book-room.py          # Main API handler
+│   └── purchase-item.py          # Main API handler
 ├── hooks/
 │   └── setup_context.py      # Browser Use integration setup
 ├── ____testParameters/
-│   └── book-room.json        # Test parameters
+│   └── purchase-item.json        # Test parameters
 ├── Intuned.jsonc             # Intuned project configuration
 └── pyproject.toml            # Dependencies
 ```
@@ -73,5 +73,5 @@ uv run intuned deploy
 
 - **Browser Use Documentation**: https://github.com/browser-use/browser-use
 - **Intuned Runtime SDK**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview
-- **Attempt_Store**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/attempt-store
+- **Setup Hooks**: https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks
 - **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction

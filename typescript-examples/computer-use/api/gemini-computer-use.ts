@@ -32,7 +32,6 @@ export default async function handler(
     cua: true, // CUA agent.
     model: {
         modelName: model,
-        apiKey: apiKey
     },
     systemPrompt: "You are a helpful assistant that can use a web browser.",
   });
