@@ -33,6 +33,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerce-scrapingcourse](./python-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./python-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./python-examples/e-commerece-shopify/) | Shopify store product scraper |
+| [EHR-integration](./python-examples/ehr-integration-python/) | Data Extraction from Openimis Website|
 | [playwright-basics](./python-examples/playwright-python/) | Playwright Basics |
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
