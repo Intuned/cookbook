@@ -1,0 +1,79 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "enabledManagers": [
+    "npm",
+    "pep621"
+  ],
+  "packageRules": [
+    {
+      "description": "Daily updates for Intuned packages (TypeScript)",
+      "matchFileNames": [
+        "typescript-examples/**"
+      ],
+      "matchPackageNames": [
+        "@intuned/browser",
+        "@intuned/runtime"
+      ],
+      "schedule": [
+        "at any time"
+      ],
+      "groupName": "intuned-ts",
+      "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Daily updates for Intuned packages (Python)",
+      "matchFileNames": [
+        "python-examples/**"
+      ],
+      "matchPackageNames": [
+        "intuned-browser",
+        "intuned-runtime"
+      ],
+      "schedule": [
+        "at any time"
+      ],
+      "groupName": "intuned-python",
+      "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Weekly updates for all other TypeScript dependencies",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchFileNames": [
+        "typescript-examples/**"
+      ],
+      "schedule": [
+        "every weekend"
+      ],
+      "groupName": "typescript-examples-deps",
+      "dependencyDashboardApproval": false,
+      "matchPackageNames": [
+        "!@intuned/browser",
+        "!@intuned/runtime"
+      ]
+    },
+    {
+      "description": "Weekly updates for all other Python dependencies",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchFileNames": [
+        "python-examples/**"
+      ],
+      "schedule": [
+        "every weekend"
+      ],
+      "groupName": "python-examples-deps",
+      "dependencyDashboardApproval": false,
+      "matchPackageNames": [
+        "!intuned-browser",
+        "!intuned-runtime"
+      ]
+    }
+  ]
+}

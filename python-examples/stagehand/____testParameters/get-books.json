@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Travel Category",
+    "value": "{\n  \"category\": \"Travel\"\n}",
+    "lastUsed": true,
+    "id": "5db5d935-de48-4169-9de5-563930eec8d4"
+  },
+  {
+    "name": "No Category (All Books)",
+    "value": "{}",
+    "lastUsed": false,
+    "id": "6ec6e046-ef59-4270-af66-674841ffd9e5"
+  }
+]
+

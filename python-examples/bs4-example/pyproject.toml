@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "beautifulSoup-example"
+version = "0.0.1"
+description = "BeautifulSoup example to scrape a website and extract data"
+authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
+requires-python = ">=3.12,<3.13"
+readme = "README.md"
+keywords = [
+    "Python",
+    "intuned-browser-sdk",
+]
+dependencies = [
+    "playwright==1.56",
+    "intuned-runtime==1.3.14",
+    "intuned-browser==0.1.10",
+    "beautifulsoup4==4.14.3",
+    "pydantic>=2.12.5",
+]
+
+[tool.uv]
+package = false

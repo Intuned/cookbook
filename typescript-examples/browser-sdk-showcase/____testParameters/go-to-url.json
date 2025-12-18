@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"url\": \"https://example.com\",\n  \"waitUntil\": \"load\",\n  \"timeout\": 30000,\n  \"waitForLoadingStateUsingAi\": true\n}",
+    "lastUsed": true,
+    "id": "d0e1f2a3-b4c5-6789-4567-890123456789"
+  }
+]

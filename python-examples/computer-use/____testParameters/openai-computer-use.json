@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"query\": \"Go to https://books.toscrape.com, navigate to the Travel category, and tell me the title and price of the first book you see.\"\n}",
+    "lastUsed": true,
+    "id": "a8b9c0d1-e2f3-4567-8901-234567890123"
+  }
+]
