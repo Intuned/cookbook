@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Params #1",
+    "value": "{\n  \"query\": \"Go to https://books.toscrape.com/, then filter for books in the Travel category, and then extract the most expensive book in this page.\"\n}",
+    "lastUsed": true,
+    "id": "c0d1e2f3-a4b5-6789-0123-456789012345"
+  }
+]
