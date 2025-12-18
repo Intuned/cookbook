@@ -60,7 +60,7 @@ export default async function handler(
   const schema = params.schema;
   const depth = params.depth ?? 0;
 
-  const keyPrefix = `${getJobRunId()}_`;
+  const keyPrefix = `${getJobRunId()}`;
   const normalizedUrl = normalizeUrl(url);
 
   // Store config for child payloads (only on first call)
