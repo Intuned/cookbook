@@ -9,10 +9,6 @@ class Params(TypedDict):
 
 async def extract_claims_data(page: Page) -> List[Dict[str, str]]:
     """Extract claims data from openIMIS"""
-    # Navigate to Claims section
-    # await page.click('button:has-text("Claims")')
-    # await page.wait_for_selector('text="Health Facility Claims"')
-    # await page.click('text="Health Facility Claims"')
 
     # Wait for claims table to load
     await page.wait_for_selector("table")

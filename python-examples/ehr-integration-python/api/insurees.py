@@ -8,7 +8,7 @@ class Params(TypedDict):
 
 
 async def extract_insurees_data(page: Page) -> List[Dict[str, str]]:
-    """Extract family/group data from openIMIS"""
+    """Extract insurees data from openIMIS"""
 
     # Wait for data table to load
     await page.wait_for_selector("table")
