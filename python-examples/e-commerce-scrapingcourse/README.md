@@ -13,22 +13,17 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -e .
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 
 ### Run an API
 
 ```bash
-# Using uv
-uv run intuned run api <api-name> <parameters>
-
-# Using pip
-intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
@@ -47,11 +42,7 @@ uv run intuned run api details .parameters/api/details/default.json
 
 ### Deploy project
 ```bash
-# Using uv
 uv run intuned deploy
-
-# Using pip
-intuned deploy
 ```
 
 

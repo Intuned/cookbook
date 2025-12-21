@@ -20,7 +20,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api book-consultations .parameters/api/book-consultations/default.json --auth-session <auth-session-id>
+uv run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json --auth-session <auth-session-id>
 ```
 
 ### Deploy project

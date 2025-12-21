@@ -108,7 +108,10 @@ yarn install
 ### Run an API
 
 ```bash
-npm run intuned run api <api-name> '<json-parameters>'
+npm run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+npm run intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
+npm run intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
+npm run intuned run api stagehand .parameters/api/stagehand/default.json
 ```
 
 ### Deploy

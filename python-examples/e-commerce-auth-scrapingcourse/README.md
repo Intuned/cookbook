@@ -13,22 +13,17 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -e .
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 
 ### Run an API
 
 ```bash
-# Using uv
-uv run intuned run api <api-name> <parameters>
-
-# Using pip
-intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
@@ -47,11 +42,7 @@ uv run intuned run api details .parameters/api/details/default.json
 
 ### Deploy project
 ```bash
-# Using uv
 uv run intuned deploy
-
-# Using pip
-intuned deploy
 ```
 
 
@@ -61,29 +52,17 @@ This project uses Intuned Auth Sessions to maintain authenticated access to the 
 
 ### Create a new auth session
 ```bash
-# Using uv
 uv run intuned run authsession create .parameters/auth-sessions/create/default.json
-
-# Using pip
-intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
 ```bash
-# Using uv
 uv run intuned run authsession update <auth-session-id>
-
-# Using pip
-intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
 ```bash
-# Using uv
 uv run intuned run authsession validate <auth-session-id>
-
-# Using pip
-intuned run authsession validate <auth-session-id>
 ```
 
 

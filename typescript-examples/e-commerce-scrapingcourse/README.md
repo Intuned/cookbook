@@ -27,10 +27,12 @@ yarn
 
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api list .parameters/api/list/default.json
+npm run intuned run api details .parameters/api/details/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api list .parameters/api/list/default.json
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products

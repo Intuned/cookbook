@@ -202,6 +202,21 @@ validate_template() {
             warning "[$template_name] README.md uses inline JSON '{}' - should use .parameters/ paths"
         fi
 
+        # Check for unsubstituted template placeholders in run commands
+        if grep -E "<api-name>|<parameters>" "$dir/README.md" 2>/dev/null; then
+            error "[$template_name] README.md contains placeholder '<api-name>' or '<parameters>' - add run examples for all APIs using .parameters/api/{api-name}/default.json paths"
+        fi
+
+        # Check for poetry/pip references in Python projects (should use uv)
+        if [[ "$lang" == "python" ]]; then
+            if grep -qiE '\bpoetry\b' "$dir/README.md" 2>/dev/null; then
+                error "[$template_name] README.md references 'poetry' - should use 'uv' instead"
+            fi
+            if grep -qiE '\bpip install\b' "$dir/README.md" 2>/dev/null; then
+                error "[$template_name] README.md references 'pip install' - should use 'uv' instead"
+            fi
+        fi
+
         success "[$template_name] README.md exists"
     else
         warning "[$template_name] README.md is missing"
