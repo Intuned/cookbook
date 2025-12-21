@@ -1,7 +1,7 @@
 {
-  "name": "Sample Product",
-  "vendor": "Sample Vendor",
-  "product_type": "Sample Type",
-  "tags": [],
-  "details_url": "https://the-outrage.com/products/sample-product"
+  "name": "Strong Necklace",
+  "vendor": "Otem",
+  "product_type": "jewelry - necklace",
+  "tags": ["necklaces"],
+  "details_url": "https://the-outrage.com/products/copy-of-power-fist-necklace-gold"
 }
