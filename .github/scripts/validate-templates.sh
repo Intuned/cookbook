@@ -188,6 +188,20 @@ validate_template() {
                 fi
             done < <(find "$dir/api" -type f -name "*.$ext" 2>/dev/null)
         fi
+
+        # Check for extra parameter files that don't have corresponding APIs
+        while IFS= read -r param_file; do
+            [[ -z "$param_file" ]] && continue
+            # Get relative path: .parameters/api/{path}/default.json -> {path}
+            local param_path
+            param_path="${param_file#$dir/.parameters/api/}"
+            param_path="${param_path%/default.json}"
+
+            # Check if corresponding API file exists
+            if [[ ! -f "$dir/api/$param_path.$ext" ]]; then
+                warning "[$template_name] Extra parameter file '.parameters/api/$param_path/default.json' has no corresponding API"
+            fi
+        done < <(find "$dir/.parameters/api" -type f -name "default.json" 2>/dev/null)
     fi
 
     # -------------------------------------------
