@@ -20,7 +20,23 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Default API
+uv run intuned run api default .parameters/api/param_fill_form/default.json
+
+# Example: Navigate N pages
+uv run intuned run api examples/naviate_n_pages .parameters/api/number_of_pages/default.json
+
+# Example: Navigate all pages
+uv run intuned run api examples/navigate_all_pages .parameters/api/number_of_pages/default.json
+
+# Example: Scrape list
+uv run intuned run api examples/scrape_list .parameters/api/number_of_pages/default.json
+
+# Example: Submit form
+uv run intuned run api examples/submit_form .parameters/api/param_fill_form/default.json
+
+# Example: Download and upload files
+uv run intuned run api examples/download_upload_files .parameters/api/param_fill_form/default.json
 ```
 
 ### Deploy project
@@ -50,12 +66,12 @@ The project structure is as follows:
 │       |__ navigate_all_pages.py  # API example that shows how to navigate through all pages of a paginated site
 │       |__ navigate_n_pages.py    # API example that shows how to navigate a specific number of pages
 │       |__ download_upload_files.py  # API example that demonstrats file download and upload functionality
-└── intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
+└── Intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
 
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

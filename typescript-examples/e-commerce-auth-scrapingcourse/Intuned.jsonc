@@ -1,0 +1,37 @@
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "e-commerce-auth-scrapingcourse",
+      "description": "E-commerce scraper with authentication using scrapingcourse.com"
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {}
+        }
+      ]
+    },
+    "testAuthSessionInput": {
+      "username": "admin@example.com",
+      "password": "password"
+    }
+  }
+}

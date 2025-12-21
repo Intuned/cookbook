@@ -98,16 +98,19 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 **Structure:**
 ```
 .parameters/
-├── {api-name}/           # Folder for each API (matches api filename without extension)
-│   └── default.json      # Default parameters JSON
-├── auth/                 # Auth session parameters (if project uses auth sessions)
-│   ├── check.json        # Parameters for auth/check API
-│   └── create.json       # Parameters for auth/create API
+├── api/                  # API parameters folder
+│   └── {api-name}/       # Folder for each API (matches api filename without extension)
+│       └── default.json  # Default parameters JSON
+└── auth-sessions/        # Auth session parameters (if project uses auth sessions)
+    ├── check/            # Check auth session parameters
+    │   └── default.json
+    └── create/           # Create auth session parameters
+        └── default.json
 ```
 
 **Requirements:**
-- Create a folder for each API in `apis/` directory
-- Include `auth/check.json` and `auth/create.json` if project has `auth-sessions/` folder
+- Create `.parameters/api/{api-name}/default.json` for each API in `api/` directory
+- Include `auth-sessions/check/default.json` and `auth-sessions/create/default.json` if project has `auth-sessions/` folder
 - JSON files contain the input parameters for testing the API
 
 ## Main README Structure

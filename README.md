@@ -19,6 +19,12 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [network-interception](./typescript-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./typescript-examples/stagehand/) | AI-powered browser automation with Stagehand |
+| [playwright-basics-ts](./typescript-examples/playwright-basics-ts/) | Basic Playwright automation examples |
+| [native-crawler](./typescript-examples/native-crawler/) | Native web crawler for sitemaps and recursive link following |
+| [captcha-solving-basic-example](./typescript-examples/captcha-solving-basic-example/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
+| [captcha-solving-auth-example](./typescript-examples/captcha-solving-auth-example/) | E-commerce scraper with captcha solving and auth sessions |
+| [empty](./typescript-examples/empty/) | Empty starter template for new projects |
+| [empty-auth](./typescript-examples/empty-auth/) | Empty starter template with Auth Sessions enabled |
 
 ## Python Examples
 
@@ -42,3 +48,10 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [network-interception](./python-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./python-examples/stagehand/) | AI-powered browser automation with Stagehand |
 | [browser-use](./python-examples/browser-use/) | AI browser automation with Browser-Use |
+| [native-crawler](./python-examples/native-crawler/) | Native web crawler for sitemaps and recursive link following |
+| [simple-firecrawl](./python-examples/simple-firecrawl/) | Web scraping with Firecrawl library |
+| [crawl4ai](./python-examples/crawl4ai/) | Web crawling using Crawl4AI library |
+| [captcha-solving-basic-example](./python-examples/captcha-solving-basic-example/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
+| [captcha-solving-auth-example](./python-examples/captcha-solving-auth-example/) | E-commerce scraper with captcha solving and auth sessions |
+| [empty](./python-examples/empty/) | Empty starter template for new projects |
+| [empty-auth](./python-examples/empty-auth/) | Empty starter template with Auth Sessions enabled |

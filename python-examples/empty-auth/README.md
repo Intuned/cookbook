@@ -27,7 +27,7 @@ After installing dependencies, `intuned` command should be available in your env
 When AuthSessions are enabled, APIs require an AuthSession ID to run:
 
 ```bash
-uv run intuned run api sample .parameters/sample/default.json --auth-session test-auth-session
+uv run intuned run api sample .parameters/api/sample/default.json --auth-session test-auth-session
 ```
 
 ### Deploy project
@@ -42,7 +42,7 @@ This project uses Intuned Auth Sessions. To learn more, check out the [Authentic
 
 ### Create a new auth session
 ```bash
-uv run intuned run authsession create .parameters/auth-sessions/create.json
+uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session

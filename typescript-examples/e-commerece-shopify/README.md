@@ -26,11 +26,19 @@ yarn
 ### Run an API
 
 ```bash
+# List all products from Shopify store
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api shopify-list .parameters/api/shopify-list/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api shopify-list .parameters/api/shopify-list/default.json
+
+# Get detailed product information
+# npm
+npm run intuned run api shopify-details .parameters/api/shopify-details/default.json
+
+# yarn
+yarn intuned run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Deploy project
@@ -64,7 +72,7 @@ The project structure is as follows:
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

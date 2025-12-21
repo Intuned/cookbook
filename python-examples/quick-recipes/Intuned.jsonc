@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "quick-recipes",
+      "description": "Collection of quick automation recipes for common browser tasks"
+    }
   }
 }

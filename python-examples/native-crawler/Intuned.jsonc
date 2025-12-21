@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "native-crawler",
+      "description": "Native web crawler for sitemaps and recursive link following"
+    }
   }
 }

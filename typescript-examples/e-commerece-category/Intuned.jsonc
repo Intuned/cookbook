@@ -1,0 +1,25 @@
+{
+  "projectName": "e-commerece-category",
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "e-commerece-category",
+      "description": "E-commerce category and product scraper"
+    },
+    "defaultRunPlaygroundInput": {
+      "api": "ecommerece-category",
+      "parameters": {
+        "store_url": "https://www.example-store.com/"
+      }
+    }
+  }
+}

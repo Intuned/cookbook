@@ -58,7 +58,7 @@ The project structure is as follows:
 2. **details.py** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

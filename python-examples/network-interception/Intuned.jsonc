@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "network-interception",
+      "description": "Network request interception for API data extraction"
+    },
     "defaultRunPlaygroundInput": {
       "api": "api-interceptor",
       "parameters": {

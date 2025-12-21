@@ -1,0 +1,5 @@
+{
+  "url": "https://example.com/products",
+  "api_pattern": "/api/v1/products",
+  "max_pages": 5
+}

@@ -25,11 +25,47 @@ yarn
 ### Run an API
 
 ```bash
+# Sample API
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api sample .parameters/api/sample/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api sample .parameters/api/sample/default.json
+
+# Example: Download and upload file
+# npm
+npm run intuned run api examples/downloadAndUploadFile .parameters/api/examples/downloadAndUploadFile/default.json
+
+# yarn
+yarn intuned run api examples/downloadAndUploadFile .parameters/api/examples/downloadAndUploadFile/default.json
+
+# Example: Navigate all pages
+# npm
+npm run intuned run api examples/navigateAllPages .parameters/api/examples/navigateAllPages/default.json
+
+# yarn
+yarn intuned run api examples/navigateAllPages .parameters/api/examples/navigateAllPages/default.json
+
+# Example: Navigate N pages
+# npm
+npm run intuned run api examples/navigateNPages .parameters/api/examples/navigateNPages/default.json
+
+# yarn
+yarn intuned run api examples/navigateNPages .parameters/api/examples/navigateNPages/default.json
+
+# Example: Scrape list
+# npm
+npm run intuned run api examples/scrapeList .parameters/api/examples/scrapeList/default.json
+
+# yarn
+yarn intuned run api examples/scrapeList .parameters/api/examples/scrapeList/default.json
+
+# Example: Submit form
+# npm
+npm run intuned run api examples/submitForm .parameters/api/examples/submitForm/default.json
+
+# yarn
+yarn intuned run api examples/submitForm .parameters/api/examples/submitForm/default.json
 ```
 
 ### Deploy project
@@ -64,11 +100,11 @@ The project structure is as follows:
 │       |__ navigateAllPages.ts  # Example showing how to navigate through all pages of a paginated site
 │       |__ navigateNPages.ts   # Example showing how to navigate a specific number of pages
 │       |__ downloadAndUploadFile.ts  # Example demonstrating file download and upload functionality
-└── intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
+└── Intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

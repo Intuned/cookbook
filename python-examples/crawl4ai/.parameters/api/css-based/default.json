@@ -1,0 +1,31 @@
+{
+  "url": "https://news.ycombinator.com/newest",
+  "schema": {
+    "name": "News Items",
+    "baseSelector": "tr.athing",
+    "fields": [
+      {
+        "name": "title",
+        "selector": "span.titleline a",
+        "type": "text"
+      },
+      {
+        "name": "link",
+        "selector": "span.titleline a",
+        "type": "attribute",
+        "attribute": "href"
+      }
+    ]
+  },
+  "css_selector": "#hnmain",
+  "word_count_threshold": 10,
+  "excluded_tags": [
+    "nav",
+    "footer"
+  ],
+  "exclude_external_links": true,
+  "exclude_external_images": true,
+  "exclude_domains": [
+    "somebadsite.com"
+  ]
+}

@@ -13,6 +13,10 @@
       "size": "standard"
     },
     "metadata": {
+      "template": {
+        "name": "e-commerece-shopify",
+        "description": "Shopify store product scraper"
+      },
       "defaultRunPlaygroundInput": {
         "api": "shopify-list",
         "parameters": {

@@ -48,7 +48,7 @@ uv sync
 
 ### Run the API Locally
 ```bash
-uv run intuned run api purchase-item '{"username":"standard_user","password":"secret_sauce","product_name":"Sauce Labs Backpack","first_name":"John","last_name":"Doe","zip_code":"12345"}'
+uv run intuned run api purchase-item .parameters/api/book_room/default.json
 ```
 
 ### Deploy to Intuned

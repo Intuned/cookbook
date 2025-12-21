@@ -12,5 +12,15 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "rpa-auth-example",
+      "description": "RPA example for booking consultations with auth session support"
+    },
+    "testAuthSessionInput": {
+      "username": "demo@email.com",
+      "password": "DemoUser2024!"
+    }
   }
 }

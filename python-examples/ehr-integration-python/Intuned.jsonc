@@ -14,5 +14,15 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "ehr-integration-python",
+      "description": "Electronic Health Records integration example with authentication"
+    },
+    "testAuthSessionInput": {
+      "username": "demo@email.com",
+      "password": "password"
+    }
   }
 }

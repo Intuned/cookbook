@@ -26,12 +26,29 @@ yarn
 ### Run an API
 
 ```bash
+# Example: Download a file
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api download-file .parameters/api/download-file/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api download-file .parameters/api/download-file/default.json
+
+# Example: Extract structured data
+# npm
+npm run intuned run api extract-structured-data .parameters/api/extract-structured-data/default.json
+
+# yarn
+yarn intuned run api extract-structured-data .parameters/api/extract-structured-data/default.json
+
+# Example: Navigate to URL
+# npm
+npm run intuned run api go-to-url .parameters/api/go-to-url/default.json
+
+# yarn
+yarn intuned run api go-to-url .parameters/api/go-to-url/default.json
 ```
+
+> **Note:** This project has many API examples. See `.parameters/api/` for all available examples.
 
 ### Deploy project
 ```bash
@@ -107,7 +124,7 @@ The project structure is as follows:
 See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

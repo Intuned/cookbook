@@ -26,11 +26,19 @@ yarn
 ### Run an API
 
 ```bash
+# Book a consultation
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api book-consultations .parameters/api/book-consultations/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api book-consultations .parameters/api/book-consultations/default.json
+
+# Get consultations by email
+# npm
+npm run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
+
+# yarn
+yarn intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
 ### Deploy project
@@ -61,11 +69,11 @@ The project structure is as follows:
 │   └── create.ts          # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

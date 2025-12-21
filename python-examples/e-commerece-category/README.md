@@ -20,7 +20,14 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Scrape categories
+uv run intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
+
+# Scrape product list
+uv run intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
+
+# Get product details
+uv run intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
 ```
 
 ### Deploy project
@@ -60,7 +67,7 @@ The project structure is as follows:
 Each API uses `extend_payload` to chain to the next step in the scraping flow.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -75,10 +75,18 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 
 ```bash
 # Install dependencies
+# npm
+npm install
+
+# yarn
 yarn install
 
 # Run the crawler
-yarn intuned run api crawl '{"url": "https://books.toscrape.com", "max_depth": 2, "max_pages": 10}'
+# npm
+npm run intuned run api crawl .parameters/api/crawl/default.json
+
+# yarn
+yarn intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ### As a Job (Production)
@@ -108,8 +116,10 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
 
 You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
 
-```bash
-yarn intuned run api crawl '{
+Edit `.parameters/api/crawl/default.json` to include a schema:
+
+```json
+{
   "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
   "max_depth": 0,
   "schema": {
@@ -121,19 +131,39 @@ yarn intuned run api crawl '{
     },
     "required": ["title", "price"]
   }
-}'
+}
+```
+
+Then run:
+```bash
+# npm
+npm run intuned run api crawl .parameters/api/crawl/default.json
+
+# yarn
+yarn intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ### Download Attachments
 
 You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
 
-```bash
-yarn intuned run api crawl '{
+Edit `.parameters/api/crawl/default.json`:
+
+```json
+{
   "url": "https://sandbox.intuned.dev/pdfs",
   "max_depth": 1,
   "include_attachments": true
-}'
+}
+```
+
+Then run:
+```bash
+# npm
+npm run intuned run api crawl .parameters/api/crawl/default.json
+
+# yarn
+yarn intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils

@@ -25,7 +25,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Run the captcha solver
+uv run intuned run api captcha_solver .parameters/api/captcha_solver/default.json
 ```
 
 ### Deploy project
@@ -39,11 +40,11 @@ The project structure is as follows:
 /
 ├── api/                     # Your API endpoints 
 │   └──  captcha_solver.py   # Automation to checkout samples for our captcha solving capabailities 
-└── intuned.jsonc            # Intuned project configuration file
+└── Intuned.jsonc            # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

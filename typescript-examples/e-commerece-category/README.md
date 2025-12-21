@@ -26,11 +26,26 @@ yarn
 ### Run an API
 
 ```bash
+# Scrape categories
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
+
+# Scrape product list
+# npm
+npm run intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
+
+# yarn
+yarn intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
+
+# Get product details
+# npm
+npm run intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
+
+# yarn
+yarn intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
 ```
 
 ### Deploy project
@@ -75,7 +90,7 @@ The project structure is as follows:
 Each API uses `extendPayload` to chain to the next step in the scraping flow.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

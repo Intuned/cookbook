@@ -12,8 +12,14 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "defaultRunPlaygroundInput": {
-    "apiName": "sample",
-    "parameters": {}
+  "metadata": {
+    "template": {
+      "name": "playwright-basics-ts",
+      "description": "Basic Playwright automation patterns and examples in TypeScript"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "sample",
+      "parameters": {}
+    }
   }
 }
