@@ -60,10 +60,10 @@ yarn
 ### Run the API Locally
 ```bash
 # npm
-npm run intuned run api getBooks .parameters/api/getBooks/default.json
+npm run intuned run api getBooks .parameters/api/getBooks/travel-category.json
 
 # yarn
-yarn intuned run api getBooks .parameters/api/getBooks/default.json
+yarn intuned run api getBooks .parameters/api/getBooks/travel-category.json
 ```
 
 ### Deploy to Intuned
