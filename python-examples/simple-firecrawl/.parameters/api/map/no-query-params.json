@@ -1,0 +1,6 @@
+{
+  "url": "https://en.wikipedia.org/wiki/Web_scraping",
+  "sitemap": "skip",
+  "ignoreQueryParameters": true,
+  "limit": 30
+}

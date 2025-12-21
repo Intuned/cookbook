@@ -1,0 +1,12 @@
+{
+  "url": "https://httpbin.org/headers",
+  "limit": 1,
+  "scrapeOptions": {
+    "formats": [
+      "markdown"
+    ],
+    "headers": {
+      "X-Custom-Header": "test-value"
+    }
+  }
+}

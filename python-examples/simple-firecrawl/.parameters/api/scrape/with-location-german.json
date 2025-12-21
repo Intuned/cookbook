@@ -1,0 +1,12 @@
+{
+  "url": "https://www.google.com",
+  "formats": [
+    "markdown"
+  ],
+  "location": {
+    "country": "DE",
+    "languages": [
+      "de-DE"
+    ]
+  }
+}

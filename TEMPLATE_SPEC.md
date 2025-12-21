@@ -239,7 +239,7 @@ async def create(page: Page, params: Params | None = None, **_kwargs):
 
 ## .parameters Folder
 
-Each API must have a corresponding folder in `.parameters/api/` with a `default.json` file:
+Each API must have a corresponding folder in `.parameters/api/` with a `default.json` file. **The folder structure must mirror the API folder structure, including nested directories.**
 
 ```
 .parameters/
@@ -250,6 +250,42 @@ Each API must have a corresponding folder in `.parameters/api/` with a `default.
     ├── check/                # Check auth session parameters
     │   └── default.json
     └── create/               # Create auth session parameters
+        └── default.json
+```
+
+### Nested APIs
+
+For nested API files, the `.parameters/` folder structure must match the `api/` folder structure:
+
+| API File | Parameters File |
+|----------|-----------------|
+| `api/sample.ts` | `.parameters/api/sample/default.json` |
+| `api/content-selection/css-based.py` | `.parameters/api/content-selection/css-based/default.json` |
+| `api/ai/extract-structured-data.ts` | `.parameters/api/ai/extract-structured-data/default.json` |
+
+**Example nested structure:**
+```
+api/
+├── simple-crawl.py
+├── adaptive-crawl/
+│   ├── statistical.py
+│   └── embedding.py
+└── content-selection/
+    ├── css-based.py
+    └── llm-based.py
+
+.parameters/api/
+├── simple-crawl/
+│   └── default.json
+├── adaptive-crawl/
+│   ├── statistical/
+│   │   └── default.json
+│   └── embedding/
+│       └── default.json
+└── content-selection/
+    ├── css-based/
+    │   └── default.json
+    └── llm-based/
         └── default.json
 ```
 
@@ -386,7 +422,7 @@ api_key = config.api_key
 
 ### .parameters Folder
 - [ ] `.parameters/api/` folder exists
-- [ ] `.parameters/api/{api-name}/default.json` exists for each API
+- [ ] `.parameters/api/{api-name}/default.json` exists for each API (including nested APIs matching the `api/` folder structure)
 - [ ] `.parameters/auth-sessions/check/default.json` exists if auth sessions are enabled
 - [ ] `.parameters/auth-sessions/create/default.json` exists if auth sessions are enabled
 

@@ -172,19 +172,21 @@ validate_template() {
     else
         success "[$template_name] .parameters/api/ directory exists"
 
-        # Check each API has corresponding parameters
+        # Check each API has corresponding parameters (including nested APIs)
         if [[ -d "$dir/api" ]]; then
-            for api_file in "$dir/api"/*."$ext"; do
-                [[ -e "$api_file" ]] || continue
-                local api_name
-                api_name=$(basename "$api_file" ".$ext")
+            while IFS= read -r api_file; do
+                [[ -z "$api_file" ]] && continue
+                # Get relative path from api/ directory without extension
+                local relative_path
+                relative_path="${api_file#$dir/api/}"
+                relative_path="${relative_path%.$ext}"
 
-                if [[ ! -f "$dir/.parameters/api/$api_name/default.json" ]]; then
-                    error "[$template_name] API '$api_name' missing .parameters/api/$api_name/default.json"
+                if [[ ! -f "$dir/.parameters/api/$relative_path/default.json" ]]; then
+                    error "[$template_name] API '$relative_path' missing .parameters/api/$relative_path/default.json"
                 else
-                    success "[$template_name] .parameters/api/$api_name/default.json exists"
+                    success "[$template_name] .parameters/api/$relative_path/default.json exists"
                 fi
-            done
+            done < <(find "$dir/api" -type f -name "*.$ext" 2>/dev/null)
         fi
     fi
 

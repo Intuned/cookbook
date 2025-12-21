@@ -1,0 +1,5 @@
+{
+  "url": "https://sandbox.intuned.dev/consultations/list",
+  "api_pattern": "/rest/v1/consultations",
+  "max_pages": 10
+}

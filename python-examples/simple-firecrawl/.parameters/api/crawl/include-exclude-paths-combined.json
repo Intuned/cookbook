@@ -1,0 +1,15 @@
+{
+  "url": "https://docs.crawl4ai.com",
+  "limit": 8,
+  "includePaths": [
+    "core/.*"
+  ],
+  "excludePaths": [
+    "core/adaptive-crawling"
+  ],
+  "scrapeOptions": {
+    "formats": [
+      "images"
+    ]
+  }
+}

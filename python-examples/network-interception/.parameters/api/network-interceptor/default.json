@@ -1,5 +1,7 @@
 {
-  "url": "https://example.com/products",
-  "api_pattern": "/api/v1/products",
-  "max_pages": 5
+  "url": "https://demo.openimis.org/front/insuree/insurees",
+  "api_url": "https://demo.openimis.org/api/graphql",
+  "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
+  "username": "Admin",
+  "password": "admin123"
 }
