@@ -63,7 +63,7 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 
 This project uses Intuned Auth Sessions. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
 
-<!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth -->
+<!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth-sessions/create/default.json -->
 ### Create a new auth session
 ```bash
 # npm
