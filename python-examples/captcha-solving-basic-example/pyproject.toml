@@ -7,14 +7,14 @@ name = "captcha-solving-basic-example"
 version = "0.0.1"
 description = "Automation project to demonstrate our captcha solving and stealth mode capabilities"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.14,<3.15"
 readme = "README.md"
 keywords = [
     "Python",
     "captcha-solving",
 ]
 dependencies = [
-    "playwright==1.56",
+    "playwright==1.57.0",
     "intuned-runtime==1.3.14"
 ]
 
