@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "computer-use",
+      "description": "AI-powered browser automation using Claude's computer use capabilities"
+    }
   }
 }

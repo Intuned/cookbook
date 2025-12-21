@@ -1,0 +1,9 @@
+{
+  "url": "https://news.ycombinator.com/",
+  "limit": 2,
+  "scrapeOptions": {
+    "formats": [
+      "screenshot"
+    ]
+  }
+}

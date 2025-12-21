@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "jsdom-example",
+      "description": "Web scraping example using JSDOM for HTML parsing"
+    },
     "defaultRunPlaygroundInput": {
       "api": "jsdom-example",
       "parameters": {

@@ -1,0 +1,23 @@
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "auth-with-email-otp",
+      "description": "Authentication example using email-based OTP verification"
+    },
+    "testAuthSessionInput": {
+      "username": "demo@email.com",
+      "password": "password"
+    }
+  }
+}

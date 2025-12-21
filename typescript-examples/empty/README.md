@@ -30,10 +30,10 @@ yarn
 
 ```bash
 # npm
-npm run intuned run api sample .parameters/sample/default.json
+npm run intuned run api sample .parameters/api/sample/default.json
 
 # yarn
-yarn intuned run api sample .parameters/sample/default.json
+yarn intuned run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
@@ -71,8 +71,9 @@ The project structure is as follows:
 ├── api/                      # Your API endpoints
 │   └── sample.ts             # Sample API endpoint
 ├── .parameters/              # Parameter files for testing APIs
-│   └── sample/               # Parameters for sample API
-│       └── default.json      # Default parameters
+│   └── api/                  # API parameters folder
+│       └── sample/           # Parameters for sample API
+│           └── default.json  # Default parameters
 └── Intuned.jsonc             # Intuned project configuration file
 ```
 
@@ -84,7 +85,7 @@ This project requires the following environment variables:
 - `INTUNED_API_KEY`: Your Intuned API key for authentication. Get it from [Intuned Dashboard](https://dashboard.intunedhq.com)
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -13,45 +13,36 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -e .
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 
 ### Run an API
 
 ```bash
-# Using uv
-uv run intuned run api <api-name> <parameters>
-
-# Using pip
-intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
 
 ```bash
 # List products from authenticated dashboard
-uv run intuned run api list
+uv run intuned run api list .parameters/api/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-uv run intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
 ```bash
-# Using uv
 uv run intuned deploy
-
-# Using pip
-intuned deploy
 ```
 
 
@@ -61,32 +52,17 @@ This project uses Intuned Auth Sessions to maintain authenticated access to the 
 
 ### Create a new auth session
 ```bash
-# Using uv
-uv run intuned run authsession create <parameters>
-
-# Using pip
-intuned run authsession create <parameters>
-
-# Example
-uv run intuned run authsession create '{"username": "admin@example.com", "password": "password"}'
+uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
 ```bash
-# Using uv
 uv run intuned run authsession update <auth-session-id>
-
-# Using pip
-intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
 ```bash
-# Using uv
 uv run intuned run authsession validate <auth-session-id>
-
-# Using pip
-intuned run authsession validate <auth-session-id>
 ```
 
 
@@ -102,7 +78,7 @@ The project structure is as follows:
 │   └── create.py            # API to create/recreate the auth session programmatically
 ├── utils/                    # Utility files
 │   └── types_and_schemas.py # Python types and Pydantic models
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
@@ -147,7 +123,7 @@ Product details object with:
 - `variants`: List of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings

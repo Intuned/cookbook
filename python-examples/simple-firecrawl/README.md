@@ -190,10 +190,10 @@ cd python-examples/simple-firecrawl
 uv sync
 
 # Run any endpoint locally
-uv run intuned run api scrape '{"url": "https://example.com"}'
-uv run intuned run api map '{"url": "https://example.com"}'
-uv run intuned run api crawl '{"url": "https://example.com", "limit": 5}'
-uv run intuned run api search '{"query": "test", "api_key": "tvly-xxx"}'
+uv run intuned run api scrape .parameters/api/scrape/default.json
+uv run intuned run api map .parameters/api/map/default.json
+uv run intuned run api crawl .parameters/api/crawl/default.json
+uv run intuned run api search .parameters/api/search/default.json
 ```
 
 ### Deploy to Intuned
@@ -217,7 +217,7 @@ See [Intuned Documentation](https://docs.intunedhq.com) for deployment details.
 
 ---
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 
 ```jsonc
 {

@@ -20,7 +20,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api book-consultations .parameters/api/book-consultations/default.json
+uv run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
 ### Deploy project
@@ -49,11 +50,11 @@ The project structure is as follows:
 │   └── create.py          # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

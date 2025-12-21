@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "crawl4ai",
+      "description": "Web crawling using Crawl4AI library with deep and multi-URL crawling"
+    }
   }
 }

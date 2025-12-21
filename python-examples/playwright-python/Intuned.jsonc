@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "playwright-python",
+      "description": "Basic Playwright automation patterns and examples in Python"
+    }
   }
 }

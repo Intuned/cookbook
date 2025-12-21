@@ -1,0 +1,6 @@
+{
+  "url": "https://example.com",
+  "waitUntil": "load",
+  "timeout": 30000,
+  "waitForLoadingStateUsingAi": true
+}

@@ -13,7 +13,7 @@ Intuned sample projects in TypeScript.
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
-| [EHR-integration](./typescript-examples/ehr-integration-ts/) | Data Extraction from Openimis Website |
+| [ehr-integration-ts](./ehr-integration-ts/) | Data Extraction from Openimis Website |
 | [playwright-basics](./playwright-basics-ts/) | Playwright Basics |
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
@@ -22,3 +22,6 @@ Intuned sample projects in TypeScript.
 | [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha |
 | [network-interception](./network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./stagehand/) | AI-powered browser automation with Stagehand |
+| [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |
+| [empty](./empty/) | Empty starter template for new projects |
+| [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |

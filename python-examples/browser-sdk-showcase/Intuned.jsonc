@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "browser-sdk-showcase",
+      "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks"
+    }
   }
 }

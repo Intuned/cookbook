@@ -25,7 +25,11 @@ After installing dependencies, `intuned` command should be available in your env
 
 Run the Scrapy crawler with Scrapy's HTTP requests:
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Scrapy crawler (static sites)
+uv run intuned run api scrapy_crawler .parameters/api/scrapy_crawler/default.json
+
+# Scrapy crawler with JavaScript rendering (using Playwright)
+uv run intuned run api scrapy_crawler_js .parameters/api/scrapy_crawler_js/default.json
 ```
 
 ### Deploy project

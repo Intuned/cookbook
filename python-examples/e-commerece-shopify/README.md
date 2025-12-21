@@ -20,7 +20,11 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# List all products from Shopify store
+uv run intuned run api shopify-list .parameters/api/shopify-list/default.json
+
+# Get detailed product information
+uv run intuned run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Deploy project
@@ -45,11 +49,11 @@ The project structure is as follows:
 ├── api/                      # Your API endpoints 
 │   ├── shopify-list.py       # API to list all products from a Shopify store
 │   └── shopify-details.py    # API to fetch detailed product information
-└── intuned.jsonc             # Intuned project configuration file
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

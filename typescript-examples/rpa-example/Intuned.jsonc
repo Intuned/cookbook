@@ -11,5 +11,11 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "rpa-example",
+      "description": "RPA example for booking consultations without authentication"
+    }
   }
 }

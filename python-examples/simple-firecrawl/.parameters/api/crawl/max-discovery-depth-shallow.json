@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.crawl4ai.com",
+  "limit": 10,
+  "maxDiscoveryDepth": 1,
+  "scrapeOptions": {
+    "formats": [
+      "images"
+    ]
+  }
+}

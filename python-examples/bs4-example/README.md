@@ -20,7 +20,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
@@ -58,7 +59,7 @@ The project structure is as follows:
 2. **details.py** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -26,11 +26,19 @@ yarn
 ### Run an API
 
 ```bash
+# List products with pagination
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api list .parameters/api/list/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api list .parameters/api/list/default.json
+
+# Get product details
+# npm
+npm run intuned run api details .parameters/api/details/default.json
+
+# yarn
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
@@ -73,7 +81,7 @@ The project structure is as follows:
 2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

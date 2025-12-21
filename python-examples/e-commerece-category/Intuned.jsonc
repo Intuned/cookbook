@@ -13,6 +13,10 @@
       "size": "standard"
     },
     "metadata": {
+      "template": {
+        "name": "e-commerece-category",
+        "description": "E-commerce category and product scraper"
+      },
       "defaultRunPlaygroundInput": {
         "api": "ecommerece-category",
         "parameters": {

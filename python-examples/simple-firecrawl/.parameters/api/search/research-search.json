@@ -1,0 +1,10 @@
+{
+  "query": "transformer neural networks",
+  "limit": 3,
+  "categories": [
+    {
+      "type": "research"
+    }
+  ],
+  "api_key": "tvly-api-key"
+}

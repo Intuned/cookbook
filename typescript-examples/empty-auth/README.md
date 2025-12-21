@@ -32,10 +32,10 @@ When AuthSessions are enabled, APIs require an AuthSession ID to run:
 
 ```bash
 # npm (note the -- separator before flags)
-npm run intuned -- run api sample .parameters/sample/default.json --auth-session test-auth-session
+npm run intuned -- run api sample .parameters/api/sample/default.json --auth-session test-auth-session
 
 # yarn
-yarn intuned run api sample .parameters/sample/default.json --auth-session test-auth-session
+yarn intuned run api sample .parameters/api/sample/default.json --auth-session test-auth-session
 ```
 
 ### Deploy project
@@ -56,10 +56,10 @@ This project uses Intuned Auth Sessions. To learn more, check out the [Authentic
 ### Create a new auth session
 ```bash
 # npm
-npm run intuned run authsession create .parameters/auth-sessions/create.json
+npm run intuned run authsession create .parameters/auth-sessions/create/default.json
 
 # yarn
-yarn intuned run authsession create .parameters/auth-sessions/create.json
+yarn intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session

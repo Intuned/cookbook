@@ -54,7 +54,7 @@ uv sync
 
 ### Run the API Locally
 ```bash
-uv run intuned run api get-books '{"category": "Travel"}'
+uv run intuned run api get-books .parameters/api/get-books/default.json
 ```
 
 ### Deploy to Intuned

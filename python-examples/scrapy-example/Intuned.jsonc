@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "scrapy-example",
+      "description": "Web scraping examples using Scrapy framework"
+    },
     "defaultRunPlaygroundInput": {
       "api": "scrapy-crawler",
       "parameters": {

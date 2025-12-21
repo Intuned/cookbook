@@ -1,0 +1,23 @@
+name: Validate Templates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'typescript-examples/**'
+      - 'python-examples/**'
+      - 'README.md'
+      - '.github/scripts/validate-templates.sh'
+      - '.github/workflows/validate-templates.yml'
+
+jobs:
+  validate:
+    name: Validate Template Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run template validation
+        run: bash .github/scripts/validate-templates.sh

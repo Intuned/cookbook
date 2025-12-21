@@ -13,6 +13,10 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "bs4-example",
+      "description": "Web scraping example using BeautifulSoup4 for HTML parsing"
+    },
     "defaultRunPlaygroundInput": {
       "api": "list",
       "parameters": {

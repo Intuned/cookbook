@@ -12,8 +12,18 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "defaultRunPlaygroundInput": {
-    "apiName": "claims",
-    "parameters": {}
+  "metadata": {
+    "template": {
+      "name": "ehr-integration-ts",
+      "description": "Electronic Health Records integration example with authentication"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "claims",
+      "parameters": {}
+    },
+    "testAuthSessionInput": {
+      "username": "demo@email.com",
+      "password": "password"
+    }
   }
 }

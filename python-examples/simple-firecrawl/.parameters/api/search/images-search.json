@@ -1,0 +1,9 @@
+{
+  "query": "machine learning",
+  "limit": 5,
+  "sources": [
+    "web",
+    "images"
+  ],
+  "api_key": "tvly-api-key"
+}

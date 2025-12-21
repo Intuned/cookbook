@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "computer-use-automation"
+name = "computer-use"
 version = "0.0.1"
 description = "AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]

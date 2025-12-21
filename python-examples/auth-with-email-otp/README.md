@@ -35,21 +35,21 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ```bash
 cd python-examples/auth-with-email-otp
-poetry install
-# or
-pip install -r requirements.txt
+uv sync
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 #### Run create auth session
 
 ```bash
-poetry run intuned run auth-session create
+uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 #### Run check auth session
 
 ```bash
-poetry run intuned run auth-session check
+uv run intuned run authsession check .parameters/auth-sessions/check/default.json
 ```
 
 ## Project Structure

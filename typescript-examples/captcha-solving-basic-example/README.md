@@ -26,11 +26,12 @@ yarn
 ### Run an API
 
 ```bash
+# Run the captcha solver
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api captchaSolver .parameters/api/captchaSolver/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api captchaSolver .parameters/api/captchaSolver/default.json
 ```
 
 ### Deploy project
@@ -64,11 +65,11 @@ The project structure is as follows:
 │   └── create.ts          # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

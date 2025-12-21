@@ -23,7 +23,11 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# CSRF Token Capture - Intercept network requests to capture authentication tokens
+uv run intuned run api network-interceptor .parameters/api/network-interceptor/default.json
+
+# Paginated API Data - Intercept API responses while paginating
+uv run intuned run api api-interceptor .parameters/api/api-interceptor/default.json
 ```
 
 ### Deploy project
@@ -75,7 +79,7 @@ The project structure is as follows:
 These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

@@ -29,11 +29,19 @@ yarn
 ### Run an API
 
 ```bash
+# CSRF Token Capture - Intercept network requests to capture authentication tokens
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api network-interceptor .parameters/api/network-interceptor/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api network-interceptor .parameters/api/network-interceptor/default.json
+
+# Paginated API Data - Intercept API responses while paginating
+# npm
+npm run intuned run api api-interceptor .parameters/api/api-interceptor/default.json
+
+# yarn
+yarn intuned run api api-interceptor .parameters/api/api-interceptor/default.json
 ```
 
 ### Deploy project
@@ -89,7 +97,7 @@ The project structure is as follows:
 These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

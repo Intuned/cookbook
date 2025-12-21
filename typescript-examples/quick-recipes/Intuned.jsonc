@@ -12,8 +12,14 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "defaultRunPlaygroundInput": {
-    "apiName": "sample",
-    "parameters": {}
+  "metadata": {
+    "template": {
+      "name": "quick-recipes",
+      "description": "Collection of quick automation recipes for common browser tasks"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "sample",
+      "parameters": {}
+    }
   }
 }

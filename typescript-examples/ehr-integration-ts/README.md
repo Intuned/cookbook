@@ -26,11 +26,26 @@ yarn
 ### Run an API
 
 ```bash
+# Retrieve claims data
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api claims .parameters/api/claims/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api claims .parameters/api/claims/default.json
+
+# Retrieve families data
+# npm
+npm run intuned run api families .parameters/api/families/default.json
+
+# yarn
+yarn intuned run api families .parameters/api/families/default.json
+
+# Retrieve insurees data
+# npm
+npm run intuned run api insurees .parameters/api/insurees/default.json
+
+# yarn
+yarn intuned run api insurees .parameters/api/insurees/default.json
 ```
 
 ### Deploy project
@@ -64,10 +79,10 @@ The project structure is as follows:
 ├── auth-sessions/             # Authentication session management
 │   ├── check.ts               # Check if an auth session is still valid
 │   └── create.ts              # Create or recreate an auth session programmatically
-└── intuned.jsonc               # Intuned project configuration
+└── Intuned.jsonc               # Intuned project configuration
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

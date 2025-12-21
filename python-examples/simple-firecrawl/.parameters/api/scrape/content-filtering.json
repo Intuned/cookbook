@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/trending",
+  "formats": [
+    "markdown"
+  ],
+  "onlyMainContent": true,
+  "excludeTags": [
+    "nav",
+    "footer"
+  ]
+}

@@ -23,7 +23,7 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api sample .parameters/sample/default.json
+uv run intuned run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
@@ -52,8 +52,9 @@ The project structure is as follows:
 ├── api/                      # Your API endpoints
 │   └── sample.py             # Sample API endpoint
 ├── .parameters/              # Parameter files for testing APIs
-│   └── sample/               # Parameters for sample API
-│       └── default.json      # Default parameters
+│   └── api/                  # API parameters folder
+│       └── sample/           # Parameters for sample API
+│           └── default.json  # Default parameters
 └── Intuned.jsonc             # Intuned project configuration file
 ```
 

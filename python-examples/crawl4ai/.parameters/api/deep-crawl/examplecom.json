@@ -1,0 +1,19 @@
+{
+  "url": "https://example.com",
+  "strategy": "best-first",
+  "max_depth": 2,
+  "max_pages": 10,
+  "keywords": [
+    "crawl",
+    "example",
+    "async",
+    "configuration"
+  ],
+  "allowed_domains": [
+    "docs.example.com"
+  ],
+  "url_patterns": [
+    "*guide*",
+    "*tutorial*"
+  ]
+}

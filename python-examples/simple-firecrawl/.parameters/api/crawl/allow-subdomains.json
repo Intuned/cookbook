@@ -1,0 +1,11 @@
+{
+  "url": "https://google.com",
+  "limit": 5,
+  "allowSubdomains": true,
+  "maxDiscoveryDepth": 1,
+  "scrapeOptions": {
+    "formats": [
+      "images"
+    ]
+  }
+}
