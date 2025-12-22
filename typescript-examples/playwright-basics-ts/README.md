@@ -34,38 +34,38 @@ yarn intuned run api sample .parameters/api/sample/default.json
 
 # Example: Download and upload file
 # npm
-npm run intuned run api examples/downloadAndUploadFile .parameters/api/examples/downloadAndUploadFile/default.json
+npm run intuned run api examples/download-and-upload-file .parameters/api/examples/download-and-upload-file/default.json
 
 # yarn
-yarn intuned run api examples/downloadAndUploadFile .parameters/api/examples/downloadAndUploadFile/default.json
+yarn intuned run api examples/download-and-upload-file .parameters/api/examples/download-and-upload-file/default.json
 
 # Example: Navigate all pages
 # npm
-npm run intuned run api examples/navigateAllPages .parameters/api/examples/navigateAllPages/default.json
+npm run intuned run api examples/navigate-all-pages .parameters/api/examples/navigate-all-pages/default.json
 
 # yarn
-yarn intuned run api examples/navigateAllPages .parameters/api/examples/navigateAllPages/default.json
+yarn intuned run api examples/navigate-all-pages .parameters/api/examples/navigate-all-pages/default.json
 
 # Example: Navigate N pages
 # npm
-npm run intuned run api examples/navigateNPages .parameters/api/examples/navigateNPages/default.json
+npm run intuned run api examples/navigate-n-pages .parameters/api/examples/navigate-n-pages/default.json
 
 # yarn
-yarn intuned run api examples/navigateNPages .parameters/api/examples/navigateNPages/default.json
+yarn intuned run api examples/navigate-n-pages .parameters/api/examples/navigate-n-pages/default.json
 
 # Example: Scrape list
 # npm
-npm run intuned run api examples/scrapeList .parameters/api/examples/scrapeList/default.json
+npm run intuned run api examples/scrape-list .parameters/api/examples/scrape-list/default.json
 
 # yarn
-yarn intuned run api examples/scrapeList .parameters/api/examples/scrapeList/default.json
+yarn intuned run api examples/scrape-list .parameters/api/examples/scrape-list/default.json
 
 # Example: Submit form
 # npm
-npm run intuned run api examples/submitForm .parameters/api/examples/submitForm/default.json
+npm run intuned run api examples/submit-form .parameters/api/examples/submit-form/default.json
 
 # yarn
-yarn intuned run api examples/submitForm .parameters/api/examples/submitForm/default.json
+yarn intuned run api examples/submit-form .parameters/api/examples/submit-form/default.json
 ```
 
 ### Deploy project
@@ -95,11 +95,11 @@ The project structure is as follows:
 ├── api/                      # Folder containing all your API endpoint logic
 │   ├── sample.ts            # Default or main API endpoint file
 │   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submitForm.ts     # Example script demonstrating how to fill and submit forms
-│       |__ scrapeList.ts     # Example script showing how to scrape lists of data
-│       |__ navigateAllPages.ts  # Example showing how to navigate through all pages of a paginated site
-│       |__ navigateNPages.ts   # Example showing how to navigate a specific number of pages
-│       |__ downloadAndUploadFile.ts  # Example demonstrating file download and upload functionality
+│       |__ submit-form.ts     # Example script demonstrating how to fill and submit forms
+│       |__ scrape-list.ts     # Example script showing how to scrape lists of data
+│       |__ navigate-all-pages.ts  # Example showing how to navigate through all pages of a paginated site
+│       |__ navigate-n-pages.ts   # Example showing how to navigate a specific number of pages
+│       |__ download-and-upload-file.ts  # Example demonstrating file download and upload functionality
 └── Intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
 ```
 

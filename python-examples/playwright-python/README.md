@@ -24,19 +24,19 @@ After installing dependencies, `intuned` command should be available in your env
 uv run intuned run api default .parameters/api/param_fill_form/default.json
 
 # Example: Navigate N pages
-uv run intuned run api examples/naviate_n_pages .parameters/api/number_of_pages/default.json
+uv run intuned run api examples/navigate-n-pages .parameters/api/examples/navigate-n-pages/default.json
 
 # Example: Navigate all pages
-uv run intuned run api examples/navigate_all_pages .parameters/api/number_of_pages/default.json
+uv run intuned run api examples/navigate-all-pages .parameters/api/examples/navigate-all-pages/default.json
 
 # Example: Scrape list
-uv run intuned run api examples/scrape_list .parameters/api/number_of_pages/default.json
+uv run intuned run api examples/scrape-list .parameters/api/examples/scrape-list/default.json
 
 # Example: Submit form
-uv run intuned run api examples/submit_form .parameters/api/param_fill_form/default.json
+uv run intuned run api examples/submit-form .parameters/api/examples/submit-form/default.json
 
 # Example: Download and upload files
-uv run intuned run api examples/download_upload_files .parameters/api/param_fill_form/default.json
+uv run intuned run api examples/download-upload-files .parameters/api/examples/download-upload-files/default.json
 ```
 
 ### Deploy project
@@ -61,11 +61,11 @@ The project structure is as follows:
 ├── api/                      # Folder containing all your API endpoint logic
 │   ├── default.py             # Default or main API endpoint file
 │   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submit_form.py     # API example that demonstrating how to fill and submit forms
-│       |__ scrape_list.py     # API example that shows how to scrape lists of data
-│       |__ navigate_all_pages.py  # API example that shows how to navigate through all pages of a paginated site
-│       |__ navigate_n_pages.py    # API example that shows how to navigate a specific number of pages
-│       |__ download_upload_files.py  # API example that demonstrats file download and upload functionality
+│       |__ submit-form.py     # API example that demonstrating how to fill and submit forms
+│       |__ scrape-list.py     # API example that shows how to scrape lists of data
+│       |__ navigate-all-pages.py  # API example that shows how to navigate through all pages of a paginated site
+│       |__ navigate-n-pages.py    # API example that shows how to navigate a specific number of pages
+│       |__ download-upload-files.py  # API example that demonstrats file download and upload functionality
 └── Intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
 
 ```

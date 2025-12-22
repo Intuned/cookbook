@@ -4,7 +4,7 @@ This example demonstrates how to integrate [Stagehand](https://docs.stagehand.de
 
 ## What This Example Does
 
-The `getBooks` API demonstrates a practical Stagehand integration that:
+The `get-books` API demonstrates a practical Stagehand integration that:
 1. Navigates to a book store website (https://books.toscrape.com)
 2. Uses a Stagehand AI agent to navigate to a specific book category (if provided)
 3. Extracts structured data about all visible books using Stagehand's extraction capabilities
@@ -22,7 +22,7 @@ The `hooks/setupContext.ts` file runs before every API call and bridges Intuned'
 
 ### API Implementation
 
-The `api/getBooks.ts` handler receives Intuned's Playwright `page` object but can leverage Stagehand's AI capabilities
+The `api/get-books.ts` handler receives Intuned's Playwright `page` object but can leverage Stagehand's AI capabilities
 
 **Key Points:**
 - Your handler receives Playwright's `page` object from Intuned
@@ -60,10 +60,10 @@ yarn
 ### Run the API Locally
 ```bash
 # npm
-npm run intuned run api getBooks .parameters/api/getBooks/travel-category.json
+npm run intuned run api get-books .parameters/api/get-books/travel-category.json
 
 # yarn
-yarn intuned run api getBooks .parameters/api/getBooks/travel-category.json
+yarn intuned run api get-books .parameters/api/get-books/travel-category.json
 ```
 
 ### Deploy to Intuned
@@ -79,7 +79,7 @@ yarn intuned deploy
 ```
 /
 ├── api/
-│   └── getBooks.ts           # Main API handler
+│   └── get-books.ts           # Main API handler
 ├── hooks/
 │   └── setupContext.ts       # Stagehand integration setup
 ├── ____testParameters/

@@ -37,6 +37,17 @@ validate_template_name() {
     return 0
 }
 
+# Validate API filename format (kebab-case: lowercase with hyphens only)
+validate_api_name() {
+    local name="$1"
+    # Remove extension and check format
+    local base_name="${name%.*}"
+    if [[ ! "$base_name" =~ ^[a-z][a-z0-9-]*$ ]]; then
+        return 1
+    fi
+    return 0
+}
+
 # Check a single template directory
 validate_template() {
     local dir="$1"
@@ -72,6 +83,18 @@ validate_template() {
     config=$(grep -v '^\s*//' "$dir/Intuned.jsonc" | sed 's|/\*.*\*/||g')
 
     # -------------------------------------------
+    # 1b. Check for workspaceId field (should not be committed)
+    # -------------------------------------------
+    local workspace_id
+    workspace_id=$(echo "$config" | jq -r '.workspaceId // empty' 2>/dev/null || echo "")
+
+    if [[ -n "$workspace_id" && "$workspace_id" != "null" ]]; then
+        error "[$template_name] Intuned.jsonc contains 'workspaceId' field - this should not be committed"
+    else
+        success "[$template_name] No workspaceId field found"
+    fi
+
+    # -------------------------------------------
     # 2. Validate metadata.template.name
     # -------------------------------------------
     local meta_name
@@ -97,6 +120,24 @@ validate_template() {
         error "[$template_name] Missing metadata.template.description in Intuned.jsonc"
     else
         success "[$template_name] metadata.template.description is set"
+    fi
+
+    # -------------------------------------------
+    # 3b. Check metadata.tags
+    # -------------------------------------------
+    local meta_tags
+    meta_tags=$(echo "$config" | jq -r '.metadata.tags // empty' 2>/dev/null || echo "")
+
+    if [[ -z "$meta_tags" || "$meta_tags" == "null" ]]; then
+        warning "[$template_name] metadata.tags is not set (recommended for categorization)"
+    else
+        local tags_count
+        tags_count=$(echo "$config" | jq '.metadata.tags | length' 2>/dev/null || echo "0")
+        if [[ "$tags_count" -eq 0 ]]; then
+            warning "[$template_name] metadata.tags is empty (recommended for categorization)"
+        else
+            success "[$template_name] metadata.tags is set with $tags_count tag(s)"
+        fi
     fi
 
     # -------------------------------------------
@@ -173,6 +214,7 @@ validate_template() {
         success "[$template_name] .parameters/api/ directory exists"
 
         # Check each API has corresponding parameters (including nested APIs)
+        # Also validate API filenames use kebab-case
         if [[ -d "$dir/api" ]]; then
             while IFS= read -r api_file; do
                 [[ -z "$api_file" ]] && continue
@@ -180,6 +222,17 @@ validate_template() {
                 local relative_path
                 relative_path="${api_file#$dir/api/}"
                 relative_path="${relative_path%.$ext}"
+
+                # Get just the filename for kebab-case validation
+                local api_filename
+                api_filename=$(basename "$api_file")
+
+                # Validate API filename is kebab-case
+                if ! validate_api_name "$api_filename"; then
+                    error "[$template_name] API filename '$api_filename' must be kebab-case (lowercase with hyphens, e.g., 'get-user.$ext')"
+                else
+                    success "[$template_name] API filename '$api_filename' uses correct kebab-case format"
+                fi
 
                 if [[ ! -f "$dir/.parameters/api/$relative_path/default.json" ]]; then
                     error "[$template_name] API '$relative_path' missing .parameters/api/$relative_path/default.json"

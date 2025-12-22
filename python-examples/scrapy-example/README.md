@@ -26,10 +26,10 @@ After installing dependencies, `intuned` command should be available in your env
 Run the Scrapy crawler with Scrapy's HTTP requests:
 ```bash
 # Scrapy crawler (static sites)
-uv run intuned run api scrapy_crawler .parameters/api/scrapy_crawler/default.json
+uv run intuned run api scrapy-crawler .parameters/api/scrapy-crawler/default.json
 
 # Scrapy crawler with JavaScript rendering (using Playwright)
-uv run intuned run api scrapy_crawler_js .parameters/api/scrapy_crawler_js/default.json
+uv run intuned run api scrapy-crawler-js .parameters/api/scrapy-crawler-js/default.json
 ```
 
 ### Deploy project
@@ -66,8 +66,8 @@ The project structure is as follows:
 ```
 /
 ├── api/                      # API endpoints
-│   ├── scrapy_crawler.py     # Scrapy crawler using Scrapy's HTTP requests
-│   └── scrapy_crawler_js.py  # Scrapy crawler using Playwright + Scrapy parsing
+│   ├── scrapy-crawler.py     # Scrapy crawler using Scrapy's HTTP requests
+│   └── scrapy-crawler-js.py  # Scrapy crawler using Playwright + Scrapy parsing
 ├── collector/                # Item collection utilities
 │   └── item_collector.py     # Collects scraped items via Scrapy signals
 ├── utils/                    # Utility modules

@@ -28,10 +28,10 @@ yarn
 ```bash
 # Run the captcha solver
 # npm
-npm run intuned run api captchaSolver .parameters/api/captchaSolver/default.json
+npm run intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 
 # yarn
-yarn intuned run api captchaSolver .parameters/api/captchaSolver/default.json
+yarn intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 ```
 
 ### Deploy project
