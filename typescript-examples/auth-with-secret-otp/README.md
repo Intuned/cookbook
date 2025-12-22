@@ -1,235 +1,172 @@
-# Auth with Secret OTP Example
+# auth-with-secret-otp Intuned project
 
-Authentication automation with multi-step OTP (One-Time Password) verification. This example demonstrates how to handle login flows that require both username/password and time-based OTP codes (similar to Google Authenticator).
-
-## Overview
-
-This project shows how to automate authentication for websites with **multi-factor authentication (MFA)** using TOTP (Time-based One-Time Password). It handles:
-
-1. **Username/Password Login** - First authentication step
-2. **OTP Verification** - Second step using TOTP codes generated from a secret
-3. **Session Management** - Creating and validating authenticated sessions
-4. **Protected Resource Access** - Making API calls that require authentication
-
-Available in both **TypeScript** and **Python**.
+Authentication automation with multi-step OTP verification
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts).
+To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-## Prerequisites
-
-- Valid username and password for the target website
-- TOTP secret key (Base32 encoded string, provided when setting up 2FA)
-- Internet connection
 
 ## Development
 
-### TypeScript
+> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
-#### Install dependencies
+### Install dependencies
 ```bash
-cd typescript-examples/auth-with-secret-otp
+# npm
 npm install
+
+# yarn
+yarn
 ```
 
-#### Run create auth session
+> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+
+
+### Run an API
+
 ```bash
-npm run create-session -- --username "user@example.com" --password "your-password" --secret "JBSWY3DPEHPK3PXP"
+# List contracts
+# npm
+npm run intuned run api list-contracts .parameters/api/list-contracts/default.json
+
+# yarn
+yarn intuned run api list-contracts .parameters/api/list-contracts/default.json
 ```
 
-#### Run check auth session
+### Deploy project
 ```bash
-npm run check-session
+# npm
+npm run intuned deploy
+
+# yarn
+yarn intuned deploy
+
 ```
 
-### Python
 
-#### Install dependencies
+## Auth Sessions
+
+This project uses Intuned Auth Sessions. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+
+### Create a new auth session
 ```bash
-cd python-examples/auth-with-secret-otp
-poetry install
-# or
-pip install -r requirements.txt
+# npm
+npm run intuned run authsession create .parameters/auth-sessions/create/default.json
+
+# yarn
+yarn intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
-#### Run create auth session
+### Update an existing auth session
 ```bash
-poetry run intuned run auth-session create
+# npm
+npm run intuned run authsession update <auth-session-id>
+
+# yarn
+yarn intuned run authsession update <auth-session-id>
 ```
 
-#### Run check auth session
+### Validate an auth session
 ```bash
-poetry run intuned run auth-session check
+# npm
+npm run intuned run authsession validate <auth-session-id>
+
+# yarn
+yarn intuned run authsession validate <auth-session-id>
 ```
+
+
+### `@intuned/browser`: Intuned Browser SDK
+
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+
+
+
 
 ## Project Structure
-
-### TypeScript
+The project structure is as follows:
 ```
-typescript-examples/auth-with-secret-otp/
-├── auth-sessions/
-│   ├── create.ts          # Create authenticated session with OTP
-│   └── check.ts           # Verify session validity
-├── api/
-│   └── list-contracts.ts  # Example: Extract contracts from authenticated page
-├── utils/
-│   └── typesAndSchemas.ts # Zod validation schemas
-└── package.json
-```
-
-### Python
-```
-python-examples/auth-with-secret-otp/
-├── auth-sessions/
-│   ├── create.py           # Create authenticated session with OTP
-│   ├── create_refactored.py # Enhanced version with retry logic
-│   └── check.py            # Verify session validity
-├── api/
-│   └── list-contracts.py   # Example: Extract contracts from authenticated page
-├── utils/
-│   └── types_and_schemas.py # Pydantic validation models
-└── pyproject.toml
+/
+├── api/                      # Your API endpoints
+│   └── ...
+├── auth-sessions/            # Auth session related APIs
+│   ├── check.ts           # API to check if the auth session is still valid
+│   └── create.ts          # API to create/recreate the auth session programmatically
+├── auth-sessions-instances/  # Auth session instances created and used by the CLI
+│   └── ...
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
-## How It Works
 
-### Authentication Flow
+## `Intuned.jsonc` Reference
+```jsonc
+{
+  // Your Intuned workspace ID.
+  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
+  "workspaceId": "your_workspace_id",
 
-```
-1. Navigate to login page
-   └─> https://sandbox.intuned.dev/login-otp
+  // The name of your Intuned project.
+  // Optional - If not provided here, it must be supplied via the command line when deploying.
+  "projectName": "your_project_name",
 
-2. Enter credentials
-   ├─> Fill username (email)
-   └─> Fill password
+  // Replication settings
+  "replication": {
+    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
+    // A number of machines equal to this will be allocated to handle API requests.
+    // Not applicable if api access is disabled.
+    "maxConcurrentRequests": 1,
 
-3. Submit login form
+    // The machine size to use for this project. This is applicable for both API requests and jobs.
+    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
+    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
+    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
+    "size": "standard"
+  }
 
-4. Generate OTP code
-   ├─> Use TOTP secret
-   └─> Generate 6-digit code (changes every 30 seconds)
+  // Auth session settings
+  "authSessions": {
+    // Whether auth sessions are enabled for this project.
+    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
+    "enabled": true,
 
-5. Submit OTP code
+    // Whether to save Playwright traces for auth session runs.
+    "saveTraces": false,
 
-6. Verify successful login
-   └─> Check for protected content visibility
-```
+    // The type of auth session to use.
+    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
+    // "MANUAL" type uses a recorder to manually create the auth session.
+    "type": "API",
 
-### TOTP (Time-Based One-Time Password)
 
-The OTP system uses **TOTP** to generate 6-digit codes that expire every 30 seconds:
-- Uses a shared **secret key** (Base32 encoded)
-- Synchronized with **current time**
-- Same algorithm as Google Authenticator, Authy, etc.
+    // Recorder start URL for the recorder to navigate to when creating the auth session.
+    // Required if "type" is "MANUAL". Not used if "type" is "API".
+    "startUrl": "https://example.com/login",
 
-## Usage Examples
+    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
+    // Required if "type" is "MANUAL". Not used if "type" is "API".
+    "finishUrl": "https://example.com/dashboard",
 
-### TypeScript
+    // Recorder browser mode
+    // "fullscreen": Launches the browser in fullscreen mode.
+    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
+    // Only applicable for "MANUAL" type.
+    "browserMode": "fullscreen"
+  }
 
-```typescript
-import create from "./auth-sessions/create";
+  // API access settings
+  "apiAccess": {
+    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
+    // This is required for projects that use auth sessions.
+    "enabled": true
+  },
 
-const params = {
-  username: "user@example.com",
-  password: "your-password",
-  secret: "JBSWY3DPEHPK3PXP"  // Your TOTP secret
-};
+  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
+  "headful": false,
 
-const isAuthenticated = await create(params, page, context);
-console.log(`Authenticated: ${isAuthenticated}`);
-```
-
-### Python
-
-```python
-from auth_sessions.create import create
-
-params = {
-    "username": "user@example.com",
-    "password": "your-password",
-    "secret": "JBSWY3DPEHPK3PXP"  # Your TOTP secret
-}
-
-is_authenticated = await create(page, params)
-print(f"Authenticated: {is_authenticated}")
-```
-
-### Using Protected APIs
-
-Once authenticated, you can access protected resources like the contracts list:
-
-#### TypeScript
-```typescript
-import listContracts from "./api/list-contracts";
-
-// After successful authentication
-const result = await listContracts({}, page, context);
-
-if (result.success) {
-  console.log(`Found ${result.contracts.length} contracts`);
-  result.contracts.forEach(contract => {
-    console.log(`- ${contract.name} (${contract.state})`);
-  });
-} else {
-  console.error(`Error: ${result.message}`);
+  // The region where your Intuned project is hosted.
+  // For a list of available regions, contact support or refer to the documentation.
+  // Optional - Default: "us"
+  "region": "us"
 }
 ```
-
-#### Python
-```python
-from api.list_contracts import handler
-
-# After successful authentication
-result = await handler(page)
-
-if result.success:
-    print(f"Found {len(result.contracts)} contracts")
-    for contract in result.contracts:
-        print(f"- {contract.name} ({contract.state})")
-else:
-    print(f"Error: {result.message}")
-```
-
-## Environment Variables
-
-Create a `.env` file (don't commit to version control):
-
-```bash
-APP_USERNAME=your-email@example.com
-APP_PASSWORD=your-secure-password
-OTP_SECRET=JBSWY3DPEHPK3PXP
-```
-
-## Common Issues
-
-### OTP Verification Failed
-- **Cause**: OTP code expired (codes change every 30 seconds)
-- **Solution**: Use the Python refactored version which includes automatic retry logic
-
-### Element Not Found
-- **Cause**: Page structure changed or slow loading
-- **Solution**: Increase timeouts or use explicit waits
-
-### Session Expired
-- **Cause**: Authentication session timed out
-- **Solution**: Re-run create auth session
-
-## Dependencies
-
-### TypeScript
-- `@intuned/browser` - Intuned helpers
-- `playwright` - Browser automation
-- `otplib` - TOTP implementation
-- `zod` - Schema validation
-
-### Python
-- `playwright` - Browser automation
-- `pyotp` - TOTP implementation
-- `pydantic` - Data validation
-
-## Resources
-
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Playwright Documentation](https://playwright.dev/)
-- [TOTP Algorithm (RFC 6238)](https://tools.ietf.org/html/rfc6238)
