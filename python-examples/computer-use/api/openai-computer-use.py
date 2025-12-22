@@ -1,5 +1,5 @@
 from playwright.async_api import Page
-from typing import TypedDict, NotRequired
+from typing import TypedDict
 import os
 import datetime
 from lib.openai.computers.playwright_computer import PlaywrightComputer
@@ -91,6 +91,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     print("\n📝 === AGENT RESPONSE === 📝\n")
     print(f"💬 {result}\n")
     print("=== END RESPONSE ===\n")
-    print(f"✅ Task completed!\n")
+    print("✅ Task completed!\n")
     
     return {"result": result}
