@@ -16,7 +16,7 @@
       "description": "Network request interception for API data extraction"
     },
     "defaultRunPlaygroundInput": {
-      "api": "api-interceptor",
+      "apiName": "api-interceptor",
       "parameters": {
         "url": "https://sandbox.intuned.dev/consultations/list",
         "api_pattern": "/rest/v1/consultations",

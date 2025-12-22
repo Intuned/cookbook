@@ -141,6 +141,28 @@ validate_template() {
     fi
 
     # -------------------------------------------
+    # 3c. Check defaultRunPlaygroundInput structure
+    # -------------------------------------------
+    local playground_input
+    playground_input=$(echo "$config" | jq '.metadata.defaultRunPlaygroundInput // empty' 2>/dev/null || echo "")
+
+    if [[ -n "$playground_input" && "$playground_input" != "null" && "$playground_input" != "{}" ]]; then
+        # Check if it uses wrong key "api" instead of "apiName"
+        local has_api_key
+        has_api_key=$(echo "$config" | jq '.metadata.defaultRunPlaygroundInput | has("api")' 2>/dev/null || echo "false")
+        local has_apiName_key
+        has_apiName_key=$(echo "$config" | jq '.metadata.defaultRunPlaygroundInput | has("apiName")' 2>/dev/null || echo "false")
+
+        if [[ "$has_api_key" == "true" ]]; then
+            error "[$template_name] metadata.defaultRunPlaygroundInput uses 'api' key - should be 'apiName'"
+        elif [[ "$has_apiName_key" == "true" ]]; then
+            success "[$template_name] metadata.defaultRunPlaygroundInput uses correct 'apiName' key"
+        else
+            warning "[$template_name] metadata.defaultRunPlaygroundInput is set but missing 'apiName' key"
+        fi
+    fi
+
+    # -------------------------------------------
     # 4. Check authSessions configuration
     # -------------------------------------------
     local auth_enabled

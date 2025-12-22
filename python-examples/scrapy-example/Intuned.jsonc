@@ -18,7 +18,7 @@
       "description": "Web scraping examples using Scrapy framework"
     },
     "defaultRunPlaygroundInput": {
-      "api": "scrapy-crawler",
+      "apiName": "scrapy-crawler",
       "parameters": {
         "url": "https://quotes.toscrape.com/",
         "max_pages": 10

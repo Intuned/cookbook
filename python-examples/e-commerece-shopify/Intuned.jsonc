@@ -18,7 +18,7 @@
         "description": "Shopify store product scraper"
       },
       "defaultRunPlaygroundInput": {
-        "api": "shopify-list",
+        "apiName": "shopify-list",
         "parameters": {
           "store_url": "https://the-outrage.com",
           "max_pages": 10
