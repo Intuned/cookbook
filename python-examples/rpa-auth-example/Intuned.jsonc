@@ -19,7 +19,7 @@
       "description": "RPA example for booking consultations with auth session support"
     },
     "defaultRunPlaygroundInput": {
-      "api": "book-consultations",
+      "apiName": "book-consultations",
       "parameters": {
         "name": "Foo Bar",
         "email": "foo@bar.com",

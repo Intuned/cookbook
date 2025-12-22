@@ -16,7 +16,7 @@
       "description": "E-commerce category and product scraper"
     },
     "defaultRunPlaygroundInput": {
-      "api": "ecommerece-category",
+      "apiName": "ecommerece-category",
       "parameters": {
         "store_url": "https://www.example-store.com/"
       }

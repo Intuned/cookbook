@@ -18,7 +18,7 @@
       "description": "Network request interception for API data extraction"
     },
     "defaultRunPlaygroundInput": {
-      "api": "api-interceptor",
+      "apiName": "api-interceptor",
       "parameters": {
         "url": "https://example.com/products",
         "api_pattern": "/api/v1/products",
