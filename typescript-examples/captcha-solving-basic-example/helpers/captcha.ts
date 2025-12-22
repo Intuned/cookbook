@@ -8,7 +8,7 @@ export async function goToWithCaptchaSolve(
   await withWaitForCaptchaSolve(async (page) => await page.goto(url), {
     page,
     timeoutInMs: 30_000,
-    settleDurationMs: 10_000,
+    settleDurationMs: 15_000,
     waitForNetworkSettled: true,
   });
 }
