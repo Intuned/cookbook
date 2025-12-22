@@ -14,6 +14,7 @@ Intuned sample projects in Python.
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
+| [hyprid-automation](./hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
 | [bs4-example](./bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [scrapy-example](./scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |

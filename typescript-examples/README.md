@@ -16,6 +16,7 @@ Intuned sample projects in TypeScript.
 | [ehr-integration-ts](./ehr-integration-ts/) | Data Extraction from Openimis Website |
 | [playwright-basics](./playwright-basics-ts/) | Playwright Basics |
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
+| [hybrid-automation](./hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
 | [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |

@@ -1,49 +1,95 @@
-from typing import TypedDict, cast
-from intuned_runtime import attempt_store
+from typing import TypedDict
+from playwright.async_api import Page
+from stagehand import Stagehand
+from intuned_runtime import attempt_store, get_ai_gateway_config
 from pydantic import BaseModel
-from stagehand import Stagehand, StagehandPage
-import os
+
 
 class Params(TypedDict):
     category: str | None
 
 
-async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: ...):
-    # Stagehand in python uses Stagehand V2. It extends Playwright page as a StagehandPage object.
-    category = params.get("category")
-    stagehand = cast(Stagehand, attempt_store.get("stagehand"))
+class BookDetails(BaseModel):
+    title: str
+    price: str
+    rating: str | None = None
+    availability: str | None = None
+
+
+class BooksResponse(BaseModel):
+    books: list[BookDetails]
+
+
+MAX_PAGES = 10
+
+
+async def automation(page: Page, params: Params, **_kwargs):
+    base_url, api_key = get_ai_gateway_config()
+    cdp_url = attempt_store.get("cdp_url")
+
+    # Initialize Stagehand with act/extract/observe capabilities
+    stagehand = Stagehand(
+        env="LOCAL",
+        local_browser_launch_options=dict(
+            cdp_url=cdp_url, viewport=dict(width=1280, height=800)
+        ),
+        model_api_key=api_key,
+        model_client_options={
+            "baseURL": base_url,
+        },
+    )
+    await stagehand.init()
+    print("\nInitialized 🤘 Stagehand")
+
     await page.set_viewport_size({"width": 1280, "height": 800})
 
-    await page.goto("https://books.toscrape.com")
-    # This is a Computer Use Agent(CUA), it uses X,Y Coordinates to click and control the page. CUA models may behave differently depending on the viewport size.
-    agent = stagehand.agent(
-        provider="google",
-        model="gemini-2.5-computer-use-preview-10-2025",
-        instructions=f"""You are a helpful assistant that can use a web browser.
-You are currently on the following page: {page.url}.
-Do not ask follow up questions, the user will trust your judgement. 
-If you are getting blocked on google, try another search engine.""",
-    )
-    # Agent runs on current Stagehand page
-    if category:
-        await agent.execute(
-            instruction=f'Navigate to the "{category}" category by clicking on it in the sidebar',
-            max_steps=30,
-            auto_screenshot=True
-        )
+    category = params.get("category")
+    all_books: list[BookDetails] = []
 
-    class BookDetails(BaseModel):
-        title: str
-        price: str
-        rating: str | None = None
-        availability: str | None = None
+    try:
+        await stagehand.page.goto("https://books.toscrape.com")
 
-    class BooksResponse(BaseModel):
-        books: list[BookDetails]
+        # Navigate to category if specified using act
+        if category:
+            # Use observe to find the category link in the sidebar
+            observed = await stagehand.page.observe(f'the "{category}" category link in the sidebar')
+            print(f"Observed category link: {observed}")
 
-    # Extract all book details from the page using Stagehand
-    return await page.extract(
-        "Extract all books visible on the page with their complete details including title, price, rating, and availability",
-        schema=BooksResponse,
-    )
+            # Use act to click on the category
+            await stagehand.page.act(f'Click on the "{category}" category link in the sidebar')
+            print(f"Navigated to {category} category")
 
+        # Collect books from all pages
+        for page_num in range(1, MAX_PAGES + 1):
+            print(f"Extracting books from page {page_num}...")
+
+            # Extract all book details from the current page
+            result = await stagehand.page.extract(
+                "Extract all books visible on the page with their complete details including title, price, rating, and availability",
+                schema=BooksResponse,
+            )
+            all_books.extend(result.books)
+            print(f"Found {len(result.books)} books on page {page_num}, total: {len(all_books)}")
+
+            # Check if there's a next page and navigate to it
+            if page_num < MAX_PAGES:
+                try:
+                    # Use observe to check if next button exists
+                    next_button = await stagehand.page.observe('the "next" button or link to go to the next page')
+                    if not next_button:
+                        print("No more pages available")
+                        break
+
+                    # Use act to click the next button
+                    await stagehand.page.act('Click the "next" button to go to the next page')
+                    print(f"Navigated to page {page_num + 1}")
+                except Exception as e:
+                    print(f"No more pages or navigation failed: {e}")
+                    break
+
+    finally:
+        # Cleanup Stagehand
+        print("\nClosing 🤘 Stagehand...")
+        await stagehand.close()
+
+    return BooksResponse(books=all_books)

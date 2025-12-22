@@ -15,6 +15,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerece-shopify](./typescript-examples/e-commerece-shopify/) | Shopify store product scraper |
 | [EHR-integration](./typescript-examples/ehr-integration-ts/) | Data Extraction from Openimis Website |
 | [e-commerece-category](./typescript-examples/e-commerece-category/) | E-commerce category and product scraper |
+| [hybrid-automation](./typescript-examples/hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./typescript-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [network-interception](./typescript-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
@@ -42,6 +43,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [EHR-integration](./python-examples/ehr-integration-python/) | Data Extraction from Openimis Website|
 | [playwright-basics](./python-examples/playwright-python/) | Playwright Basics |
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
+| [hyprid-automation](./python-examples/hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [scrapy-example](./python-examples/scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |

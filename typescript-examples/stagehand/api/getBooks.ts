@@ -1,52 +1,128 @@
 import z from "zod";
-import type { Stagehand } from "@browserbasehq/stagehand";
+import { Stagehand } from "@browserbasehq/stagehand";
 import type { Page, BrowserContext } from "playwright";
-import { attemptStore } from "@intuned/runtime";
-import { goToUrl } from "@intuned/browser";
+import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
 
 interface Params {
   category?: string;
 }
+
+const bookDetailsSchema = z.object({
+  books: z.array(
+    z.object({
+      title: z.string(),
+      price: z.string(),
+      rating: z.string().optional(),
+      availability: z.string().optional(),
+    })
+  ),
+});
+
+type BookDetails = z.infer<typeof bookDetailsSchema>["books"][number];
+type BooksResponse = z.infer<typeof bookDetailsSchema>;
+
+const MAX_PAGES = 10;
+
+async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  const versionUrl = cdpUrl.endsWith("/")
+    ? `${cdpUrl}json/version`
+    : `${cdpUrl}/json/version`;
+  const response = await fetch(versionUrl);
+  const data = await response.json();
+  return data.webSocketDebuggerUrl;
+}
+
 export default async function handler(
   { category }: Params,
-  page: Page,  // Playwright page
-  _: BrowserContext
+  page: Page,
+  _context: BrowserContext
 ) {
-  const stagehand: Stagehand = attemptStore.get("stagehand");
+  // Get AI gateway config for Stagehand
+  const { baseUrl, apiKey } = await getAiGatewayConfig();
+  const cdpUrl = attemptStore.get("cdpUrl") as string;
+  const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
-  await goToUrl({
-    page,
-    url: "https://books.toscrape.com",
+  // Initialize Stagehand with act/extract/observe capabilities
+  const stagehand = new Stagehand({
+    env: "LOCAL",
+    localBrowserLaunchOptions: {
+      cdpUrl: webSocketUrl,
+      viewport: { width: 1280, height: 800 },
+    },
+    modelClientOptions: {
+      apiKey,
+      baseURL: baseUrl,
+    },
+    logger: console.log,
   });
-  const agent = stagehand.agent({
-    cua: true, // CUA agent. This will use X Y Coordinates to click and control the page. Each model may behave differently with CUA.
-    model: "google/gemini-2.5-computer-use-preview-10-2025",
-    systemPrompt: "You're a helpful assistant that can control a web browser. Do Not ask for confirmation before any interraction",
-  });
+  await stagehand.init();
+  console.log("\nInitialized 🤘 Stagehand");
 
-  // Agent runs on current Stagehand page
-  if (category) {
-    await agent.execute({
-      instruction: `Navigate to the "${category}" category by clicking on it in the sidebar`,
-    });
+  await page.setViewportSize({ width: 1280, height: 800 });
+
+  const allBooks: BookDetails[] = [];
+
+  try {
+    await stagehand.page.goto("https://books.toscrape.com");
+
+    // Navigate to category if specified using act
+    if (category) {
+      // Use observe to find the category link in the sidebar
+      const observed = await stagehand.page.observe(
+        `the "${category}" category link in the sidebar`
+      );
+      console.log(`Observed category link: ${JSON.stringify(observed)}`);
+
+      // Use act to click on the category
+      await stagehand.page.act(
+        `Click on the "${category}" category link in the sidebar`
+      );
+      console.log(`Navigated to ${category} category`);
+    }
+
+    // Collect books from all pages
+    for (let pageNum = 1; pageNum <= MAX_PAGES; pageNum++) {
+      console.log(`Extracting books from page ${pageNum}...`);
+
+      // Extract all book details from the current page
+      const result = await stagehand.page.extract({
+        instruction:
+          "Extract all books visible on the page with their complete details including title, price, rating, and availability",
+        schema: bookDetailsSchema,
+      });
+      allBooks.push(...result.books);
+      console.log(
+        `Found ${result.books.length} books on page ${pageNum}, total: ${allBooks.length}`
+      );
+
+      // Check if there's a next page and navigate to it
+      if (pageNum < MAX_PAGES) {
+        try {
+          // Use observe to check if next button exists
+          const nextButton = await stagehand.page.observe(
+            'the "next" button or link to go to the next page'
+          );
+          if (!nextButton || nextButton.length === 0) {
+            console.log("No more pages available");
+            break;
+          }
+
+          // Use act to click the next button
+          await stagehand.page.act(
+            'Click the "next" button to go to the next page'
+          );
+          console.log(`Navigated to page ${pageNum + 1}`);
+        } catch (e) {
+          console.log(`No more pages or navigation failed: ${e}`);
+          break;
+        }
+      }
+    }
+  } finally {
+    // Cleanup Stagehand
+    console.log("\nClosing 🤘 Stagehand...");
+    await stagehand.close();
   }
 
-  // Define a schema for book details
-  const bookDetailsSchema = z.object({
-    books: z.array(
-      z.object({
-        title: z.string(),
-        price: z.string(),
-        rating: z.string().optional(),
-        availability: z.string().optional(),
-      })
-    ),
-  });
-
-  // Extract all book details from the page using Stagehand
-  const books = await stagehand.extract(
-    "Extract all books visible on the page with their complete details including title, price, rating, and availability",
-    bookDetailsSchema
-  );
-  return books;
+  return { books: allBooks } satisfies BooksResponse;
 }
