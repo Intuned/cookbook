@@ -23,7 +23,7 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api sample .parameters/api/sample/default.json
+uv run intuned run api hyprid-scraper/list .parameters/api/hyprid-scraper/list/default.json
 ```
 
 ### Save project

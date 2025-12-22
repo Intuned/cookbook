@@ -91,6 +91,7 @@ Every template must have an `Intuned.jsonc` file.
       "name": "template-name",                    // Required: see naming rules below
       "description": "Template description"       // Required: brief description
     },
+    "tags": ["scraping", "ai"],                   // Recommended: array of tags for categorization
     "defaultJobInput": {},                        // Optional: default input for job runs
     "defaultRunPlaygroundInput": {                // Optional: default playground input
       "apiName": "api-name",
@@ -124,6 +125,7 @@ Every template MUST have a `metadata` section with at minimum:
 - **NOT:** `Browser Use`, `E-Commerce Auth`, `Quick Recipes`
 
 **Optional metadata fields:**
+- `tags`: Array of strings for categorization (recommended)
 - `defaultJobInput`: Default input parameters for job runs
 - `defaultRunPlaygroundInput`: Default input for playground runs (with `apiName` and `parameters`)
 - `testAuthSessionInput`: Input for testing auth sessions (required if `authSessions.enabled = true`)
@@ -131,6 +133,20 @@ Every template MUST have a `metadata` section with at minimum:
 ---
 
 ## API Files
+
+### API Naming Convention
+
+**API filenames must use kebab-case** (lowercase with hyphens):
+- ✅ Valid: `get-user.ts`, `submit-form.py`, `extract-data.ts`
+- ❌ Invalid: `getUser.ts`, `get_user.py`, `extractData.ts`
+- Nested APIs follow the same convention: `api/orders/get-order.ts`
+
+### Renaming APIs
+
+When renaming an API file, you **MUST** update all related files:
+1. **Rename the API file**: `api/{old-name}.ts` → `api/{new-name}.ts`
+2. **Rename the parameters folder**: `.parameters/api/{old-name}/` → `.parameters/api/{new-name}/`
+3. **Update the README**: Update any references to the old API name in the project's README.md (run commands, descriptions, etc.)
 
 ### TypeScript API
 
@@ -415,10 +431,15 @@ api_key = config.api_key
 ## Checklist for New Templates
 
 ### Intuned.jsonc
+- [ ] No `workspaceId` field (should not be committed)
 - [ ] `metadata.template.name` is set (lowercase with hyphens, no spaces)
 - [ ] `metadata.template.description` is set
+- [ ] `metadata.tags` is set (recommended)
 - [ ] `apiAccess.enabled` is explicitly set
 - [ ] `testAuthSessionInput` is set if auth sessions are enabled
+
+### API Files
+- [ ] All API filenames use kebab-case (e.g., `get-user.ts`, not `getUser.ts`)
 
 ### .parameters Folder
 - [ ] `.parameters/api/` folder exists
