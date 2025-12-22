@@ -92,7 +92,58 @@ base_url, api_key = get_ai_gateway_config()
 
 ### Stagehand Integration
 
-When initializing Stagehand with the AI gateway:
+#### TypeScript
+
+Stagehand v3 uses the AI SDK pattern with `AISdkClient`:
+
+```typescript
+import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
+import { createOpenAI } from "@ai-sdk/openai";
+import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
+
+// Get AI gateway config
+const { baseUrl, apiKey } = await getAiGatewayConfig();
+const cdpUrl = attemptStore.get("cdpUrl") as string;
+
+// Create AI SDK provider with Intuned's AI gateway
+const openai = createOpenAI({
+  apiKey,
+  baseURL: baseUrl,
+});
+
+const llmClient = new AISdkClient({
+  model: openai("gpt-4o"),  // or your preferred model
+});
+
+// Initialize Stagehand
+const stagehand = new Stagehand({
+  env: "LOCAL",
+  localBrowserLaunchOptions: {
+    cdpUrl: webSocketUrl,
+    viewport: { width: 1280, height: 800 },
+  },
+  llmClient,
+});
+await stagehand.init();
+
+// Use Stagehand methods directly (not on stagehand.page)
+await stagehand.act("Click the submit button");
+await stagehand.observe("the search input field");
+const result = await stagehand.extract("Extract the product details", schema);
+
+// For navigation, use the playwright page
+await page.goto("https://example.com");
+```
+
+**TypeScript key points:**
+- Import `AISdkClient` from `@browserbasehq/stagehand` and `createOpenAI` from `@ai-sdk/openai`
+- Create the provider with `createOpenAI({ apiKey, baseURL })`
+- Pass `llmClient` to Stagehand (not `modelClientOptions`)
+- Call `stagehand.act()`, `stagehand.observe()`, `stagehand.extract()` directly on stagehand
+- Use `page.goto()` for navigation (playwright page)
+- Always call `await stagehand.close()` in a finally block
+
+#### Python
 
 ```python
 from intuned_runtime import attempt_store, get_ai_gateway_config
@@ -112,12 +163,22 @@ stagehand = Stagehand(
     },
 )
 await stagehand.init()
+
+# Use Stagehand methods directly (not on stagehand.page)
+await stagehand.act("Click the submit button")
+await stagehand.observe("the search input field")
+result = await stagehand.extract("Extract the product details", MySchema)
+
+# For navigation, use the playwright page
+await page.goto("https://example.com")
 ```
 
-**Important:**
+**Python key points:**
 - Use `attempt_store.get("cdp_url")` to get the CDP URL for connecting to the browser
 - Pass `api_key` to `model_api_key` parameter
 - Pass `base_url` to `model_client_options["baseURL"]`
+- Call `stagehand.act()`, `stagehand.observe()`, `stagehand.extract()` directly on stagehand
+- Use `page.goto()` for navigation (playwright page)
 - Always call `await stagehand.close()` in a finally block
 
 **Review checklist for Intuned.jsonc:**

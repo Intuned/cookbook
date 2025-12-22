@@ -1,6 +1,7 @@
 import { BrowserContext, Page } from "playwright";
+import z from "zod";
 import { goToUrl, saveFileToS3 } from "@intuned/browser";
-import { extractStructuredData } from "@intuned/browser/ai";
+import { extractStructuredData, JsonSchema } from "@intuned/browser/ai";
 import { extendPayload, persistentStore } from "@intuned/runtime";
 
 import {
@@ -12,8 +13,29 @@ import {
   isFileUrl,
 } from "../../utils/crawler";
 
-// JSON schema for AI extraction of job postings
-const JOB_POSTING_SCHEMA = {
+// Zod schema for AI extraction of job postings
+const jobPostingSchema = z.object({
+  title: z.string().describe("Job title"),
+  location: z.string().describe("Job location").optional(),
+  department: z.string().describe("Department name").optional(),
+  team: z.string().describe("Team name").optional(),
+  description: z.string().describe("Full job description").optional(),
+  commitment: z
+    .string()
+    .describe("Employment type (Full-time, Part-time, etc.)")
+    .optional(),
+  workplace_type: z
+    .string()
+    .describe("Workplace type (Remote, On-site, Hybrid)")
+    .optional(),
+  apply_url: z.string().describe("URL to apply for the job").optional(),
+  company: z.string().describe("Company name").optional(),
+});
+
+type JobPosting = z.infer<typeof jobPostingSchema>;
+
+// Convert Zod schema to JSON schema for API compatibility
+const JOB_POSTING_SCHEMA: JsonSchema = {
   type: "object",
   properties: {
     title: { type: "string", description: "Job title" },
@@ -33,19 +55,7 @@ const JOB_POSTING_SCHEMA = {
     company: { type: "string", description: "Company name" },
   },
   required: ["title"],
-} as const;
-
-interface JobPosting {
-  title: string;
-  location?: string;
-  department?: string;
-  team?: string;
-  description?: string;
-  commitment?: string;
-  workplace_type?: string;
-  apply_url?: string;
-  company?: string;
-}
+};
 
 // Pattern to match Lever job posting URLs: jobs.lever.co/{company}/{uuid}
 const LEVER_JOB_PATTERN =
@@ -283,6 +293,7 @@ export default async function handler(
     const jobData = await extractStructuredData({
       source: page,
       dataSchema: JOB_POSTING_SCHEMA,
+      model: "gpt-5-mini",
     });
     content = {
       title: (jobData as Record<string, unknown>).title as string || "Unknown",

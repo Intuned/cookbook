@@ -83,7 +83,7 @@ async def automation(
             print("✓ Filled name with Playwright")
         except Exception as e:
             print(f"Playwright failed for name, using Stagehand act: {e}")
-            await stagehand.page.act(f'Type "{name}" in the name input field')
+            await stagehand.act(f'Type "{name}" in the name input field')
             print("✓ Filled name with Stagehand act")
 
         # Step 2: Fill email field
@@ -92,7 +92,7 @@ async def automation(
             print("✓ Filled email with Playwright")
         except Exception as e:
             print(f"Playwright failed for email, using Stagehand act: {e}")
-            await stagehand.page.act(f'Type "{email}" in the email input field')
+            await stagehand.act(f'Type "{email}" in the email input field')
             print("✓ Filled email with Stagehand act")
 
         # Step 3: Fill phone field
@@ -101,7 +101,7 @@ async def automation(
             print("✓ Filled phone with Playwright")
         except Exception as e:
             print(f"Playwright failed for phone, using Stagehand act: {e}")
-            await stagehand.page.act(f'Type "{phone}" in the phone input field')
+            await stagehand.act(f'Type "{phone}" in the phone input field')
             print("✓ Filled phone with Stagehand act")
 
         # Step 4: Fill date field
@@ -110,7 +110,7 @@ async def automation(
             print("✓ Filled date with Playwright")
         except Exception as e:
             print(f"Playwright failed for date, using Stagehand act: {e}")
-            await stagehand.page.act(f'Type "{date}" in the date input field')
+            await stagehand.act(f'Type "{date}" in the date input field')
             print("✓ Filled date with Stagehand act")
 
         # Step 5: Fill time field
@@ -119,7 +119,7 @@ async def automation(
             print("✓ Filled time with Playwright")
         except Exception as e:
             print(f"Playwright failed for time, using Stagehand act: {e}")
-            await stagehand.page.act(f'Type "{time}" in the time input field')
+            await stagehand.act(f'Type "{time}" in the time input field')
             print("✓ Filled time with Stagehand act")
 
         # Step 6: Select the consultation topic from dropdown
@@ -128,7 +128,7 @@ async def automation(
             print("✓ Selected topic with Playwright")
         except Exception as e:
             print(f"Playwright failed for topic selection, using Stagehand act: {e}")
-            await stagehand.page.act(f'Select "{topic}" from the topic dropdown')
+            await stagehand.act(f'Select "{topic}" from the topic dropdown')
             print("✓ Selected topic with Stagehand act")
 
         # Step 7: Submit the booking form
@@ -137,7 +137,7 @@ async def automation(
             print("✓ Submitted form with Playwright")
         except Exception as e:
             print(f"Playwright failed for submit, using Stagehand act: {e}")
-            await stagehand.page.act("Click the submit button to submit the booking form")
+            await stagehand.act("Click the submit button to submit the booking form")
             print("✓ Submitted form with Stagehand act")
 
         # Step 8: Wait for and verify the success modal
@@ -148,9 +148,9 @@ async def automation(
             print("✓ Verified success with Playwright")
         except Exception as e:
             print(f"Playwright failed for verification, using Stagehand extract: {e}")
-            result = await stagehand.page.extract(
+            result = await stagehand.extract(
                 "Check if the booking was successful. Look for a success modal or confirmation message.",
-                schema=SuccessCheck,
+                SuccessCheck,
             )
             is_success = result.success if result else False
             print(f"✓ Verified with Stagehand extract: {result}")

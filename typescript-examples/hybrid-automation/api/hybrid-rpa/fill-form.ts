@@ -1,7 +1,8 @@
 import { BrowserContext, Page } from "playwright";
-import { Stagehand } from "@browserbasehq/stagehand";
+import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
 import { goToUrl } from "@intuned/browser";
 import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
+import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 
 const bookConsultationSchema = z.object({
@@ -51,6 +52,16 @@ export default async function handler(
   const cdpUrl = attemptStore.get("cdpUrl") as string;
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
+  // Create AI SDK provider with Intuned's AI gateway
+  const openai = createOpenAI({
+    apiKey,
+    baseURL: baseUrl,
+  });
+
+  const llmClient = new AISdkClient({
+    model: openai("gpt-5-mini"),
+  });
+
   // Initialize Stagehand with act/extract/observe capabilities
   const stagehand = new Stagehand({
     env: "LOCAL",
@@ -58,11 +69,7 @@ export default async function handler(
       cdpUrl: webSocketUrl,
       viewport: { width: 1280, height: 800 },
     },
-    modelClientOptions: {
-      apiKey,
-      baseURL: baseUrl,
-    },
-    logger: console.log,
+    llmClient,
   });
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");
@@ -89,7 +96,7 @@ export default async function handler(
       console.log("✓ Filled name with Playwright");
     } catch (e) {
       console.log(`Playwright failed for name, using Stagehand act: ${e}`);
-      await stagehand.page.act(`Type "${name}" in the name input field`);
+      await stagehand.act(`Type "${name}" in the name input field`);
       console.log("✓ Filled name with Stagehand act");
     }
 
@@ -99,7 +106,7 @@ export default async function handler(
       console.log("✓ Filled email with Playwright");
     } catch (e) {
       console.log(`Playwright failed for email, using Stagehand act: ${e}`);
-      await stagehand.page.act(`Type "${email}" in the email input field`);
+      await stagehand.act(`Type "${email}" in the email input field`);
       console.log("✓ Filled email with Stagehand act");
     }
 
@@ -109,7 +116,7 @@ export default async function handler(
       console.log("✓ Filled phone with Playwright");
     } catch (e) {
       console.log(`Playwright failed for phone, using Stagehand act: ${e}`);
-      await stagehand.page.act(`Type "${phone}" in the phone input field`);
+      await stagehand.act(`Type "${phone}" in the phone input field`);
       console.log("✓ Filled phone with Stagehand act");
     }
 
@@ -119,7 +126,7 @@ export default async function handler(
       console.log("✓ Filled date with Playwright");
     } catch (e) {
       console.log(`Playwright failed for date, using Stagehand act: ${e}`);
-      await stagehand.page.act(`Type "${date}" in the date input field`);
+      await stagehand.act(`Type "${date}" in the date input field`);
       console.log("✓ Filled date with Stagehand act");
     }
 
@@ -129,7 +136,7 @@ export default async function handler(
       console.log("✓ Filled time with Playwright");
     } catch (e) {
       console.log(`Playwright failed for time, using Stagehand act: ${e}`);
-      await stagehand.page.act(`Type "${time}" in the time input field`);
+      await stagehand.act(`Type "${time}" in the time input field`);
       console.log("✓ Filled time with Stagehand act");
     }
 
@@ -141,7 +148,7 @@ export default async function handler(
       console.log(
         `Playwright failed for topic selection, using Stagehand act: ${e}`
       );
-      await stagehand.page.act(`Select "${topic}" from the topic dropdown`);
+      await stagehand.act(`Select "${topic}" from the topic dropdown`);
       console.log("✓ Selected topic with Stagehand act");
     }
 
@@ -151,7 +158,7 @@ export default async function handler(
       console.log("✓ Submitted form with Playwright");
     } catch (e) {
       console.log(`Playwright failed for submit, using Stagehand act: ${e}`);
-      await stagehand.page.act(
+      await stagehand.act(
         "Click the submit button to submit the booking form"
       );
       console.log("✓ Submitted form with Stagehand act");
@@ -170,11 +177,10 @@ export default async function handler(
       console.log(
         `Playwright failed for verification, using Stagehand extract: ${e}`
       );
-      const result = await stagehand.page.extract({
-        instruction:
-          "Check if the booking was successful. Look for a success modal or confirmation message.",
-        schema: successCheckSchema,
-      });
+      const result = await stagehand.extract(
+        "Check if the booking was successful. Look for a success modal or confirmation message.",
+        successCheckSchema
+      );
       isSuccess = result?.success || false;
       console.log(`✓ Verified with Stagehand extract: ${JSON.stringify(result)}`);
     }
