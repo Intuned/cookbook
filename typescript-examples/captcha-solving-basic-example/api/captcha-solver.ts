@@ -19,7 +19,7 @@ export async function cloudflareChallenge(
 
   await waitForCaptchaSolve(page, {
     timeoutInMs: 30_000,
-    settlePeriodInMs: 10_000,
+    settleDurationMs: 10_000,
   });
   return {};
 }

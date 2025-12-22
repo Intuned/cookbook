@@ -22,7 +22,7 @@ export default async function* create(
 
   await waitForCaptchaSolve(page, {
     timeoutInMs: 30_000,
-    settlePeriodInMs: 10_000,
+    settleDurationMs: 10_000,
   });
 
   await page.locator("#submit-button").click();
