@@ -1,7 +1,9 @@
 import z from "zod";
-import { Stagehand } from "@browserbasehq/stagehand";
+import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
+import { createOpenAI } from "@ai-sdk/openai";
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
+
 
 interface Params {
   category?: string;
@@ -42,6 +44,16 @@ export default async function handler(
   const cdpUrl = attemptStore.get("cdpUrl") as string;
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
+  // Create AI SDK provider with Intuned's AI gateway
+  const openai = createOpenAI({
+    apiKey,
+    baseURL: baseUrl,
+  });
+
+  const llmClient = new AISdkClient({
+    model: openai("gpt-5-mini"),
+  });
+
   // Initialize Stagehand with act/extract/observe capabilities
   const stagehand = new Stagehand({
     env: "LOCAL",
@@ -49,10 +61,7 @@ export default async function handler(
       cdpUrl: webSocketUrl,
       viewport: { width: 1280, height: 800 },
     },
-    modelClientOptions: {
-      apiKey,
-      baseURL: baseUrl,
-    },
+    llmClient,
     logger: console.log,
   });
   await stagehand.init();
@@ -63,18 +72,18 @@ export default async function handler(
   const allBooks: BookDetails[] = [];
 
   try {
-    await stagehand.page.goto("https://books.toscrape.com");
+    await page.goto("https://books.toscrape.com");
 
     // Navigate to category if specified using act
     if (category) {
       // Use observe to find the category link in the sidebar
-      const observed = await stagehand.page.observe(
+      const observed = await stagehand.observe(
         `the "${category}" category link in the sidebar`
       );
       console.log(`Observed category link: ${JSON.stringify(observed)}`);
 
       // Use act to click on the category
-      await stagehand.page.act(
+      await stagehand.act(
         `Click on the "${category}" category link in the sidebar`
       );
       console.log(`Navigated to ${category} category`);
@@ -85,21 +94,20 @@ export default async function handler(
       console.log(`Extracting books from page ${pageNum}...`);
 
       // Extract all book details from the current page
-      const result = await stagehand.page.extract({
-        instruction:
-          "Extract all books visible on the page with their complete details including title, price, rating, and availability",
-        schema: bookDetailsSchema,
-      });
-      allBooks.push(...result.books);
+      const result = await stagehand.extract(
+        "Extract all books visible on the page with their complete details including title, price, rating, and availability",
+         bookDetailsSchema ,
+      );
+      allBooks.push(...result.books ?? []);
       console.log(
-        `Found ${result.books.length} books on page ${pageNum}, total: ${allBooks.length}`
+        `Found ${result?.books?.length ?? 0} books on page ${pageNum}, total: ${allBooks.length}`
       );
 
       // Check if there's a next page and navigate to it
       if (pageNum < MAX_PAGES) {
         try {
           // Use observe to check if next button exists
-          const nextButton = await stagehand.page.observe(
+          const nextButton = await stagehand.observe(
             'the "next" button or link to go to the next page'
           );
           if (!nextButton || nextButton.length === 0) {
@@ -108,7 +116,7 @@ export default async function handler(
           }
 
           // Use act to click the next button
-          await stagehand.page.act(
+          await stagehand.act(
             'Click the "next" button to go to the next page'
           );
           console.log(`Navigated to page ${pageNum + 1}`);

@@ -10,6 +10,7 @@ export async function extractPageContent(
     return await extractStructuredData({
       source: page,
       dataSchema: schema,
+      model: "gpt-5-mini",
     });
   }
 

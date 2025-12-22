@@ -204,6 +204,8 @@ async def extract_shipping_and_returns(page: Page) -> Optional[ShippingDetails]:
         result = await extract_structured_data(
             source=page,
             data_schema=shipping_schema,
+            model="gpt-5-mini",
+            prompt="Extract shipping and returns information from this page including free shipping threshold, return policy days, shipping options with delivery times, and any notes about taxes.",
         )
         print(f"Shipping details: {result}")
         if result:

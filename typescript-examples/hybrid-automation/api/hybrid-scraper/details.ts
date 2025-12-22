@@ -1,6 +1,8 @@
 import { BrowserContext, Page } from "playwright";
-import { goToUrl, extractStructuredData } from "@intuned/browser";
+import { goToUrl } from "@intuned/browser";
+import { extractStructuredData } from "@intuned/browser/ai";
 import { z } from "zod";
+import { JsonSchema } from "@intuned/browser/ai";
 
 const detailsParamsSchema = z.object({
   name: z.string(),
@@ -113,7 +115,7 @@ async function extractDescription(page: Page): Promise<string | undefined> {
 async function extractShippingAndReturns(
   page: Page
 ): Promise<ShippingDetails | undefined> {
-  const shippingSchema = {
+  const shippingSchema: JsonSchema = {
     type: "object",
     properties: {
       free_shipping_threshold: {
@@ -121,11 +123,12 @@ async function extractShippingAndReturns(
         description: "Minimum order amount for free shipping (e.g., '$95')",
       },
       return_days: {
-        type: "integer",
+        type: "number",
         description: "Number of days for returns and exchanges",
       },
       shipping_options: {
         type: "array",
+        description: "Available shipping options with delivery times",
         items: {
           type: "object",
           properties: {
@@ -140,14 +143,13 @@ async function extractShippingAndReturns(
           },
           required: ["name", "delivery_time"],
         },
-        description: "Available shipping options with delivery times",
       },
       delivery_days: {
         type: "string",
         description: "Days of the week when delivery is available",
       },
       return_window_days: {
-        type: "integer",
+        type: "number",
         description: "Number of days from delivery date to return purchase",
       },
       taxes_note: {
@@ -159,10 +161,11 @@ async function extractShippingAndReturns(
 
   try {
     const result = await extractStructuredData({
-      page,
-      jsonSchema: shippingSchema,
-      extractionPrompt:
-        "Extract shipping and returns information from this page including free shipping threshold, return policy days, shipping options with delivery times, and any notes about taxes.",
+      source: page,
+      dataSchema: shippingSchema,
+      model: "gpt-5-mini",
+      prompt:
+"Extract shipping and returns information from this page including free shipping threshold, return policy days, shipping options with delivery times, and any notes about taxes.",
     });
     if (result) {
       return result as ShippingDetails;

@@ -1,6 +1,7 @@
 // For more information, see our Intuned settings reference
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
+  "workspaceId": "a51bd78b-4f13-41b6-a55f-38e4b603315b",
   "projectName": "hyprid-automation",
   "apiAccess": {
     "enabled": false

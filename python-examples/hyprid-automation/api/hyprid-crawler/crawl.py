@@ -281,7 +281,7 @@ async def automation(
         }
     else:
         print(f"[crawl] Using AI extraction for: {url}")
-        job_data = await extract_structured_data(source=page, data_schema=JOB_POSTING_SCHEMA)
+        job_data = await extract_structured_data(source=page, data_schema=JOB_POSTING_SCHEMA, model="gpt-5-mini")
         content = {
             "title": job_data.get("title", "Unknown"),
             "type": "job_posting",
