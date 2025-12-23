@@ -8,6 +8,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [quick-recipes](./typescript-examples/quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./typescript-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
+| [rpa-forms-example](./python-examples/rpa-forms-example/) | AI-powered form automation using Stagehand to fill insurance quote forms |
 | [auth-with-secret-otp](./typescript-examples/auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [auth-with-email-otp](./typescript-examples/auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [e-commerce-scrapingcourse](./typescript-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
