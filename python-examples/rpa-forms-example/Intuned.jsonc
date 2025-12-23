@@ -1,5 +1,7 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
 {
-  "projectName": "insurance-form-filler",
+  "projectName": "rpa-forms",
   "apiAccess": {
     "enabled": true
   },
@@ -9,5 +11,11 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "rpa-forms-example",
+      "description": "RPA example for filling insurance quote forms"
+    }
   }
 }
