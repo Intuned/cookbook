@@ -37,12 +37,12 @@ validate_template_name() {
     return 0
 }
 
-# Validate API filename format (kebab-case: lowercase with hyphens only)
+# Validate API filename format (kebab-case: lowercase letters, numbers, and hyphens)
 validate_api_name() {
     local name="$1"
     # Remove extension and check format
     local base_name="${name%.*}"
-    if [[ ! "$base_name" =~ ^[a-z][a-z0-9-]*$ ]]; then
+    if [[ ! "$base_name" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
         return 1
     fi
     return 0
@@ -251,7 +251,7 @@ validate_template() {
 
                 # Validate API filename is kebab-case
                 if ! validate_api_name "$api_filename"; then
-                    error "[$template_name] API filename '$api_filename' must be kebab-case (lowercase with hyphens, e.g., 'get-user.$ext')"
+                    error "[$template_name] API filename '$api_filename' must be kebab-case (lowercase letters, numbers, and hyphens, e.g., 'get-user.$ext' or '01-intro.$ext')"
                 else
                     success "[$template_name] API filename '$api_filename' uses correct kebab-case format"
                 fi

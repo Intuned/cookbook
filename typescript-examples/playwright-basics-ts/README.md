@@ -1,178 +1,110 @@
-# Playwright Basics IN Typescript Intuned project
-A simple and reusable TypeScript template for Playwright that covers the core automation basics like navigation, interactions, scraping, pagination, and file handling.
+# Playwright Basics (TypeScript)
 
-## Getting Started
+A comprehensive TypeScript template covering core Playwright automation patterns. Each API demonstrates a specific concept, numbered for progressive learning.
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+**Documentation:** [Playwright for automation](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
 
+## APIs
 
-## Development
+| API | Description |
+|-----|-------------|
+| `01-basic-navigation` | Navigate to URLs, get page info |
+| `02-wait-strategies` | waitForLoadState, waitForSelector |
+| `03-locators-and-selectors` | CSS, XPath, getByRole, chaining |
+| `04-scrape-single-value` | textContent, getAttribute |
+| `05-scrape-list` | Loop through elements with count/nth |
+| `06-click-and-navigate` | Click elements, pagination |
+| `07-fill-form` | Text inputs, dropdowns, checkboxes |
+| `08-handle-new-tabs` | New pages, popups |
+| `09-work-with-frames` | frameLocator, contentFrame |
+| `10-page-evaluate` | Execute JavaScript in browser |
+| `11-api-requests` | page.request GET/POST |
+| `12-download-file` | Download files with Intuned SDK |
+| `13-upload-file` | Upload files to S3 |
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
-```bash
-# npm
-npm install
 
-# yarn
+```bash
+npm install
+# or
 yarn
 ```
-
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
 
 ### Run an API
 
 ```bash
-# Sample API
-# npm
-npm run intuned run api sample .parameters/api/sample/default.json
+# Basic navigation
+yarn intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
 
-# yarn
-yarn intuned run api sample .parameters/api/sample/default.json
+# Wait strategies
+yarn intuned run api 02-wait-strategies .parameters/api/02-wait-strategies/default.json
 
-# Example: Download and upload file
-# npm
-npm run intuned run api examples/download-and-upload-file .parameters/api/examples/download-and-upload-file/default.json
+# Locators and selectors
+yarn intuned run api 03-locators-and-selectors .parameters/api/03-locators-and-selectors/default.json
 
-# yarn
-yarn intuned run api examples/download-and-upload-file .parameters/api/examples/download-and-upload-file/default.json
+# Scrape single value
+yarn intuned run api 04-scrape-single-value .parameters/api/04-scrape-single-value/default.json
 
-# Example: Navigate all pages
-# npm
-npm run intuned run api examples/navigate-all-pages .parameters/api/examples/navigate-all-pages/default.json
+# Scrape list
+yarn intuned run api 05-scrape-list .parameters/api/05-scrape-list/default.json
 
-# yarn
-yarn intuned run api examples/navigate-all-pages .parameters/api/examples/navigate-all-pages/default.json
+# Click and navigate
+yarn intuned run api 06-click-and-navigate .parameters/api/06-click-and-navigate/default.json
 
-# Example: Navigate N pages
-# npm
-npm run intuned run api examples/navigate-n-pages .parameters/api/examples/navigate-n-pages/default.json
+# Fill form
+yarn intuned run api 07-fill-form .parameters/api/07-fill-form/default.json
 
-# yarn
-yarn intuned run api examples/navigate-n-pages .parameters/api/examples/navigate-n-pages/default.json
+# Handle new tabs
+yarn intuned run api 08-handle-new-tabs .parameters/api/08-handle-new-tabs/default.json
 
-# Example: Scrape list
-# npm
-npm run intuned run api examples/scrape-list .parameters/api/examples/scrape-list/default.json
+# Work with frames
+yarn intuned run api 09-work-with-frames .parameters/api/09-work-with-frames/default.json
 
-# yarn
-yarn intuned run api examples/scrape-list .parameters/api/examples/scrape-list/default.json
+# Page evaluate
+yarn intuned run api 10-page-evaluate .parameters/api/10-page-evaluate/default.json
 
-# Example: Submit form
-# npm
-npm run intuned run api examples/submit-form .parameters/api/examples/submit-form/default.json
+# API requests
+yarn intuned run api 11-api-requests .parameters/api/11-api-requests/default.json
 
-# yarn
-yarn intuned run api examples/submit-form .parameters/api/examples/submit-form/default.json
+# Download file
+yarn intuned run api 12-download-file .parameters/api/12-download-file/default.json
+
+# Upload file (requires S3 credentials)
+yarn intuned run api 13-upload-file .parameters/api/13-upload-file/default.json
 ```
 
-### Deploy project
+### Deploy
+
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
 yarn intuned deploy
-
 ```
 
+## Project structure
 
-
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
-
-
-
-
-## Project Structure
-The project structure is as follows:
 ```
 /
-├── api/                      # Folder containing all your API endpoint logic
-│   ├── sample.ts            # Default or main API endpoint file
-│   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submit-form.ts     # Example script demonstrating how to fill and submit forms
-│       |__ scrape-list.ts     # Example script showing how to scrape lists of data
-│       |__ navigate-all-pages.ts  # Example showing how to navigate through all pages of a paginated site
-│       |__ navigate-n-pages.ts   # Example showing how to navigate a specific number of pages
-│       |__ download-and-upload-file.ts  # Example demonstrating file download and upload functionality
-└── Intuned.jsonc             # Intuned project configuration file (defines project settings, environment, etc.)
+├── api/
+│   ├── 01-basic-navigation.ts      # Navigate to URLs
+│   ├── 02-wait-strategies.ts       # Wait for page load
+│   ├── 03-locators-and-selectors.ts # Find elements
+│   ├── 04-scrape-single-value.ts   # Extract single values
+│   ├── 05-scrape-list.ts           # Extract lists
+│   ├── 06-click-and-navigate.ts    # Click and pagination
+│   ├── 07-fill-form.ts             # Form interactions
+│   ├── 08-handle-new-tabs.ts       # Multi-page handling
+│   ├── 09-work-with-frames.ts      # iframes
+│   ├── 10-page-evaluate.ts         # JavaScript execution
+│   ├── 11-api-requests.ts          # HTTP requests
+│   ├── 12-download-file.ts         # File downloads
+│   └── 13-upload-file.ts           # S3 uploads
+├── .parameters/api/                # Test parameters
+├── Intuned.jsonc                   # Project config
+└── package.json
 ```
 
+## Related
 
-## `Intuned.jsonc` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": false,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-  
+- [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
+- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)

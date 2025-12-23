@@ -8,6 +8,116 @@ This is a cookbook repository with TypeScript and Python examples for the Intune
 - `python-examples/` - Python examples (19 projects)
 - Each example is a self-contained project with its own dependencies
 
+## Testing APIs with the Intuned CLI
+
+The Intuned CLI lets you run and test APIs locally before deploying. The commands differ slightly between TypeScript and Python.
+
+### TypeScript
+
+```bash
+# Navigate to your project
+cd typescript-examples/your-project
+
+# Install dependencies
+yarn install
+
+# Run an API with parameters from a JSON file
+yarn intuned run api <api-name> <path-to-params.json>
+
+# Examples
+yarn intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+yarn intuned run api scrape-products .parameters/api/scrape-products/default.json
+```
+
+### Python
+
+```bash
+# Navigate to your project
+cd python-examples/your-project
+
+# Install dependencies (uses uv package manager)
+uv sync
+
+# Run an API with parameters from a JSON file
+uv run intuned run api <api-name> <path-to-params.json>
+
+# Examples
+uv run intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+uv run intuned run api scrape-products .parameters/api/scrape-products/default.json
+```
+
+### With Auth Sessions
+
+If the project has auth sessions enabled, you need to provide an auth session ID:
+
+```bash
+# TypeScript
+yarn intuned run api <api-name> <params.json> --auth-session <auth-session-id>
+
+# Python
+uv run intuned run api <api-name> <params.json> --auth-session <auth-session-id>
+```
+
+### Parameter Files
+
+Parameters are stored in `.parameters/api/{api-name}/default.json`. Each API should have a corresponding parameter file:
+
+```
+.parameters/
+└── api/
+    ├── 01-basic-navigation/
+    │   └── default.json      # {"url": "https://example.com"}
+    ├── scrape-products/
+    │   └── default.json      # {}
+    └── fill-form/
+        └── default.json      # {"firstName": "John", "email": "john@example.com"}
+```
+
+### Useful CLI Flags
+
+**Headless mode** — Run without a visible browser window. Faster execution, recommended when you don't need to watch the automation:
+
+```bash
+# TypeScript
+yarn intuned run api scrape-products .parameters/api/scrape-products/default.json --headless
+
+# Python
+uv run intuned run api scrape-products .parameters/api/scrape-products/default.json --headless
+```
+
+**Keep browser open** — Keeps the browser open after execution finishes. Useful for debugging or when you want to inspect the final state and ask questions:
+
+```bash
+# TypeScript
+yarn intuned run api fill-form .parameters/api/fill-form/default.json --keep-browser-open
+
+# Python
+uv run intuned run api fill-form .parameters/api/fill-form/default.json --keep-browser-open
+```
+
+**Enable tracing** — Saves a Playwright trace for debugging failed runs:
+
+```bash
+yarn intuned run api my-api .parameters/api/my-api/default.json --trace
+# Trace saved to ./traces/<timestamp>
+```
+
+**Other useful flags:**
+- `--retries <n>` — Retry failed executions (default: 1)
+- `--timeout <duration>` — Set execution timeout (default: 10 mins)
+- `--proxy <url>` — Use a proxy for browser connections
+- `-o, --output-file <path>` — Save results to a JSON file
+
+For full CLI reference, see: https://docs.intunedhq.com/docs/05-references/cli#run-api
+
+### CLI Help
+
+```bash
+# Get help on any command
+yarn intuned run api --help   # TypeScript
+uv run intuned run api --help # Python
+```
+
 ## File Conventions
 
 - Use `Intuned.jsonc` (not `Intuned.json`) for Intuned project configuration files
@@ -192,8 +302,8 @@ await page.goto("https://example.com")
 ## Project README Template
 
 Each project README must include the "Getting Started" template from:
-- TypeScript: `typescript-examples/project_getting_started_template.md.md`
-- Python: `python-examples/project_getting_started_template.md.md`
+- TypeScript: `typescript-examples/project_getting_started_template.md`
+- Python: `python-examples/project_getting_started_template.md`
 
 **When adding template to a project README, follow these markdown comments in the template:**
 
