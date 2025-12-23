@@ -2,6 +2,12 @@
 
 Empty Intuned project
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/empty)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out the 

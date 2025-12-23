@@ -2,6 +2,12 @@
 
 This example demonstrates **hybrid automation** - a flexible approach that combines the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview) (`@intuned/browser`) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extractStructuredData`. This gives you the speed and reliability of traditional automation with the adaptability of AI when needed.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/hybrid-automation)
+
 ## Why Hybrid?
 
 | Approach | Pros | Cons |

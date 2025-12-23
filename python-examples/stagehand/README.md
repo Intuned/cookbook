@@ -2,6 +2,12 @@
 
 This example demonstrates how to integrate [Stagehand](https://docs.stagehand.dev/) with Intuned to create AI-powered browser automation using Python.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/stagehand)
+
 ## What This Example Does
 
 The `get-books` API demonstrates a practical Stagehand integration that:

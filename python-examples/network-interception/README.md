@@ -5,6 +5,12 @@ Network interception examples demonstrating two common patterns:
 1. **CSRF Token Capture** (`network-interceptor.py`) - Log in to a website, intercept requests to capture CSRF tokens, and make authenticated API calls
 2. **Paginated API Data** (`api-interceptor.py`) - Intercept API responses while paginating through pages to capture all data
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/network-interception)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).

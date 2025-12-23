@@ -2,6 +2,12 @@
 
 AI-powered browser automation using computer use capabilities from multiple providers with Intuned's infrastructure.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/computer-use)
+
 ## Overview
 
 This project demonstrates four different approaches to AI-powered browser automation:
