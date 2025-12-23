@@ -26,7 +26,7 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api insurance_form_filler .parameters/api/insurance-form-filler/default.json
+uv run intuned run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
 ```
 
 ### Deploy project
