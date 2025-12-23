@@ -2,6 +2,12 @@
 
 Shopify store scraper to list all products and fetch detailed product information from any Shopify store using the JSON API.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerece-shopify)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -20,7 +26,11 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# List all products from Shopify store
+uv run intuned run api shopify-list .parameters/api/shopify-list/default.json
+
+# Get detailed product information
+uv run intuned run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Deploy project
@@ -45,11 +55,11 @@ The project structure is as follows:
 ├── api/                      # Your API endpoints 
 │   ├── shopify-list.py       # API to list all products from a Shopify store
 │   └── shopify-details.py    # API to fetch detailed product information
-└── intuned.jsonc             # Intuned project configuration file
+└── Intuned.jsonc             # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 
@@ -120,4 +130,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-

@@ -1,0 +1,8 @@
+{
+  "url": "https://news.ycombinator.com",
+  "formats": [
+    "screenshot"
+  ],
+  "mobile": true,
+  "timeout": 10000
+}

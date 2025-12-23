@@ -1,181 +1,167 @@
-# Auth with Email OTP Example
+# auth-with-email-otp Intuned project
 
-Authentication automation with **Email-based OTP (One-Time Password)** verification. This example demonstrates how to handle login flows that send OTP codes via email rather than using authenticator apps.
+Authentication automation with email-based OTP verification
 
-## Overview
+**Note:** This project requires a Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
 
-This project shows how to automate authentication for websites with **email-based MFA (Multi-Factor Authentication)**. It handles:
+## Run on Intuned
 
-1. **Email/Username Login** - Enter email address
-2. **Request OTP via Email** - Trigger OTP code to be sent to email
-3. **Email OTP Retrieval** - Automatically fetch OTP code from email inbox
-4. **OTP Verification** - Submit the OTP code to complete authentication
-5. **Session Management** - Creating and validating authenticated sessions
+Open this project in Intuned by clicking the button below.
 
-**Key Difference from Secret OTP:** This example retrieves OTP codes from email inbox (via Resend API) instead of generating them from a TOTP secret.
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/auth-with-email-otp)
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts).
+To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-## Prerequisites
-
-- Valid email address registered with the target website
-- **Resend API Key** - Required for retrieving OTP codes from email inbox
-  - Sign up at [resend.com](https://resend.com)
-  - Generate an API key from your dashboard
-  - Set as `RESEND_API_KEY` environment variable
-- Internet connection
 
 ## Development
 
-### TypeScript
+> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
-#### Install dependencies
-
+### Install dependencies
 ```bash
-cd typescript-examples/auth-with-email-otp
+# npm
 npm install
+
+# yarn
+yarn
 ```
 
-#### Run create auth session
+> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
+
+### Deploy project
 ```bash
-npm run create-session -- --username "user@example.com"
+# npm
+npm run intuned deploy
+
+# yarn
+yarn intuned deploy
+
 ```
 
-#### Run check auth session
 
+## Auth Sessions
+
+This project uses Intuned Auth Sessions. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+
+### Create a new auth session
 ```bash
-npm run check-session
+# npm
+npm run intuned run authsession create .parameters/auth-sessions/create/default.json
+
+# yarn
+yarn intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
+
+### Update an existing auth session
+```bash
+# npm
+npm run intuned run authsession update <auth-session-id>
+
+# yarn
+yarn intuned run authsession update <auth-session-id>
+```
+
+### Validate an auth session
+```bash
+# npm
+npm run intuned run authsession validate <auth-session-id>
+
+# yarn
+yarn intuned run authsession validate <auth-session-id>
+```
+
+
+### `@intuned/browser`: Intuned Browser SDK
+
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+
+
+
 
 ## Project Structure
-
+The project structure is as follows:
 ```
-typescript-examples/auth-with-email-otp/
-├── auth-sessions/
-│   ├── create.ts          # Create authenticated session with email OTP
-│   └── check.ts           # Verify session validity
-├── utils/
-│   ├── typesAndSchemas.ts # Zod validation schemas
-│   └── resend.ts          # Email OTP retrieval helper
-└── package.json
-```
-
-## How It Works
-
-### Authentication Flow
-
-```
-1. Navigate to login page
-   └─> https://sandbox.intuned.dev/login-otp-email
-
-2. Enter email address
-   └─> Fill email input
-
-3. Request OTP
-   └─> Click "Send OTP" button
-   └─> OTP code sent to email
-
-4. Retrieve OTP from email
-   ├─> Use Resend API to fetch recent emails
-   └─> Extract OTP code from email content
-
-5. Submit OTP code
-   └─> Fill OTP input and submit
-
-6. Verify successful login
-   └─> Check for protected content visibility
+/
+├── auth-sessions/            # Auth session related APIs
+│   ├── check.ts           # API to check if the auth session is still valid
+│   └── create.ts          # API to create/recreate the auth session programmatically
+├── auth-sessions-instances/  # Auth session instances created and used by the CLI
+│   └── ...
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
-### Email OTP vs Secret OTP
 
-**Email OTP (This Example):**
+## `Intuned.jsonc` Reference
+```jsonc
+{
+  // Your Intuned workspace ID.
+  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
+  "workspaceId": "your_workspace_id",
 
-- OTP codes are sent via email
-- Requires email API access (Resend)
-- Codes retrieved from email inbox
-- More common for consumer applications
+  // The name of your Intuned project.
+  // Optional - If not provided here, it must be supplied via the command line when deploying.
+  "projectName": "your_project_name",
 
-**Secret OTP (Other Example):**
+  // Replication settings
+  "replication": {
+    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
+    // A number of machines equal to this will be allocated to handle API requests.
+    // Not applicable if api access is disabled.
+    "maxConcurrentRequests": 1,
 
-- OTP codes generated from shared secret
-- Uses TOTP algorithm (Google Authenticator)
-- No email access needed
-- More common for enterprise applications
+    // The machine size to use for this project. This is applicable for both API requests and jobs.
+    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
+    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
+    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
+    "size": "standard"
+  }
 
-## Usage Example
+  // Auth session settings
+  "authSessions": {
+    // Whether auth sessions are enabled for this project.
+    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
+    "enabled": true,
 
-### TypeScript
+    // Whether to save Playwright traces for auth session runs.
+    "saveTraces": false,
 
-```typescript
-import create from "./auth-sessions/create";
+    // The type of auth session to use.
+    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
+    // "MANUAL" type uses a recorder to manually create the auth session.
+    "type": "API",
 
-const params = {
-  username: "user@example.com",
-};
 
-const isAuthenticated = await create(params, page, context);
-console.log(`Authenticated: ${isAuthenticated}`);
+    // Recorder start URL for the recorder to navigate to when creating the auth session.
+    // Required if "type" is "MANUAL". Not used if "type" is "API".
+    "startUrl": "https://example.com/login",
+
+    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
+    // Required if "type" is "MANUAL". Not used if "type" is "API".
+    "finishUrl": "https://example.com/dashboard",
+
+    // Recorder browser mode
+    // "fullscreen": Launches the browser in fullscreen mode.
+    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
+    // Only applicable for "MANUAL" type.
+    "browserMode": "fullscreen"
+  }
+
+  // API access settings
+  "apiAccess": {
+    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
+    // This is required for projects that use auth sessions.
+    "enabled": true
+  },
+
+  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
+  "headful": false,
+
+  // The region where your Intuned project is hosted.
+  // For a list of available regions, contact support or refer to the documentation.
+  // Optional - Default: "us"
+  "region": "us"
+}
 ```
-
-The `getRecentOTP()` function automatically:
-
-1. Fetches recent emails from inbox
-2. Extracts OTP code from email content
-3. Returns the code for submission
-
-## Environment Variables
-
-**Required:** You must set up your Resend API key before running this example.
-
-Create a `.env` file in the project root (don't commit to version control):
-
-```bash
-# Required: Your email address for authentication
-APP_USERNAME=your-email@example.com
-
-# Required: Resend API key for retrieving OTP codes from email
-# Get your key from: https://resend.com/api-keys
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-**Important:** The `RESEND_API_KEY` is **required** for this example to work. Without it, the automation cannot retrieve OTP codes from your email inbox.
-
-## Common Issues
-
-### OTP Not Received
-
-- **Cause**: Email delivery delay or API issues
-- **Solution**: Add retry logic or increase wait time before fetching emails
-
-### OTP Expired
-
-- **Cause**: OTP codes typically expire after 5-10 minutes
-- **Solution**: Retrieve and submit OTP faster, or request a new one
-
-### Email API Rate Limits
-
-- **Cause**: Too many API requests to email service
-- **Solution**: Implement rate limiting and caching
-
-### Element Not Found
-
-- **Cause**: Page structure changed or slow loading
-- **Solution**: Increase timeouts or use explicit waits
-
-## Dependencies
-
-### TypeScript
-
-- `@intuned/browser` - Intuned helpers
-- `playwright` - Browser automation
-- `zod` - Schema validation
-- Resend API or similar email service
-
-## Resources
-
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Playwright Documentation](https://playwright.dev/)
-- [Resend API Documentation](https://resend.com/docs)

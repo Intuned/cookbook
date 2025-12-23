@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.crawl4ai.com",
+  "limit": 3,
+  "sitemap": "skip",
+  "maxDiscoveryDepth": 1,
+  "scrapeOptions": {
+    "formats": [
+      "images"
+    ]
+  }
+}

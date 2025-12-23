@@ -2,6 +2,12 @@
 
 E-commerce scraping automation that extracts product information from an online store with pagination support.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-scrapingcourse)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -27,27 +33,34 @@ yarn
 
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api list .parameters/api/list/default.json
+npm run intuned run api details .parameters/api/details/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api list .parameters/api/list/default.json
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
 
 ```bash
-# List products with default page limit (50)
-yarn intuned run api list
+# List products with default page limit
+# npm
+npm run intuned run api list .parameters/api/list/default.json
 
-# List products with custom page limit
-yarn intuned run api list '{"limit": 5}'
+# yarn
+yarn intuned run api list .parameters/api/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-yarn intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+# npm
+npm run intuned run api details .parameters/api/details/default.json
+
+# yarn
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
@@ -69,7 +82,7 @@ The project structure is as follows:
 │   └── details.ts           # API to scrape detailed product information
 ├── utils/                    # Utility files
 │   └── typesAndSchemas.ts   # TypeScript types and Zod schemas
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
@@ -114,7 +127,7 @@ Product details object with:
 - `variants`: Array of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings

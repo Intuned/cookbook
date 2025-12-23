@@ -1,0 +1,11 @@
+{
+  "url": "https://en.wikipedia.org/wiki/Web_scraping",
+  "formats": [
+    "markdown",
+    "html",
+    "rawHtml",
+    "links",
+    "images",
+    "screenshot"
+  ]
+}

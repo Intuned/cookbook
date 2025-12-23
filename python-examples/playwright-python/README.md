@@ -1,129 +1,115 @@
-# playwright-basics-python-Intuned project
+# Playwright Basics (Python)
 
-A collection of basic Python code examples for learning and reference.
+A comprehensive Python template covering core Playwright automation patterns. Each API demonstrates a specific concept, numbered for progressive learning.
 
-## Getting Started
+**Documentation:** [Playwright for automation](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+## Run on Intuned
 
+Open this project in Intuned by clicking the button below.
 
-## Development
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/playwright-python)
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+## APIs
+
+| API | Description |
+|-----|-------------|
+| `01-basic-navigation` | Navigate to URLs, get page info |
+| `02-wait-strategies` | wait_for_load_state, wait_for_selector |
+| `03-locators-and-selectors` | CSS, XPath, get_by_role, chaining |
+| `04-scrape-single-value` | text_content, get_attribute |
+| `05-scrape-list` | Loop through elements with count/nth |
+| `06-click-and-navigate` | Click elements, pagination |
+| `07-fill-form` | Text inputs, dropdowns, checkboxes |
+| `08-handle-new-tabs` | New pages, popups |
+| `09-work-with-frames` | frame_locator, content_frame |
+| `10-page-evaluate` | Execute JavaScript in browser |
+| `11-api-requests` | page.request GET/POST |
+| `12-download-file` | Download files with Intuned SDK |
+| `13-upload-file` | Upload files to S3 |
+
+## Getting started
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
 
-After installing dependencies, `intuned` command should be available in your environment.
-
 ### Run an API
+
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Basic navigation
+uv run intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+
+# Wait strategies
+uv run intuned run api 02-wait-strategies .parameters/api/02-wait-strategies/default.json
+
+# Locators and selectors
+uv run intuned run api 03-locators-and-selectors .parameters/api/03-locators-and-selectors/default.json
+
+# Scrape single value
+uv run intuned run api 04-scrape-single-value .parameters/api/04-scrape-single-value/default.json
+
+# Scrape list
+uv run intuned run api 05-scrape-list .parameters/api/05-scrape-list/default.json
+
+# Click and navigate
+uv run intuned run api 06-click-and-navigate .parameters/api/06-click-and-navigate/default.json
+
+# Fill form
+uv run intuned run api 07-fill-form .parameters/api/07-fill-form/default.json
+
+# Handle new tabs
+uv run intuned run api 08-handle-new-tabs .parameters/api/08-handle-new-tabs/default.json
+
+# Work with frames
+uv run intuned run api 09-work-with-frames .parameters/api/09-work-with-frames/default.json
+
+# Page evaluate
+uv run intuned run api 10-page-evaluate .parameters/api/10-page-evaluate/default.json
+
+# API requests
+uv run intuned run api 11-api-requests .parameters/api/11-api-requests/default.json
+
+# Download file
+uv run intuned run api 12-download-file .parameters/api/12-download-file/default.json
+
+# Upload file (requires S3 credentials)
+uv run intuned run api 13-upload-file .parameters/api/13-upload-file/default.json
 ```
 
-### Deploy project
+### Deploy
+
 ```bash
 uv run intuned deploy
 ```
 
+## Project structure
 
-
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-
-
-
-## Project Structure
-The project structure is as follows:
 ```
 /
-├── api/                      # Folder containing all your API endpoint logic
-│   ├── default.py             # Default or main API endpoint file
-│   └── examples/              # Folder with example scripts for reference or testing
-│       |__ submit_form.py     # API example that demonstrating how to fill and submit forms
-│       |__ scrape_list.py     # API example that shows how to scrape lists of data
-│       |__ navigate_all_pages.py  # API example that shows how to navigate through all pages of a paginated site
-│       |__ navigate_n_pages.py    # API example that shows how to navigate a specific number of pages
-│       |__ download_upload_files.py  # API example that demonstrats file download and upload functionality
-└── intuned.jsonc              # Intuned project configuration file (defines project settings, environment, etc.)
-
+├── api/
+│   ├── 01-basic-navigation.py      # Navigate to URLs
+│   ├── 02-wait-strategies.py       # Wait for page load
+│   ├── 03-locators-and-selectors.py # Find elements
+│   ├── 04-scrape-single-value.py   # Extract single values
+│   ├── 05-scrape-list.py           # Extract lists
+│   ├── 06-click-and-navigate.py    # Click and pagination
+│   ├── 07-fill-form.py             # Form interactions
+│   ├── 08-handle-new-tabs.py       # Multi-page handling
+│   ├── 09-work-with-frames.py      # iframes
+│   ├── 10-page-evaluate.py         # JavaScript execution
+│   ├── 11-api-requests.py          # HTTP requests
+│   ├── 12-download-file.py         # File downloads
+│   └── 13-upload-file.py           # S3 uploads
+├── .parameters/api/                # Test parameters
+├── Intuned.jsonc                   # Project config
+├── pyproject.toml                  # Python dependencies
+└── README.md
 ```
 
+## Related
 
-## `Intuned.json` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": false,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-
+- [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
+- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)

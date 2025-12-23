@@ -2,6 +2,12 @@
 
 Automation project to demonstrate our captcha solving and stealth mode capabilities
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/captcha-solving-basic-example)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -25,7 +31,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Run the captcha solver
+uv run intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 ```
 
 ### Deploy project
@@ -38,12 +45,12 @@ The project structure is as follows:
 ```
 /
 ├── api/                     # Your API endpoints 
-│   └──  captcha_solver.py   # Automation to checkout samples for our captcha solving capabailities 
-└── intuned.jsonc            # Intuned project configuration file
+│   └──  captcha-solver.py   # Automation to checkout samples for our captcha solving capabailities 
+└── Intuned.jsonc            # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

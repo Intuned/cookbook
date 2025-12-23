@@ -13,8 +13,12 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "jsdom-example",
+      "description": "Web scraping example using JSDOM for HTML parsing"
+    },
     "defaultRunPlaygroundInput": {
-      "api": "jsdom-example",
+      "apiName": "jsdom-example",
       "parameters": {
         "url": "https://www.scrapingcourse.com/ecommerce/"
       }

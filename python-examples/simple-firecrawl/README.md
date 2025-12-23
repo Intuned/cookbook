@@ -4,6 +4,12 @@
 
 Build web scraping automations using Firecrawl's familiar API interface, but running on the powerful open-source crawl4ai backend with [Intuned](https://intunedhq.com)'s browser automation infrastructure.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/simple-firecrawl)
+
 ## 🚀 Why This Project?
 
 - No Firecrawl subscription needed - runs on crawl4ai (open source)
@@ -190,10 +196,10 @@ cd python-examples/simple-firecrawl
 uv sync
 
 # Run any endpoint locally
-uv run intuned run api scrape '{"url": "https://example.com"}'
-uv run intuned run api map '{"url": "https://example.com"}'
-uv run intuned run api crawl '{"url": "https://example.com", "limit": 5}'
-uv run intuned run api search '{"query": "test", "api_key": "tvly-xxx"}'
+uv run intuned run api scrape .parameters/api/scrape/default.json
+uv run intuned run api map .parameters/api/map/default.json
+uv run intuned run api crawl .parameters/api/crawl/default.json
+uv run intuned run api search .parameters/api/search/default.json
 ```
 
 ### Deploy to Intuned
@@ -217,7 +223,7 @@ See [Intuned Documentation](https://docs.intunedhq.com) for deployment details.
 
 ---
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 
 ```jsonc
 {

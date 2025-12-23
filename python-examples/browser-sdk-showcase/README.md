@@ -2,6 +2,12 @@
 
 A comprehensive collection of browser automation helper functions from the Intuned Browser SDK. This project demonstrates various utilities for web scraping, data processing, file handling, and AI-powered operations.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-sdk-showcase)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -20,8 +26,20 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+# Example: Download a file
+uv run intuned run api download-file .parameters/api/download-file/default.json
+
+# Example: Navigate to URL
+uv run intuned run api go-to-url .parameters/api/go-to-url/default.json
+
+# Example: Save file to S3
+uv run intuned run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
+
+# Example: Sanitize HTML
+uv run intuned run api sanitize-html .parameters/api/sanitize-html/default.json
 ```
+
+> **Note:** This project has many API examples. See `.parameters/api/` for all available examples.
 
 ### Deploy project
 ```bash
@@ -93,7 +111,7 @@ The project structure is as follows:
 See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

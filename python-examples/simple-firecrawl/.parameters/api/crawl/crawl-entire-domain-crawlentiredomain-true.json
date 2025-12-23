@@ -1,0 +1,10 @@
+{
+  "url": "https://docs.crawl4ai.com/core/adaptive-crawling/",
+  "limit": 5,
+  "crawlEntireDomain": true,
+  "scrapeOptions": {
+    "formats": [
+      "images"
+    ]
+  }
+}

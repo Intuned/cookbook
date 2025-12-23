@@ -1,0 +1,25 @@
+{
+  "name": "stagehand",
+  "version": "1.0.0",
+  "description": "Using Stagehand in Intuned",
+  "tags": [
+    "Stagehand",
+    "AI",
+    "intuned-runtime-sdk",
+    "intuned-runtime-sdk-setup-context-hook"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "intuned": "intuned"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@browserbasehq/stagehand": "3.0.6",
+    "@intuned/browser": "0.1.8",
+    "@intuned/runtime": "^1.3.15",
+    "@types/node": "^20.10.3",
+    "playwright": "~1.56.0",
+    "zod": "3.25.67"
+  }
+}

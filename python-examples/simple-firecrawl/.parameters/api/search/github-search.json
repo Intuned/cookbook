@@ -1,0 +1,10 @@
+{
+  "query": "web crawler",
+  "limit": 5,
+  "categories": [
+    {
+      "type": "github"
+    }
+  ],
+  "api_key": "tvly-api-key"
+}

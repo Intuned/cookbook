@@ -1,0 +1,3 @@
+{
+  "query": "Go to https://www.saucedemo.com/ and login with username 'standard_user' and password 'secret_sauce'. Find the product 'Sauce Labs Backpack' and add it to cart. Go to cart and proceed to checkout. Fill in the checkout information with first name 'John', last name 'Doe', and zip code '12345'. Complete the purchase."
+}

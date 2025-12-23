@@ -1,0 +1,10 @@
+{
+  "query": "python async programming",
+  "limit": 3,
+  "scrapeOptions": {
+    "formats": [
+      "markdown"
+    ]
+  },
+  "api_key": "tvly-api-key"
+}

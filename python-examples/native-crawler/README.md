@@ -2,6 +2,12 @@
 
 A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `persistent_store` features for parallel crawling with deduplication.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/native-crawler)
+
 ## Architecture
 
 This project showcases two key Intuned runtime features:
@@ -78,7 +84,7 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 uv sync
 
 # Run the crawler
-uv run intuned run api crawl '{"url": "https://books.toscrape.com", "max_depth": 2, "max_pages": 10}'
+uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ### As a Job (Production)
@@ -108,8 +114,10 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
 
 You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
 
-```bash
-uv run intuned run api crawl '{
+Edit `.parameters/api/crawl/default.json` to include a schema:
+
+```json
+{
   "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
   "max_depth": 0,
   "schema": {
@@ -121,19 +129,31 @@ uv run intuned run api crawl '{
     },
     "required": ["title", "price"]
   }
-}'
+}
+```
+
+Then run:
+```bash
+uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ### Download Attachments
 
 You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
 
-```bash
-uv run intuned run api crawl '{
+Edit `.parameters/api/crawl/default.json`:
+
+```json
+{
   "url": "https://sandbox.intuned.dev/pdfs",
   "max_depth": 1,
   "include_attachments": true
-}'
+}
+```
+
+Then run:
+```bash
+uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils

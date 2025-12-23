@@ -1,0 +1,3 @@
+{
+  "query": "Go to https://books.toscrape.com/, then filter for books in the Travel category, and then extract the most expensive book in this page."
+}

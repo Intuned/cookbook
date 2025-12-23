@@ -2,6 +2,12 @@
 
 Ready-to-run Intuned API examples for common patterns. Each recipe lives in `api/`.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/quick-recipes)
+
 ## APIs
 
 | API | Description |
@@ -15,7 +21,10 @@ Ready-to-run Intuned API examples for common patterns. Each recipe lives in `api
 
 ```bash
 uv sync
-uv run intuned run api <api-name> <params>
+uv run intuned run api download-file .parameters/api/download-file/default.json
+uv run intuned run api pagination .parameters/api/pagination/default.json
+uv run intuned run api upload-to-s3 .parameters/api/upload-to-s3/default.json
+uv run intuned run api capture-screenshots .parameters/api/capture-screenshots/default.json
 ```
 
 ## Learn More

@@ -1,0 +1,13 @@
+{
+  "url": "https://en.wikipedia.org/wiki/Web_scraping",
+  "limit": 2,
+  "scrapeOptions": {
+    "formats": [
+      "markdown"
+    ],
+    "excludeTags": [
+      "table",
+      "div.infobox"
+    ]
+  }
+}

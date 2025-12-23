@@ -2,6 +2,12 @@
 
 Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-auth-scrapingcourse)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -27,24 +33,34 @@ yarn
 
 ```bash
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api list .parameters/api/list/default.json
+npm run intuned run api details .parameters/api/details/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api list .parameters/api/list/default.json
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
 
 ```bash
 # List products from authenticated dashboard
-yarn intuned run api list
+# npm
+npm run intuned run api list .parameters/api/list/default.json
+
+# yarn
+yarn intuned run api list .parameters/api/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-yarn intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+# npm
+npm run intuned run api details .parameters/api/details/default.json
+
+# yarn
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
@@ -64,13 +80,10 @@ This project uses Intuned Auth Sessions to maintain authenticated access to the 
 ### Create a new auth session
 ```bash
 # npm
-npm run intuned run authsession create <parameters>
+npm run intuned run authsession create .parameters/auth-sessions/create/default.json
 
 # yarn
-yarn intuned run authsession create <parameters>
-
-# Example
-yarn intuned run authsession create '{"username": "admin@example.com", "password": "password"}'
+yarn intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
@@ -104,7 +117,7 @@ The project structure is as follows:
 │   └── create.ts            # API to create/recreate the auth session programmatically
 ├── utils/                    # Utility files
 │   └── typeAndSchemas.ts    # TypeScript types and Zod schemas
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
@@ -149,7 +162,7 @@ Product details object with:
 - `variants`: Array of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings

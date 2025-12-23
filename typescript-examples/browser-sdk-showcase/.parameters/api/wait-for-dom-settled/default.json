@@ -1,0 +1,4 @@
+{
+  "settleDuration": 500,
+  "timeoutInMs": 30000
+}

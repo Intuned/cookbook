@@ -2,6 +2,12 @@
 
 E-commerce store scraper template for sites with category-based navigation. Scrapes categories, product listings, and detailed product information.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerece-category)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -26,11 +32,26 @@ yarn
 ### Run an API
 
 ```bash
+# Scrape categories
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
+
+# Scrape product list
+# npm
+npm run intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
+
+# yarn
+yarn intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
+
+# Get product details
+# npm
+npm run intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
+
+# yarn
+yarn intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
 ```
 
 ### Deploy project
@@ -75,7 +96,7 @@ The project structure is as follows:
 Each API uses `extendPayload` to chain to the next step in the scraping flow.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

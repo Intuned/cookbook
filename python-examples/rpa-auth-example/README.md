@@ -2,6 +2,12 @@
 
 Credentials based booking automation to book a consultation with a consultant and list the consultations
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/rpa-auth-example)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -20,7 +26,8 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api book-consultations .parameters/api/book-consultations/default.json --auth-session <auth-session-id>
+uv run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json --auth-session <auth-session-id>
 ```
 
 ### Deploy project
@@ -49,11 +56,11 @@ The project structure is as follows:
 │   └── create.py          # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

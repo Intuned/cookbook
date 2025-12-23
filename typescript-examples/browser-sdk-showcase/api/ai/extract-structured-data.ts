@@ -29,7 +29,7 @@ export default async function handler(
   const product = await extractStructuredData({
     source: page,
     strategy: "HTML",
-    model: "claude-haiku-4-5-20251001",
+    model: "gpt-5-mini",
     dataSchema: BookSchema, // Pass Zod schema directly, or use a normal JSON schema object too.
     prompt: "Extract book details from this page",
     enableCache: false, // To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.

@@ -2,6 +2,12 @@
 
 Shopify store scraper to list all products and fetch detailed product information from any Shopify store using the JSON API.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerece-shopify)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -26,11 +32,19 @@ yarn
 ### Run an API
 
 ```bash
+# List all products from Shopify store
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api shopify-list .parameters/api/shopify-list/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api shopify-list .parameters/api/shopify-list/default.json
+
+# Get detailed product information
+# npm
+npm run intuned run api shopify-details .parameters/api/shopify-details/default.json
+
+# yarn
+yarn intuned run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Deploy project
@@ -64,7 +78,7 @@ The project structure is as follows:
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 
