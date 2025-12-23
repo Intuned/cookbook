@@ -1,12 +1,13 @@
 # Stagehand with Intuned
 
 This example demonstrates how to integrate [Stagehand](https://docs.stagehand.dev/) with Intuned to create AI-powered browser automation using Python.
-
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
 [![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/stagehand)
+<!-- IDE-IGNORE-END -->
 
 ## What This Example Does
 
@@ -51,6 +52,7 @@ The API accepts an optional `category` parameter:
 - `{ "category": "Travel" }` - Navigates to Travel category and extracts books
 - `{}` - Extracts books from the homepage (all categories)
 
+<!-- IDE-IGNORE-START -->
 ## Getting Started
 
 ### Install Dependencies
@@ -58,15 +60,18 @@ The API accepts an optional `category` parameter:
 uv sync
 ```
 
-### Run the API Locally
+### Run an API
+
 ```bash
 uv run intuned run api get-books .parameters/api/get-books/travel-category.json
+uv run intuned run api get-books .parameters/api/get-books/no-category-all-books.json
 ```
 
 ### Deploy to Intuned
 ```bash
 uv run intuned deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project Structure
 ```
