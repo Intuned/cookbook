@@ -6,7 +6,7 @@ class InvalidActionError(Exception):
     pass
 
 
-async def perform_action(page: StagehandPage, instruction: str) -> None:  # type: ignore
+async def perform_action(page: StagehandPage, instruction: str) -> None:
     action = await page.observe(instruction)
     if action:
         await page.act(action[0])
