@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "stagehand-stock-details"
+name = "stagehand-get-books"
 version = "0.0.1"
 description = "Using Stagehand with Intuned"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
