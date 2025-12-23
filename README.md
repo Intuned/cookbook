@@ -28,6 +28,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [quick-recipes](./python-examples/quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./python-examples/rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./python-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
+| [rpa-forms-example](./python-examples/rpa-forms-example/) | AI-powered form automation using Stagehand to fill insurance quote forms |
 | [auth-with-email-otp](./python-examples/auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./python-examples/auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) verification |
 | [auth-with-email-otp](./python-examples/auth-with-email-otp/) | Multi-step authentication with email-based OTP verification |
