@@ -6,61 +6,78 @@ AI-powered form automation using Stagehand to automatically fill out insurance q
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/rpa-forms-example)
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-forms-example)
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
+### Prerequisites
+
+This project uses Stagehand for AI-powered form automation. You'll need to set the `OPENAI_API_KEY` environment variable:
+
+```bash
+export OPENAI_API_KEY=your_openai_api_key_here
+```
 
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
-### Install dependencies
+### Install Dependencies
 ```bash
-uv sync
+# npm
+npm install
+
+# yarn
+yarn
 ```
 
-After installing dependencies, `intuned` command should be available in your environment.
-
-### Run an API
+### Run the API Locally
 ```bash
-uv run intuned run api insurance_form_filler .parameters/api/insurance-form-filler/default.json
+# npm
+npm run intuned run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
+
+# yarn
+yarn intuned run api insurance-form-filler  .parameters/api/insurance-form-filler/default.json
 ```
 
-### Deploy project
+### Deploy to Intuned
 ```bash
-uv run intuned deploy
+# npm
+npm run intuned deploy
+
+# yarn
+yarn intuned deploy
 ```
-
-
-
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
+### `intuned-runtime`: Intuned Runtime SDK
 
+All intuned projects use the Intuned runtime SDK. It also exposes some helpers for nested scheduling and auth sessions. This project uses some of these helpers. For more information, check out the documentation coming soon.
 
+This project uses the `setupContext` hook from the Intuned runtime SDK. This hook is used to set up the browser context and page for the project. For more information, check out the documentation coming soon.
 
 ## Project Structure
 The project structure is as follows:
 ```
 /
 ├── api/                      # Your API endpoints 
-│   └── insurance_form_filler.py   # Main automation API for filling insurance forms
+│   └── insurance-form-filler.ts   # Main automation API for filling insurance forms
 ├── hooks/                    # Setup hooks
-│   └── setup_context.py      # Browser context setup hook
+│   └── setupContext.ts      # Browser context setup hook
 ├── utils/                    # Utility modules
-│   └── types_and_schemas.py  # Pydantic models for type validation
-├── Intuned.json              # Intuned project configuration file
-└── pyproject.toml            # Python project dependencies
+│   └── typesAndSchemas.ts   # Zod schemas for type validation
+├── Intuned.jsonc            # Intuned project configuration file
+└── package.json             # Node.js project dependencies
 ```
 
 ### How It Works
 
-1. **insurance_form_filler.py** - Uses Stagehand's AI-powered automation to navigate to the insurance website, select insurance type, and fill out multi-step forms including:
+1. **insurance-form-filler.ts** - Uses Stagehand's AI-powered automation to navigate to the insurance website, select insurance type, and fill out multi-step forms including:
    - Applicant information (name, date of birth, gender, marital status)
    - Contact details (email, phone, text preferences)
    - Address information (street, city, state, zip code)
@@ -141,3 +158,4 @@ The project structure is as follows:
   "region": "us"
 }
 ```
+

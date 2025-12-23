@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "site": "https://www.erieinsurance.com/",
+    "insurance_type": "auto"
+  },
+  "applicant": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "date_of_birth": "04/12/1992",
+    "gender": "male",
+    "marital_status": "single",
+    "accident_prevention_course": true,
+    "email": "john.doe@example.com",
+    "phone_number": "555-123-4567",
+    "is_cell_phone": true,
+    "can_text": true,
+    "preferred_name": "Johnny",
+    "home_multi_policy_discount": false,
+    "currently_has_auto_insurance": false,
+    "coverage_effective_date": "01/01/2026"
+  },
+  "address": {
+    "street_line1": "350 W 42nd St",
+    "street_line2": "Apt 12B",
+    "city": "New York",
+    "state": "NY",
+    "zip_code": "10036"
+  },
+  "vehicle": {
+    "vehicle_type": "Automobile",
+    "year": 2021,
+    "make": "Toyota",
+    "model": "Camry Le",
+    "primary_use": "Pleasure",
+    "annual_mileage": 12000,
+    "days_driven_per_week": 5,
+    "miles_driven_one_way": 15
+  }
+}
+
