@@ -15,11 +15,14 @@
   "metadata": {
     "template": {
       "name": "playwright-basics-ts",
-      "description": "Basic Playwright automation patterns and examples in TypeScript"
+      "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more"
     },
+    "tags": ["playwright", "scraping", "rpa", "automation"],
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
-      "parameters": {}
+      "apiName": "01-basic-navigation",
+      "parameters": {
+        "url": "https://books.toscrape.com/"
+      }
     }
   }
 }

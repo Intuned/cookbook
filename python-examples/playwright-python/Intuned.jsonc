@@ -3,7 +3,7 @@
 {
   "projectName": "playwright-python",
   "apiAccess": {
-    "enabled": false
+    "enabled": true
   },
   "authSessions": {
     "enabled": false
@@ -12,13 +12,17 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "proxy": {
-    "enabled": false
-  },
   "metadata": {
     "template": {
       "name": "playwright-python",
-      "description": "Basic Playwright automation patterns and examples in Python"
+      "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more"
+    },
+    "tags": ["playwright", "scraping", "rpa", "automation"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "01-basic-navigation",
+      "parameters": {
+        "url": "https://books.toscrape.com/"
+      }
     }
   }
 }
