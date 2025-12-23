@@ -1,6 +1,12 @@
-# stagehand-stock-details Intuned project
+# rpa-forms-example Intuned project
 
-Using Stagehand with Intuned
+AI-powered form automation using Stagehand to automatically fill out insurance quote forms with applicant, address, and object information.
+
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/rpa-forms-example)
 
 ## Getting Started
 
@@ -20,7 +26,7 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api <api-name> <parameters>
+uv run intuned run api insurance_form_filler .parameters/api/insurance_form_filler/default.json
 ```
 
 ### Deploy project
@@ -36,29 +42,35 @@ uv run intuned deploy
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
-### `intuned-runtime`: Intuned Runtime SDK
-
-All intuned projects use the Intuned runtime SDK. It also exposes some helpers for nested scheduling and auth sessions. This project uses some of these helpers. For more information, check out the documentation coming soon.
-
-This project uses the `setup_context` hook from the Intuned runtime SDK. This hook is used to set up the browser context and page for the project. For more information, check out the documentation coming soon.
 
 
 ## Project Structure
 The project structure is as follows:
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py           # API to check if the auth session is still valid
-│   └── create.py          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── intuned.json              # Intuned project configuration file
+├── api/                      # Your API endpoints 
+│   └── insurance_form_filler.py   # Main automation API for filling insurance forms
+├── hooks/                    # Setup hooks
+│   └── setup_context.py      # Browser context setup hook
+├── utils/                    # Utility modules
+│   └── types_and_schemas.py  # Pydantic models for type validation
+├── Intuned.json              # Intuned project configuration file
+└── pyproject.toml            # Python project dependencies
 ```
 
+### How It Works
 
-## `Intuned.json` Reference
+1. **insurance_form_filler.py** - Uses Stagehand's AI-powered automation to navigate to the insurance website, select insurance type, and fill out multi-step forms including:
+   - Applicant information (name, date of birth, gender, marital status)
+   - Contact details (email, phone, text preferences)
+   - Address information (street, city, state, zip code)
+   - Vehicle details (type, year, make, model, usage)
+   - Additional preferences (multi-policy discount, current insurance status, coverage effective date)
+   
+   The automation uses natural language instructions to interact with form elements, making it resilient to UI changes.
+
+
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 
@@ -81,7 +93,7 @@ The project structure is as follows:
     // "large": Large machine size (8 shared vCPUs, 4GB RAM)
     // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
     "size": "standard"
-  }
+  },
 
   // Auth session settings
   "authSessions": {
@@ -111,7 +123,7 @@ The project structure is as follows:
     // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
     // Only applicable for "MANUAL" type.
     "browserMode": "fullscreen"
-  }
+  },
   
   // API access settings
   "apiAccess": {
@@ -129,4 +141,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-  
