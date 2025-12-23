@@ -256,27 +256,38 @@ validate_template() {
                     success "[$template_name] API filename '$api_filename' uses correct kebab-case format"
                 fi
 
-                if [[ ! -f "$dir/.parameters/api/$relative_path/default.json" ]]; then
-                    error "[$template_name] API '$relative_path' missing .parameters/api/$relative_path/default.json"
+                # Check that at least one parameter file exists (not necessarily default.json)
+                if [[ ! -d "$dir/.parameters/api/$relative_path" ]]; then
+                    error "[$template_name] API '$relative_path' missing .parameters/api/$relative_path/ directory"
                 else
-                    success "[$template_name] .parameters/api/$relative_path/default.json exists"
+                    local param_count
+                    param_count=$(find "$dir/.parameters/api/$relative_path" -maxdepth 1 -type f -name "*.json" 2>/dev/null | wc -l)
+                    if [[ "$param_count" -eq 0 ]]; then
+                        error "[$template_name] API '$relative_path' has no parameter files in .parameters/api/$relative_path/"
+                    else
+                        success "[$template_name] .parameters/api/$relative_path/ has $param_count parameter file(s)"
+                    fi
                 fi
             done < <(find "$dir/api" -type f -name "*.$ext" 2>/dev/null)
         fi
 
-        # Check for extra parameter files that don't have corresponding APIs
-        while IFS= read -r param_file; do
-            [[ -z "$param_file" ]] && continue
-            # Get relative path: .parameters/api/{path}/default.json -> {path}
+        # Check for extra parameter directories that don't have corresponding APIs
+        while IFS= read -r param_dir; do
+            [[ -z "$param_dir" ]] && continue
+            # Get relative path: .parameters/api/{path} -> {path}
             local param_path
-            param_path="${param_file#$dir/.parameters/api/}"
-            param_path="${param_path%/default.json}"
+            param_path="${param_dir#$dir/.parameters/api/}"
+            
+            # Skip if this directory has subdirectories (nested structure)
+            if find "$param_dir" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | grep -q .; then
+                continue
+            fi
 
             # Check if corresponding API file exists
             if [[ ! -f "$dir/api/$param_path.$ext" ]]; then
-                warning "[$template_name] Extra parameter file '.parameters/api/$param_path/default.json' has no corresponding API"
+                warning "[$template_name] Parameter directory '.parameters/api/$param_path/' has no corresponding API"
             fi
-        done < <(find "$dir/.parameters/api" -type f -name "default.json" 2>/dev/null)
+        done < <(find "$dir/.parameters/api" -mindepth 1 -type d 2>/dev/null)
     fi
 
     # -------------------------------------------
