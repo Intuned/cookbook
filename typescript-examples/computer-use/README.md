@@ -2,6 +2,12 @@
 
 AI-powered browser automation examples using different computer use implementations with Intuned.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/computer-use)
+
 ## APIs
 
 ### Anthropic Computer Use

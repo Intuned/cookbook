@@ -2,6 +2,12 @@
 
 This example demonstrates how to integrate [Browser Use](https://github.com/browser-use/browser-use) with Intuned to create AI-powered browser automation.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-use)
+
 ## What This Example Does
 
 The `purchase-item` API demonstrates a practical Browser Use integration that automates an e-commerce checkout flow:

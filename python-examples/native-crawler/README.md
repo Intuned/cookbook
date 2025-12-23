@@ -2,6 +2,12 @@
 
 A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `persistent_store` features for parallel crawling with deduplication.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/native-crawler)
+
 ## Architecture
 
 This project showcases two key Intuned runtime features:

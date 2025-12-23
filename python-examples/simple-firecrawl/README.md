@@ -4,6 +4,12 @@
 
 Build web scraping automations using Firecrawl's familiar API interface, but running on the powerful open-source crawl4ai backend with [Intuned](https://intunedhq.com)'s browser automation infrastructure.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/simple-firecrawl)
+
 ## 🚀 Why This Project?
 
 - No Firecrawl subscription needed - runs on crawl4ai (open source)

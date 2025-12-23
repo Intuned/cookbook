@@ -4,6 +4,12 @@ Authentication automation with email-based OTP verification
 
 **Note:** This project requires a Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/auth-with-email-otp)
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).

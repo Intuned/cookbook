@@ -4,6 +4,12 @@ A comprehensive TypeScript template covering core Playwright automation patterns
 
 **Documentation:** [Playwright for automation](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/playwright-basics-ts)
+
 ## APIs
 
 | API | Description |
