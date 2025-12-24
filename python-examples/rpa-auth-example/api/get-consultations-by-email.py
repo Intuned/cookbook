@@ -96,7 +96,7 @@ async def automation(
     validated_params = GetConsultationsByEmailSchema(**params)
 
     # Step 1: Navigate to the consultations list page
-    # waitUntil: "networkidle" ensures all consultations are loaded
+    # wait_for_load_state: "networkidle" ensures all consultations are loaded
     await go_to_url(
         page=page,
         url="https://sandbox.intuned.dev/consultations-auth/list",
