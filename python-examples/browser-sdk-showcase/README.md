@@ -155,4 +155,4 @@ See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and 
 
 For detailed documentation on each helper function, visit:
 - [Intuned Browser SDK - Python](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/)
-- [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/overview)

@@ -108,5 +108,5 @@ yarn intuned deploy
 
 - **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
 - **Stagehand Documentation**: https://docs.stagehand.dev/
-- **Intuned Runtime SDK**: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- **Intuned Runtime SDK**: https://docs.intunedhq.com/automation-sdks/overview
 - **Setup Hooks**: https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks

@@ -379,7 +379,7 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 ## Documentation Links
 
 - AuthSessions: https://docs.intunedhq.com/docs/02-features/auth-sessions
-- Browser SDK: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- Browser SDK: https://docs.intunedhq.com/automation-sdks/overview
 - Intuned in depth: https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth
 - Introduction / Quickstarts: https://docs.intunedhq.com/docs/00-getting-started/introduction
 - Recipe docs: https://docs.intunedhq.com/docs/01-learn/recipes/

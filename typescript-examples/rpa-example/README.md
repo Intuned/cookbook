@@ -78,7 +78,7 @@ yarn intuned deploy
 
 ## `@intuned/browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 ## Project Structure
 
@@ -107,5 +107,5 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Learn More
 
 - **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Intuned Browser SDK**: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- **Intuned Browser SDK**: https://docs.intunedhq.com/automation-sdks/overview
 - **CLI Documentation**: https://docs.intunedhq.com/docs/05-references/cli

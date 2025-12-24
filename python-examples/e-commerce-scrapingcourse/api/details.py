@@ -1,14 +1,20 @@
+# Extract detailed product information from e-commerce product page
 from playwright.async_api import Page
-from typing import List, Optional
+from typing import TypedDict, List
 from intuned_browser import go_to_url, save_file_to_s3, Attachment
 import json
 import re
-
+from pydantic import HttpUrl
 from utils.types_and_schemas import (
     ProductDetails,
     ProductVariant,
     DetailsSchema,
 )
+
+
+class Params(TypedDict):
+    name: str
+    detailsUrl: HttpUrl
 
 
 async def get_product_images(page: Page) -> List[Attachment]:
@@ -109,7 +115,7 @@ async def extract_product_details(page: Page, params: DetailsSchema) -> ProductD
     price = await price_element.text_content()
 
     # Extract id
-    id_element = page.locator(".sku_wrapper .id")
+    id_element = page.locator(".sku_wrapper .sku")
     id = await id_element.text_content() or ""
 
     # Extract category
@@ -148,14 +154,7 @@ async def extract_product_details(page: Page, params: DetailsSchema) -> ProductD
     )
 
 
-async def handler(
-    page: Page,
-    params: Optional[dict] = None,
-    **_kwargs,
-) -> ProductDetails:
-    if params is None:
-        raise ValueError("Params are required for this handler")
-
+async def automation(page: Page, params: Params, **_kwargs) -> ProductDetails:
     # Validate params using pydantic model
     validated_params = DetailsSchema(**params)
 
@@ -167,6 +166,8 @@ async def handler(
 
     # Extract all detailed product information
     product_details = await extract_product_details(page, validated_params)
+
+    print(f"Successfully extracted details for product: {product_details.name}")
 
     # Return the complete product details
     return product_details
