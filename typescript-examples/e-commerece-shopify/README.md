@@ -2,11 +2,17 @@
 
 Shopify store scraper to list all products and fetch detailed product information from any Shopify store using the JSON API.
 
+## Key Features
+
+- **Shopify JSON API Integration**: Uses Shopify's public JSON API endpoints for efficient data extraction
+- **Pagination Support**: Automatically handles pagination to scrape all products from large stores
+- **Zero Browser Overhead**: API-based scraping without browser automation overhead
+- **Detailed Product Data**: Extracts comprehensive product information including variants, images, and pricing
+
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerece-shopify" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerece-shopify)
 
 ## Getting Started
 
@@ -30,22 +36,26 @@ yarn
 
 
 ### Run an API
-
 ```bash
-# List all products from Shopify store
 # npm
 npm run intuned run api shopify-list .parameters/api/shopify-list/default.json
-
-# yarn
-yarn intuned run api shopify-list .parameters/api/shopify-list/default.json
-
-# Get detailed product information
-# npm
 npm run intuned run api shopify-details .parameters/api/shopify-details/default.json
 
 # yarn
+yarn intuned run api shopify-list .parameters/api/shopify-list/default.json
 yarn intuned run api shopify-details .parameters/api/shopify-details/default.json
 ```
+
+### Save project
+```bash
+# npm
+npm run intuned run save
+
+# yarn
+yarn intuned run save
+```
+
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 ```bash
@@ -54,98 +64,45 @@ npm run intuned deploy
 
 # yarn
 yarn intuned deploy
-
 ```
-
-
-
 
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
+<!-- IDE-IGNORE-END -->
+
 
 
 
 ## Project Structure
-The project structure is as follows:
 ```
 /
-├── api/                      # Your API endpoints 
-│   ├── shopify-list.ts       # API to list all products from a Shopify store
-│   └── shopify-details.ts    # API to fetch detailed product information
-└── Intuned.jsonc             # Intuned project configuration file
+├── .parameters/              # Test parameters for APIs
+│   └── api/
+│       ├── shopify-list/
+│       │   └── default.json
+│       └── shopify-details/
+│           └── default.json
+├── api/                      # API endpoints
+│   ├── shopify-list.ts      # List all products from Shopify store
+│   └── shopify-details.ts   # Get detailed product information
+├── Intuned.jsonc            # Intuned project configuration
+└── package.json             # Node.js project dependencies
 ```
 
 
-## `Intuned.jsonc` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
+## APIs
 
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
+| API | Description |
+|-----|-------------|
+| `shopify-list` | Lists all products from a Shopify store using pagination. Extracts product handles, titles, and basic information via Shopify's JSON API |
+| `shopify-details` | Fetches comprehensive product details including variants, images, pricing, and availability for a specific product |
 
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
 
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
+## Learn More
 
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
+- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Shopify API Documentation](https://shopify.dev/docs/api)
+- [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
