@@ -74,6 +74,7 @@ const vehicleSchema = z.object({
   annual_mileage: z.number().int().positive().optional(),
   days_driven_per_week: z.number().int().positive().optional(),
   miles_driven_one_way: z.number().int().positive().optional(),
+  model_details: z.string(),
 });
 
 // ---------- Root Schema ----------

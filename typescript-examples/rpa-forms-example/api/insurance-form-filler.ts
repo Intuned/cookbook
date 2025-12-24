@@ -161,6 +161,11 @@ export default async function handler(
     page,
     `Select the model ${vehicle.model} from the model dropdown`
   );
+  await performAction(
+    stagehand,
+    page,
+    `Fill in the model details ${vehicle.model_details} in the model details field if not already filled`
+  );
   await performAction(stagehand, page, "Click the Continue button");
   await performAction(stagehand, page, "Click the Continue button");
 
