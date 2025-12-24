@@ -1,1 +1,32 @@
-{"workspaceId":"a51bd78b-4f13-41b6-a55f-38e4b603315b","apiAccess":{"enabled":false},"authSessions":{"enabled":false},"replication":{"maxConcurrentRequests":1,"size":"standard"},"metadata":{"template":{"name":"e-commerce-scrapingcourse","description":"Basic e-commerce scraper using scrapingcourse.com"},"defaultJobInput":{"configuration":{"maxConcurrentRequests":2,"retry":{"maximumAttempts":3}},"payload":[{"apiName":"list","parameters":{}}]}}}
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "e-commerce-scrapingcourse",
+      "description": "Basic e-commerce scraper using scrapingcourse.com"
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {}
+        }
+      ]
+    }
+  }
+}
