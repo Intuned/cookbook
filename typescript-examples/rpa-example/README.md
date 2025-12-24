@@ -1,23 +1,33 @@
-# book-consultations Intuned project
+# RPA Example - Consultation Booking
 
-Booking automation to book a consultation with a consultant and list the consultations
+Booking automation example that demonstrates how to book consultations and retrieve consultation data without authentication.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
 [![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-example)
+<!-- IDE-IGNORE-END -->
 
+## What This Example Does
+
+This example demonstrates basic RPA (Robotic Process Automation) workflows:
+
+1. **Book Consultations** - Automates filling out and submitting a consultation booking form with various topics (automation, API integration, data extraction, or other)
+2. **Get Consultations** - Retrieves consultation bookings for a specific email address
+
+<!-- IDE-IGNORE-START -->
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
-
 
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
-### Install dependencies
+### Install Dependencies
+
 ```bash
 # npm
 npm install
@@ -28,16 +38,23 @@ yarn
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
-
 ### Run an API
 
 ```bash
-# Book a consultation
+# Book consultations with different topics
 # npm
 npm run intuned run api book-consultations .parameters/api/book-consultations/default.json
+npm run intuned run api book-consultations .parameters/api/book-consultations/automation-consultation.json
+npm run intuned run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json
+npm run intuned run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json
+npm run intuned run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json
 
 # yarn
 yarn intuned run api book-consultations .parameters/api/book-consultations/default.json
+yarn intuned run api book-consultations .parameters/api/book-consultations/automation-consultation.json
+yarn intuned run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json
+yarn intuned run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json
+yarn intuned run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json
 
 # Get consultations by email
 # npm
@@ -47,107 +64,48 @@ npm run intuned run api get-consultations-by-email .parameters/api/get-consultat
 yarn intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
-### Deploy project
+### Deploy to Intuned
+
 ```bash
 # npm
 npm run intuned deploy
 
 # yarn
 yarn intuned deploy
-
 ```
+<!-- IDE-IGNORE-END -->
 
 
+## `@intuned/browser`: Intuned Browser SDK
 
-
-
-
-
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
 
 ## Project Structure
-The project structure is as follows:
+
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── Intuned.jsonc              # Intuned project configuration file
+├── api/
+│   ├── book-consultations.ts              # Book a consultation
+│   └── get-consultations-by-email.ts      # Get consultations for an email
+├── .parameters/
+│   └── api/
+│       ├── book-consultations/
+│       │   ├── default.json                        # Default booking (other topic)
+│       │   ├── automation-consultation.json        # Automation topic
+│       │   ├── api-integration-consultation.json   # API integration topic
+│       │   ├── data-extraction-consultation.json   # Data extraction topic
+│       │   └── other-topic-consultation.json       # Other topic
+│       └── get-consultations-by-email/
+│           └── default.json                        # Get consultations query
+├── utils/
+│   └── typesAndSchemas.ts              # Type definitions and schemas
+├── Intuned.jsonc                       # Intuned project configuration
+├── package.json                        # Dependencies
+└── tsconfig.json                       # TypeScript configuration
 ```
 
+## Learn More
 
-## `Intuned.jsonc` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-  
+- **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
+- **Intuned Browser SDK**: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- **CLI Documentation**: https://docs.intunedhq.com/docs/05-references/cli

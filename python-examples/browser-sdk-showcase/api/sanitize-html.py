@@ -1,3 +1,4 @@
+# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/sanitize_html
 from playwright.async_api import Page
 from typing import TypedDict
 from intuned_browser import sanitize_html
@@ -16,5 +17,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     first_row = page.locator("ol.row").locator("li").first
     html = await first_row.inner_html()
     sanitized_html = sanitize_html(html, remove_styles=remove_styles, max_attribute_length=max_attribute_length)
+    print("Sanitized HTML:")
     print(sanitized_html)
     return sanitized_html
