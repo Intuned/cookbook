@@ -1,15 +1,22 @@
-from playwright.async_api import Page, BrowserContext
+from playwright.async_api import Page
+from typing import TypedDict
 from intuned_browser import upload_file_to_s3
 
 
-async def handler(params: dict, page: Page, context: BrowserContext):
+class Params(TypedDict):
+    pass
+
+
+async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Navigate to the page to capture
-    await page.goto("https://www.example.com")
+    await page.goto("https://intunedhq.com/")
 
     # Capture screenshot as bytes
     screenshot_in_bytes = await page.screenshot()
 
     # Upload the screenshot to S3
+    # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
+
     uploaded_file = await upload_file_to_s3(
         file=screenshot_in_bytes,
         file_name_override="screenshot.png",
