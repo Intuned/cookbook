@@ -7,7 +7,7 @@ A comprehensive collection of browser automation helper functions from the Intun
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-sdk-showcase)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-sdk-showcase" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 

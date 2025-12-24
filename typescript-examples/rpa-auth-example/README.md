@@ -6,7 +6,7 @@ Credentials based booking automation to book a consultation with a consultant an
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-auth-example)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-auth-example" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 

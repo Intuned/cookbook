@@ -6,7 +6,7 @@ This template provides a structured starting point for retrieving data from an E
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/ehr-integration-ts)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/ehr-integration-ts" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 

@@ -26,9 +26,3 @@ Intuned sample projects in TypeScript.
 | [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |
 | [empty](./empty/) | Empty starter template for new projects |
 | [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |
-
-## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
-
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples)

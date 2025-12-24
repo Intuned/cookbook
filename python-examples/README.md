@@ -30,9 +30,3 @@ Intuned sample projects in Python.
 | [ehr-integration-python](./ehr-integration-python/) | Data Extraction from Openimis Website |
 | [empty](./empty/) | Empty starter template for new projects |
 | [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |
-
-## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
-
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples)
