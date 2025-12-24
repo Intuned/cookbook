@@ -7,7 +7,8 @@
     "enabled": true
   },
   "authSessions": {
-    "enabled": true
+    "enabled": true,
+    "type": "API"
   },
   "replication": {
     "maxConcurrentRequests": 1,

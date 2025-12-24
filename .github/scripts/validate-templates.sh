@@ -58,10 +58,12 @@ validate_template() {
     local lang="$2"  # "typescript" or "python"
     local template_name
     template_name=$(basename "$dir")
+    local full_path="$lang-examples/$template_name"
 
     echo ""
     echo "=========================================="
-    echo "Validating: $lang/$template_name"
+    echo "Validating: $full_path"
+    echo "File: $dir/Intuned.jsonc"
     echo "=========================================="
 
     local ext="ts"
@@ -71,14 +73,14 @@ validate_template() {
     # 1. Check Intuned.jsonc exists (not .json)
     # -------------------------------------------
     if [[ -f "$dir/Intuned.json" ]]; then
-        error "[$template_name] Found Intuned.json - must use Intuned.jsonc instead"
+        error "[$full_path] Found Intuned.json - must use Intuned.jsonc instead"
     fi
 
     if [[ ! -f "$dir/Intuned.jsonc" ]]; then
-        error "[$template_name] Missing Intuned.jsonc"
+        error "[$full_path] Missing Intuned.jsonc"
         return
     fi
-    success "[$template_name] Intuned.jsonc exists"
+    success "[$full_path] Intuned.jsonc exists"
 
     # Parse Intuned.jsonc (strip comments for jq)
     # Use a more precise pattern that only removes line comments starting with // at line start or after whitespace
@@ -87,15 +89,29 @@ validate_template() {
     config=$(grep -v '^\s*//' "$dir/Intuned.jsonc" | sed 's|/\*.*\*/||g')
 
     # -------------------------------------------
+    # 1a. Validate JSON syntax first
+    # -------------------------------------------
+    local jq_error
+    jq_error=$(echo "$config" | jq empty 2>&1)
+    if [ $? -ne 0 ]; then
+        error "[$full_path] Invalid JSON syntax in Intuned.jsonc"
+        error "[$full_path] JSON error: $jq_error"
+        error "[$full_path] Fix: Check for trailing commas, missing braces, or other syntax errors in $dir/Intuned.jsonc"
+        return
+    fi
+    success "[$full_path] JSON syntax is valid"
+
+    # -------------------------------------------
     # 1b. Check for workspaceId field (should not be committed)
     # -------------------------------------------
     local workspace_id
     workspace_id=$(echo "$config" | jq -r '.workspaceId // empty' 2>/dev/null || echo "")
 
     if [[ -n "$workspace_id" && "$workspace_id" != "null" ]]; then
-        error "[$template_name] Intuned.jsonc contains 'workspaceId' field - this should not be committed"
+        error "[$full_path] Intuned.jsonc contains 'workspaceId' field - this should not be committed"
+        error "[$full_path] Quick fix: jq 'del(.workspaceId)' $dir/Intuned.jsonc | sponge $dir/Intuned.jsonc"
     else
-        success "[$template_name] No workspaceId field found"
+        success "[$full_path] No workspaceId field found"
     fi
 
     # -------------------------------------------
@@ -105,12 +121,13 @@ validate_template() {
     meta_name=$(echo "$config" | jq -r '.metadata.template.name // empty' 2>/dev/null || echo "")
 
     if [[ -z "$meta_name" ]]; then
-        error "[$template_name] Missing metadata.template.name in Intuned.jsonc"
+        error "[$full_path] Missing metadata.template.name in Intuned.jsonc"
+        error "[$full_path] Add this field to metadata.template section in $dir/Intuned.jsonc"
     else
         if ! validate_template_name "$meta_name"; then
-            error "[$template_name] metadata.template.name '$meta_name' must be lowercase with hyphens only (e.g., 'my-template')"
+            error "[$full_path] metadata.template.name '$meta_name' must be lowercase with hyphens only (e.g., 'my-template')"
         else
-            success "[$template_name] metadata.template.name is valid: $meta_name"
+            success "[$full_path] metadata.template.name is valid: $meta_name"
         fi
     fi
 
@@ -121,9 +138,10 @@ validate_template() {
     meta_desc=$(echo "$config" | jq -r '.metadata.template.description // empty' 2>/dev/null || echo "")
 
     if [[ -z "$meta_desc" ]]; then
-        error "[$template_name] Missing metadata.template.description in Intuned.jsonc"
+        error "[$full_path] Missing metadata.template.description in Intuned.jsonc"
+        error "[$full_path] Add this field to metadata.template section in $dir/Intuned.jsonc"
     else
-        success "[$template_name] metadata.template.description is set"
+        success "[$full_path] metadata.template.description is set"
     fi
 
     # -------------------------------------------
@@ -133,14 +151,14 @@ validate_template() {
     meta_tags=$(echo "$config" | jq -r '.metadata.tags // empty' 2>/dev/null || echo "")
 
     if [[ -z "$meta_tags" || "$meta_tags" == "null" ]]; then
-        warning "[$template_name] metadata.tags is not set (recommended for categorization)"
+        warning "[$full_path] metadata.tags is not set (recommended for categorization)"
     else
         local tags_count
         tags_count=$(echo "$config" | jq '.metadata.tags | length' 2>/dev/null || echo "0")
         if [[ "$tags_count" -eq 0 ]]; then
-            warning "[$template_name] metadata.tags is empty (recommended for categorization)"
+            warning "[$full_path] metadata.tags is empty (recommended for categorization)"
         else
-            success "[$template_name] metadata.tags is set with $tags_count tag(s)"
+            success "[$full_path] metadata.tags is set with $tags_count tag(s)"
         fi
     fi
 
@@ -158,26 +176,26 @@ validate_template() {
         has_apiName_key=$(echo "$config" | jq '.metadata.defaultRunPlaygroundInput | has("apiName")' 2>/dev/null || echo "false")
 
         if [[ "$has_api_key" == "true" ]]; then
-            error "[$template_name] metadata.defaultRunPlaygroundInput uses 'api' key - should be 'apiName'"
+            error "[$full_path] metadata.defaultRunPlaygroundInput uses 'api' key - should be 'apiName'"
         elif [[ "$has_apiName_key" == "true" ]]; then
-            success "[$template_name] metadata.defaultRunPlaygroundInput uses correct 'apiName' key"
+            success "[$full_path] metadata.defaultRunPlaygroundInput uses correct 'apiName' key"
 
             # Validate that the referenced API actually exists
             local referenced_api
             referenced_api=$(echo "$config" | jq -r '.metadata.defaultRunPlaygroundInput.apiName // empty' 2>/dev/null || echo "")
             if [[ -n "$referenced_api" ]]; then
                 if [[ ! -f "$dir/api/$referenced_api.$ext" ]]; then
-                    error "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references non-existent API (expected: api/$referenced_api.$ext)"
+                    error "[$full_path] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references non-existent API (expected: api/$referenced_api.$ext)"
                 else
-                    success "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references existing API"
+                    success "[$full_path] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references existing API"
                 fi
             fi
         else
-            warning "[$template_name] metadata.defaultRunPlaygroundInput is set but missing 'apiName' key"
+            warning "[$full_path] metadata.defaultRunPlaygroundInput is set but missing 'apiName' key"
         fi
     else
         # Warn if defaultRunPlaygroundInput is missing (useful for templates to set a default)
-        warning "[$template_name] metadata.defaultRunPlaygroundInput is not set (recommended to specify default API for playground)"
+        warning "[$full_path] metadata.defaultRunPlaygroundInput is not set (recommended to specify default API for playground)"
     fi
 
     # -------------------------------------------
@@ -193,55 +211,58 @@ validate_template() {
     api_access=$(echo "$config" | jq '.apiAccess.enabled' 2>/dev/null || echo "null")
 
     if [[ "$api_access" == "null" && "$auth_enabled" == "true" ]]; then
-        error "[$template_name] apiAccess.enabled is not explicitly set in Intuned.jsonc (required when auth is enabled)"
+        error "[$full_path] apiAccess.enabled is not explicitly set in Intuned.jsonc (required when auth is enabled)"
     elif [[ "$api_access" != "null" ]]; then
-        success "[$template_name] apiAccess.enabled is set to: $api_access"
+        success "[$full_path] apiAccess.enabled is set to: $api_access"
     fi
 
     if [[ "$auth_enabled" == "true" ]]; then
-        info "[$template_name] Auth sessions are enabled"
+        info "[$full_path] Auth sessions are enabled"
 
         # Check testAuthSessionInput exists
         local test_auth_input
         test_auth_input=$(echo "$config" | jq '.metadata.testAuthSessionInput // empty' 2>/dev/null || echo "")
         if [[ -z "$test_auth_input" || "$test_auth_input" == "{}" || "$test_auth_input" == "null" ]]; then
-            warning "[$template_name] authSessions.enabled=true but metadata.testAuthSessionInput is not set"
+            warning "[$full_path] authSessions.enabled=true but metadata.testAuthSessionInput is not set"
         else
-            success "[$template_name] metadata.testAuthSessionInput is set"
+            success "[$full_path] metadata.testAuthSessionInput is set"
         fi
 
         # Check auth-sessions/check exists
         if [[ ! -f "$dir/auth-sessions/check.$ext" ]]; then
-            error "[$template_name] authSessions.enabled=true but auth-sessions/check.$ext is missing"
+            error "[$full_path] authSessions.enabled=true but auth-sessions/check.$ext is missing"
+            error "[$full_path] Create file: $dir/auth-sessions/check.$ext"
         else
-            success "[$template_name] auth-sessions/check.$ext exists"
+            success "[$full_path] auth-sessions/check.$ext exists"
         fi
 
         # Check auth-sessions/create exists
         if [[ ! -f "$dir/auth-sessions/create.$ext" ]]; then
-            error "[$template_name] authSessions.enabled=true but auth-sessions/create.$ext is missing"
+            error "[$full_path] authSessions.enabled=true but auth-sessions/create.$ext is missing"
+            error "[$full_path] Create file: $dir/auth-sessions/create.$ext"
         else
-            success "[$template_name] auth-sessions/create.$ext exists"
+            success "[$full_path] auth-sessions/create.$ext exists"
         fi
 
         # Check auth-sessions-instances directory
         if [[ ! -d "$dir/auth-sessions-instances/test-auth-session" ]]; then
-            error "[$template_name] auth-sessions-instances/test-auth-session/ directory is missing (run 'intuned run authsession create .parameters/auth-sessions/create/default.json --id test-auth-session' to create it)"
+            error "[$full_path] auth-sessions-instances/test-auth-session/ directory is missing"
+            error "[$full_path] Run: cd $dir && intuned run authsession create .parameters/auth-sessions/create/default.json --id test-auth-session"
         else
-            success "[$template_name] auth-sessions-instances/test-auth-session/ exists"
+            success "[$full_path] auth-sessions-instances/test-auth-session/ exists"
         fi
 
         # Check .parameters/auth-sessions
         if [[ ! -f "$dir/.parameters/auth-sessions/check/default.json" ]]; then
-            error "[$template_name] Missing .parameters/auth-sessions/check/default.json"
+            error "[$full_path] Missing .parameters/auth-sessions/check/default.json"
         else
-            success "[$template_name] .parameters/auth-sessions/check/default.json exists"
+            success "[$full_path] .parameters/auth-sessions/check/default.json exists"
         fi
 
         if [[ ! -f "$dir/.parameters/auth-sessions/create/default.json" ]]; then
-            error "[$template_name] Missing .parameters/auth-sessions/create/default.json"
+            error "[$full_path] Missing .parameters/auth-sessions/create/default.json"
         else
-            success "[$template_name] .parameters/auth-sessions/create/default.json exists"
+            success "[$full_path] .parameters/auth-sessions/create/default.json exists"
         fi
     fi
 
@@ -249,9 +270,10 @@ validate_template() {
     # 6. Check .parameters/api folder structure
     # -------------------------------------------
     if [[ ! -d "$dir/.parameters/api" ]]; then
-        error "[$template_name] Missing .parameters/api/ directory"
+        error "[$full_path] Missing .parameters/api/ directory"
+        error "[$full_path] Create directory: mkdir -p $dir/.parameters/api"
     else
-        success "[$template_name] .parameters/api/ directory exists"
+        success "[$full_path] .parameters/api/ directory exists"
 
         # Check each API has corresponding parameters (including nested APIs)
         # Also validate API filenames use kebab-case
@@ -269,21 +291,24 @@ validate_template() {
 
                 # Validate API filename is kebab-case
                 if ! validate_api_name "$api_filename"; then
-                    error "[$template_name] API filename '$api_filename' must be kebab-case (lowercase letters, numbers, and hyphens, e.g., 'get-user.$ext' or '01-intro.$ext')"
+                    error "[$full_path] API filename '$api_filename' must be kebab-case (lowercase letters, numbers, and hyphens)"
+                    error "[$full_path] Example: 'get-user.$ext' or '01-intro.$ext' | File: $api_file"
                 else
-                    success "[$template_name] API filename '$api_filename' uses correct kebab-case format"
+                    success "[$full_path] API filename '$api_filename' uses correct kebab-case format"
                 fi
 
                 # Check that at least one parameter file exists (not necessarily default.json)
                 if [[ ! -d "$dir/.parameters/api/$relative_path" ]]; then
-                    error "[$template_name] API '$relative_path' missing .parameters/api/$relative_path/ directory"
+                    error "[$full_path] API '$relative_path' missing .parameters/api/$relative_path/ directory"
+                    error "[$full_path] Create: mkdir -p $dir/.parameters/api/$relative_path && echo '{}' > $dir/.parameters/api/$relative_path/default.json"
                 else
                     local param_count
                     param_count=$(find "$dir/.parameters/api/$relative_path" -maxdepth 1 -type f -name "*.json" 2>/dev/null | wc -l)
                     if [[ "$param_count" -eq 0 ]]; then
-                        error "[$template_name] API '$relative_path' has no parameter files in .parameters/api/$relative_path/"
+                        error "[$full_path] API '$relative_path' has no parameter files in .parameters/api/$relative_path/"
+                        error "[$full_path] Create: echo '{}' > $dir/.parameters/api/$relative_path/default.json"
                     else
-                        success "[$template_name] .parameters/api/$relative_path/ has $param_count parameter file(s)"
+                        success "[$full_path] .parameters/api/$relative_path/ has $param_count parameter file(s)"
                     fi
                 fi
             done < <(find "$dir/api" -type f -name "*.$ext" 2>/dev/null)
@@ -303,7 +328,7 @@ validate_template() {
 
             # Check if corresponding API file exists
             if [[ ! -f "$dir/api/$param_path.$ext" ]]; then
-                warning "[$template_name] Parameter directory '.parameters/api/$param_path/' has no corresponding API"
+                warning "[$full_path] Parameter directory '.parameters/api/$param_path/' has no corresponding API file"
             fi
         done < <(find "$dir/.parameters/api" -mindepth 1 -type d 2>/dev/null)
     fi
@@ -314,32 +339,33 @@ validate_template() {
     if [[ -f "$dir/README.md" ]]; then
         # Check for Intuned.json reference (should be Intuned.jsonc)
         if grep -q "intuned\.json" "$dir/README.md" 2>/dev/null || grep -q "Intuned\.json[^c]" "$dir/README.md" 2>/dev/null; then
-            warning "[$template_name] README.md references 'Intuned.json' - should be 'Intuned.jsonc'"
+            warning "[$full_path] README.md references 'Intuned.json' - should be 'Intuned.jsonc'"
         fi
 
         # Check for inline JSON in run commands
         if grep -E "intuned run .+ '\{\}'" "$dir/README.md" 2>/dev/null || grep -E 'intuned run .+ "\{\}"' "$dir/README.md" 2>/dev/null; then
-            warning "[$template_name] README.md uses inline JSON '{}' - should use .parameters/ paths"
+            warning "[$full_path] README.md uses inline JSON '{}' - should use .parameters/ paths"
         fi
 
         # Check for unsubstituted template placeholders in run commands
         if grep -E "<api-name>|<parameters>" "$dir/README.md" 2>/dev/null; then
-            error "[$template_name] README.md contains placeholder '<api-name>' or '<parameters>' - add run examples for all APIs using .parameters/api/{api-name}/default.json paths"
+            error "[$full_path] README.md contains placeholder '<api-name>' or '<parameters>'"
+            error "[$full_path] Add concrete run examples using .parameters/api/{api-name}/default.json paths"
         fi
 
         # Check for poetry/pip references in Python projects (should use uv)
         if [[ "$lang" == "python" ]]; then
             if grep -qiE '\bpoetry\b' "$dir/README.md" 2>/dev/null; then
-                error "[$template_name] README.md references 'poetry' - should use 'uv' instead"
+                error "[$full_path] README.md references 'poetry' - should use 'uv' instead"
             fi
             if grep -qiE '\bpip install\b' "$dir/README.md" 2>/dev/null; then
-                error "[$template_name] README.md references 'pip install' - should use 'uv' instead"
+                error "[$full_path] README.md references 'pip install' - should use 'uv' instead"
             fi
         fi
 
-        success "[$template_name] README.md exists"
+        success "[$full_path] README.md exists"
     else
-        warning "[$template_name] README.md is missing"
+        warning "[$full_path] README.md is missing"
     fi
 }
 
