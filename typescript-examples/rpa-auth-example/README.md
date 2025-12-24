@@ -74,19 +74,19 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ### Update an existing auth session
 ```bash
 # npm
-npm run intuned run authsession update <auth-session-id>
+npm run intuned run authsession update test-auth-session
 
 # yarn
-yarn intuned run authsession update <auth-session-id>
+yarn intuned run authsession update test-auth-session
 ```
 
 ### Validate an auth session
 ```bash
 # npm
-npm run intuned run authsession validate <auth-session-id>
+npm run intuned run authsession validate test-auth-session
 
 # yarn
-yarn intuned run authsession validate <auth-session-id>
+yarn intuned run authsession validate test-auth-session
 ```
 
 

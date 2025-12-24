@@ -1,8 +1,12 @@
-from typing import Optional, List
+from typing import TypedDict, List
 from playwright.async_api import Page
 from intuned_browser import go_to_url
 
 from utils.types_and_schemas import Contract
+
+
+class Params(TypedDict):
+    pass
 
 
 async def extract_contracts_from_table(page: Page) -> List[Contract]:
@@ -71,8 +75,8 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
     return contracts
 
 
-async def handler(
-    page: Page, params: Optional[dict] = None, **_kwargs
+async def automation(
+    page: Page, params: Params | None = None, **_kwargs
 ) -> List[Contract]:
     # Navigate to the contracts list authentication page
     await go_to_url(
