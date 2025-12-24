@@ -15,7 +15,8 @@
     "metadata": {
       "template": {
         "name": "e-commerece-shopify",
-        "description": "Shopify store product scraper"
+        "description": "Shopify store product scraper",
+        "tags": ["web-scraping", "shopify", "e-commerce", "api-based"]
       },
       "defaultRunPlaygroundInput": {
         "apiName": "shopify-list",
