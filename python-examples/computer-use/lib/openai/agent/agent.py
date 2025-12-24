@@ -11,7 +11,7 @@ class Agent:
 
     def __init__(
         self,
-        model="computer-use-preview",
+        model="computer-use-preview-2025-03-11",
         api_key: str = None,
         base_url: str = None,
         computer: Computer = None,

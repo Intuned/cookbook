@@ -68,6 +68,13 @@ Uses the Browser Use library which provides DOM-based automation with built-in t
 uv sync
 ```
 
+### Environment Variables
+
+The Gemini Computer Use implementation requires `GEMINI_API_KEY`:
+```bash
+export GEMINI_API_KEY=your_api_key_here
+```
+
 ### Run an API
 ```bash
 # Anthropic Computer Use

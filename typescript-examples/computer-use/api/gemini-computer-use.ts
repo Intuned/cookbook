@@ -1,5 +1,5 @@
 import z from "zod";
-import type { Stagehand } from "@browserbasehq/stagehand";
+import { Stagehand } from "@browserbasehq/stagehand";
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore } from "@intuned/runtime";
 
@@ -7,10 +7,19 @@ interface Params {
   query: string;  // The task you want the AI to perform
 }
 
+async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  const versionUrl = cdpUrl.endsWith("/")
+    ? `${cdpUrl}json/version`
+    : `${cdpUrl}/json/version`;
+  const response = await fetch(versionUrl);
+  const data = await response.json();
+  return data.webSocketDebuggerUrl;
+}
+
 export default async function handler(
   params: Params,
   page: Page,
-  _: BrowserContext,
+  _context: BrowserContext,
 ) {
   const { query } = params;
 
@@ -26,22 +35,44 @@ export default async function handler(
 
   const model = 'google/gemini-2.5-computer-use-preview-10-2025';
 
-  const stagehand: Stagehand = attemptStore.get("stagehand");
+  // Get CDP URL and convert to WebSocket URL
+  const cdpUrl = attemptStore.get("cdpUrl") as string;
+  const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
-  const agent = stagehand.agent({
-    cua: true, // CUA agent.
-    model: {
-        modelName: model,
+  // Initialize Stagehand with Gemini CUA
+  const stagehand = new Stagehand({
+    env: "LOCAL",
+    localBrowserLaunchOptions: {
+      cdpUrl: webSocketUrl,
+      viewport: { width: 1280, height: 800 },
     },
-    systemPrompt: "You are a helpful assistant that can use a web browser.",
+    logger: console.log,
   });
 
-  const result = await agent.execute({
-    instruction: query,
-    maxSteps: 50,
-  });
-  return {
-    result: result.success ? 'Task completed successfully' : 'Task failed',
-    success: result.success,
-  };
+  await stagehand.init();
+  console.log("\nInitialized 🤘 Stagehand with Gemini CUA");
+
+  try {
+    const agent = stagehand.agent({
+      cua: true, // Enable Computer Use API
+      model: {
+        modelName: model,
+      },
+      systemPrompt: "You are a helpful assistant that can use a web browser.",
+    });
+
+    const result = await agent.execute({
+      instruction: query,
+      maxSteps: 50,
+    });
+
+    return {
+      result: result.success ? 'Task completed successfully' : 'Task failed',
+      success: result.success,
+    };
+  } finally {
+    // Cleanup Stagehand
+    console.log("\nClosing 🤘 Stagehand...");
+    await stagehand.close();
+  }
 }
