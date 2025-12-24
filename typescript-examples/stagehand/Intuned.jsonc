@@ -15,13 +15,14 @@
   "metadata": {
     "template": {
       "name": "stagehand",
-      "description": "AI-powered browser automation using Stagehand library",
-      "tags": [
-        "Stagehand",
-        "AI",
-        "intuned-runtime-sdk",
-        "intuned-runtime-sdk-setup-context-hook"
-      ]
+      "description": "AI-powered browser automation using Stagehand library"
+    },
+    "tags": ["ai", "stagehand", "automation"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "get-books",
+      "parameters": {
+        "category": "Travel"
+      }
     }
   }
 }

@@ -16,6 +16,13 @@
     "template": {
       "name": "stagehand",
       "description": "AI-powered browser automation using Stagehand library"
+    },
+    "tags": ["ai", "stagehand", "automation"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "get-books",
+      "parameters": {
+        "category": "Travel"
+      }
     }
   }
 }

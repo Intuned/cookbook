@@ -1,24 +1,32 @@
-from playwright.async_api import Page
+# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/validate_data_using_schema
 from typing import TypedDict
+from playwright.async_api import Page
 from intuned_browser import validate_data_using_schema
-
 class Params(TypedDict):
     pass
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
-    user_data = {
-        "name": "John Doe",
-        "email": "john@example.com",
-        "age": 30
+    upload_data = {
+        "file": {
+            "file_name": "documents/report.pdf",
+            "bucket": "my-bucket",
+            "region": "us-east-1",
+            "key": "documents/report.pdf",
+            "endpoint": None,
+            "suggested_file_name": "Monthly Report.pdf",
+            "file_type": "document"
+        },
+        "name": "Test File Upload"
     }
-    user_schema = {
+    upload_schema = {
         "type": "object",
-        "required": ["name", "email", "age"],
+        "required": ["file", "name"],
         "properties": {
-            "name": {"type": "string", "minLength": 1},
-            "email": {"type": "string", "format": "email"},
-            "age": {"type": "number", "minimum": 0}
+            "file": {"type": "attachment"},
+            "name": {"type": "string"}
         }
     }
-    validate_data_using_schema(user_data, user_schema)
-    return "Data validated successfully"
+    validate_data_using_schema(upload_data, upload_schema)
+    # Validation passes with Attachment type, it also validates Pydantic Attachment type.
+    print("Validation passed")
+    return "Validation passed"

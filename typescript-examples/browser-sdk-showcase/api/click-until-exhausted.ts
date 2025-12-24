@@ -1,5 +1,6 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/clickUntilExhausted
 import { BrowserContext, Page } from "playwright";
-import { clickUntilExhausted, goToUrl } from "@intuned/browser";
+import { clickUntilExhausted } from "@intuned/browser";
 
 interface Params {
   // No params needed
@@ -10,21 +11,18 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
-  await goToUrl({ page, url: "https://careers.qualcomm.com/careers" });
+  await page.goto("https://sandbox.intuned.dev/load-more");
 
-  const buttonLocator = page.locator(
-    "xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']"
-  );
+  const loadMoreButton = page.locator("main main button");  // Select the main button in the main content area.
 
-  // Click on the button to load more content 5 times.
-  // Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/clickUntilExhausted for more details.
+  // Click until button disappears or is disabled
   await clickUntilExhausted({
     page,
-    buttonLocator,
-    maxClicks: 5,
+    buttonLocator: loadMoreButton,
+    maxClicks: 20,
   });
 
-  // Now all content is loaded and visible
+  // Will keep clicking the button until the button disappears or is disabled or the max_clicks is reached.
   return "Success";
 }
 

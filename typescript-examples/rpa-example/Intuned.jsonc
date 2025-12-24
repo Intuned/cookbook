@@ -16,6 +16,18 @@
     "template": {
       "name": "rpa-example",
       "description": "RPA example for booking consultations without authentication"
+    },
+    "tags": ["rpa", "automation", "forms"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "book-consultations",
+      "parameters": {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone": "1234567890",
+        "date": "2026-11-19",
+        "time": "10:00 AM",
+        "topic": "automation"
+      }
     }
   }
 }

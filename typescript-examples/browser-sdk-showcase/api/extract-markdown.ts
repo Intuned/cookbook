@@ -1,3 +1,4 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extractMarkdown
 import { BrowserContext, Page } from "playwright";
 import { extractMarkdown } from "@intuned/browser";
 
@@ -15,6 +16,7 @@ export default async function handler(
   const headerLocator = page.locator("h1");
   const markdown = await extractMarkdown({ source: headerLocator }); // Extract markdown from the header locator.
   
+  console.log("Markdown content of the header:");
   console.log(markdown);
   return markdown;
 }
