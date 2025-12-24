@@ -1,7 +1,7 @@
 """
 Adaptive crawling with embedding strategy (semantic understanding).
 
-Requires an API key for LLM-based query expansion.
+Uses Intuned AI Gateway for LLM-based query expansion.
 
 Based on: https://docs.crawl4ai.com/core/adaptive-crawling/
 """
@@ -9,13 +9,13 @@ Based on: https://docs.crawl4ai.com/core/adaptive-crawling/
 import os
 from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
+from intuned_runtime import get_ai_gateway_config
 from crawl4ai import AsyncWebCrawler, AdaptiveCrawler, AdaptiveConfig
 
 
 class Params(TypedDict, total=False):
     url: str
     query: str
-    api_key: str
     max_pages: int
     top_k: int
 
@@ -34,14 +34,12 @@ async def automation(
     if not query:
         return {"success": False, "error": "query parameter is required"}
 
-    api_key = params.get("api_key")
-    if not api_key:
-        return {
-            "success": False,
-            "error": "OpenAI api_key parameter is required for embedding strategy",
-        }
+    # Get AI gateway config
+    base_url, api_key = get_ai_gateway_config()
 
+    # Set OpenAI environment variables for crawl4ai
     os.environ["OPENAI_API_KEY"] = api_key
+    os.environ["OPENAI_API_BASE"] = base_url
 
     max_pages = params.get("max_pages", 20)
     top_k = params.get("top_k", 5)

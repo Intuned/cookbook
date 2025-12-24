@@ -2,6 +2,5 @@
   "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
   "query": "python programming history features",
   "max_pages": 10,
-  "top_k": 3,
-  "api_key": "your api key"
+  "top_k": 3
 }

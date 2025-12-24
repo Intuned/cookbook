@@ -1,7 +1,7 @@
 from playwright.async_api import Page
 from typing import TypedDict
-import os
 import datetime
+from intuned_runtime import get_ai_gateway_config
 from lib.openai.computers.playwright_computer import PlaywrightComputer
 from lib.openai.agent import Agent
 
@@ -13,11 +13,9 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
-    
-    # Get API key from environment
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY environment variable is required")
+
+    # Get AI gateway config
+    base_url, api_key = get_ai_gateway_config()
     
     # Hardcoded model
     model = "computer-use-preview"
@@ -35,6 +33,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     agent = Agent(
         model=model,
         api_key=api_key,
+        base_url=base_url,
         computer=computer,
         tools=[],  # can provide additional tools to the agent
         acknowledge_safety_check_callback=lambda message: (

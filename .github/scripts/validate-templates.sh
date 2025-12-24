@@ -9,14 +9,18 @@ NC='\033[0m' # No Color
 
 ERRORS=0
 WARNINGS=0
+declare -a ERROR_MESSAGES=()
+declare -a WARNING_MESSAGES=()
 
 error() {
     echo -e "${RED}ERROR:${NC} $1"
+    ERROR_MESSAGES+=("$1")
     ERRORS=$((ERRORS + 1))
 }
 
 warning() {
     echo -e "${YELLOW}WARNING:${NC} $1"
+    WARNING_MESSAGES+=("$1")
     WARNINGS=$((WARNINGS + 1))
 }
 
@@ -157,9 +161,23 @@ validate_template() {
             error "[$template_name] metadata.defaultRunPlaygroundInput uses 'api' key - should be 'apiName'"
         elif [[ "$has_apiName_key" == "true" ]]; then
             success "[$template_name] metadata.defaultRunPlaygroundInput uses correct 'apiName' key"
+
+            # Validate that the referenced API actually exists
+            local referenced_api
+            referenced_api=$(echo "$config" | jq -r '.metadata.defaultRunPlaygroundInput.apiName // empty' 2>/dev/null || echo "")
+            if [[ -n "$referenced_api" ]]; then
+                if [[ ! -f "$dir/api/$referenced_api.$ext" ]]; then
+                    error "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references non-existent API (expected: api/$referenced_api.$ext)"
+                else
+                    success "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references existing API"
+                fi
+            fi
         else
             warning "[$template_name] metadata.defaultRunPlaygroundInput is set but missing 'apiName' key"
         fi
+    else
+        # Warn if defaultRunPlaygroundInput is missing (useful for templates to set a default)
+        warning "[$template_name] metadata.defaultRunPlaygroundInput is not set (recommended to specify default API for playground)"
     fi
 
     # -------------------------------------------
@@ -534,6 +552,30 @@ echo "  Validation Summary"
 echo "============================================"
 echo -e "Errors:   ${RED}$ERRORS${NC}"
 echo -e "Warnings: ${YELLOW}$WARNINGS${NC}"
+
+# Display all errors
+if [[ $ERRORS -gt 0 ]]; then
+    echo ""
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${RED}All Errors:${NC}"
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    for i in "${!ERROR_MESSAGES[@]}"; do
+        echo -e "${RED}$((i + 1)).${NC} ${ERROR_MESSAGES[$i]}"
+    done
+    echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+fi
+
+# Display all warnings
+if [[ $WARNINGS -gt 0 ]]; then
+    echo ""
+    echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${YELLOW}All Warnings:${NC}"
+    echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    for i in "${!WARNING_MESSAGES[@]}"; do
+        echo -e "${YELLOW}$((i + 1)).${NC} ${WARNING_MESSAGES[$i]}"
+    done
+    echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+fi
 
 if [[ $ERRORS -gt 0 ]]; then
     echo ""

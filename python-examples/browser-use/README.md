@@ -54,7 +54,7 @@ uv sync
 
 ### Run the API Locally
 ```bash
-uv run intuned run api purchase-item .parameters/api/book_room/default.json
+uv run intuned run api purchase-item .parameters/api/purchase-item/default.json
 ```
 
 ### Deploy to Intuned
@@ -69,8 +69,9 @@ uv run intuned deploy
 │   └── purchase-item.py          # Main API handler
 ├── hooks/
 │   └── setup_context.py      # Browser Use integration setup
-├── ____testParameters/
-│   └── purchase-item.json        # Test parameters
+├── .parameters/api/
+│   └── purchase-item/
+│       └── default.json          # Test parameters
 ├── Intuned.jsonc             # Intuned project configuration
 └── pyproject.toml            # Dependencies
 ```

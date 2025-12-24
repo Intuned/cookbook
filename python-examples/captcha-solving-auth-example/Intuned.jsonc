@@ -1,4 +1,5 @@
 {
+  
   "projectName": "captcha-solving-auth-example",
   "apiAccess": {
     "enabled": true

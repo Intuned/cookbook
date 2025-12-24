@@ -1,5 +1,6 @@
 import z from "zod";
 import { BrowserContext, Page } from "playwright";
+import { getAiGatewayConfig } from "@intuned/runtime";
 import { samplingLoop } from "../lib/anthropic/sampling-loop";
 
 interface Params {
@@ -17,11 +18,8 @@ export default async function handler(
     throw new Error('Query is required');
   }
 
-  // Get API key from environment
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error('ANTHROPIC_API_KEY environment variable is required');
-  }
+  // Get AI gateway config
+  const { apiKey, baseUrl } = await getAiGatewayConfig();
 
   // Hardcoded configuration
   const model = 'claude-sonnet-4-5';
@@ -43,6 +41,7 @@ export default async function handler(
         content: query,
       }],
       apiKey,
+      baseURL: baseUrl,
       thinkingBudget,
       maxTokens,
       playwrightPage: page,

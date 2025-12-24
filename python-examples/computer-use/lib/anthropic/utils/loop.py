@@ -77,6 +77,7 @@ async def sampling_loop(
     model: str,
     messages: list[BetaMessageParam],
     api_key: str,
+    base_url: str | None = None,
     provider: APIProvider = APIProvider.ANTHROPIC,
     system_prompt_suffix: str = "",
     only_n_most_recent_images: int | None = None,
@@ -120,7 +121,7 @@ async def sampling_loop(
         if token_efficient_tools_beta:
             betas.append("token-efficient-tools-2025-02-19")
         image_truncation_threshold = only_n_most_recent_images or 0
-        client = Anthropic(api_key=api_key, max_retries=4)
+        client = Anthropic(api_key=api_key, base_url=base_url, max_retries=4)
         enable_prompt_caching = True
 
         if enable_prompt_caching:
