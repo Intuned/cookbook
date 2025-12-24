@@ -113,4 +113,4 @@ yarn intuned deploy
 ## Related
 
 - [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/overview)

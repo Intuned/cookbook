@@ -1,6 +1,6 @@
 # Hybrid Automation
 
-This example demonstrates **hybrid automation** - a flexible approach that combines the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview) (`@intuned/browser`) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extractStructuredData`. This gives you the speed and reliability of traditional automation with the adaptability of AI when needed.
+This example demonstrates **hybrid automation** - a flexible approach that combines the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview) (`@intuned/browser`) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extractStructuredData`. This gives you the speed and reliability of traditional automation with the adaptability of AI when needed.
 
 ## Run on Intuned
 
@@ -85,6 +85,6 @@ utils/crawler/                    # Crawler utilities
 ## Learn More
 
 - [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Extract Structured Data](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extractStructuredData)
 - [Stagehand act/extract/observe](https://docs.stagehand.dev/v2/basics/act)

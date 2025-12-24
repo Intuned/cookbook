@@ -12,7 +12,12 @@
   "metadata": {
     "template": {
       "name": "e-commerce-scrapingcourse",
-      "description": "Basic e-commerce scraper using scrapingcourse.com"
+      "description": "Basic e-commerce scraper using scrapingcourse.com",
+      "tags": ["web-scraping", "e-commerce", "pagination", "jobs"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list",
+      "parameters": {}
     },
     "defaultJobInput": {
       "configuration": {

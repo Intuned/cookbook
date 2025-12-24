@@ -73,7 +73,7 @@ yarn intuned deploy
 
 ### `@intuned/browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -116,4 +116,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Pagination Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/pagination)
 - [Upload Files Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/upload-files)
 - [Capture Screenshots Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/capture-screenshots)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

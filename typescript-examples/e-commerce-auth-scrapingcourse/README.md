@@ -226,4 +226,4 @@ This project uses the Intuned browser SDK for enhanced reliability:
 - **`saveFileToS3`**: Automatically upload images and files to S3 storage
 - **`extendPayload`**: Trigger additional API calls dynamically (used to trigger `details` API for each product)
 
-For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
