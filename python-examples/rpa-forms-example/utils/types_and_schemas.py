@@ -113,6 +113,9 @@ class Vehicle(BaseModel):
     miles_driven_one_way: int | None = Field(
         default=None, description="The number of miles driven one way"
     )
+    model_details: str | None = Field(
+        ..., description="The details of the model of the vehicle"
+    )
 
 
 # ---------- Root Model ----------

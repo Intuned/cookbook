@@ -9,15 +9,16 @@ class InvalidActionError(Exception):
 
 
 async def perform_action(page: Page, instruction: str) -> None:
-    action = await page.observe(instruction)
-    if action:
-        await page.act(action[0])
-        await page.wait_for_load_state("domcontentloaded")
-        await page.wait_for_timeout(2000)
-    else:
-        raise InvalidActionError(
-            f"Could not find action for instruction: {instruction}"
-        )
+    for _ in range(3):
+        action = await page.observe(instruction)
+        if action:
+            await page.act(action[0])
+            await page.wait_for_load_state("domcontentloaded")
+            await page.wait_for_timeout(2000)
+            return
+        else:
+            await page.wait_for_timeout(2000)
+    raise InvalidActionError(f"Could not find action for instruction: {instruction}")
 
 
 async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: ...):
@@ -107,6 +108,10 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
     await perform_action(
         stagehand.page,
         f"Select the model {params.vehicle.model} from the model dropdown",
+    )
+    await perform_action(
+        stagehand.page,
+        f"Fill in the model details {params.vehicle.model_details} in the model details field if not already filled",
     )
     await perform_action(stagehand.page, "Click the Continue button")
 
