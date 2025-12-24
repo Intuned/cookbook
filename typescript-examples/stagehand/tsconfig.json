@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "target": "ES2021",
     "outDir": "./dist",
     "sourceMap": false,
     "declaration": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true
   },
   "include": [
     "**/*.ts"
