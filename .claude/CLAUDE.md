@@ -195,6 +195,7 @@ base_url, api_key = get_ai_gateway_config()
 ```
 
 **Key points:**
+- **Requires latest runtime**: Upgrade to the latest `@intuned/runtime` (TypeScript) or `intuned-runtime` (Python) to use this feature
 - Python: Returns a tuple `(base_url, api_key)` - use tuple unpacking
 - TypeScript: Returns an object with `baseUrl` and `apiKey` properties
 - Templates should use this gateway instead of requiring users to provide their own AI provider keys

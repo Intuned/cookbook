@@ -18,7 +18,7 @@
       "description": "Web scraping example using JSDOM for HTML parsing"
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "jsdom-example",
+      "apiName": "list",
       "parameters": {
         "url": "https://www.scrapingcourse.com/ecommerce/"
       }

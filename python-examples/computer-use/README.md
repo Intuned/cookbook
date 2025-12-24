@@ -30,45 +30,25 @@ Uses the Browser Use library for agentic browser automation with DOM-based inter
 
 Claude-powered automation using native computer use tools.
 
-**Parameters**:
-```json
-{
-  "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books"
-}
-```
+**Parameters**: See `.parameters/api/anthropic-computer-use/default.json`
 
 ### OpenAI Operator API (`api/openai-computer-use.py`)
 
 OpenAI's Operator model for autonomous browser control.
 
-**Parameters**:
-```json
-{
-  "query": "Go to https://books.toscrape.com and find me the cheapest book in the Travel category"
-}
-```
+**Parameters**: See `.parameters/api/openai-computer-use/default.json`
 
 ### Gemini Computer Use (`api/gemini-computer-use.py`)
 
 Google's Gemini with Stagehand for enhanced computer use automation.
 
-**Parameters**:
-```json
-{
-  "query": "Go to https://books.toscrape.com, find the most expensive book on the first page"
-}
-```
+**Parameters**: See `.parameters/api/gemini-computer-use/default.json`
 
-### Browser Use (`api/browser-use-template.py`)
+### Browser Use (`api/browser-use.py`)
 
 Browser Use library for agentic browser automation.
 
-**Parameters**:
-```json
-{
-  "query": "Go to https://automationintesting.online. Fill in check-in date 25/12/2025 and check-out date 27/12/2025"
-}
-```
+**Parameters**: See `.parameters/api/browser-use/default.json`
 
 ## How It Works
 
@@ -88,28 +68,19 @@ Uses the Browser Use library which provides DOM-based automation with built-in t
 uv sync
 ```
 
-### Set Up Environment Variables
-Create a `.env` file with your API keys:
-```bash
-INTUNED_API_KEY=your_intuned_api_key_here
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-GEMINI_API_KEY=your_google_api_key_here
-```
-
 ### Run an API
 ```bash
 # Anthropic Computer Use
-uv run intuned run api anthropic-computer-use '{"query":"Go to https://books.toscrape.com, navigate to Science Fiction"}'
+uv run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
 
 # OpenAI Operator API
-uv run intuned run api openai-computer-use '{"query":"Go to https://books.toscrape.com and find the cheapest book"}'
+uv run intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
 
 # Gemini Computer Use
-uv run intuned run api gemini-computer-use '{"query":"Go to https://books.toscrape.com, find the most expensive book"}'
+uv run intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
 
 # Browser Use
-uv run intuned run api browser-use-template '{"query":"Go to https://automationintesting.online"}'
+uv run intuned run api browser-use .parameters/api/browser-use/default.json
 ```
 
 ### Deploy to Intuned
@@ -124,9 +95,18 @@ uv run intuned deploy
 │   ├── anthropic-computer-use.py   # Anthropic Claude computer use
 │   ├── openai-computer-use.py      # OpenAI Operator API
 │   ├── gemini-computer-use.py      # Gemini with Stagehand
-│   └── browser-use-template.py     # Browser Use
+│   └── browser-use.py              # Browser Use
 ├── hooks/
 │   └── setup_context.py            # Setup hook for Stagehand and Browser Use
+├── .parameters/api/                # Parameter files for each API
+│   ├── anthropic-computer-use/
+│   │   └── default.json
+│   ├── openai-computer-use/
+│   │   └── default.json
+│   ├── gemini-computer-use/
+│   │   └── default.json
+│   └── browser-use/
+│       └── default.json
 ├── lib/                            # Shared libraries for Anthropic and OpenAI
 ├── pyproject.toml                  # Dependencies
 └── Intuned.jsonc                   # Intuned configuration

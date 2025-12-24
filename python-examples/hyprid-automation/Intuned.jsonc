@@ -19,7 +19,7 @@
       "tags": ["intuned-browser-sdk"]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
+      "apiName": "hyprid-rpa/fill-form",
       "parameters": {}
     }
   }

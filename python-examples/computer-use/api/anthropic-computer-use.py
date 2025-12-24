@@ -1,7 +1,7 @@
 from playwright.async_api import Page
 from typing import TypedDict, Dict, NotRequired
+from intuned_runtime import get_ai_gateway_config
 from lib.anthropic.utils.loop import sampling_loop
-import os
 
 
 class Params(TypedDict):
@@ -11,14 +11,12 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
-    
-    # Get API key from environment
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise ValueError("ANTHROPIC_API_KEY environment variable is required")
+
+    # Get AI gateway config
+    base_url, api_key = get_ai_gateway_config()
     
     # Hardcoded model
-    model = "claude-sonnet-4-20250514"
+    model = "claude-haiku-4-5"
     
     # Set viewport size to match the computer tool's display dimensions
     await page.set_viewport_size({"width": 1280, "height": 720})
@@ -29,7 +27,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
             "role": "user",
             "content": params["query"],
         }],
-        api_key=str(api_key),
+        api_key=api_key,
+        base_url=base_url,
         thinking_budget=1024,
         playwright_page=page,
     )

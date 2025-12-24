@@ -157,9 +157,23 @@ validate_template() {
             error "[$template_name] metadata.defaultRunPlaygroundInput uses 'api' key - should be 'apiName'"
         elif [[ "$has_apiName_key" == "true" ]]; then
             success "[$template_name] metadata.defaultRunPlaygroundInput uses correct 'apiName' key"
+
+            # Validate that the referenced API actually exists
+            local referenced_api
+            referenced_api=$(echo "$config" | jq -r '.metadata.defaultRunPlaygroundInput.apiName // empty' 2>/dev/null || echo "")
+            if [[ -n "$referenced_api" ]]; then
+                if [[ ! -f "$dir/api/$referenced_api.$ext" ]]; then
+                    error "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references non-existent API (expected: api/$referenced_api.$ext)"
+                else
+                    success "[$template_name] metadata.defaultRunPlaygroundInput.apiName '$referenced_api' references existing API"
+                fi
+            fi
         else
             warning "[$template_name] metadata.defaultRunPlaygroundInput is set but missing 'apiName' key"
         fi
+    else
+        # Warn if defaultRunPlaygroundInput is missing (useful for templates to set a default)
+        warning "[$template_name] metadata.defaultRunPlaygroundInput is not set (recommended to specify default API for playground)"
     fi
 
     # -------------------------------------------

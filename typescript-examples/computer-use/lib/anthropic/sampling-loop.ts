@@ -54,6 +54,7 @@ export async function samplingLoop({
   systemPromptSuffix,
   messages,
   apiKey,
+  baseURL,
   onlyNMostRecentImages,
   maxTokens = 4096,
   toolVersion,
@@ -65,6 +66,7 @@ export async function samplingLoop({
   systemPromptSuffix?: string;
   messages: BetaMessageParam[];
   apiKey: string;
+  baseURL?: string;
   onlyNMostRecentImages?: number;
   maxTokens?: number;
   toolVersion?: ToolVersion;
@@ -92,7 +94,7 @@ export async function samplingLoop({
 
     let imageTruncationThreshold = onlyNMostRecentImages || 0;
 
-    const client = new Anthropic({ apiKey, maxRetries: 4 });
+    const client = new Anthropic({ apiKey, baseURL, maxRetries: 4 });
     const enablePromptCaching = true;
     
     if (enablePromptCaching) {

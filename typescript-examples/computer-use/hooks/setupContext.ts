@@ -1,5 +1,6 @@
-import { Stagehand } from "@browserbasehq/stagehand";
-import { attemptStore } from "@intuned/runtime";
+import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
+import { createOpenAI } from "@ai-sdk/openai";
+import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
 
 async function getWebSocketUrl(cdpUrl: string) {
   console.log("Getting web socket URL from cdpUrl:", cdpUrl);
@@ -19,25 +20,53 @@ export default async function setupContext({
   apiName: string;
   apiParameters: any;
 }) {
-  if (apiName === "api/stagehand" || apiName === "api/gemini-computer-use") {
+  if (apiName === "api/stagehand") {
+    // Stagehand API uses AI gateway for Anthropic models
     const webSocketUrl = await getWebSocketUrl(cdpUrl);
-  const stagehand = new Stagehand({
-    env: "LOCAL",
-    localBrowserLaunchOptions: {
-      cdpUrl: webSocketUrl,
-      viewport: {
-        width: 1280,
-        height: 800,
+
+    const { apiKey, baseUrl } = await getAiGatewayConfig();
+
+    const openai = createOpenAI({
+      apiKey,
+      baseURL: baseUrl,
+    });
+
+    const llmClient = new AISdkClient({
+      model: openai("gpt-4o"),
+    });
+
+    const stagehand = new Stagehand({
+      env: "LOCAL",
+      localBrowserLaunchOptions: {
+        cdpUrl: webSocketUrl,
+        viewport: {
+          width: 1280,
+          height: 800,
+        },
       },
-    },
-    
-    // this is needed since Stagehand uses pino which spawns a worker thread, which is not currently supported in Intuned
-    logger: console.log,
-  });
+      llmClient,
+      logger: console.log,
+    });
 
-  await stagehand.init();
+    await stagehand.init();
+    attemptStore.set("stagehand", stagehand);
+  } else if (apiName === "api/gemini-computer-use") {
+    // Gemini API uses environment variable for API key (AI gateway doesn't support Gemini yet)
+    const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
-  attemptStore.set("stagehand", stagehand);
-}
+    const stagehand = new Stagehand({
+      env: "LOCAL",
+      localBrowserLaunchOptions: {
+        cdpUrl: webSocketUrl,
+        viewport: {
+          width: 1280,
+          height: 800,
+        },
+      },
+      logger: console.log,
+    });
 
+    await stagehand.init();
+    attemptStore.set("stagehand", stagehand);
+  }
 }

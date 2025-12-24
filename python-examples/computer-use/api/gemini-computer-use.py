@@ -2,17 +2,18 @@ from typing import TypedDict, cast
 from intuned_runtime import attempt_store
 from stagehand import Stagehand, StagehandPage
 import os
+
 class Params(TypedDict):
     query: str  # The task you want the AI to perform
 
 async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: ...):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
-    
+
     api_key = os.getenv("GOOGLE_API_KEY")
     if not api_key:
         raise ValueError("API key is required. Set GOOGLE_API_KEY environment variable.")
-    
+
     stagehand = cast(Stagehand, attempt_store.get("stagehand"))
     
     print("Starting Computer Use Agent...")

@@ -18,7 +18,7 @@
       "description": "AI-powered browser automation using Claude's computer use capabilities"
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
+      "apiName": "anthropic-computer-use",
       "parameters": {}
     }
   }

@@ -1,7 +1,7 @@
 from playwright.async_api import Page
 from typing import TypedDict
 from browser_use import Agent, ChatOpenAI, Browser, Tools
-from intuned_runtime import attempt_store
+from intuned_runtime import attempt_store, get_ai_gateway_config
 
 
 class Params(TypedDict):
@@ -16,6 +16,10 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if params is None:
         raise Exception("params cannot be null")
+
+    # Get AI gateway config
+    base_url, api_key = get_ai_gateway_config()
+
     browser: Browser = attempt_store.get("browser")
 
     username = params.get("username")
@@ -36,7 +40,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 5. Proceed to checkout
 6. Fill in the checkout information: First Name: '{first_name}', Last Name: '{last_name}', Zip Code: '{zip_code}'
 7. Complete the purchase""",
-        llm=ChatOpenAI(model="gpt-5-nano", temperature=0),
+        llm=ChatOpenAI(model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key),
         flash_mode=True,
         tools=tools,
     )
