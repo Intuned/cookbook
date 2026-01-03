@@ -13,37 +13,25 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# npm
-npm install
-
-# yarn
-yarn
+uv sync
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 ```bash
-# npm
-npm run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
-
-# yarn
-yarn intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
+uv run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
 ```
 
 ### Deploy project
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+uv run intuned deploy
 ```
 
 
 
 
-### `@intuned/browser`: Intuned Browser SDK
+### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
@@ -55,11 +43,11 @@ The project structure is as follows:
 ```
 /
 ├── api/                      # Your API endpoints
-│   └── connect-to-cdp.ts     # CDP connection example
+│   └── connect-to-cdp.py     # CDP connection example
 ├── hooks/                    # Setup hooks that run before API execution
-│   └── setupContext.ts       # Captures CDP URL from Intuned runtime
+│   └── setup_context.py      # Captures CDP URL from Intuned runtime
 ├── utils/                    # Utility functions and schemas
-│   └── typesAndSchemas.ts    # Zod schemas and TypeScript types
+│   └── types_and_schemas.py  # Pydantic models and type definitions
 ├── .parameters/              # Parameter files for testing APIs
 │   └── api/                  # API parameters folder
 │       └── connect-to-cdp/   # Parameters for CDP connection API

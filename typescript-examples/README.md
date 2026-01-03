@@ -18,6 +18,8 @@ Intuned sample projects in TypeScript.
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [hybrid-automation](./hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
+| [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |
 | [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha |

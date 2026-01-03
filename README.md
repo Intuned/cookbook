@@ -17,6 +17,8 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerece-category](./typescript-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [hybrid-automation](./typescript-examples/hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./typescript-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
+| [cdp-connection](./typescript-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./typescript-examples/setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [jsdom-example](./typescript-examples/jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [network-interception](./typescript-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./typescript-examples/stagehand/) | AI-powered browser automation with Stagehand |
@@ -45,6 +47,8 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
 | [hyprid-automation](./python-examples/hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
+| [cdp-connection](./python-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./python-examples/setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [bs4-example](./python-examples/bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [scrapy-example](./python-examples/scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |
 | [network-interception](./python-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
