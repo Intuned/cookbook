@@ -13,7 +13,7 @@
   },
   "metadata": {
     "template": {
-      "name": "CDP Connection",
+      "name": "cdp-connection",
       "description": "Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP)"
     }
   }

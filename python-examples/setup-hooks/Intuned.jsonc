@@ -13,7 +13,7 @@
   },
   "metadata": {
     "template": {
-      "name": "Setup Hooks",
+      "name": "setup-hooks",
       "description": "Demonstrates how to use setup hooks to prepare data and configuration before API execution"
     }
   }
