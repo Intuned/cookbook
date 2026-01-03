@@ -13,8 +13,8 @@
   },
   "metadata": {
     "template": {
-      "name": "CDP Connection",
-      "description": "Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP)"
+      "name": "Setup Hooks",
+      "description": "Demonstrates how to use setup hooks to prepare data and configuration before API execution"
     }
   }
 }

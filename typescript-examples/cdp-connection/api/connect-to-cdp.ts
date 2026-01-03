@@ -1,5 +1,6 @@
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore } from "@intuned/runtime";
+import { goToUrl } from "@intuned/browser";
 import {
   connectToCdpParamsSchema,
   type ConnectToCdpParams,
@@ -103,25 +104,23 @@ export default async function handler(
 
   // Step 4: Navigate to a URL
   console.log(`\n✓ Navigating to: ${url}`);
-  await page.goto(url, { waitUntil: "networkidle" });
+  await goToUrl({
+    page,
+    url,
+  });
 
   // Step 5: Get page information
   const title = await page.title();
   const currentUrl = page.url();
-  const viewport = page.viewportSize();
 
   const pageInfo: PageInfo = {
     title,
-    url: currentUrl,
-    viewport: viewport || { width: 0, height: 0 },
+    url: currentUrl
   };
 
   console.log("\n✓ Page Information:");
   console.log(`  - Title: ${pageInfo.title}`);
   console.log(`  - URL: ${pageInfo.url}`);
-  console.log(
-    `  - Viewport: ${pageInfo.viewport.width}x${pageInfo.viewport.height}`
-  );
 
   console.log("\n✓ CDP connection successful!\n");
 

@@ -16,11 +16,7 @@ export const browserInfoSchema = z.object({
 // Page Info schema
 export const pageInfoSchema = z.object({
   title: z.string(),
-  url: z.string().url(),
-  viewport: z.object({
-    width: z.number(),
-    height: z.number(),
-  }),
+  url: z.string().url()
 });
 
 // WebDriver Info schema
