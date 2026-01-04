@@ -1,11 +1,11 @@
-from typing import Optional, List
-from playwright.async_api import Page
+
 from intuned_browser import go_to_url
-
+from playwright.async_api import Page
 from utils.types_and_schemas import Contract
+from typing import Optional, List
 
 
-async def extract_contracts_from_table(page: Page) -> List[Contract]:
+async def extract_contracts_from_table(page: Page) -> list[Contract]:
     # Wait for the table to be visible on the page
     # The table is wrapped in a div with rounded-md border classes
     table_container = page.locator("table").first
@@ -16,7 +16,7 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
     row_elements = await table_body.locator("tr").all()
 
     # Array to store all extracted contract data
-    contracts: List[Contract] = []
+    contracts: list[Contract] = []
 
     # Loop through each row to extract contract information
     for row in row_elements:
@@ -71,7 +71,7 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
     return contracts
 
 
-async def handler(
+async def automation(
     page: Page, params: Optional[dict] = None, **_kwargs
 ) -> List[Contract]:
     # Navigate to the contracts list authentication page

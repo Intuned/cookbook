@@ -1,7 +1,8 @@
-from playwright.async_api import Page
 from typing import TypedDict
-from browser_use import Agent, ChatOpenAI, Browser, Tools
-from intuned_runtime import attempt_store
+
+from browser_use import Agent, Browser, ChatOpenAI, Tools
+from intuned_runtime import attempt_store, get_ai_gateway_config
+from playwright.async_api import Page
 
 
 class Params(TypedDict):
@@ -11,7 +12,10 @@ class Params(TypedDict):
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     if not params or not params.get("query"):
         raise ValueError("Query is required, please provide a query in the params")
-    
+
+    # Get AI gateway config
+    base_url, api_key = get_ai_gateway_config()
+
     browser: Browser = attempt_store.get("browser")
 
     tools = Tools()
@@ -19,7 +23,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     agent = Agent(
         browser=browser,
         task=params["query"],
-        llm=ChatOpenAI(model="gpt-4o", temperature=0),
+        llm=ChatOpenAI(model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key),
         flash_mode=True,
         tools=tools,
     )
@@ -30,7 +34,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     print(result)
 
     final = result.final_result()
-    
+
     return {
         "success": result.is_successful(),
         "is_done": result.is_done(),

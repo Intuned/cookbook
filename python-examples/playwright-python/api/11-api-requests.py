@@ -7,8 +7,9 @@ Demonstrates making HTTP requests using page.request:
 - Requests share the browser's cookies/session
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

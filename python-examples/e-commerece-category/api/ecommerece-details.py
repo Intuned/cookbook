@@ -1,6 +1,6 @@
-from playwright.async_api import Page, BrowserContext
+
 from intuned_browser import go_to_url
-from typing import List, Optional
+from playwright.async_api import BrowserContext, Page
 from utils.types_and_schemas import EcommereceDetailsParams, ProductDetails, Size
 
 
@@ -50,12 +50,12 @@ async def extract_price_info(page: Page) -> dict:
     }
 
 
-async def extract_sizes(page: Page) -> List[Size]:
+async def extract_sizes(page: Page) -> list[Size]:
     """
     Extracts available sizes from the product page.
     Replace selectors with appropriate ones for your store.
     """
-    sizes: List[Size] = []
+    sizes: list[Size] = []
 
     # Replace selector with appropriate one for your store
     size_container_selector = "div.size-container > ul > li"
@@ -86,7 +86,7 @@ async def extract_sizes(page: Page) -> List[Size]:
     return sizes
 
 
-async def extract_description(page: Page) -> Optional[str]:
+async def extract_description(page: Page) -> str | None:
     """
     Extracts product description.
     Replace selector with appropriate one for your store.
@@ -98,7 +98,7 @@ async def extract_description(page: Page) -> Optional[str]:
     return None
 
 
-async def extract_shipping_and_returns(page: Page) -> Optional[str]:
+async def extract_shipping_and_returns(page: Page) -> str | None:
     """
     Extracts shipping and returns information.
     Replace selector with appropriate one for your store.

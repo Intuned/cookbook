@@ -1,6 +1,6 @@
+
 from intuned_browser import Attachment
 from pydantic import BaseModel, HttpUrl, field_validator
-from typing import List
 
 
 class DetailsSchema(BaseModel):
@@ -31,7 +31,7 @@ class ProductDetails(BaseModel):
     category: str
     shortDescription: str
     fullDescription: str
-    availableSizes: List[str]
-    availableColors: List[str]
-    variants: List[ProductVariant]
-    imageAttachments: List[Attachment]
+    availableSizes: list[str]
+    availableColors: list[str]
+    variants: list[ProductVariant]
+    imageAttachments: list[Attachment]

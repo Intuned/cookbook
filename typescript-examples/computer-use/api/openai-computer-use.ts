@@ -1,4 +1,5 @@
 import { BrowserContext, Page } from "playwright";
+import { getAiGatewayConfig } from "@intuned/runtime";
 import { Agent } from "../lib/openai/agent";
 import { PlaywrightComputer } from "../lib/openai/computer";
 import type { ResponseOutputMessage, ResponseItem } from 'openai/resources/responses/responses.js';
@@ -18,11 +19,8 @@ export default async function handler(
     throw new Error('Query is required');
   }
 
-  // Get API key from environment
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('OPENAI_API_KEY environment variable is required');
-  }
+  // Get AI gateway config
+  const { apiKey, baseUrl } = await getAiGatewayConfig();
 
   // Hardcoded model
   const model = 'computer-use-preview';
@@ -48,6 +46,7 @@ export default async function handler(
       computer,
       tools: [],
       apiKey,
+      baseURL: baseUrl,
       acknowledge_safety_check_callback: (m: string): boolean => {
         console.log(`⚠️  Safety check: ${m}`);
         return true;

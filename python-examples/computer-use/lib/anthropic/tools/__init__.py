@@ -1,7 +1,7 @@
 from .base import ToolResult
+from .browser import BrowserTool
 from .collection import ToolCollection
 from .computer import ComputerTool20241022, ComputerTool20250124
-from .browser import BrowserTool
 from .groups import TOOL_GROUPS_BY_VERSION, ToolVersion
 
 __ALL__ = [

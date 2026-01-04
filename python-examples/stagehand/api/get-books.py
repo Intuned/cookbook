@@ -1,8 +1,10 @@
 from typing import TypedDict
-from playwright.async_api import Page
-from stagehand import Stagehand
+
 from intuned_runtime import attempt_store, get_ai_gateway_config
+from playwright.async_api import Page
 from pydantic import BaseModel
+
+from stagehand import Stagehand
 
 
 class Params(TypedDict):

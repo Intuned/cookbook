@@ -1,5 +1,9 @@
 import { BrowserContext, Page } from "playwright";
 
+interface Params {
+  maxPages?: number;
+}
+
 interface Product {
   name: string;
   price: string;
@@ -40,12 +44,12 @@ async function goToNextPage(page: Page): Promise<void> {
 }
 
 export default async function handler(
-  params: { maxPages?: number },
+  params: Params,
   page: Page,
   context: BrowserContext
 ) {
   const maxPages = params.maxPages ?? 5;
-  // Start on the first page
+  // Start on the first pagination page
   await page.goto("https://www.scrapingcourse.com/pagination");
 
   const allProducts: Product[] = [];

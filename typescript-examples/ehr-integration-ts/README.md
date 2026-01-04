@@ -1,10 +1,16 @@
-# Integration for Openimis Website
-This template provides a structured starting point for retrieving data from an EHR website.
+# ehr-integration-ts Intuned project
 
+Electronic Health Records (EHR) integration template for extracting data from OpenIMIS healthcare management system.
 
+## Key Features
+
+- **Authenticated Access**: Uses Intuned Auth Sessions for secure access to protected EHR data
+- **Multiple Data Types**: Extract claims, families, and insurees data from the EHR system
+- **Programmatic Auth**: Automated login and session management via API-based auth sessions
+- **Healthcare Data Export**: Structured extraction of healthcare records for integration workflows
+
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
 
 [![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/ehr-integration-ts)
 
@@ -30,28 +36,58 @@ yarn
 
 
 ### Run an API
-
 ```bash
-# Retrieve claims data
 # npm
-npm run intuned run api claims .parameters/api/claims/default.json
+npm run intuned run api claims .parameters/api/claims/default.json --auth-session test-auth-session
+npm run intuned run api families .parameters/api/families/default.json --auth-session test-auth-session
+npm run intuned run api insurees .parameters/api/insurees/default.json --auth-session test-auth-session
 
 # yarn
-yarn intuned run api claims .parameters/api/claims/default.json
+yarn intuned run api claims .parameters/api/claims/default.json --auth-session test-auth-session
+yarn intuned run api families .parameters/api/families/default.json --auth-session test-auth-session
+yarn intuned run api insurees .parameters/api/insurees/default.json --auth-session test-auth-session
+```
 
-# Retrieve families data
+### Save project
+```bash
 # npm
-npm run intuned run api families .parameters/api/families/default.json
+npm run intuned run save
 
 # yarn
-yarn intuned run api families .parameters/api/families/default.json
+yarn intuned run save
+```
 
-# Retrieve insurees data
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+
+## Auth Sessions
+
+This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
+
+### Create a new auth session
+```bash
 # npm
-npm run intuned run api insurees .parameters/api/insurees/default.json
+npm run intuned run authsession create .parameters/auth-sessions/create/default.json
 
 # yarn
-yarn intuned run api insurees .parameters/api/insurees/default.json
+yarn intuned run authsession create .parameters/auth-sessions/create/default.json
+```
+
+### Update an existing auth session
+```bash
+# npm
+npm run intuned run authsession update test-auth-session
+
+# yarn
+yarn intuned run authsession update test-auth-session
+```
+
+### Validate an auth session
+```bash
+# npm
+npm run intuned run authsession validate test-auth-session
+
+# yarn
+yarn intuned run authsession validate test-auth-session
 ```
 
 ### Deploy project
@@ -61,102 +97,55 @@ npm run intuned deploy
 
 # yarn
 yarn intuned deploy
-
 ```
-
-
-
 
 ### `@intuned/browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+
+<!-- IDE-IGNORE-END -->
 
 
 
 
 ## Project Structure
-The project structure is as follows:
 ```
 /
-├── apis/                      # API endpoints (data extraction, scraping)
-│   ├── families.ts            # Extract families / groups data
-│   ├── claims.ts              # Extract claims data
-│   └── insurees.ts            # Extract insurees data
-├── auth-sessions/             # Authentication session management
-│   ├── check.ts               # Check if an auth session is still valid
-│   └── create.ts              # Create or recreate an auth session programmatically
-└── Intuned.jsonc               # Intuned project configuration
-
-
-## `Intuned.jsonc` Reference
-```jsonc
-{
-  // Your Intuned workspace ID. 
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project. 
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-    
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-  
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
+├── .parameters/                   # Test parameters for APIs
+│   ├── api/
+│   │   ├── claims/
+│   │   │   └── default.json
+│   │   ├── families/
+│   │   │   └── default.json
+│   │   └── insurees/
+│   │       └── default.json
+│   └── auth-sessions/
+│       └── create/
+│           └── default.json
+├── api/                           # API endpoints
+│   ├── claims.ts                  # Extract claims data
+│   ├── families.ts                # Extract families/groups data
+│   └── insurees.ts                # Extract insurees data
+├── auth-sessions/                 # Auth session management
+│   ├── check.ts                   # Validate auth session
+│   └── create.ts                  # Create auth session
+├── Intuned.jsonc                  # Intuned project configuration
+└── package.json                   # Node.js project dependencies
 ```
-  
+
+
+## APIs
+
+| API | Description |
+|-----|-------------|
+| `claims` | Extracts claims data from the EHR system including claim status, dates, and associated patient information |
+| `families` | Retrieves family/group data from the EHR system with member relationships and coverage details |
+| `insurees` | Extracts insuree (patient) data including demographics, enrollment status, and insurance information |
+
+
+## Learn More
+
+- [Intuned Documentation](https://docs.intunedhq.com)
+- [Auth Sessions Guide](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [OpenIMIS Documentation](https://openimis.org/)

@@ -18,8 +18,11 @@
       "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks"
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
-      "parameters": {}
+      "apiName": "go-to-url",
+      "parameters": {
+        "timeout": 15000,
+        "retries": 3
+      }
     }
   }
 }

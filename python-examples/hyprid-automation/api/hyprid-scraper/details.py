@@ -1,8 +1,8 @@
-from pydantic import BaseModel, Field
-from playwright.async_api import Page, BrowserContext
+
 from intuned_browser import go_to_url
 from intuned_browser.ai import extract_structured_data
-from typing import List, Optional
+from playwright.async_api import BrowserContext, Page
+from pydantic import BaseModel, Field
 
 
 class EcommereceDetailsParams(BaseModel):
@@ -24,22 +24,22 @@ class ShippingOption(BaseModel):
 
 
 class ShippingDetails(BaseModel):
-    free_shipping_threshold: Optional[str] = Field(
+    free_shipping_threshold: str | None = Field(
         default=None, description="Minimum order amount for free shipping"
     )
-    return_days: Optional[int] = Field(
+    return_days: int | None = Field(
         default=None, description="Number of days for returns and exchanges"
     )
-    shipping_options: List[ShippingOption] = Field(
+    shipping_options: list[ShippingOption] = Field(
         default_factory=list, description="Available shipping options"
     )
-    delivery_days: Optional[str] = Field(
+    delivery_days: str | None = Field(
         default=None, description="Days of the week when delivery is available"
     )
-    return_window_days: Optional[int] = Field(
+    return_window_days: int | None = Field(
         default=None, description="Number of days from delivery to return"
     )
-    taxes_note: Optional[str] = Field(
+    taxes_note: str | None = Field(
         default=None, description="Note about taxes and fees"
     )
 
@@ -48,19 +48,19 @@ class ProductDetails(BaseModel):
     source_url: str = Field(..., description="The URL of the product details")
     name: str = Field(..., description="The name of the product")
     price: str = Field(..., description="The price of the product")
-    sale_price: Optional[str] = Field(
+    sale_price: str | None = Field(
         default=None, description="The sale price of the product"
     )
-    sale_offer: Optional[str] = Field(
+    sale_offer: str | None = Field(
         default=None, description="The sale offer of the product"
     )
-    sizes: List[Size] = Field(
+    sizes: list[Size] = Field(
         default_factory=list, description="The sizes of the product"
     )
-    description: Optional[str] = Field(
+    description: str | None = Field(
         default=None, description="The description of the product"
     )
-    shipping_details: Optional[ShippingDetails] = Field(
+    shipping_details: ShippingDetails | None = Field(
         default=None, description="Structured shipping and returns information"
     )
 
@@ -110,12 +110,12 @@ async def extract_price_info(page: Page) -> dict:
     }
 
 
-async def extract_sizes(page: Page) -> List[Size]:
+async def extract_sizes(page: Page) -> list[Size]:
     """
     Extracts available sizes from the product page.
     Replace selectors with appropriate ones for your store.
     """
-    sizes: List[Size] = []
+    sizes: list[Size] = []
 
     # Replace selector with appropriate one for your store
     size_container_selector = "div.size-container > ul > li"
@@ -146,7 +146,7 @@ async def extract_sizes(page: Page) -> List[Size]:
     return sizes
 
 
-async def extract_description(page: Page) -> Optional[str]:
+async def extract_description(page: Page) -> str | None:
     """
     Extracts product description.
     Replace selector with appropriate one for your store.
@@ -158,7 +158,7 @@ async def extract_description(page: Page) -> Optional[str]:
     return None
 
 
-async def extract_shipping_and_returns(page: Page) -> Optional[ShippingDetails]:
+async def extract_shipping_and_returns(page: Page) -> ShippingDetails | None:
     """
     Extracts structured shipping and returns information using AI extraction.
     """

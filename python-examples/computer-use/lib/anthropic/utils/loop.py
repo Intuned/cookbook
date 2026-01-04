@@ -4,21 +4,12 @@ From https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-
 """
 
 import os
-import platform
-from collections.abc import Callable
 from datetime import datetime
 from enum import StrEnum
 from typing import Any, cast
-from playwright.async_api import Page
 
-import httpx
 from anthropic import (
     Anthropic,
-    AnthropicBedrock,
-    AnthropicVertex,
-    APIError,
-    APIResponseValidationError,
-    APIStatusError,
 )
 from anthropic.types.beta import (
     BetaCacheControlEphemeralParam,
@@ -26,18 +17,17 @@ from anthropic.types.beta import (
     BetaImageBlockParam,
     BetaMessage,
     BetaMessageParam,
-    BetaTextBlock,
     BetaTextBlockParam,
     BetaToolResultBlockParam,
     BetaToolUseBlockParam,
 )
-
 from lib.anthropic.tools import (
     TOOL_GROUPS_BY_VERSION,
     ToolCollection,
     ToolResult,
     ToolVersion,
 )
+from playwright.async_api import Page
 
 PROMPT_CACHING_BETA_FLAG = "prompt-caching-2024-07-31"
 
@@ -77,6 +67,7 @@ async def sampling_loop(
     model: str,
     messages: list[BetaMessageParam],
     api_key: str,
+    base_url: str | None = None,
     provider: APIProvider = APIProvider.ANTHROPIC,
     system_prompt_suffix: str = "",
     only_n_most_recent_images: int | None = None,
@@ -120,7 +111,7 @@ async def sampling_loop(
         if token_efficient_tools_beta:
             betas.append("token-efficient-tools-2025-02-19")
         image_truncation_threshold = only_n_most_recent_images or 0
-        client = Anthropic(api_key=api_key, max_retries=4)
+        client = Anthropic(api_key=api_key, base_url=base_url, max_retries=4)
         enable_prompt_caching = True
 
         if enable_prompt_caching:
@@ -253,7 +244,7 @@ def _response_to_params(
     for block in response.content:
         block_dict = block.model_dump()
         block_type = block_dict.get("type")
-        
+
         if block_type == "text":
             if block_dict.get("text"):
                 res.append(BetaTextBlockParam(type="text", text=block_dict["text"]))

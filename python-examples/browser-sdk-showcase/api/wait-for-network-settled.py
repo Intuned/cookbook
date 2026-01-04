@@ -1,17 +1,22 @@
-from playwright.async_api import Page
+# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/wait_for_network_settled
 from typing import TypedDict
+
 from intuned_browser import wait_for_network_settled
-from intuned_browser import go_to_url
+from playwright.async_api import Page
+
+
+# Decorator without arguments (uses timeout_s=30, max_inflight_requests=0)
+@wait_for_network_settled
+async def click_load_more(page):
+    await page.locator("main main button").click()
+
 
 class Params(TypedDict):
     pass
 
-@wait_for_network_settled
-async def click_load_more(page: Page):
-    await page.locator("xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']").click()
-    
-async def automation(page: Page, params: Params | None = None, **_kwargs):
-    await go_to_url(page, "https://careers.qualcomm.com/careers")
-    await click_load_more(page) # Automatically waits for network to settle after clicking
+
+async def automation(page: Page, params: Params, **_kwargs):
+    await page.goto("https://sandbox.intuned.dev/load-more")
+    # Automatically waits for network to settle after clicking
+    await click_load_more(page)
     # Network has settled, data is loaded
-    return "Success"

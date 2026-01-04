@@ -1,15 +1,15 @@
+import asyncio
 import os
 import re
-import asyncio
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
+
 import resend
 
 # Initialize Resend client
 resend.api_key = os.getenv("RESEND_API_KEY")
 
 
-def extract_otp_from_text(text: str) -> Optional[str]:
+def extract_otp_from_text(text: str) -> str | None:
     # Look for numeric codes (4-12 digits) - more flexible for various OTP formats
     otp_pattern = r"\b\d{4,12}\b"
     matches = re.findall(otp_pattern, text)
@@ -25,7 +25,7 @@ def is_email_recent(created_at: str, max_age_seconds: int = 30) -> bool:
     try:
         # Parse the email timestamp
         email_time = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         # Calculate difference in seconds
         diff_in_seconds = (now - email_time).total_seconds()
@@ -68,7 +68,7 @@ async def get_recent_otp(
     max_age_seconds: int = 30,
     timeout_seconds: int = 30,
     polling_interval_ms: int = 2000,
-) -> Optional[str]:
+) -> str | None:
     timeout_delta = asyncio.get_event_loop().time() + timeout_seconds
     attempt_number = 0
 

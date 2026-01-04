@@ -1,9 +1,12 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData
 import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 import { extractStructuredData } from "@intuned/browser/ai";
 import { z } from "zod";
 
-interface Params {}
+interface Params {
+  // No params needed
+}
 
 const BookSchema = z.object({
   name: z.string().describe("Book title"),

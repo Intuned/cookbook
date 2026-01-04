@@ -17,6 +17,8 @@ Intuned sample projects in Python.
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [hyprid-automation](./hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
+| [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [bs4-example](./bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [scrapy-example](./scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving & stealth mode usage examples |
@@ -31,9 +33,3 @@ Intuned sample projects in Python.
 | [ehr-integration-python](./ehr-integration-python/) | Data Extraction from Openimis Website |
 | [empty](./empty/) | Empty starter template for new projects |
 | [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |
-
-## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
-
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples)

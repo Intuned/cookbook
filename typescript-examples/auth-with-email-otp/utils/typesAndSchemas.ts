@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const createAuthSessionParams = z.object({
   username: z.string().email("Valid email is required"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
 export interface Contract {

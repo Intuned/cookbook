@@ -1,9 +1,9 @@
-from playwright.async_api import Page, BrowserContext
+from urllib.parse import urljoin, urlparse
+
 from intuned_browser import go_to_url
-from typing import List
-from runtime_helpers import extend_payload
-from urllib.parse import urlparse, urljoin
-from utils.types_and_schemas import EcommereceCategoryParams, Category
+from intuned_runtime import extend_payload
+from playwright.async_api import BrowserContext, Page
+from utils.types_and_schemas import Category, EcommereceCategoryParams
 
 
 async def handle_cookies(page: Page) -> None:
@@ -21,12 +21,12 @@ async def handle_cookies(page: Page) -> None:
         pass
 
 
-async def extract_categories(page: Page, store_url: str) -> List[Category]:
+async def extract_categories(page: Page, store_url: str) -> list[Category]:
     """
     Extracts category links from the main menu.
     Replace selectors with appropriate ones for your store.
     """
-    categories: List[Category] = []
+    categories: list[Category] = []
 
     # Replace selector with appropriate one for your store's menu
     menu_selector = ".has-submenu a.main-menu__link"

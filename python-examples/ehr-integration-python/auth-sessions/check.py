@@ -12,6 +12,6 @@ async def check(page: Page, *args: ..., **kwargs: ...) -> ...:
     user_menu_toggle = page.locator("h4.MuiTypography-h4")
     is_session_valid = await user_menu_toggle.is_visible()
 
-    # Return True if the session is still valid 
+    # Return True if the session is still valid
     # Return False if the session expired (we were redirected to login)
     return is_session_valid

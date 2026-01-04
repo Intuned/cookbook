@@ -8,8 +8,9 @@ Demonstrates different ways to find elements:
 - Chaining and filtering
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

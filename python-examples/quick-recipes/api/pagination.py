@@ -1,11 +1,16 @@
-from dataclasses import dataclass
-from playwright.async_api import Page, BrowserContext
+from typing import TypedDict
+
+from playwright.async_api import Page
+from pydantic import BaseModel
 
 
-@dataclass
-class Product:
+class Product(BaseModel):
     name: str
     price: str
+
+
+class Params(TypedDict):
+    maxPages: int
 
 
 async def extract_data_from_current_page(page: Page) -> list[Product]:
@@ -35,8 +40,8 @@ async def go_to_next_page(page: Page) -> None:
     await page.wait_for_load_state("networkidle")
 
 
-async def handler(params: dict, page: Page, context: BrowserContext):
-    max_pages = params.get("maxPages", 5)
+async def automation(page: Page, params: Params | None = None, **_kwargs):
+    max_pages = params.get("maxPages", 5) if params else 5
     # Start on the first pagination page
     await page.goto("https://www.scrapingcourse.com/pagination")
 

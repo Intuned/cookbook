@@ -33,10 +33,7 @@ export default async function* create(
   await submitButton.click();
 
   // Step 5: Verify successful login by checking if the products grid is visible
-  // If the products grid is visible, it means we successfully logged in
+  // If the products grid is not visible, waitFor will raise an exception
   const productsGrid = page.locator("#product-grid");
-  const isLoggedIn = await productsGrid.isVisible();
-
-  // Return true if login was successful, false otherwise
-  return isLoggedIn;
+  await productsGrid.waitFor({ state: "visible", timeout: 10_000 });
 }

@@ -1,12 +1,12 @@
 # Hybrid Automation
 
-This example demonstrates **hybrid automation** - a flexible approach that combines the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extract_structured_data`. This gives you the speed and reliability of traditional automation with the adaptability of AI when needed.
+This example demonstrates **hybrid automation** - a flexible approach that combines the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extract_structured_data`. This gives you the speed and reliability of traditional automation with the adaptability of AI when needed.
 
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/hyprid-automation)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/hyprid-automation" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Why Hybrid?
 
@@ -85,6 +85,6 @@ utils/crawler/                    # Crawler utilities
 ## Learn More
 
 - [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Extract Structured Data](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_structured_data)
 - [Stagehand act/extract/observe](https://docs.stagehand.dev/v2/basics/act)

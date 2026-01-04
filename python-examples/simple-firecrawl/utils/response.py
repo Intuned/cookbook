@@ -1,7 +1,9 @@
 import base64
 from typing import Any
-from crawl4ai import CrawlResult
+
 from intuned_browser import upload_file_to_s3
+
+from crawl4ai import CrawlResult
 
 from .content import remove_base64_images as _remove_base64_images
 

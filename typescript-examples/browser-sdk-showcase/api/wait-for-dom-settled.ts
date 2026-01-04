@@ -1,9 +1,9 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/waitForDomSettled
 import { BrowserContext, Page } from "playwright";
-import { waitForDomSettled, goToUrl } from "@intuned/browser";
+import { waitForDomSettled } from "@intuned/browser";
 
 interface Params {
-  settleDuration?: number;
-  timeoutInMs?: number;
+  // No params needed
 }
 
 export default async function handler(
@@ -11,20 +11,14 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
-  const settleDuration = params.settleDuration || 500;
-  const timeoutInMs = params.timeoutInMs || 30000;
-
-  await goToUrl({ page, url: "https://careers.qualcomm.com/careers" });
-
-
-  await page.locator("xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']").click();
+  await page.goto("https://sandbox.intuned.dev/load-more");
+  // Automatically waits for DOM to settle after clicking
+  await page.locator("main main button").click();
   await waitForDomSettled({
     source: page,
-    settleDurationMs: settleDuration,
-    timeoutInMs,
-  })
-
+    settleDurationMs: 500,
+    timeoutInMs: 30000,
+  });
   // DOM has settled, new content is loaded
-  return "Success";
 }
 

@@ -1,10 +1,11 @@
-from playwright.async_api import Page, BrowserContext, Response
-from typing import List, Callable, Awaitable
+from collections.abc import Awaitable, Callable
+
 from intuned_browser import go_to_url, wait_for_network_settled
+from playwright.async_api import BrowserContext, Page, Response
 from utils.types_and_schemas import ApiInterceptorParams, Consultation
 
 # Global variable to store captured API data
-api_data: List[Consultation] = []
+api_data: list[Consultation] = []
 
 
 def create_response_handler(pattern: str) -> Callable[[Response], Awaitable[None]]:
@@ -36,7 +37,7 @@ async def automation(
     params: ApiInterceptorParams,
     context: BrowserContext | None = None,
     **_kwargs,
-) -> List[Consultation]:
+) -> list[Consultation]:
     """
     Intercepts network requests to capture paginated API data.
     Clicks the "Next" button to load more pages and captures API responses.

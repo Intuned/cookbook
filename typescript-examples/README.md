@@ -19,6 +19,8 @@ Intuned sample projects in TypeScript.
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [hybrid-automation](./hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
+| [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |
 | [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha |
@@ -27,9 +29,3 @@ Intuned sample projects in TypeScript.
 | [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |
 | [empty](./empty/) | Empty starter template for new projects |
 | [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |
-
-## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
-
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples)

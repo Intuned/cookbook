@@ -6,9 +6,10 @@ Demonstrates downloading files:
 - Using Intuned SDK's download_file helper
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_browser import download_file
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

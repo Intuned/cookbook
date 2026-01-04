@@ -1,6 +1,6 @@
-from playwright.async_api import Page, BrowserContext
 from bs4 import BeautifulSoup
 from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
 from utils.types_and_schemas import DetailsParams, ProductDetails
 
 

@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from typing import Literal
 
 from .base import BaseAnthropicTool
-from .computer import ComputerTool20241022, ComputerTool20250124
 from .browser import BrowserTool
+from .computer import ComputerTool20241022, ComputerTool20250124
 
 ToolVersion = Literal[
     "computer_use_20250124", "computer_use_20241022", "computer_use_20250429"
