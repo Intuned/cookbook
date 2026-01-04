@@ -6,29 +6,29 @@ https://docs.firecrawl.dev/api-reference/endpoint/crawl-post
 """
 
 import re
+from typing import Any, Literal, TypedDict
 from urllib.parse import urlparse
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Literal, Any
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
-from crawl4ai.deep_crawling.filters import (
-    FilterChain,
-    ContentTypeFilter,
-    URLPatternFilter,
-)
 
-
+from playwright.async_api import BrowserContext, Page
 from utils import (
-    LocationParams,
     FormatType,
-    get_locale_settings,
+    LocationParams,
+    build_response_item,
     create_browser_config,
-    normalize_url,
     fetch_sitemap_urls,
     get_excluded_tags,
-    build_response_item,
-    is_same_domain,
+    get_locale_settings,
     is_child_path,
+    is_same_domain,
+    normalize_url,
+)
+
+from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
+from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
+from crawl4ai.deep_crawling.filters import (
+    ContentTypeFilter,
+    FilterChain,
+    URLPatternFilter,
 )
 
 

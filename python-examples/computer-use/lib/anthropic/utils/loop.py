@@ -4,21 +4,12 @@ From https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-
 """
 
 import os
-import platform
-from collections.abc import Callable
 from datetime import datetime
 from enum import StrEnum
 from typing import Any, cast
-from playwright.async_api import Page
 
-import httpx
 from anthropic import (
     Anthropic,
-    AnthropicBedrock,
-    AnthropicVertex,
-    APIError,
-    APIResponseValidationError,
-    APIStatusError,
 )
 from anthropic.types.beta import (
     BetaCacheControlEphemeralParam,
@@ -26,18 +17,17 @@ from anthropic.types.beta import (
     BetaImageBlockParam,
     BetaMessage,
     BetaMessageParam,
-    BetaTextBlock,
     BetaTextBlockParam,
     BetaToolResultBlockParam,
     BetaToolUseBlockParam,
 )
-
 from lib.anthropic.tools import (
     TOOL_GROUPS_BY_VERSION,
     ToolCollection,
     ToolResult,
     ToolVersion,
 )
+from playwright.async_api import Page
 
 PROMPT_CACHING_BETA_FLAG = "prompt-caching-2024-07-31"
 
@@ -254,7 +244,7 @@ def _response_to_params(
     for block in response.content:
         block_dict = block.model_dump()
         block_type = block_dict.get("type")
-        
+
         if block_type == "text":
             if block_dict.get("text"):
                 res.append(BetaTextBlockParam(type="text", text=block_dict["text"]))

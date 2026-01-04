@@ -1,8 +1,7 @@
-import pyotp
-from typing import TypedDict
-from playwright.async_api import Page
-from intuned_browser import go_to_url
 
+import pyotp
+from intuned_browser import go_to_url
+from playwright.async_api import Page
 from utils.types_and_schemas import CreateAuthSessionParams
 
 
@@ -10,7 +9,7 @@ async def create(page: Page, params: dict | None = None, **_kwargs):
     try:
         validated_params = CreateAuthSessionParams.model_validate(params)
     except Exception as e:
-        raise ValueError(f"Invalid parameters provided: {e}")
+        raise ValueError(f"Invalid parameters provided: {e}") from e
 
     # Step 1: Navigate to the login page
     # Wait for the page to fully load before proceeding
@@ -44,12 +43,6 @@ async def create(page: Page, params: dict | None = None, **_kwargs):
     await submit_button.click()
 
     # Step 7: Verify successful login by checking if the protected page is visible
+    # If the protected page is not visible, wait_for will raise an exception
     protected_page = page.locator("#book-consultations-title")
-    is_logged_in = True
-    try:
-        await protected_page.wait_for(state="visible")
-    except Exception:
-        is_logged_in = False
-
-    # Return True if login was successful, False otherwise
-    return is_logged_in
+    await protected_page.wait_for(state="visible", timeout=10_000)

@@ -1,5 +1,6 @@
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):
@@ -36,14 +37,11 @@ async def create(page: Page, params: Params | None = None, **_kwargs):
     # We wait for the network to be idle, indicating the page has finished loading
     await page.wait_for_load_state("networkidle")
 
-    # Step 6: Verify successful login by checkingthe Wlecome Message
-    # If the user menu toggle is visible, it means we successfully logged in
+    # Step 6: Verify successful login by checking the Welcome Message
+    # If the user menu toggle is not visible, wait_for will raise an exception
     user_menu_toggle = page.locator("h4.MuiTypography-h4")
-    is_logged_in = await user_menu_toggle.is_visible()
+    await user_menu_toggle.wait_for(state="visible", timeout=10_000)
 
     # Step 7: Add a brief delay to ensure session is fully established
     # This helps prevent race conditions where the session might not be fully saved
     await page.wait_for_timeout(2000)
-
-    # Return True if login was successful, False otherwise
-    return is_logged_in

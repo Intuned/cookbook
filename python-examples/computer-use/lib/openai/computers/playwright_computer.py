@@ -1,8 +1,9 @@
 import asyncio
 import base64
-from typing import List, Dict, Literal
-from playwright.async_api import Page
+from typing import Literal
+
 from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 # Key mapping for CUA style keys
 CUA_KEY_TO_PLAYWRIGHT_KEY = {
@@ -90,14 +91,14 @@ class PlaywrightComputer:
     async def move(self, x: int, y: int) -> None:
         await self._page.mouse.move(x, y)
 
-    async def keypress(self, keys: List[str]) -> None:
+    async def keypress(self, keys: list[str]) -> None:
         mapped_keys = [CUA_KEY_TO_PLAYWRIGHT_KEY.get(key.lower(), key) for key in keys]
         for key in mapped_keys:
             await self._page.keyboard.down(key)
         for key in reversed(mapped_keys):
             await self._page.keyboard.up(key)
 
-    async def drag(self, path: List[Dict[str, int]]) -> None:
+    async def drag(self, path: list[dict[str, int]]) -> None:
         if not path:
             return
         await self._page.mouse.move(path[0]["x"], path[0]["y"])

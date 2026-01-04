@@ -1,7 +1,8 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/go_to_url
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

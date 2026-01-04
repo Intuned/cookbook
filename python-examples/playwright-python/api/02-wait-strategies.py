@@ -6,9 +6,10 @@ Demonstrates different waiting mechanisms:
 - Intuned SDK: wait_for_dom_settled, wait_for_network_settled (decorators)
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_browser import wait_for_dom_settled, wait_for_network_settled
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

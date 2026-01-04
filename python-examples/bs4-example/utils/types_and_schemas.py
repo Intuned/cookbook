@@ -1,5 +1,5 @@
+
 from pydantic import BaseModel, Field
-from typing import List
 
 
 class ListParams(BaseModel):
@@ -32,12 +32,12 @@ class ProductDetails(BaseModel):
     category: str | None = Field(
         default=None, description="The category of the product"
     )
-    sizes: List[str] | None = Field(
+    sizes: list[str] | None = Field(
         default_factory=list, description="The sizes of the product"
     )
-    colors: List[str] | None = Field(
+    colors: list[str] | None = Field(
         default_factory=list, description="The colors of the product"
     )
-    images: List[str] | None = Field(
+    images: list[str] | None = Field(
         default_factory=list, description="The images of the product"
     )

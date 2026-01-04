@@ -1,13 +1,14 @@
-from playwright.async_api import Page
-from typing import TypedDict, List, Dict
+from typing import TypedDict
+
 from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 
 class Params(TypedDict):
     pass
 
 
-async def extract_claims_data(page: Page) -> List[Dict[str, str]]:
+async def extract_claims_data(page: Page) -> list[dict[str, str]]:
     """Extract claims data from openIMIS"""
 
     # Wait for claims table to load

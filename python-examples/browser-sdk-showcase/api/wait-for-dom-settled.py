@@ -1,7 +1,8 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/wait_for_dom_settled
 from typing import TypedDict
-from playwright.async_api import Page
+
 from intuned_browser import wait_for_dom_settled
+from playwright.async_api import Page
 
 
 # Decorator without arguments (uses settle_duration=0.5, timeout_s=30.0)

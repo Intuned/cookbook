@@ -6,8 +6,9 @@ Demonstrates interacting with iframes:
 - content_frame() for lower-level control
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

@@ -1,7 +1,8 @@
-from playwright.async_api import Page
 from typing import TypedDict
-from browser_use import Agent, ChatOpenAI, Browser, Tools
+
+from browser_use import Agent, Browser, ChatOpenAI, Tools
 from intuned_runtime import attempt_store, get_ai_gateway_config
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

@@ -6,8 +6,9 @@ Demonstrates fundamental page navigation:
 - Getting page information (title, URL)
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

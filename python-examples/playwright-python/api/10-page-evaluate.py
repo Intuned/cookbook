@@ -8,8 +8,9 @@ Demonstrates executing JavaScript in the browser context:
 - Manipulating the page
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

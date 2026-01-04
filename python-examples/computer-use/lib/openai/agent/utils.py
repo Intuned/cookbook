@@ -1,6 +1,6 @@
 import os
+
 import requests
-import json
 
 
 def sanitize_message(msg: dict) -> dict:

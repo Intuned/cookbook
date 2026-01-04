@@ -1,8 +1,8 @@
-from playwright.async_api import Page, BrowserContext
-from intuned_browser import go_to_url, click_until_exhausted
-from typing import List
-from runtime_helpers import extend_payload
 from urllib.parse import urljoin
+
+from intuned_browser import click_until_exhausted, go_to_url
+from intuned_runtime import extend_payload
+from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel, Field
 
 
@@ -51,12 +51,12 @@ async def load_all_products(page: Page) -> None:
     )
 
 
-async def extract_products(page: Page, category_url: str) -> List[Product]:
+async def extract_products(page: Page, category_url: str) -> list[Product]:
     """
     Extracts product info from the loaded page.
     Replace the selectors with the appropriate ones for your store.
     """
-    products: List[Product] = []
+    products: list[Product] = []
 
     # Replace ".product-tile__link" with the appropriate selector for your store
     product_links = await page.query_selector_all(".product-tile__link")

@@ -92,7 +92,7 @@ export async function samplingLoop({
       betas.push('token-efficient-tools-2025-02-19');
     }
 
-    let imageTruncationThreshold = onlyNMostRecentImages || 0;
+    const imageTruncationThreshold = onlyNMostRecentImages || 0;
 
     const client = new Anthropic({ apiKey, baseURL, maxRetries: 4 });
     const enablePromptCaching = true;

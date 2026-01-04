@@ -5,20 +5,21 @@ Firecrawl-compatible /scrape endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/scrape
 """
 
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
-from crawl4ai import AsyncWebCrawler
-from crawl4ai.async_configs import CrawlerRunConfig, CacheMode
 
+from playwright.async_api import BrowserContext, Page
 from utils import (
-    LocationParams,
     FormatType,
-    get_locale_settings,
-    create_browser_config,
-    get_excluded_tags,
+    LocationParams,
     build_css_selector,
     build_response_item,
+    create_browser_config,
+    get_excluded_tags,
+    get_locale_settings,
 )
+
+from crawl4ai import AsyncWebCrawler
+from crawl4ai.async_configs import CacheMode, CrawlerRunConfig
 
 
 class Params(TypedDict, total=False):

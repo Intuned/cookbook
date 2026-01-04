@@ -1,7 +1,9 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_markdown
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_browser import extract_markdown
+from playwright.async_api import Page
+
 # from intuned_runtime import extend_payload
 
 

@@ -1,24 +1,30 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/waitForNetworkSettled
+import { withNetworkSettledWait } from "@intuned/browser";
 import { BrowserContext, Page } from "playwright";
-import { waitForNetworkSettled } from "@intuned/browser";
 
-interface Params {
-  // No params needed
-}
-
-// Decorator without arguments (uses timeoutInMs=30000, maxInflightRequests=0)
-const clickLoadMore = waitForNetworkSettled(async (page: Page) => {
-  await page.locator("main main button").click();
-});
+interface Params {}
 
 export default async function handler(
   params: Params,
   page: Page,
   context: BrowserContext
 ) {
-  await page.goto("https://sandbox.intuned.dev/load-more");
-  // Automatically waits for network to settle after clicking
-  await clickLoadMore(page);
-  // Network has settled, data is loaded
-}
+  await page.goto("https://sandbox.intuned.dev/infinite-scroll");
 
+  // Execute action and wait for network to settle
+  const result = await withNetworkSettledWait(
+    async (page) => {
+      // scroll to load more content
+      await page.evaluate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+      return "scrolled";
+    },
+    {
+      page,
+      timeoutInMs: 15000,
+      maxInflightRequests: 0,
+    }
+  );
+  console.log(result); // "scrolled"
+  return result;
+}

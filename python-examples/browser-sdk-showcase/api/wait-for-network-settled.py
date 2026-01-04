@@ -1,7 +1,8 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/wait_for_network_settled
 from typing import TypedDict
-from playwright.async_api import Page
+
 from intuned_browser import wait_for_network_settled
+from playwright.async_api import Page
 
 
 # Decorator without arguments (uses timeout_s=30, max_inflight_requests=0)

@@ -1,7 +1,8 @@
-from lib.openai.computers import Computer
-from lib.openai.agent.utils import create_response, sanitize_message
 import json
-from typing import Callable
+from collections.abc import Callable
+
+from lib.openai.agent.utils import create_response, sanitize_message
+from lib.openai.computers import Computer
 
 
 class Agent:

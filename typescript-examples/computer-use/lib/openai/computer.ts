@@ -1,4 +1,3 @@
-import sharp from 'sharp';
 import type { Page } from 'playwright';
 import { goToUrl } from '@intuned/browser';
 
@@ -56,9 +55,8 @@ export class PlaywrightComputer {
   };
 
   screenshot = async (): Promise<string> => {
-    const buf = await this._page.screenshot({ fullPage: false, type: 'png' });
-    const webp = await sharp(buf).webp().toBuffer();
-    return webp.toString('base64');
+    const buf = await this._page.screenshot();
+    return buf.toString('base64');
   };
 
   click = async (

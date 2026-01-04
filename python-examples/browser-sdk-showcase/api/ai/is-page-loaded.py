@@ -1,7 +1,8 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/is_page_loaded
 from typing import TypedDict
-from playwright.async_api import Page
+
 from intuned_browser.ai import is_page_loaded
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

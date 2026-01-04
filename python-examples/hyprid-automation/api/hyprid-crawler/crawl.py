@@ -1,21 +1,19 @@
 import re
-from utils.crawler.helpers import get_job_run_id
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
-from pydantic import BaseModel
 
 from intuned_browser import go_to_url, save_file_to_s3
 from intuned_browser.ai import extract_structured_data
-from runtime_helpers import extend_payload
-from intuned_runtime import persistent_store
+from intuned_runtime import extend_payload, persistent_store
+from playwright.async_api import BrowserContext, Page
+from pydantic import BaseModel
 from utils.crawler import (
     extract_links,
-    normalize_url,
     get_base_domain,
     is_file_url,
+    normalize_url,
     sanitize_key,
 )
-
+from utils.crawler.helpers import get_job_run_id
 
 # JSON schema for AI extraction of job postings
 JOB_POSTING_SCHEMA = {
