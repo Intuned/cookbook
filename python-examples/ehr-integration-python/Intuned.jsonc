@@ -20,11 +20,12 @@
   "metadata": {
     "template": {
       "name": "ehr-integration-python",
-      "description": "Electronic Health Records integration example with authentication"
+      "description": "Electronic Health Records integration example with authentication",
+      "tags": ["ehr", "healthcare", "auth-sessions", "data-extraction"]
     },
     "testAuthSessionInput": {
-      "username": "demo@email.com",
-      "password": "password"
+      "username": "Admin",
+      "password": "admin123"
     }
   }
 }

@@ -13,7 +13,8 @@
   "metadata": {
     "template": {
       "name": "e-commerece-category",
-      "description": "E-commerce category and product scraper"
+      "description": "E-commerce category and product scraper",
+      "tags": ["web-scraping", "e-commerce", "categories", "extend-payload"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "ecommerece-category",

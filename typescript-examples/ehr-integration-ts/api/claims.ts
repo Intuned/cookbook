@@ -1,4 +1,5 @@
 import { BrowserContext, Page } from "playwright";
+import { goToUrl } from "@intuned/browser";
 
 interface Params {
   // Add your params here
@@ -57,8 +58,10 @@ export default async function handler(
 ) {
   const allResults: Claim[] = [];
 
-  await page.goto("https://demo.openimis.org/front/claim/healthFacilities");
-  await page.waitForTimeout(5_000);
+  await goToUrl({
+    page,
+    url: "https://demo.openimis.org/front/claim/healthFacilities",
+  });
 
   while (true) {
     // Extract data from current page
@@ -73,7 +76,6 @@ export default async function handler(
 
     // Click next and wait for page to load
     await nextButton.click();
-    await page.waitForLoadState("networkidle");
   }
 
   return allResults;
