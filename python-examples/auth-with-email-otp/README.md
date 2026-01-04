@@ -2,7 +2,11 @@
 
 Authentication automation with email-based OTP verification
 
-**Note:** This project requires a Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
+**Note:** This project requires:
+
+- A Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
+- Your Resend inbox email (e.g., `your-email@resend.app`)
+- Your password for the authentication service
 
 ## Run on Intuned
 
@@ -14,12 +18,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -27,32 +31,31 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run create auth session
+
 ```bash
 uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Run check auth session
+
 ```bash
 uv run intuned run authsession check .parameters/auth-sessions/check/default.json
 ```
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
-
-
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
 ├── auth-sessions/            # Auth session related APIs
@@ -63,8 +66,8 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID.

@@ -18,22 +18,26 @@ export default async function* create(
     throw new RunError(validatedParams.error.message);
   }
 
-  const { username } = validatedParams.data;
+  const { username, password } = validatedParams.data;
   // Step 1: Navigate to the login page
   await goToUrl({
     page,
-    url: "https://sandbox.intuned.dev/login-email-otp",
+    url: "https://sandbox.intuned.dev/signup",
   });
 
   // Step 2: Find the email input field and enter the username
   const emailInput = page.locator("#email-input");
   await emailInput.fill(username);
 
-  // Step 2: Click on the Send OTP button
+  // Step 3: Find the password input field and enter the password
+  const passwordInput = page.locator("#password-input");
+  await passwordInput.fill(password);
+
+  // Step 4: Click on the Send OTP button
   const submitButton = page.locator("#submit-button");
   await submitButton.click();
 
-  // Step 3: Generate the OTP code using the secret
+  // Step 5: Generate the OTP code using the secret
   const otpInput = page.locator("#otp-input");
   const otpCode = await getRecentOTP();
 
@@ -41,10 +45,10 @@ export default async function* create(
     throw new RunError("Failed to extract OTP");
   }
 
-  // Step 4: Fill in the OTP code
+  // Step 6: Fill in the OTP code
   await otpInput.fill(otpCode);
 
-  // Step 5: Click the submit button to complete OTP verification
+  // Step 7: Click the submit button to complete OTP verification
   const otpSubmitButton = page.locator("#submit-button");
   await otpSubmitButton.click();
 
