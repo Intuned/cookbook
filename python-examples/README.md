@@ -16,6 +16,8 @@ Intuned sample projects in Python.
 | [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
 | [hyprid-automation](./hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
+| [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
+| [setup-hooks](./setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
 | [bs4-example](./bs4-example/) | Web scraping with BeautifulSoup for HTML parsing |
 | [scrapy-example](./scrapy-example/) | Web scraping with Scrapy framework (HTTP requests and Playwright integration) |
 | [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving & stealth mode usage examples |

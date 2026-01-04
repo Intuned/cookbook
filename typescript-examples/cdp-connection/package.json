@@ -1,0 +1,19 @@
+{
+  "name": "cdp-connection",
+  "version": "1.0.0",
+  "description": "Basic example demonstrating CDP connection with Intuned",
+  "tags": [],
+  "main": "index.js",
+  "scripts": {
+    "intuned": "intuned"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@intuned/browser": "0.1.8",
+    "@intuned/runtime": "1.3.14",
+    "@types/node": "^20.10.3",
+    "playwright": "~1.56.0",
+    "zod": "^3.22.4"
+  }
+}
