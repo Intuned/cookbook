@@ -3,10 +3,9 @@ from typing import TypedDict
 
 from intuned_browser import go_to_url, save_file_to_s3
 from intuned_browser.ai import extract_structured_data
-from intuned_runtime import persistent_store
+from intuned_runtime import extend_payload, persistent_store
 from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel
-from runtime_helpers import extend_payload
 from utils.crawler import (
     extract_links,
     get_base_domain,

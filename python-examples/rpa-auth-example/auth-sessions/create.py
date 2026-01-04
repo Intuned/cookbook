@@ -36,12 +36,6 @@ async def create(page: Page, params: Params | None = None, **_kwargs):
     await submit_button.click()
 
     # Step 5: Verify successful login by checking if the protected page is visible
+    # If the protected page is not visible, wait_for will raise an exception
     protected_page = page.locator("#book-consultations-title")
-    is_logged_in = True
-    try:
-        await protected_page.wait_for(state="visible")
-    except Exception:
-        is_logged_in = False
-
-    # Return True if login was successful, False otherwise
-    return is_logged_in
+    await protected_page.wait_for(state="visible", timeout=10_000)

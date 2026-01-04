@@ -1,9 +1,9 @@
 from urllib.parse import urljoin
 
 from intuned_browser import click_until_exhausted, go_to_url
+from intuned_runtime import extend_payload
 from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel, Field
-from runtime_helpers import extend_payload
 
 
 class Product(BaseModel):

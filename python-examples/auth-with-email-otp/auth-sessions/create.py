@@ -6,12 +6,12 @@ from utils.resend import get_recent_otp
 from utils.types_and_schemas import CreateAuthSessionParams
 
 
-async def create(page: Page, params: dict | None = None, **_kwargs) -> bool:
+async def create(page: Page, params: dict | None = None, **_kwargs):
     # Validate parameters
     try:
         validated_params = CreateAuthSessionParams.model_validate(params)
     except ValidationError as e:
-        raise ValueError(f"Invalid parameters provided: {e}")
+        raise ValueError(f"Invalid parameters provided: {e}") from e
 
     username = validated_params.username
     password = validated_params.password
@@ -57,14 +57,8 @@ async def create(page: Page, params: dict | None = None, **_kwargs) -> bool:
     await otp_submit_button.click()
 
     # Step 9: Verify successful login by checking if the protected page is visible
-    # If the protected page is visible, it means we successfully logged in
+    # If the protected page is not visible, wait_for will raise an exception
     protected_page = page.locator("#book-consultations-title")
-    is_logged_in = True
+    await protected_page.wait_for(state="visible", timeout=10_000)
 
-    try:
-        await protected_page.wait_for(state="visible", timeout=10_000)
-    except Exception:
-        is_logged_in = False
 
-    # Return True if login was successful, False otherwise
-    return is_logged_in

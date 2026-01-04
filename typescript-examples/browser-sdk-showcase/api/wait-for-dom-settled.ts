@@ -6,11 +6,6 @@ interface Params {
   // No params needed
 }
 
-// Decorator without arguments (uses settleDurationMs=500, timeoutInMs=30000)
-const loadMoreContent = waitForDomSettled(async (page: Page) => {
-  await page.locator("main main button").click();
-});
-
 export default async function handler(
   params: Params,
   page: Page,
@@ -18,7 +13,12 @@ export default async function handler(
 ) {
   await page.goto("https://sandbox.intuned.dev/load-more");
   // Automatically waits for DOM to settle after clicking
-  await loadMoreContent(page);
+  await page.locator("main main button").click();
+  await waitForDomSettled({
+    source: page,
+    settleDurationMs: 500,
+    timeoutInMs: 30000,
+  });
   // DOM has settled, new content is loaded
 }
 

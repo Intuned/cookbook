@@ -26,7 +26,7 @@ export default async function* create(
   });
 
   await page.locator("#submit-button").click();
-  await page.getByText("Logout").isVisible();
-
-  return true;
+  // Verify successful login by checking if Logout button is visible
+  // If the Logout button is not visible, waitFor will raise an exception
+  await page.getByText("Logout").waitFor({ state: "visible", timeout: 10_000 });
 }

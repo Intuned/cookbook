@@ -1,8 +1,8 @@
 from urllib.parse import urljoin
 
 from intuned_browser import click_until_exhausted, go_to_url
+from intuned_runtime import extend_payload
 from playwright.async_api import BrowserContext, Page
-from runtime_helpers import extend_payload
 from utils.types_and_schemas import EcommereceListParams, Product
 
 

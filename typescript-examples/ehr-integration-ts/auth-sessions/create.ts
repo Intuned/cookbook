@@ -37,15 +37,12 @@ export default async function create(
   // We wait for the network to be idle, indicating the page has finished loading
   await page.waitForLoadState("networkidle");
 
-  // Step 6: Verify successful login by checking if wlcome message is visible
-  // If the user menu toggle is visible, it means we successfully logged in
+  // Step 6: Verify successful login by checking if welcome message is visible
+  // If the user menu toggle is not visible, waitFor will raise an exception
   const userMenuToggle = page.locator("h4.MuiTypography-h4");
-  const isLoggedIn = await userMenuToggle.isVisible();
+  await userMenuToggle.waitFor({ state: "visible", timeout: 10_000 });
 
   // Step 7: Add a brief delay to ensure session is fully established
   // This helps prevent race conditions where the session might not be fully saved
   await page.waitForTimeout(2000);
-
-  // Return true if login was successful, false otherwise
-  return isLoggedIn;
 }

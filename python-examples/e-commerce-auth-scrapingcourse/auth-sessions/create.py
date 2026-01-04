@@ -35,9 +35,6 @@ async def create(page: Page, params: Params | None = None, **_kwargs):
     await submit_button.click()
 
     # Step 5: Verify successful login by checking if the products grid is visible
-    # If the products grid is visible, it means we successfully logged in
+    # If the products grid is not visible, wait_for will raise an exception
     products_grid = page.locator("#product-grid")
-    is_logged_in = await products_grid.is_visible()
-
-    # Return True if login was successful, False otherwise
-    return is_logged_in
+    await products_grid.wait_for(state="visible", timeout=10_000)
