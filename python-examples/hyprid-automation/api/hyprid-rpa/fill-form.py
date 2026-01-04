@@ -1,9 +1,11 @@
 from typing import Literal
-from playwright.async_api import Page, BrowserContext
-from stagehand import Stagehand
+
 from intuned_browser import go_to_url
 from intuned_runtime import attempt_store, get_ai_gateway_config
+from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel, Field, field_validator
+
+from stagehand import Stagehand
 
 
 class BookConsultationSchema(BaseModel):

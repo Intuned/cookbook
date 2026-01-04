@@ -1,8 +1,8 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
-from playwright.async_api import Page
 from typing import TypedDict
-from intuned_browser import upload_file_to_s3
-from intuned_browser import download_file
+
+from intuned_browser import download_file, upload_file_to_s3
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

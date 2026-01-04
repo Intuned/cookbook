@@ -5,13 +5,10 @@ Replaces xdotool and gnome-screenshot with Playwright.
 
 import asyncio
 import base64
-import os
-from enum import StrEnum
 from typing import Literal, TypedDict, cast, get_args
 
-from playwright.async_api import Page
-
 from anthropic.types.beta import BetaToolComputerUse20241022Param, BetaToolUnionParam
+from playwright.async_api import Page
 
 from .base import BaseAnthropicTool, ToolError, ToolResult
 
@@ -137,18 +134,18 @@ class BaseComputerTool:
         """Validate that coordinates are non-negative integers and convert lists to tuples if needed."""
         if coordinate is None:
             return None
-            
+
         # Convert list to tuple if needed
         if isinstance(coordinate, list):
             coordinate = tuple(coordinate)
-            
+
         if not isinstance(coordinate, tuple) or len(coordinate) != 2:
             raise ToolError(f"{coordinate} must be a tuple or list of length 2")
-            
+
         x, y = coordinate
         if not isinstance(x, int) or not isinstance(y, int) or x < 0 or y < 0:
             raise ToolError(f"{coordinate} must be a tuple or list of non-negative ints")
-            
+
         return coordinate
 
     def map_key(self, key: str) -> str:
@@ -156,11 +153,11 @@ class BaseComputerTool:
         # Handle modifier keys
         if key.lower() in MODIFIER_KEY_MAP:
             return MODIFIER_KEY_MAP[key.lower()]
-        
+
         # Handle special keys
         if key.lower() in KEY_MAP:
             return KEY_MAP[key.lower()]
-        
+
         # Handle key combinations (e.g. "ctrl+a")
         if '+' in key:
             parts = key.split('+')
@@ -169,7 +166,7 @@ class BaseComputerTool:
                 mapped_modifier = MODIFIER_KEY_MAP.get(modifier.lower(), modifier)
                 mapped_key = KEY_MAP.get(main_key.lower(), main_key)
                 return f"{mapped_modifier}+{mapped_key}"
-        
+
         # Return the key as is if no mapping exists
         return key
 
@@ -250,7 +247,7 @@ class BaseComputerTool:
                     coordinate = self.validate_coordinates(coordinate)
                     x, y = coordinate
                     await self.page.mouse.move(x, y)
-                
+
                 if action == "double_click":
                     await self.page.mouse.dblclick(x, y)
                 else:

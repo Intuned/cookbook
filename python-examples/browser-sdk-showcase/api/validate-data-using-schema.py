@@ -1,7 +1,10 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/validate_data_using_schema
 from typing import TypedDict
-from playwright.async_api import Page
+
 from intuned_browser import validate_data_using_schema
+from playwright.async_api import Page
+
+
 class Params(TypedDict):
     pass
 

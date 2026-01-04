@@ -7,8 +7,9 @@ Demonstrates extracting individual values from a page:
 - is_visible() for checking visibility
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

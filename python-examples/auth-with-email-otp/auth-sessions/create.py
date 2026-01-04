@@ -1,13 +1,12 @@
-from typing import Optional
+
+from intuned_browser import go_to_url
 from playwright.async_api import Page
 from pydantic import ValidationError
-from intuned_browser import go_to_url
-
-from utils.types_and_schemas import CreateAuthSessionParams
 from utils.resend import get_recent_otp
+from utils.types_and_schemas import CreateAuthSessionParams
 
 
-async def create(page: Page, params: Optional[dict] = None, **_kwargs) -> bool:
+async def create(page: Page, params: dict | None = None, **_kwargs) -> bool:
     # Validate parameters
     try:
         validated_params = CreateAuthSessionParams.model_validate(params)

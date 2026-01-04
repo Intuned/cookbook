@@ -1,7 +1,7 @@
-from playwright.async_api import Page
 from urllib.parse import urlparse
 
 from intuned_browser import resolve_url
+from playwright.async_api import Page
 
 
 def get_base_domain(url: str) -> str:

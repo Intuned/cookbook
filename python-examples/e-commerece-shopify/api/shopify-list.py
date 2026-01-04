@@ -1,8 +1,9 @@
-from playwright.async_api import Page, BrowserContext
-from intuned_browser import go_to_url
-from typing import TypedDict, List
-from runtime_helpers import extend_payload
+from typing import TypedDict
 from urllib.parse import urlparse
+
+from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
+from runtime_helpers import extend_payload
 
 
 class Params(TypedDict, total=False):
@@ -14,18 +15,18 @@ class Product(TypedDict):
     name: str
     vendor: str
     product_type: str
-    tags: List[str]
+    tags: list[str]
     details_url: str
 
 
 LIMIT = 250
 
 
-def extract_products(data: dict, product_base_url: str) -> List[Product]:
+def extract_products(data: dict, product_base_url: str) -> list[Product]:
     """
     Extracts product info from JSON response
     """
-    products: List[Product] = []
+    products: list[Product] = []
 
     for product in data.get("products", []):
         product_handle = product.get("handle", "")
@@ -84,7 +85,7 @@ async def automation(
     # Navigate to the store home page
     await go_to_url(page, store_url)
 
-    all_products: List[Product] = []
+    all_products: list[Product] = []
     current_page = 1
 
     while current_page <= max_pages:

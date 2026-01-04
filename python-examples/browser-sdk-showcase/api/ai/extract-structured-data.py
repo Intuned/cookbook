@@ -1,9 +1,10 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_browser import go_to_url
-from pydantic import BaseModel, Field
 from intuned_browser.ai import extract_structured_data
+from playwright.async_api import Page
+from pydantic import BaseModel, Field
 
 
 class Params(TypedDict):

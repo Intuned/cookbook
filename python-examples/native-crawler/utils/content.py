@@ -1,7 +1,6 @@
-from playwright.async_api import Page
-
 from intuned_browser import extract_markdown
 from intuned_browser.ai import extract_structured_data
+from playwright.async_api import Page
 
 
 async def extract_page_content(

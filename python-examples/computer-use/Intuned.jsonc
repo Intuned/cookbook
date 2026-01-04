@@ -4,7 +4,7 @@
   
   "projectName": "computer-use",
   "apiAccess": {
-    "enabled": false
+    "enabled": true
   },
   "authSessions": {
     "enabled": false
@@ -20,6 +20,10 @@
     "template": {
       "name": "computer-use",
       "description": "AI-powered browser automation using Claude's computer use capabilities"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "anthropic-computer-use",
+      "parameters": {}
     }
   }
 }

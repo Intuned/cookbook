@@ -7,12 +7,13 @@ Based on: https://docs.crawl4ai.com/core/content-selection/
 """
 
 import json
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
-from pydantic import BaseModel
+
 from intuned_runtime import get_ai_gateway_config
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, LLMConfig
-from crawl4ai import LLMExtractionStrategy
+from playwright.async_api import BrowserContext, Page
+from pydantic import BaseModel
+
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, LLMConfig, LLMExtractionStrategy
 
 
 class ArticleData(BaseModel):

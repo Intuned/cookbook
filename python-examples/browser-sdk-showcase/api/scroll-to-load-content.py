@@ -1,9 +1,9 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/scroll_to_load_content
-from playwright.async_api import Page
 from typing import TypedDict
-from intuned_browser import scroll_to_load_content
+
+from intuned_browser import go_to_url, scroll_to_load_content
 from intuned_runtime import extend_timeout
-from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

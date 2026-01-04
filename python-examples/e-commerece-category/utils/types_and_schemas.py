@@ -1,5 +1,5 @@
+
 from pydantic import BaseModel, Field
-from typing import Optional, List
 
 
 class EcommereceCategoryParams(BaseModel):
@@ -39,18 +39,18 @@ class ProductDetails(BaseModel):
     source_url: str = Field(..., description="The URL of the product details")
     name: str = Field(..., description="The name of the product")
     price: str = Field(..., description="The price of the product")
-    sale_price: Optional[str] = Field(
+    sale_price: str | None = Field(
         default=None, description="The sale price of the product"
     )
-    sale_offer: Optional[str] = Field(
+    sale_offer: str | None = Field(
         default=None, description="The sale offer of the product"
     )
-    sizes: List[Size] = Field(
+    sizes: list[Size] = Field(
         default_factory=list, description="The sizes of the product"
     )
-    description: Optional[str] = Field(
+    description: str | None = Field(
         default=None, description="The description of the product"
     )
-    shipping_and_returns: Optional[str] = Field(
+    shipping_and_returns: str | None = Field(
         default=None, description="The shipping and returns of the product"
     )

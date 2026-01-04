@@ -1,7 +1,7 @@
-from typing import TypedDict, List
-from playwright.async_api import Page
-from intuned_browser import go_to_url
+from typing import TypedDict
 
+from intuned_browser import go_to_url
+from playwright.async_api import Page
 from utils.types_and_schemas import Contract
 
 
@@ -9,7 +9,7 @@ class Params(TypedDict):
     pass
 
 
-async def extract_contracts_from_table(page: Page) -> List[Contract]:
+async def extract_contracts_from_table(page: Page) -> list[Contract]:
     # Wait for the table to be visible on the page
     # The table is wrapped in a div with rounded-md border classes
     table_container = page.locator("table").first
@@ -20,7 +20,7 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
     row_elements = await table_body.locator("tr").all()
 
     # Array to store all extracted contract data
-    contracts: List[Contract] = []
+    contracts: list[Contract] = []
 
     # Loop through each row to extract contract information
     for row in row_elements:
@@ -77,7 +77,7 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
 
 async def automation(
     page: Page, params: Params | None = None, **_kwargs
-) -> List[Contract]:
+) -> list[Contract]:
     # Navigate to the contracts list authentication page
     await go_to_url(
         page=page,

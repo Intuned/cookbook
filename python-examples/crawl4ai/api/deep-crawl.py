@@ -6,21 +6,23 @@ Supports BFS, DFS, and Best-First crawling strategies with filtering and scoring
 Based on: https://docs.crawl4ai.com/core/deep-crawling/
 """
 
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Literal
+from typing import Literal, TypedDict
+
+from playwright.async_api import BrowserContext, Page
+
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
 from crawl4ai.async_configs import BrowserConfig
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling import (
+    BestFirstCrawlingStrategy,
     BFSDeepCrawlStrategy,
     DFSDeepCrawlStrategy,
-    BestFirstCrawlingStrategy,
 )
 from crawl4ai.deep_crawling.filters import (
-    FilterChain,
-    DomainFilter,
-    URLPatternFilter,
     ContentTypeFilter,
+    DomainFilter,
+    FilterChain,
+    URLPatternFilter,
 )
 from crawl4ai.deep_crawling.scorers import KeywordRelevanceScorer
 

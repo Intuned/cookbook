@@ -1,6 +1,7 @@
-from playwright.async_api import Page
 from typing import TypedDict
+
 from intuned_runtime.captcha import wait_for_captcha_solve
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

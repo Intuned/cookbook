@@ -1,9 +1,10 @@
-from playwright.async_api import Page
-from typing import TypedDict
 import datetime
+from typing import TypedDict
+
 from intuned_runtime import get_ai_gateway_config
-from lib.openai.computers.playwright_computer import PlaywrightComputer
 from lib.openai.agent import Agent
+from lib.openai.computers.playwright_computer import PlaywrightComputer
+from playwright.async_api import Page
 
 
 class Params(TypedDict):
@@ -16,19 +17,19 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Get AI gateway config
     base_url, api_key = get_ai_gateway_config()
-    
+
     # Hardcoded model
     model = "computer-use-preview"
-    
+
     print("\n🤖 Starting OpenAI Computer Use Agent...")
     print(f"📋 Task: {params['query']}\n")
-    
+
     # Set viewport size to match the computer tool's display dimensions
     await page.set_viewport_size({"width": 1280, "height": 720})
-    
+
     # Create computer instance using the provided page
     computer = PlaywrightComputer(page)
-    
+
     # Setup the agent
     agent = Agent(
         model=model,
@@ -40,7 +41,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
             print(f"⚠️  Safety check: {message}") or True
         )
     )
-    
+
     # Prepare input messages
     input_items = [
         {
@@ -66,7 +67,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
             "content": params["query"]
         }
     ]
-    
+
     # Run the agent
     response_items = await agent.run_full_turn(
         input_items,
@@ -74,10 +75,10 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         debug=False,  # Disable raw JSON debug output
         show_images=False,
     )
-    
+
     if not response_items or "content" not in response_items[-1]:
         raise ValueError("No response from agent")
-    
+
     # Extract the final result
     content = response_items[-1]["content"]
     if isinstance(content, list) and content and isinstance(content[0], dict) and "text" in content[0]:
@@ -86,10 +87,10 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         result = content
     else:
         result = str(content)
-    
+
     print("\n📝 === AGENT RESPONSE === 📝\n")
     print(f"💬 {result}\n")
     print("=== END RESPONSE ===\n")
     print("✅ Task completed!\n")
-    
+
     return {"result": result}

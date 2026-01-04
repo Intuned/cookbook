@@ -4,9 +4,11 @@ Adaptive crawling with statistical strategy (term-based analysis).
 Based on: https://docs.crawl4ai.com/core/adaptive-crawling/
 """
 
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
-from crawl4ai import AsyncWebCrawler, AdaptiveCrawler, AdaptiveConfig
+
+from playwright.async_api import BrowserContext, Page
+
+from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler
 
 
 class Params(TypedDict, total=False):

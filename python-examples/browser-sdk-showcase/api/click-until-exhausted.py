@@ -1,7 +1,10 @@
 # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_markdown
 from typing import TypedDict
-from playwright.async_api import Page
+
 from intuned_browser import click_until_exhausted
+from playwright.async_api import Page
+
+
 class Params(TypedDict):
     pass
 async def automation(page: Page, params: Params, **_kwargs):

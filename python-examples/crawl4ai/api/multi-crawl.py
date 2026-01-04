@@ -6,14 +6,16 @@ Uses arun_many() with MemoryAdaptiveDispatcher or semaphore dispatcher for effic
 Based on: https://docs.crawl4ai.com/advanced/multi-url-crawling/
 """
 
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Literal
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+from typing import Literal, TypedDict
+
+from playwright.async_api import BrowserContext, Page
+
+from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
 from crawl4ai.async_configs import BrowserConfig
 from crawl4ai.async_dispatcher import (
     MemoryAdaptiveDispatcher,
-    SemaphoreDispatcher,
     RateLimiter,
+    SemaphoreDispatcher,
 )
 
 

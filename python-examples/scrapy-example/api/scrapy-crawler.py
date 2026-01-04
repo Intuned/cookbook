@@ -1,12 +1,12 @@
 import scrapy
-from scrapy.crawler import CrawlerRunner
-from playwright.async_api import Page, BrowserContext
-from intuned_browser import go_to_url
 from collector.item_collector import ItemCollector
-from utils.types_and_schemas import ListParams, Quote
+from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
+from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.utils.reactor import install_reactor
 from twisted.internet import reactor
+from utils.types_and_schemas import ListParams, Quote
 
 
 class QuotesSpider(scrapy.Spider):

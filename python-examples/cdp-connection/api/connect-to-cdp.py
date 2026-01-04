@@ -1,15 +1,16 @@
-import httpx
 import platform
-from playwright.async_api import Page
-from intuned_runtime import attempt_store
-from pydantic import ValidationError
+
+import httpx
 from intuned_browser import go_to_url
+from intuned_runtime import attempt_store
+from playwright.async_api import Page
+from pydantic import ValidationError
 from utils.types_and_schemas import (
-    ConnectToCdpParams,
     BrowserInfo,
+    CDPConnectionResult,
+    ConnectToCdpParams,
     PageInfo,
     WebDriverInfo,
-    CDPConnectionResult,
 )
 
 
