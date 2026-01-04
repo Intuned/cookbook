@@ -2,7 +2,11 @@
 
 Authentication automation with email-based OTP verification
 
-**Note:** This project requires a Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
+**Note:** This project requires:
+
+- A Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
+- Your Resend inbox email (e.g., `your-email@resend.app`)
+- Your password for the authentication service
 
 ## Run on Intuned
 
@@ -14,12 +18,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -28,10 +32,10 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
+> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -41,12 +45,12 @@ yarn intuned deploy
 
 ```
 
-
 ## Auth Sessions
 
 This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).  
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create .parameters/auth-sessions/create/default.json
@@ -56,6 +60,7 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update <auth-session-id>
@@ -65,6 +70,7 @@ yarn intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate <auth-session-id>
@@ -73,16 +79,14 @@ npm run intuned run authsession validate <auth-session-id>
 yarn intuned run authsession validate <auth-session-id>
 ```
 
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
 ├── auth-sessions/            # Auth session related APIs
@@ -93,8 +97,8 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID.
