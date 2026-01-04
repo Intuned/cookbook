@@ -71,7 +71,7 @@ async def extract_contracts_from_table(page: Page) -> List[Contract]:
     return contracts
 
 
-async def handler(
+async def automation(
     page: Page, params: Optional[dict] = None, **_kwargs
 ) -> List[Contract]:
     # Navigate to the contracts list authentication page

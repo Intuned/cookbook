@@ -20,5 +20,8 @@
     "playwright": "~1.56.0",
     "resend": "^6.6.0",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7"
   }
 }
