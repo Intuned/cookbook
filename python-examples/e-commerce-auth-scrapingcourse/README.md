@@ -54,7 +54,7 @@ uv run intuned deploy
 
 ## Auth Sessions
 
-This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
 ```bash
