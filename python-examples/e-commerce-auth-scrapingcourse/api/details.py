@@ -148,7 +148,7 @@ async def extract_product_details(page: Page, params: DetailsSchema) -> ProductD
     )
 
 
-async def handler(
+async def automation(
     page: Page,
     params: Optional[dict] = None,
     **_kwargs,
