@@ -55,9 +55,9 @@ async def extract_products_from_page(page: Page) -> List[Product]:
     return products
 
 
-async def handler(
+async def automation(
     page: Page,
-    params: Optional[dict] = None,
+    params: dict | None = None,
     **_kwargs,
 ) -> List[Product]:
     # Validate input parameters using schema
