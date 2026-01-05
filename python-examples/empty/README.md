@@ -30,7 +30,7 @@ uv run intuned run api sample .parameters/api/sample/default.json
 
 ### Save project
 ```bash
-uv run intuned run save
+uv run intuned save
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)

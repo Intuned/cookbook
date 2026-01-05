@@ -39,7 +39,7 @@ uv run intuned run api ecommerece-details .parameters/api/ecommerece-details/def
 
 ### Save project
 ```bash
-uv run intuned run save
+uv run intuned save
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)

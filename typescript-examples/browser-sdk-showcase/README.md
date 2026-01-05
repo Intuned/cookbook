@@ -5,19 +5,41 @@ A comprehensive collection of browser automation helper functions from the Intun
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/browser-sdk-showcase" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/browser-sdk-showcase)
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
 
 
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+
+### Setup (Required for AI Helpers)
+
+**Important:** The AI-powered helpers (`ai/extract-structured-data` and `ai/is-page-loaded`) use Intuned's AI gateway, which requires the project to be saved before running.
+
+If you plan to use the AI helpers, you need to set up your Intuned workspace:
+
+1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
+
+2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
+
+3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+   ```jsonc
+   {
+     "workspaceId": "your-workspace-id",
+     "projectName": "your-project-name"
+     // ... rest of config
+   }
+   ```
+
+4. **Set environment variable** - Add your API key as an environment variable:
+   ```bash
+   export INTUNED_API_KEY=your-api-key
+   ```
 
 ### Install dependencies
 ```bash
@@ -31,6 +53,22 @@ yarn
 > **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 After installing dependencies, `intuned` command should be available in your environment.
+
+### Initialize project (Required for AI Helpers)
+
+If you plan to use AI helpers, run the save command to upload your project and set up the required `.env` file:
+
+```bash
+# npm
+npm run intuned save
+
+# yarn
+yarn intuned save
+```
+
+This configures your local environment and prepares the AI gateway for running AI-powered helpers.
+
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Run an API
 
@@ -81,11 +119,6 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 <!-- IDE-IGNORE-END -->
-
-### Intuned Browser SDK
-
-This project uses the Intuned Browser SDK to demonstrate various helper functions for browser automation. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
 
 
 
@@ -178,7 +211,11 @@ This project uses the Intuned Browser SDK to demonstrate various helper function
 - **resolve-url**: Resolve relative URLs to absolute URLs
 
 ### AI-Powered Helpers
-See [ai/README.md](./api/ai/README.md) for AI helpers that require API keys and use AI credits.
+
+**⚠️ Setup Required:** The AI helpers require workspace setup and project save (see Setup section above).
+
+- **extract-structured-data**: Extract structured data using AI from unstructured content
+- **is-page-loaded**: Use AI to determine if a page has finished loading
 
 
 ## Learn More
