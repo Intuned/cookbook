@@ -3,8 +3,7 @@ from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
 
 from intuned_browser import go_to_url, save_file_to_s3
-from runtime_helpers import extend_payload
-from intuned_runtime import persistent_store
+from intuned_runtime import extend_payload, persistent_store
 from utils import (
     extract_links,
     extract_page_content,

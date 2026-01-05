@@ -1,7 +1,7 @@
 from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url
 from typing import TypedDict, List
-from runtime_helpers import extend_payload
+from intuned_runtime import extend_payload
 
 
 class Params(TypedDict):

@@ -1,7 +1,7 @@
 from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url, click_until_exhausted
 from typing import List
-from runtime_helpers import extend_payload
+from intuned_runtime import extend_payload
 from urllib.parse import urljoin
 from utils.types_and_schemas import EcommereceListParams, Product
 
