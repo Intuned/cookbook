@@ -14,9 +14,9 @@
   "metadata": {
     "template": {
       "name": "playwright-basics",
-      "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more"
+      "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more",
+      "tags": ["scraping", "rpa"]
     },
-    "tags": ["scraping", "rpa"],
     "defaultRunPlaygroundInput": {
       "apiName": "01-basic-navigation",
       "parameters": {

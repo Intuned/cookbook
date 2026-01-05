@@ -51,7 +51,7 @@ export default async function handler(
 
   for (const product of products) {
     extendPayload({
-      api: "product-details",
+      api: "details",
       parameters: product,
     });
   }

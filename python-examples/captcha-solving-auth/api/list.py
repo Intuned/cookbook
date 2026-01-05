@@ -51,7 +51,7 @@ async def automation(
 
     for product in products:
         extend_payload({
-            "api": "product-details",
+            "api": "details",
             "parameters": dict(product),
         })
 

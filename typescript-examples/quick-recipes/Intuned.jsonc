@@ -14,9 +14,9 @@
   "metadata": {
     "template": {
       "name": "quick-recipes",
-      "description": "Collection of quick automation recipes for common browser tasks"
+      "description": "Collection of quick automation recipes for common browser tasks",
+      "tags": ["browser-sdk", "scraping","rpa", "stagehand"]
     },
-    "tags": ["browser-sdk", "scraping","rpa", "stagehand"],
     "defaultRunPlaygroundInput": {
       "apiName": "download-file",
       "parameters": {}

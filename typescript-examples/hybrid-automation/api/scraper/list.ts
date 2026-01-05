@@ -117,7 +117,7 @@ export default async function handler(
   // Enqueue each product for detailed scraping
   for (const product of allProducts) {
     extendPayload({
-      api: "hybrid-scraper/details",
+      api: "scraper/details",
       parameters: product,
     });
   }
