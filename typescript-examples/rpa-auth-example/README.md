@@ -175,5 +175,5 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## Learn More
 
 - [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [RPA with Intuned](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
