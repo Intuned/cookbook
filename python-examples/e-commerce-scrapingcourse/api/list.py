@@ -83,9 +83,9 @@ async def navigate_to_next_page(page: Page) -> None:
     await page.locator("#product-list").wait_for(state="visible")
 
 
-async def handler(
+async def automation(
     page: Page,
-    params: Optional[dict] = None,
+    params: dict | None = None,
     **_kwargs,
 ) -> List[Product]:
     # Get the page limit from params, default to 50 if not provided
