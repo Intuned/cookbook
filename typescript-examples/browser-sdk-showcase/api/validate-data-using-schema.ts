@@ -13,13 +13,13 @@ export default async function handler(
 ) {
   const uploadData = {
     file: {
-      file_name: "documents/report.pdf",
+      fileName: "documents/report.pdf",
       bucket: "my-bucket",
       region: "us-east-1",
       key: "documents/report.pdf",
       endpoint: null,
-      suggested_file_name: "Monthly Report.pdf",
-      file_type: "document",
+      suggestedFileName: "Monthly Report.pdf",
+      fileType: "document",
     },
     name: "Test File Upload",
   };
@@ -36,6 +36,10 @@ export default async function handler(
   validateDataUsingSchema({ data: uploadData, schema: uploadSchema });
   // Validation passes with Attachment type, it also validates Pydantic Attachment type.
   console.log("Validation passed");
-  return "Validation passed";
+  return {
+    status: "valid",
+    message: "Data validation passed successfully",
+    validated_data: uploadData,
+  };
 }
 

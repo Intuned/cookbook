@@ -12,30 +12,34 @@ export default async function handler(
   context: BrowserContext
 ) {
   // Resolve a relative URL to an absolute URL
-  let absoluteUrl = await resolveUrl({
+  const urlWithBase = await resolveUrl({
     url: "/api/users",
     baseUrl: "https://example.com",
   });
   console.log("Result of resolving relative URL to absolute URL:");
-  console.log(absoluteUrl);
+  console.log(urlWithBase);
 
   // Resolve relative URL from the current page
   await page.goto("https://intunedhq.com");
-  absoluteUrl = await resolveUrl({
+  const urlFromPage = await resolveUrl({
     url: "/blog/intuned-act-3",
     page,
   });
   console.log("Result of resolving relative URL from the current page:");
-  console.log(absoluteUrl);
+  console.log(urlFromPage);
 
   // Resolve relative URL from an anchor tag
   await page.goto("https://intunedhq.com");
-  absoluteUrl = await resolveUrl({
+  const urlFromAnchor = await resolveUrl({
     url: page.locator("a:has-text('Schedule a demo')"),
   });
   console.log("Result of resolving relative URL from an anchor tag:");
-  console.log(absoluteUrl);
+  console.log(urlFromAnchor);
 
-  return "Success";
+  return {
+    url_with_base: urlWithBase,
+    url_from_page: urlFromPage,
+    url_from_anchor: urlFromAnchor,
+  };
 }
 

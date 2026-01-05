@@ -170,8 +170,8 @@ uv run intuned deploy
 
 ### File Operations
 - **download-file**: Download files from URLs or user interactions
-- **upload-file-to-s3**: Upload files to S3 buckets
-- **save-file-to-s3**: Save content directly to S3
+- **upload-file-to-s3**: Upload files to S3 (uses Intuned's managed bucket via gateway by default, or your own S3 with credentials)
+- **save-file-to-s3**: Save content directly to S3 (uses Intuned's managed bucket via gateway by default, or your own S3 with credentials)
 
 ### Utilities
 - **process-date**: Parse various date formats into standardized format

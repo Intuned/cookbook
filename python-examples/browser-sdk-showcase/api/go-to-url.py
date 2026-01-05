@@ -27,4 +27,10 @@ async def automation(page: Page, params: Params, **_kwargs):
     )
 
     # Start your automation here, the page is already loaded and ready to use.
-    return "Success"
+    title = await page.title()
+    url = page.url
+    
+    return {
+        "title": title,
+        "url": url,
+    }

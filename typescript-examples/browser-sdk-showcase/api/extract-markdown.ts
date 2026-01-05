@@ -18,6 +18,10 @@ export default async function handler(
   
   console.log("Markdown content of the header:");
   console.log(markdown);
-  return markdown;
+  return {
+    markdown,
+    source: "h1 header",
+    url: page.url(),
+  };
 }
 

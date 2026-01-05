@@ -32,4 +32,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     validate_data_using_schema(upload_data, upload_schema)
     # Validation passes with Attachment type, it also validates Pydantic Attachment type.
     print("Validation passed")
-    return "Validation passed"
+    return {
+        "status": "valid",
+        "message": "Data validation passed successfully",
+        "validated_data": upload_data
+    }

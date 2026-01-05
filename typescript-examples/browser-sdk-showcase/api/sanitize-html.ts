@@ -20,6 +20,8 @@ export default async function handler(
   const sanitizedHtml = sanitizeHtml({ html, removeStyles, maxAttributeLength });
   console.log("Sanitized HTML:");
   console.log(sanitizedHtml);
-  return sanitizedHtml;
+  return {
+    sanitized_html: sanitizedHtml,
+  };
 }
 
