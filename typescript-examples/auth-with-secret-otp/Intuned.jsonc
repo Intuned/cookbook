@@ -16,6 +16,10 @@
       "description": "Authentication example using secret-based OTP verification",
       "tags": ["auth-sessions", "2fa"]
     },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list-contracts",
+      "parameters": {}
+    },
     "testAuthSessionInput": {
       "username": "demo@email.com",
       "password": "password"

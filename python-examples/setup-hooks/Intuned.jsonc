@@ -16,6 +16,12 @@
       "name": "setup-hooks",
       "description": "Demonstrates how to use setup hooks to prepare data and configuration before API execution",
       "tags": ["browser-sdk"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "demo-hook",
+      "parameters": {
+        "message": "Hello from Setup Hooks!"
+      }
     }
   }
 }

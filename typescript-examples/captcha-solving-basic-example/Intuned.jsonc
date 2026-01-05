@@ -49,6 +49,10 @@
       "name": "captcha-solving-basic-example",
       "description": "Basic captcha solving with support for reCAPTCHA, Cloudflare, and custom captchas",
       "tags": ["captcha"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "captcha-solver",
+      "parameters": {}
     }
   }
 }

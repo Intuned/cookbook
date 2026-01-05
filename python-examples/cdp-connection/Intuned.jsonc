@@ -16,6 +16,12 @@
       "name": "cdp-connection",
       "description": "Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP)",
       "tags": ["browser-sdk"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "connect-to-cdp",
+      "parameters": {
+        "url": "https://books.toscrape.com/index.html"
+      }
     }
   }
 }
