@@ -1,6 +1,7 @@
 # captcha-solving-auth-example Intuned project
 
-E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example
+E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example.
+It uses `wait_for_captcha_solve()` in the create api (`auth-sessions/create.py`) to automatically solve captchas during login.
 
 ## Run on Intuned
 
@@ -12,12 +13,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -26,8 +27,7 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
+> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
 
@@ -48,6 +48,7 @@ yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -57,22 +58,18 @@ yarn intuned deploy
 
 ```
 
-
-
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
-├── apis/                     # Your API endpoints 
-│   └── ...   
+├── apis/                     # Your API endpoints
+│   └── ...
 ├── auth-sessions/            # Auth session related APIs
 │   ├── check.ts           # API to check if the auth session is still valid
 │   └── create.ts          # API to create/recreate the auth session programmatically
@@ -81,15 +78,15 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
-  // Your Intuned workspace ID. 
+  // Your Intuned workspace ID.
   // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
   "workspaceId": "your_workspace_id",
 
-  // The name of your Intuned project. 
+  // The name of your Intuned project.
   // Optional - If not provided here, it must be supplied via the command line when deploying.
   "projectName": "your_project_name",
 
@@ -120,7 +117,7 @@ The project structure is as follows:
     // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
     // "MANUAL" type uses a recorder to manually create the auth session.
     "type": "API",
-    
+
 
     // Recorder start URL for the recorder to navigate to when creating the auth session.
     // Required if "type" is "MANUAL". Not used if "type" is "API".
@@ -136,7 +133,7 @@ The project structure is as follows:
     // Only applicable for "MANUAL" type.
     "browserMode": "fullscreen"
   }
-  
+
   // API access settings
   "apiAccess": {
     // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
@@ -153,4 +150,3 @@ The project structure is as follows:
   "region": "us"
 }
 ```
-  
