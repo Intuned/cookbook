@@ -1,9 +1,12 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData
 import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 import { extractStructuredData } from "@intuned/browser/ai";
 import { z } from "zod";
 
-interface Params {}
+interface Params {
+  // No params needed
+}
 
 const BookSchema = z.object({
   name: z.string().describe("Book title"),
@@ -25,7 +28,6 @@ export default async function handler(
 
   // Extract from the Page directly using Zod schema.
   // You can also extract from a specific locator or by passing TextContentItem.
-  // Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extractStructuredData for more details.
   const product = await extractStructuredData({
     source: page,
     strategy: "HTML",

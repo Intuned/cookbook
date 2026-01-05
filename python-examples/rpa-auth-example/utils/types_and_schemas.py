@@ -1,5 +1,6 @@
-from pydantic import BaseModel, EmailStr, field_validator
 from typing import Literal
+
+from pydantic import BaseModel, EmailStr, field_validator
 
 
 class BookConsultationSchema(BaseModel):

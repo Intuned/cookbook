@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
-from playwright.async_api import Page
+
 from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 
 async def fetch_sitemap_urls(page: Page, base_url: str) -> list[str]:

@@ -7,8 +7,9 @@ Demonstrates form interactions:
 - Checkboxes and radio buttons
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

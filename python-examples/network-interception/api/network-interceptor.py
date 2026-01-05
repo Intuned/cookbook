@@ -1,8 +1,9 @@
-from playwright.async_api import Page, BrowserContext, Request
-from typing import Optional, Any, Dict
+from typing import Any
+
 from intuned_browser import go_to_url, wait_for_network_settled
 from intuned_runtime import attempt_store
-from utils.types_and_schemas import NetworkInterceptorParams, InsureeResponse
+from playwright.async_api import BrowserContext, Page, Request
+from utils.types_and_schemas import InsureeResponse, NetworkInterceptorParams
 
 
 async def login(page: Page, username: str, password: str, login_url: str) -> None:
@@ -46,8 +47,8 @@ async def fetch_with_csrf(
     page: Page,
     url: str,
     method: str = "POST",
-    body: Optional[Dict[str, Any]] = None,
-    headers: Optional[Dict[str, str]] = None,
+    body: dict[str, Any] | None = None,
+    headers: dict[str, str] | None = None,
 ) -> Any:
     # Customize the headers below to match your API requirements
     fetch_script = """
@@ -129,7 +130,7 @@ async def automation(
         params.login_url or url
     )  # URL to the login page, if not provided, use the main URL
     attempt_store.set("csrf_token", None)
-    
+
     print("Starting network interception automation")
     await login(page, username, password, login_url)
 

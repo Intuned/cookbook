@@ -1,7 +1,8 @@
 // For more information, see our Intuned settings reference
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
-  "projectName": "browser-sdk-showcase",
+  // "workspaceId": "your-workspace-id", // Add your workspace ID here for local development (required for AI helpers)
+  // "projectName": "your-project-name", // Add your project name here for local development (required for AI helpers)
   "apiAccess": {
     "enabled": false
   },
@@ -18,7 +19,16 @@
   "metadata": {
     "template": {
       "name": "browser-sdk-showcase",
-      "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks"
+      "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks",
+      "tags": ["browser-sdk", "common-automation-tasks", "intuned-browser-sdk", "playwright-helpers", "ai-powered-automation"]
+    },
+    "tags": ["browser-sdk", "helpers", "web-scraping", "automation", "examples"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "go-to-url",
+      "parameters": {
+        "timeout": 15,
+        "retries": 3
+      }
     }
   }
 }

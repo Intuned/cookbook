@@ -1,5 +1,5 @@
+
 from pydantic import BaseModel, Field
-from typing import List
 
 
 class Insuree(BaseModel):
@@ -14,7 +14,7 @@ class InsureeNode(BaseModel):
 
 
 class InsureeEdges(BaseModel):
-    edges: List[InsureeNode]
+    edges: list[InsureeNode]
 
 
 class InsureeData(BaseModel):

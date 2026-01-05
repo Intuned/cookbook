@@ -4,10 +4,10 @@ Browser navigation tool using Playwright.
 
 import base64
 from typing import Literal
-from playwright.async_api import Page
-from intuned_browser import go_to_url
 
 from anthropic.types.beta import BetaToolUnionParam
+from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 from .base import BaseAnthropicTool, ToolError, ToolResult
 
@@ -62,13 +62,13 @@ class BrowserTool(BaseAnthropicTool):
             # Navigate to the URL
             await go_to_url(page=self.page, url=url)
             response = None  # go_to_url doesn't return a response object
-            
+
             # Take a screenshot
             screenshot_bytes = await self.page.screenshot(type="png")
-            
+
             status_text = "success" if response and response.ok else "failed"
             output = f"Navigated to {url} - Status: {status_text}"
-            
+
             return ToolResult(
                 output=output,
                 base64_image=base64.b64encode(screenshot_bytes).decode()

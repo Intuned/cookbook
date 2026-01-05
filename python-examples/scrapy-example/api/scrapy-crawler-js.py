@@ -1,7 +1,7 @@
 import scrapy
-from scrapy.http import HtmlResponse
-from playwright.async_api import Page, BrowserContext
 from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
+from scrapy.http import HtmlResponse
 from utils.types_and_schemas import ListParams, Quote
 
 

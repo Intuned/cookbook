@@ -37,7 +37,7 @@ uv run intuned run api <api-name> <parameters> --auth-session <auth-session-id>
 ### Save project
 
 ```bash
-uv run intuned run save
+uv run intuned save
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -45,7 +45,7 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 <!-- Only if auth is enabled in Intuned.jsonc -->
 ## Auth Sessions
 
-This project uses Intuned Auth Sessions. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 <!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth-sessions/create/default.json -->
 ### Create a new auth session
@@ -71,7 +71,7 @@ uv run intuned deploy
 
 ### `intuned-browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
 <!-- This should always match the project structure the readme is in -->

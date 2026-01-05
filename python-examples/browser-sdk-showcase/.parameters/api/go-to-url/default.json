@@ -1,5 +1,4 @@
 {
-  "wait_for_load_using_ai": true,
   "timeout": 15,
   "retries": 3
 }

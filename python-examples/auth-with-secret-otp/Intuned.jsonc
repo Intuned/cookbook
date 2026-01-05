@@ -15,9 +15,15 @@
       "name": "auth-with-secret-otp",
       "description": "Authentication example using secret-based OTP verification"
     },
+    "tags": ["auth", "OTP", "2FA", "authentication"],
+    "defaultRunPlaygroundInput": {
+      "apiName": "list-contracts",
+      "parameters": {}
+    },
     "testAuthSessionInput": {
       "username": "demo@email.com",
-      "password": "password"
+      "password": "DemoUser2024!",
+      "secret": "JBSWY3DPEHPK3PXP"
     }
   }
 }

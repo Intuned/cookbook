@@ -1,6 +1,6 @@
 import os
+
 import requests
-import json
 
 
 def sanitize_message(msg: dict) -> dict:
@@ -14,9 +14,9 @@ def sanitize_message(msg: dict) -> dict:
     return msg
 
 
-def create_response(api_key: str, **kwargs):
+def create_response(api_key: str, base_url: str | None = None, **kwargs):
     """Call OpenAI's responses API."""
-    url = "https://api.openai.com/v1/responses"
+    url = f"{base_url.rstrip('/')}/responses" if base_url else "https://api.openai.com/v1/responses"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"

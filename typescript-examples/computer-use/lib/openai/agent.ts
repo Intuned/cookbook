@@ -30,10 +30,11 @@ export class Agent {
     tools?: ComputerTool[];
     acknowledge_safety_check_callback?: (msg: string) => boolean;
     apiKey: string;
+    baseURL?: string;
   }) {
     this.model = opts.model ?? 'computer-use-preview';
     this.computer = opts.computer;
-    this.openai = new OpenAI({ apiKey: opts.apiKey });
+    this.openai = new OpenAI({ apiKey: opts.apiKey, baseURL: opts.baseURL });
     this.tools = [...toolset.shared, ...(opts.tools ?? [])] as ComputerTool[];
     this.ackCb = opts.acknowledge_safety_check_callback ?? ((): boolean => true);
 

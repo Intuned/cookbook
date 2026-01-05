@@ -1,5 +1,7 @@
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
+
 # from intuned_runtime import extend_payload
 
 

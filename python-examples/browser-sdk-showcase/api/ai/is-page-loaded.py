@@ -1,20 +1,21 @@
-from playwright.async_api import Page
+# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/is_page_loaded
 from typing import TypedDict
+
 from intuned_browser.ai import is_page_loaded
+from playwright.async_api import Page
 
-    
+
 class Params(TypedDict):
-        pass
+    pass
 
-async def automation(page: Page, params: Params | None = None, **_kwargs):
+
+async def automation(page: Page, params: Params, **_kwargs):
     # Wait for page to finish loading
-    await page.goto('https://www.booking.com/')
-    page_loaded = await is_page_loaded(page) # Use AI vision to determine if the page has finished loading.
-    # At this point, the AI has determined if the page has finished loading based on a screenshot taken of the page.
+    await page.goto("https://sandbox.intuned.dev/")
+    page_loaded = await is_page_loaded(page)
     if page_loaded:
         # Continue with scraping or interactions
-        print("Page is fully loaded")
+        print("Page is loaded")
     else:
         # Wait longer or retry
-        print("Page is still loading")
-    return "Done"
+        await page.wait_for_timeout(5000)

@@ -420,7 +420,7 @@ const { baseUrl, apiKey } = await getAiGatewayConfig();
 
 **Python:**
 ```python
-from runtime_helpers import get_ai_gateway_config
+from intuned_runtime import intuned_runtime
 config = await get_ai_gateway_config()
 base_url = config.base_url
 api_key = config.api_key

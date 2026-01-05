@@ -1,5 +1,5 @@
-from playwright.async_api import Page
 from intuned_browser import go_to_url
+from playwright.async_api import Page
 
 
 async def check(page: Page, **_kwargs) -> bool:

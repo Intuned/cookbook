@@ -1,7 +1,8 @@
-from lib.openai.computers import Computer
-from lib.openai.agent.utils import create_response, sanitize_message
 import json
-from typing import Callable
+from collections.abc import Callable
+
+from lib.openai.agent.utils import create_response, sanitize_message
+from lib.openai.computers import Computer
 
 
 class Agent:
@@ -11,14 +12,16 @@ class Agent:
 
     def __init__(
         self,
-        model="computer-use-preview",
+        model="computer-use-preview-2025-03-11",
         api_key: str = None,
+        base_url: str = None,
         computer: Computer = None,
         tools: list[dict] = [],
         acknowledge_safety_check_callback: Callable = lambda message: True,
     ):
         self.model = model
         self.api_key = api_key
+        self.base_url = base_url
         self.computer = computer
         self.tools = tools
         self.print_steps = True
@@ -144,6 +147,7 @@ class Agent:
 
             response = create_response(
                 api_key=self.api_key,
+                base_url=self.base_url,
                 model=self.model,
                 input=input_items + new_items,
                 tools=self.tools,

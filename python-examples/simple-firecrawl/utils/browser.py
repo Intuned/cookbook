@@ -1,6 +1,5 @@
 from crawl4ai.async_configs import BrowserConfig
 
-
 # Mobile Chrome user agent
 MOBILE_USER_AGENT = (
     "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "

@@ -8,8 +8,9 @@ To use this endpoint please register to tavily.com (they provide free credits fo
 And enter your API key in tavily_api_key parameter.
 """
 
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Literal, Any
+from typing import Any, Literal, TypedDict
+
+from playwright.async_api import BrowserContext, Page
 from tavily import TavilyClient
 
 CATEGORY_DOMAINS = {

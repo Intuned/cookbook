@@ -7,8 +7,9 @@ Demonstrates handling pages that open in new tabs:
 - Working with multiple pages
 """
 
-from playwright.async_api import Page
 from typing import TypedDict
+
+from playwright.async_api import Page
 
 
 class Params(TypedDict):

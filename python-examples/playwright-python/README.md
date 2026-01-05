@@ -8,7 +8,7 @@ A comprehensive Python template covering core Playwright automation patterns. Ea
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/playwright-python)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/playwright-python" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## APIs
 
@@ -112,4 +112,4 @@ uv run intuned deploy
 ## Related
 
 - [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview)
+- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/overview)

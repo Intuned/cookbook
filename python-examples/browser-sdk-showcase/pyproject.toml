@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "default"
+name = "browser-sdk-showcase"
 version = "0.0.1"
-description = "Empty Intuned project"
+description = "Showcase of Intuned Browser SDK helper functions for common automation tasks"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]
 requires-python = ">=3.12,<3.13"
 readme = "README.md"
@@ -15,7 +15,7 @@ keywords = [
 ]
 dependencies = [
     "playwright==1.56",
-    "intuned-runtime==1.3.14",
+    "intuned-runtime==1.3.15",
     "intuned-browser==0.1.11",
 ]
 

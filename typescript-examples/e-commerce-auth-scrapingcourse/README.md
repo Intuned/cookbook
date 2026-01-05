@@ -6,7 +6,7 @@ Authenticated e-commerce scraping automation that extracts product information f
 
 Open this project in Intuned by clicking the button below.
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-auth-scrapingcourse)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-auth-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 
@@ -75,7 +75,7 @@ yarn intuned deploy
 
 ## Auth Sessions
 
-This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
 ```bash
@@ -226,4 +226,4 @@ This project uses the Intuned browser SDK for enhanced reliability:
 - **`saveFileToS3`**: Automatically upload images and files to S3 storage
 - **`extendPayload`**: Trigger additional API calls dynamically (used to trigger `details` API for each product)
 
-For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).

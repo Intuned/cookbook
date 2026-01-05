@@ -195,6 +195,7 @@ base_url, api_key = get_ai_gateway_config()
 ```
 
 **Key points:**
+- **Requires latest runtime**: Upgrade to the latest `@intuned/runtime` (TypeScript) or `intuned-runtime` (Python) to use this feature
 - Python: Returns a tuple `(base_url, api_key)` - use tuple unpacking
 - TypeScript: Returns an object with `baseUrl` and `apiKey` properties
 - Templates should use this gateway instead of requiring users to provide their own AI provider keys
@@ -378,7 +379,7 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 ## Documentation Links
 
 - AuthSessions: https://docs.intunedhq.com/docs/02-features/auth-sessions
-- Browser SDK: https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview
+- Browser SDK: https://docs.intunedhq.com/automation-sdks/overview
 - Intuned in depth: https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth
 - Introduction / Quickstarts: https://docs.intunedhq.com/docs/00-getting-started/introduction
 - Recipe docs: https://docs.intunedhq.com/docs/01-learn/recipes/

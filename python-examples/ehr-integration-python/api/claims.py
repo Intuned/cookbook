@@ -1,13 +1,14 @@
+from typing import TypedDict
+
+from intuned_browser import go_to_url
 from playwright.async_api import Page
-from typing import TypedDict, List, Dict
-# from intuned_runtime import extend_payload
 
 
 class Params(TypedDict):
     pass
 
 
-async def extract_claims_data(page: Page) -> List[Dict[str, str]]:
+async def extract_claims_data(page: Page) -> list[dict[str, str]]:
     """Extract claims data from openIMIS"""
 
     # Wait for claims table to load
@@ -40,8 +41,7 @@ async def extract_claims_data(page: Page) -> List[Dict[str, str]]:
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     all_results = []
-    await page.goto("https://demo.openimis.org/front/claim/healthFacilities")
-    await page.wait_for_timeout(5_000)
+    await go_to_url(page, "https://demo.openimis.org/front/claim/healthFacilities")
     while True:
         # Extract data from current page
         result = await extract_claims_data(page)

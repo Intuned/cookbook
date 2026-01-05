@@ -1,7 +1,8 @@
-from playwright.async_api import Page
-from typing import TypedDict, List, Optional
-from runtime_helpers import extend_payload
+from typing import TypedDict
+
 from intuned_browser import go_to_url
+from intuned_runtime import extend_payload
+from playwright.async_api import Page
 
 
 class Product(TypedDict):
@@ -9,7 +10,7 @@ class Product(TypedDict):
     detailsUrl: str
 
 
-async def extract_products_from_page(page: Page) -> List[Product]:
+async def extract_products_from_page(page: Page) -> list[Product]:
     # Wait for the product grid to be visible
     # This ensures the page has loaded before we try to extract data
     product_grid = page.locator("#product-grid")
@@ -20,7 +21,7 @@ async def extract_products_from_page(page: Page) -> List[Product]:
     product_items = await product_grid.locator(".product-item").all()
 
     # Array to store all extracted product data
-    products: List[Product] = []
+    products: list[Product] = []
 
     for product_item in product_items:
         try:
@@ -55,11 +56,11 @@ async def extract_products_from_page(page: Page) -> List[Product]:
     return products
 
 
-async def handler(
+async def automation(
     page: Page,
-    params: Optional[dict] = None,
+    params: dict | None = None,
     **_kwargs,
-) -> List[Product]:
+) -> list[Product]:
     # Validate input parameters using schema
     if params is None:
         params = {}

@@ -53,15 +53,7 @@ export default async function* create(
   await otpSubmitButton.click();
 
   // Step 8: Verify successful login by checking if the protected page is visible
-  // If the protected page is visible, it means we successfully logged in
+  // If the protected page is not visible, waitFor will raise an exception
   const protectedPage = page.locator("#book-consultations-title");
-  let isLoggedIn = true;
-  try {
-    await protectedPage.waitFor({ state: "visible" });
-  } catch (error) {
-    isLoggedIn = false;
-  }
-
-  // Return true if login was successful, false otherwise
-  return isLoggedIn;
+  await protectedPage.waitFor({ state: "visible", timeout: 10_000 });
 }

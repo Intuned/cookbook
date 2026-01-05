@@ -60,6 +60,7 @@ htmlcov/
 
 # Intuned
 .intuned/
+scripts/.deploy-config
 # Ignore all folders in auth-sessions-instances except test-auth-session
 **/auth-sessions-instances/*
 !**/auth-sessions-instances/test-auth-session/
@@ -68,3 +69,5 @@ htmlcov/
 notes.md
 
 node_modules/
+Intuned.jsonc.backup
+.env.backup
