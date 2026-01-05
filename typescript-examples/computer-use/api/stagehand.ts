@@ -48,6 +48,7 @@ export default async function handler(
     localBrowserLaunchOptions: {
       cdpUrl: webSocketUrl,
       viewport: { width: 1280, height: 800 },
+      downloadsPath: "./tmp",
     },
     llmClient,
     logger: console.log,

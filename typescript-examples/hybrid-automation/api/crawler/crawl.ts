@@ -318,7 +318,7 @@ export default async function handler(
         const linkKey = sanitizeKey(`${keyPrefix}_visited_${link}`);
         if (!(await persistentStore.get(linkKey))) {
           extendPayload({
-            api: "hybrid-crawler/crawl",
+            api: "crawler/crawl",
             parameters: {
               url: link,
               depth: nextDepth,

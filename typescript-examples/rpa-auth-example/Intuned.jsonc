@@ -15,7 +15,19 @@
   "metadata": {
     "template": {
       "name": "rpa-auth-example",
-      "description": "RPA example for booking consultations with auth session support"
+      "description": "RPA example for booking consultations with auth session support",
+      "tags": ["rpa", "auth-sessions"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "book-consultations",
+      "parameters": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "555-0123",
+        "date": "2024-01-15",
+        "time": "10:00",
+        "topic": "web-scraping"
+      }
     },
     "testAuthSessionInput": {
       "username": "demo@email.com",

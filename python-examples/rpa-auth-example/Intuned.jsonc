@@ -15,7 +15,8 @@
   "metadata": {
     "template": {
       "name": "rpa-auth-example",
-      "description": "RPA example for booking consultations with auth session support"
+      "description": "RPA example for booking consultations with auth session support",
+      "tags": ["rpa", "auth-sessions"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "book-consultations",

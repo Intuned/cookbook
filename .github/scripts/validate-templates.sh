@@ -12,6 +12,22 @@ WARNINGS=0
 declare -a ERROR_MESSAGES=()
 declare -a WARNING_MESSAGES=()
 
+# Allowed tags - only these tags are permitted in Intuned.jsonc files
+ALLOWED_TAGS=(
+    "scraping"
+    "rpa"
+    "crawling"
+    "auth-sessions"
+    "2fa"
+    "captcha"
+    "computer-use"
+    "stagehand"
+    "browser-use"
+    "browser-sdk"
+    "e-commerce"
+    "crawl4ai"
+)
+
 error() {
     echo -e "${RED}ERROR:${NC} $1"
     ERROR_MESSAGES+=("$1")
@@ -145,20 +161,73 @@ validate_template() {
     fi
 
     # -------------------------------------------
-    # 3b. Check metadata.tags
+    # 3b. Check tags (validate against allowed list)
+    # Tags can be at metadata.template.tags or metadata.tags
     # -------------------------------------------
-    local meta_tags
-    meta_tags=$(echo "$config" | jq -r '.metadata.tags // empty' 2>/dev/null || echo "")
+    local tags_location=""
+    local tags_count=0
 
-    if [[ -z "$meta_tags" || "$meta_tags" == "null" ]]; then
-        warning "[$full_path] metadata.tags is not set (recommended for categorization)"
+    # Check metadata.template.tags first (preferred location)
+    local template_tags
+    template_tags=$(echo "$config" | jq -r '.metadata.template.tags // empty' 2>/dev/null || echo "")
+    if [[ -n "$template_tags" && "$template_tags" != "null" ]]; then
+        tags_count=$(echo "$config" | jq '.metadata.template.tags | length' 2>/dev/null || echo "0")
+        if [[ "$tags_count" -gt 0 ]]; then
+            tags_location="metadata.template.tags"
+        fi
+    fi
+
+    # If not found at correct location, check metadata.tags (wrong location)
+    if [[ -z "$tags_location" ]]; then
+        local meta_tags
+        meta_tags=$(echo "$config" | jq -r '.metadata.tags // empty' 2>/dev/null || echo "")
+        if [[ -n "$meta_tags" && "$meta_tags" != "null" ]]; then
+            tags_count=$(echo "$config" | jq '.metadata.tags | length' 2>/dev/null || echo "0")
+            if [[ "$tags_count" -gt 0 ]]; then
+                tags_location="metadata.tags"
+            fi
+        fi
+    fi
+
+    if [[ -z "$tags_location" ]]; then
+        error "[$full_path] tags not set (required for categorization)"
+        error "[$full_path] Add tags to metadata.template.tags. Allowed: ${ALLOWED_TAGS[*]}"
+    elif [[ "$tags_count" -eq 0 ]]; then
+        error "[$full_path] tags array is empty (at least one tag required)"
+        error "[$full_path] Allowed tags: ${ALLOWED_TAGS[*]}"
     else
-        local tags_count
-        tags_count=$(echo "$config" | jq '.metadata.tags | length' 2>/dev/null || echo "0")
-        if [[ "$tags_count" -eq 0 ]]; then
-            warning "[$full_path] metadata.tags is empty (recommended for categorization)"
+        # Report location error if tags are in wrong place
+        if [[ "$tags_location" == "metadata.tags" ]]; then
+            error "[$full_path] tags found at wrong location (metadata.tags) - must be inside metadata.template.tags"
+            error "[$full_path] Move tags array from metadata.tags to metadata.template.tags in $dir/Intuned.jsonc"
         else
-            success "[$full_path] metadata.tags is set with $tags_count tag(s)"
+            success "[$full_path] tags found at $tags_location with $tags_count tag(s)"
+        fi
+
+        # Validate each tag against allowed list (regardless of location)
+        local invalid_tags=()
+        local jq_path=".metadata.template.tags[]"
+        [[ "$tags_location" == "metadata.tags" ]] && jq_path=".metadata.tags[]"
+
+        while IFS= read -r tag; do
+            [[ -z "$tag" ]] && continue
+            local is_valid=false
+            for allowed in "${ALLOWED_TAGS[@]}"; do
+                if [[ "$tag" == "$allowed" ]]; then
+                    is_valid=true
+                    break
+                fi
+            done
+            if [[ "$is_valid" == "false" ]]; then
+                invalid_tags+=("$tag")
+            fi
+        done < <(echo "$config" | jq -r "$jq_path" 2>/dev/null)
+
+        if [[ ${#invalid_tags[@]} -gt 0 ]]; then
+            error "[$full_path] Invalid tag(s): ${invalid_tags[*]}"
+            error "[$full_path] Allowed tags: ${ALLOWED_TAGS[*]}"
+        else
+            success "[$full_path] All tags are valid"
         fi
     fi
 

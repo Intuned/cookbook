@@ -17,7 +17,7 @@
     "template": {
       "name": "browser-use",
       "description": "AI-powered browser automation using browser-use library",
-      "tags": ["browser-use", "ai-powered-automation", "browser-automation"]
+      "tags": ["browser-use", "auth-sessions"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "purchase-item",

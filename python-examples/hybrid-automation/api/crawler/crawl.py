@@ -303,7 +303,7 @@ async def automation(
                 if not await persistent_store.get(link_key):
                     extend_payload(
                         {
-                            "api": "crawl",
+                            "api": "crawler/crawl",
                             "parameters": {
                                 "url": link,
                                 "depth": next_depth,

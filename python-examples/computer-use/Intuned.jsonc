@@ -17,7 +17,8 @@
   "metadata": {
     "template": {
       "name": "computer-use",
-      "description": "AI-powered browser automation using Claude's computer use capabilities"
+      "description": "AI-powered browser automation using Claude's computer use capabilities",
+      "tags": ["computer-use", "browser-use"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "anthropic-computer-use",

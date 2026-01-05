@@ -44,7 +44,7 @@ async def automation(
     stagehand = Stagehand(
         env="LOCAL",
         local_browser_launch_options=dict(
-            cdp_url=cdp_url, viewport=dict(width=1280, height=800)
+            cdp_url=cdp_url, viewport=dict(width=1280, height=800), downloadPath="./tmp"
         ),
         model_api_key=api_key,
         model_client_options={

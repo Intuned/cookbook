@@ -99,7 +99,7 @@ npx intuned run api crawler/crawl .parameters/api/crawler/crawl/not-lever.json
 
 ### Deploy project
 ```bash
-npx intuned deploy
+yarn intuned deploy
 ```
 
 <!-- IDE-IGNORE-END -->

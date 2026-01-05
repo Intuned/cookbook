@@ -1,0 +1,58 @@
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "proxy": {
+    "enabled": false
+  },
+  "headful": true,
+  "captchaSolver": {
+    "enabled": true,
+    "googleRecaptchaV2": {
+      "enabled": true
+    },
+    "cloudflare": {
+      "enabled": true
+    },
+    "geetest": {
+      "enabled": true
+    },
+    "customCaptcha": {
+      "enabled": true,
+      "imageLocators": [
+        "#demoCaptcha_CaptchaImage"
+      ],
+      "inputLocators": [
+        "#captchaCode"
+      ],
+      "submitLocators": [
+        "#validateCaptchaButton"
+      ]
+    },
+    "settings": {
+      "autoSolve": true,
+      "maxRetries": 10
+    }
+  },
+  "stealthMode": {
+    "enabled": true
+  },
+  "metadata": {
+    "template": {
+      "name": "captcha-solving-basic",
+      "description": "Basic captcha solving with support for reCAPTCHA, Cloudflare, and custom captchas",
+      "tags": ["captcha"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "captcha-solver",
+      "parameters": {}
+    }
+  }
+}

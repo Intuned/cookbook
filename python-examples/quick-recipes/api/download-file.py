@@ -26,4 +26,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Return the suggested filename for reference
     file_name = downloaded_file.suggested_filename
     print(f"Downloaded file: {file_name}")
-    return file_name
+    return {
+        "file_name": file_name,
+    }

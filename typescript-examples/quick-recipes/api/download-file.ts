@@ -27,5 +27,7 @@ export default async function handler(
   // Return the suggested filename for reference
   const fileName = downloadedFile.suggestedFilename();
   console.log(`Downloaded file: ${fileName}`);
-  return fileName;
+  return {
+    file_name: fileName,
+  };
 }

@@ -20,9 +20,8 @@
     "template": {
       "name": "browser-sdk-showcase",
       "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks",
-      "tags": ["browser-sdk", "common-automation-tasks", "intuned-browser-sdk", "playwright-helpers", "ai-powered-automation"]
+      "tags": ["browser-sdk"]
     },
-    "tags": ["browser-sdk", "helpers", "web-scraping", "automation", "examples"],
     "defaultRunPlaygroundInput": {
       "apiName": "go-to-url",
       "parameters": {
