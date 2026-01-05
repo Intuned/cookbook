@@ -4,9 +4,7 @@ This example demonstrates how to integrate [Browser Use](https://github.com/brow
 
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-use)
 
 ## What This Example Does
 
@@ -32,7 +30,7 @@ The `hooks/setup_context.py` file runs before every API call and creates a Brows
 The `api/purchase-item.py` handler receives Intuned's Playwright `page` object and also uses the Browser Use browser.
 ## Parameters
 
-The API requires the following parameters:
+The API template example uses the following parameters:
 
 ```json
 {
@@ -47,10 +45,46 @@ The API requires the following parameters:
 
 ## Getting Started
 
+**Important:** This example uses [Browser Use](https://github.com/browser-use/browser-use), an AI-powered browser automation tool that requires Intuned's AI gateway. The AI gateway requires the project to be saved before running.
+
+### Setup
+
+To run this example locally, you need to set up your Intuned workspace:
+
+1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
+
+2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
+
+3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+   ```jsonc
+   {
+     "workspaceId": "your-workspace-id",
+     "projectName": "your-project-name"
+     // ... rest of config
+   }
+   ```
+
+4. **Set environment variable** - Add your API key as an environment variable:
+   ```bash
+   export INTUNED_API_KEY=your-api-key
+   ```
+
 ### Install Dependencies
 ```bash
 uv sync
 ```
+
+### Initialize Project
+
+Run the save command to upload your project and set up the required `.env` file:
+
+```bash
+uv run intuned save
+```
+
+This configures your local environment and prepares the AI gateway for Browser Use.
+
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Run the API Locally
 ```bash
