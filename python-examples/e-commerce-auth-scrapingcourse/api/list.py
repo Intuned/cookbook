@@ -1,5 +1,5 @@
-from playwright.async_api import Page
-from typing import TypedDict, List, Optional
+from typing import TypedDict
+
 from intuned_browser import go_to_url
 from intuned_runtime import extend_payload
 from playwright.async_api import Page

@@ -1,13 +1,13 @@
 from typing import TypedDict
 
 from intuned_browser import go_to_url
-from typing import TypedDict, List
 from intuned_runtime import extend_payload
 from playwright.async_api import BrowserContext, Page
 
 
 class Params(TypedDict):
     pass
+
 
 class Product(TypedDict):
     name: str
@@ -33,27 +33,31 @@ async def automation(
 
     await go_to_url(page, "https://scrapingcourse.com/dashboard")
     products: list[Product] = []
-    items = page.locator('.product-item')
+    items = page.locator(".product-item")
     count = await items.count()
 
     for i in range(count):
         item = items.nth(i)
-        name = await item.locator('.product-name').text_content()
-        price = await item.locator('.product-price').text_content()
-        details_url = await item.locator('a').get_attribute('href')
+        name = await item.locator(".product-name").text_content()
+        price = await item.locator(".product-price").text_content()
+        details_url = await item.locator("a").get_attribute("href")
 
-        products.append({
-            'name': name.strip() if name else '',
-            'price': price.strip() if price else '',
-            'details_url_item': details_url or '',
-        })
+        products.append(
+            {
+                "name": name.strip() if name else "",
+                "price": price.strip() if price else "",
+                "details_url_item": details_url or "",
+            }
+        )
 
     print(f"Total products scraped: {len(products)}")
 
     for product in products:
-        extend_payload({
-            "api": "product-details",
-            "parameters": dict(product),
-        })
+        extend_payload(
+            {
+                "api": "product-details",
+                "parameters": dict(product),
+            }
+        )
 
     return {"products": products}
