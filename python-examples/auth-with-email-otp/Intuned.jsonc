@@ -16,7 +16,7 @@
     "template": {
       "name": "auth-with-email-otp",
       "description": "Authentication example using email-based OTP verification with Resend",
-      "tags": ["auth-sessions", "otp", "email-verification", "resend"]
+      "tags": ["auth-sessions", "2fa"]
     },
     "testAuthSessionInput": {
       "username": "your_resend_inbox_email@resend.app",

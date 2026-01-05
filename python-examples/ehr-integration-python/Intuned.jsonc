@@ -19,7 +19,7 @@
     "template": {
       "name": "ehr-integration-python",
       "description": "Electronic Health Records integration example with authentication",
-      "tags": ["ehr", "healthcare", "auth-sessions", "data-extraction"]
+      "tags": ["auth-sessions", "scraping", "rpa"]
     },
     "testAuthSessionInput": {
       "username": "Admin",

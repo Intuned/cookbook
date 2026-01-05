@@ -17,7 +17,8 @@
   "metadata": {
     "template": {
       "name": "simple-firecrawl",
-      "description": "Simple web crawling and scraping using Firecrawl"
+      "description": "Simple web crawling and scraping using Firecrawl",
+      "tags": ["crawling", "scraping", "crawl4ai"]
     }
   }
 }

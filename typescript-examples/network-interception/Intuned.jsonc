@@ -12,7 +12,8 @@
   "metadata": {
     "template": {
       "name": "network-interception",
-      "description": "Network request interception for API data extraction"
+      "description": "Network request interception for API data extraction",
+      "tags": ["scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "api-interceptor",

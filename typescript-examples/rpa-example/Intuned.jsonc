@@ -16,7 +16,7 @@
       "name": "rpa-example",
       "description": "RPA example for booking consultations without authentication"
     },
-    "tags": ["rpa", "automation", "forms"],
+    "tags": ["rpa"],
     "defaultRunPlaygroundInput": {
       "apiName": "book-consultations",
       "parameters": {

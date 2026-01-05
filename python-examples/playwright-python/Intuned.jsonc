@@ -16,7 +16,7 @@
       "name": "playwright-python",
       "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more"
     },
-    "tags": ["playwright", "scraping", "rpa", "automation"],
+    "tags": ["scraping", "rpa"],
     "defaultRunPlaygroundInput": {
       "apiName": "01-basic-navigation",
       "parameters": {

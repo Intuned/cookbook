@@ -15,7 +15,7 @@
       "template": {
         "name": "e-commerece-category",
         "description": "E-commerce category and product scraper",
-        "tags": ["web-scraping", "e-commerce", "categories", "extend-payload"]
+        "tags": ["scraping", "e-commerce"]
       },
       "defaultRunPlaygroundInput": {
         "apiName": "category",

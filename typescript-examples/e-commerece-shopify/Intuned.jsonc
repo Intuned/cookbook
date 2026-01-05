@@ -15,7 +15,7 @@
     "template": {
       "name": "e-commerece-shopify",
       "description": "Shopify store product scraper",
-      "tags": ["web-scraping", "shopify", "e-commerce", "api-based"]
+      "tags": ["scraping", "e-commerce"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "shopify-list",

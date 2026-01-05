@@ -15,7 +15,7 @@
       "name": "auth-with-secret-otp",
       "description": "Authentication example using secret-based OTP verification"
     },
-    "tags": ["auth", "OTP", "2FA", "authentication"],
+    "tags": ["auth-sessions", "2fa"],
     "defaultRunPlaygroundInput": {
       "apiName": "list-contracts",
       "parameters": {}

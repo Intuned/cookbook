@@ -16,12 +16,7 @@
     "template": {
       "name": "default-template-auth-session",
       "description": "Default AuthSession Intuned project template for browser automation",
-      "tags": [
-        "intuned-browser-sdk",
-        "intuned-auth-sessions",
-        "intuned-auth-sessions-credentials",
-        "Authenticated"
-      ]
+      "tags": ["browser-sdk", "auth-sessions"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample",

@@ -47,7 +47,8 @@
   "metadata": {
     "template": {
       "name": "captcha-solving-basic-example",
-      "description": "Basic captcha solving with support for reCAPTCHA, Cloudflare, and custom captchas"
+      "description": "Basic captcha solving with support for reCAPTCHA, Cloudflare, and custom captchas",
+      "tags": ["captcha"]
     }
   }
 }

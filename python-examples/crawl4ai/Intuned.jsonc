@@ -17,7 +17,8 @@
   "metadata": {
     "template": {
       "name": "crawl4ai",
-      "description": "Web crawling using Crawl4AI library with deep and multi-URL crawling"
+      "description": "Web crawling using Crawl4AI library with deep and multi-URL crawling",
+      "tags": ["crawling", "crawl4ai"]
     }
   }
 }

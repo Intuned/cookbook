@@ -14,7 +14,8 @@
   "metadata": {
     "template": {
       "name": "bs4-example",
-      "description": "Web scraping example using BeautifulSoup4 for HTML parsing"
+      "description": "Web scraping example using BeautifulSoup4 for HTML parsing",
+      "tags": ["scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "list",

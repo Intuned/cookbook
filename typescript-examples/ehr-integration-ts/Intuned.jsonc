@@ -14,7 +14,7 @@
     "template": {
       "name": "ehr-integration-ts",
       "description": "Electronic Health Records integration example with authentication",
-      "tags": ["ehr", "healthcare", "auth-sessions", "data-extraction"]
+      "tags": ["auth-sessions", "scraping" ,"rpa"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "claims",

@@ -14,7 +14,8 @@
   "metadata": {
     "template": {
       "name": "scrapy-example",
-      "description": "Web scraping examples using Scrapy framework"
+      "description": "Web scraping examples using Scrapy framework",
+      "tags": ["crawling", "scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "scrapy-crawler",

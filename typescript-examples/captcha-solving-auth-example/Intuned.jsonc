@@ -31,7 +31,8 @@
   "metadata": {
     "template": {
       "name": "captcha-solving-auth-example",
-      "description": "E-commerce scraper with captcha solving and auth sessions"
+      "description": "E-commerce scraper with captcha solving and auth sessions",
+      "tags": ["captcha", "auth-sessions"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "details",

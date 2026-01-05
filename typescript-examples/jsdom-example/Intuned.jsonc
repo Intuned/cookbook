@@ -14,7 +14,8 @@
   "metadata": {
     "template": {
       "name": "jsdom-example",
-      "description": "Web scraping example using JSDOM for HTML parsing"
+      "description": "Web scraping example using JSDOM for HTML parsing",
+      "tags": ["scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "list",

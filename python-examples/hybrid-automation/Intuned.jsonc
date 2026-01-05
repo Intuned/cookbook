@@ -17,7 +17,7 @@
     "template": {
       "name": "hybrid-automation",
       "description": "Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data",
-      "tags": ["hybrid", "ai", "scraping", "rpa", "crawler", "stagehand"]
+      "tags": ["scraping", "rpa", "crawling", "stagehand"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "rpa/fill-form",

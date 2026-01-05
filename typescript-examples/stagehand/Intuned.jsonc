@@ -16,7 +16,7 @@
       "name": "stagehand",
       "description": "AI-powered browser automation using Stagehand library"
     },
-    "tags": ["ai", "stagehand", "automation"],
+    "tags": ["stagehand", "scraping"],
     "defaultRunPlaygroundInput": {
       "apiName": "get-books",
       "parameters": {
