@@ -1,26 +1,30 @@
-# auth-with-email-otp Intuned project
+# Auth with Email OTP
 
-Authentication automation with email-based OTP verification
+Authentication automation with email-based OTP verification using Resend for email inbox access.
 
-**Note:** This project requires:
-
-- A Resend API key. Set the environment variable `RESEND_API_KEY` with your API key from [resend.com](https://resend.com).
-- Your Resend inbox email (e.g., `your-email@resend.app`)
-- Your password for the authentication service
-
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/auth-with-email-otp" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/auth-with-email-otp)
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+
+### Prerequisites
+
+**Important:** This example uses [Resend](https://resend.com) for email-based OTP verification. You'll need:
+
+1. **Resend Account** - Sign up at [resend.com](https://resend.com) to get an API key
+2. **Resend API Key** - Generate an API key from your Resend dashboard
+3. **Set Environment Variable**:
+   ```bash
+   export RESEND_API_KEY=your-resend-api-key
+   ```
 
 ### Install dependencies
 
@@ -33,6 +37,8 @@ yarn
 ```
 
 > **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Deploy project
 
@@ -79,93 +85,62 @@ npm run intuned run authsession validate <auth-session-id>
 yarn intuned run authsession validate <auth-session-id>
 ```
 
+### Run an API
+
+```bash
+# npm
+npm run intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+
+# yarn
+yarn intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+```
+
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-## Project Structure
+<!-- IDE-IGNORE-END -->
 
-The project structure is as follows:
+## Project Structure
 
 ```
 /
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── Intuned.jsonc              # Intuned project configuration file
+├── api/                          # API endpoints
+│   └── list-contracts.ts         # List contracts for authenticated user
+├── auth-sessions/                # Auth session related APIs
+│   ├── check.ts                  # API to check if the auth session is still valid
+│   └── create.ts                 # API to create/recreate the auth session programmatically
+├── auth-sessions-instances/      # Auth session instances created and used by the CLI
+│   └── test-auth-session/        # Example test auth session
+│       ├── auth-session.json     # Browser state (cookies, localStorage)
+│       └── metadata.json         # Auth session metadata
+├── utils/                        # Utility modules
+│   ├── resend.ts                 # Resend API integration for email OTP
+│   └── types-and-schemas.ts      # Type definitions and schemas
+├── .parameters/                  # Test parameters for APIs
+│   ├── api/                      # API parameters folder
+│   │   └── list-contracts/
+│   │       └── default.json
+│   └── auth-sessions/            # Auth session parameters
+│       ├── check/
+│       │   └── default.json
+│       └── create/
+│           └── default.json
+├── Intuned.jsonc                 # Intuned project configuration file
+├── package.json                  # Node.js project dependencies
+└── tsconfig.json                 # TypeScript configuration
 ```
 
-## `Intuned.jsonc` Reference
+## Environment Variables
 
-```jsonc
-{
-  // Your Intuned workspace ID.
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
+This project requires the following environment variables:
 
-  // The name of your Intuned project.
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | Your Resend API key from [resend.com](https://resend.com) - Required for OTP email retrieval |
 
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
+## Learn More
 
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
+- [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned In-Depth](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)

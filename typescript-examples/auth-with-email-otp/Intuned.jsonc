@@ -1,3 +1,5 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
     "enabled": true
@@ -13,11 +15,16 @@
   "metadata": {
     "template": {
       "name": "auth-with-email-otp",
-      "description": "Authentication example using email-based OTP verification"
+      "description": "Authentication example using email-based OTP verification with Resend",
+      "tags": ["auth-sessions", "otp", "email-verification", "resend"]
     },
     "testAuthSessionInput": {
-      "username": "demo@email.com",
-      "password": "password"
+      "username": "your_resend_inbox_email@resend.app",
+      "password": "your_password"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list-contracts",
+      "parameters": {}
     }
   }
 }
