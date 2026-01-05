@@ -17,7 +17,17 @@
   "metadata": {
     "template": {
       "name": "native-crawler",
-      "description": "Native web crawler for sitemaps and recursive link following"
+      "description": "Native web crawler for sitemaps and recursive link following",
+      "tags": ["crawling"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "crawl",
+      "parameters": {
+        "url": "https://sandbox.intuned.dev/pdfs",
+        "max_depth": 1,
+        "include_external": true,
+        "include_attachments": true
+      }
     }
   }
 }

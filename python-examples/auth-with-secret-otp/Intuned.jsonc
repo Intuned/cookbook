@@ -13,9 +13,9 @@
   "metadata": {
     "template": {
       "name": "auth-with-secret-otp",
-      "description": "Authentication example using secret-based OTP verification"
+      "description": "Authentication example using secret-based OTP verification",
+      "tags": ["auth-sessions", "2fa"]
     },
-    "tags": ["auth", "OTP", "2FA", "authentication"],
     "defaultRunPlaygroundInput": {
       "apiName": "list-contracts",
       "parameters": {}

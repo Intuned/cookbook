@@ -13,19 +13,19 @@ Intuned sample projects in TypeScript.
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
-| [e-commerece-shopify](./e-commerece-shopify/) | Shopify store product scraper |
-| [ehr-integration-ts](./ehr-integration-ts/) | Data Extraction from Openimis Website |
-| [playwright-basics](./playwright-basics-ts/) | Playwright Basics |
-| [e-commerece-category](./e-commerece-category/) | E-commerce category and product scraper |
+| [e-commerce-shopify](./e-commerce-shopify/) | Shopify store product scraper |
+| [ehr-integration](./ehr-integration/) | Data Extraction from Openimis Website |
+| [playwright-basics](./playwright-basics/) | Playwright Basics |
+| [e-commerce-nested](./e-commerce-nested/) | E-commerce category and product scraper |
 | [hybrid-automation](./hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
 | [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [setup-hooks](./setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
-| [jsdom-example](./jsdom-example/) | Web scraping with JSDOM for HTML parsing |
-| [captcha-solving-basic-example](./captcha-solving-basic-example/) | Captcha solving usage examples |
-| [captcha-solving-auth-example](./captcha-solving-auth-example/) | E-commerce scraper with captcha |
+| [jsdom](./jsdom/) | Web scraping with JSDOM for HTML parsing |
+| [captcha-solving-basic](./captcha-solving-basic/) | Captcha solving usage examples |
+| [captcha-solving-auth](./captcha-solving-auth/) | E-commerce scraper with captcha |
 | [network-interception](./network-interception/) | Network interception for CSRF token capture and paginated API data |
 | [stagehand](./stagehand/) | AI-powered browser automation with Stagehand |
 | [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |
-| [empty](./empty/) | Empty starter template for new projects |
-| [empty-auth](./empty-auth/) | Empty starter template with Auth Sessions enabled |
+| [starter](./starter/) | Starter template for new projects |
+| [starter-auth](./starter-auth/) | Starter template with Auth Sessions enabled |

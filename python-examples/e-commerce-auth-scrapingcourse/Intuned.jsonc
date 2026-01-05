@@ -13,7 +13,12 @@
   "metadata": {
     "template": {
       "name": "e-commerce-auth-scrapingcourse",
-      "description": "E-commerce scraper with authentication using scrapingcourse.com"
+      "description": "E-commerce scraper with authentication using scrapingcourse.com",
+      "tags": ["scraping", "e-commerce", "auth-sessions"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list",
+      "parameters": {}
     },
     "defaultJobInput": {
       "configuration": {

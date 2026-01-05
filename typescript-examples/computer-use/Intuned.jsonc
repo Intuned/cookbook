@@ -15,16 +15,7 @@
     "template": {
       "name": "computer-use",
       "description": "AI-powered browser automation using computer use capabilities from multiple providers",
-      "tags": [
-        "Computer Use",
-        "AI",
-        "Anthropic",
-        "OpenAI",
-        "Gemini",
-        "Stagehand",
-        "intuned-runtime-sdk",
-        "intuned-runtime-sdk-setup-context-hook"
-      ]
+      "tags": ["computer-use", "stagehand"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "anthropic-computer-use",

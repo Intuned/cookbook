@@ -54,7 +54,7 @@ The project structure is as follows:
 │   └── setup_context.py      # Browser context setup hook
 ├── utils/                    # Utility modules
 │   └── types_and_schemas.py  # Pydantic models for type validation
-├── Intuned.json              # Intuned project configuration file
+├── Intuned.jsonc             # Intuned project configuration file
 └── pyproject.toml            # Python project dependencies
 ```
 
