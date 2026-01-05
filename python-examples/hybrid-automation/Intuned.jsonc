@@ -16,7 +16,7 @@
   "metadata": {
     "template": {
       "name": "hybrid-automation",
-      "description": "Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData",
+      "description": "Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data",
       "tags": ["hybrid", "ai", "scraping", "rpa", "crawler", "stagehand"]
     },
     "defaultRunPlaygroundInput": {
@@ -26,10 +26,9 @@
         "email": "sarah.w@startup.com",
         "phone": "+1-555-7890",
         "date": "2025-01-05",
-        "time": "11:30",
+        "time": "11:47",
         "topic": "api-integration"
       }
-      
     }
   }
 }

@@ -45,7 +45,7 @@ A collection of examples for building browser automations with [Intuned](https:/
 | [EHR-integration](./python-examples/ehr-integration-python/) | Data Extraction from Openimis Website|
 | [playwright-basics](./python-examples/playwright-python/) | Playwright Basics |
 | [e-commerece-category](./python-examples/e-commerece-category/) | E-commerce category and product scraper |
-| [hyprid-automation](./python-examples/hyprid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
+| [hybrid-automation](./python-examples/hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
 | [cdp-connection](./python-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [setup-hooks](./python-examples/setup-hooks/) | Demonstrates setup hooks for preparing data before API execution |
