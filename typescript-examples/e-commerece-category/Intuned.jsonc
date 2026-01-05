@@ -16,10 +16,10 @@
       "tags": ["web-scraping", "e-commerce", "categories", "extend-payload"]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "ecommerece-category",
+      "apiName": "category",
       "parameters": {
-        "store_url": "https://www.example-store.com/"
-      }
+        "store_url": "https://www.veja-store.com/en_us/"
+      }      
     }
   }
 }

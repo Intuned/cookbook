@@ -86,7 +86,7 @@ async function findEntity(page: Page, url: string): Promise<void> {
   await goToUrl({ page, url });
   try {
     await page.waitForSelector("#onetrust-accept-btn-handler", {
-      timeout: 5000,
+      timeout: 60_000,
     });
     await page.click("#onetrust-accept-btn-handler");
     console.log("Accepted cookies");
@@ -135,7 +135,7 @@ async function handler(
 
   // Wait for product grid to load
   // Replace this selector with the appropriate one for your store
-  await page.waitForSelector(".product-grid");
+  await page.waitForSelector(".product-grid", { timeout: 60_000 });
 
   // Load all products by clicking "Load More" button
   await loadAllProducts(page);
@@ -148,7 +148,7 @@ async function handler(
   // Enqueue each product for detailed scraping
   for (const product of allProducts) {
     extendPayload({
-      api: "ecommerece-details",
+      api: "details",
       parameters: product,
     });
   }

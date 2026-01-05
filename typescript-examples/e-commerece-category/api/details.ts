@@ -136,7 +136,7 @@ async function findEntity(page: Page, url: string): Promise<void> {
   await goToUrl({ page, url });
   try {
     await page.waitForSelector("#onetrust-accept-btn-handler", {
-      timeout: 5000,
+      timeout: 60_000,
     });
     await page.click("#onetrust-accept-btn-handler");
     console.log("Accepted cookies");
@@ -181,7 +181,7 @@ async function handler(
   }
 
   // Wait for product title to load - replace selector
-  await page.waitForSelector("h1.product-name");
+  await page.waitForSelector("h1.product-name", { timeout: 60_000 });
 
   // Extract title - replace selector
   const titleElement = await page.$("h1.product-name");

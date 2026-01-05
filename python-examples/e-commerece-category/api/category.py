@@ -102,7 +102,7 @@ async def automation(
     for category in all_categories:
         extend_payload(
             {
-                "api": "ecommerece-list",
+                "api": "list",
                 "parameters": dict(category),
             }
         )
