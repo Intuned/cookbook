@@ -32,9 +32,9 @@ After installing dependencies, `intuned` command should be available in your env
 
 ### Run an API
 ```bash
-uv run intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
-uv run intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
-uv run intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
+uv run intuned run api category .parameters/api/category/default.json
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 ### Save project
@@ -63,16 +63,16 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 /
 ├── .parameters/                      # Test parameters for APIs
 │   └── api/
-│       ├── ecommerece-category/
+│       ├── category/
 │       │   └── default.json
-│       ├── ecommerece-list/
+│       ├── list/
 │       │   └── default.json
-│       └── ecommerece-details/
+│       └── details/
 │           └── default.json
 ├── api/                              # API endpoints
-│   ├── ecommerece-category.py       # Scrape category links from menu
-│   ├── ecommerece-list.py           # List products from category page
-│   └── ecommerece-details.py        # Extract detailed product info
+│   ├── category.py       # Scrape category links from menu
+│   ├── list.py           # List products from category page
+│   └── details.py        # Extract detailed product info
 ├── utils/                            # Utility modules
 │   └── types_and_schemas.py         # Type definitions and Pydantic models
 ├── Intuned.jsonc                    # Intuned project configuration
@@ -84,9 +84,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 | API | Description |
 |-----|-------------|
-| `ecommerece-category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `ecommerece-list` for each category using `extend_payload` |
-| `ecommerece-list` | Scrapes product listings from a specific category page. Automatically triggers `ecommerece-details` for each product using `extend_payload` |
-| `ecommerece-details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
+| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extend_payload` |
+| `list` | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extend_payload` |
+| `details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
 
 
 ## Learn More
@@ -94,5 +94,5 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
-- [extend_payload Helper](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extend_payload)
+- [extend_payload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload)
 

@@ -14,7 +14,7 @@ async function handleCookies(page: Page): Promise<void> {
   try {
     // Replace selector with appropriate one for your store
     await page.waitForSelector("#onetrust-accept-btn-handler", {
-      timeout: 5000,
+      timeout: 60_000,
     });
     await page.click("#onetrust-accept-btn-handler");
     console.log("Accepted cookies");
@@ -99,7 +99,7 @@ async function handler(
 
   // Wait for the main menu to be present
   // Replace selector with appropriate one for your store
-  await page.waitForSelector(".has-submenu a.main-menu__link");
+  await page.waitForSelector(".has-submenu a.main-menu__link", { timeout: 60_000 });
 
   // Extract all categories from the menu
   const allCategories = await extractCategories(page, storeUrl);
@@ -109,7 +109,7 @@ async function handler(
   // Enqueue each category for further scraping
   for (const category of allCategories) {
     extendPayload({
-      api: "ecommerece-list",
+      api: "list",
       parameters: category,
     });
   }

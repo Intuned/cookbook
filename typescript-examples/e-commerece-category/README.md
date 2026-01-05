@@ -16,7 +16,7 @@ E-commerce store scraper template for sites with category-based navigation. Scra
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
 
 
 ## Development
@@ -38,14 +38,14 @@ yarn
 ### Run an API
 ```bash
 # npm
-npm run intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
-npm run intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
-npm run intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
+npm run intuned run api category .parameters/api/category/default.json
+npm run intuned run api list .parameters/api/list/default.json
+npm run intuned run api details .parameters/api/details/default.json
 
 # yarn
-yarn intuned run api ecommerece-category .parameters/api/ecommerece-category/default.json
-yarn intuned run api ecommerece-list .parameters/api/ecommerece-list/default.json
-yarn intuned run api ecommerece-details .parameters/api/ecommerece-details/default.json
+yarn intuned run api category .parameters/api/category/default.json
+yarn intuned run api list .parameters/api/list/default.json
+yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Save project
@@ -82,16 +82,16 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 /
 ├── .parameters/                      # Test parameters for APIs
 │   └── api/
-│       ├── ecommerece-category/
+│       ├── category/
 │       │   └── default.json
-│       ├── ecommerece-list/
+│       ├── list/
 │       │   └── default.json
-│       └── ecommerece-details/
+│       └── details/
 │           └── default.json
 ├── api/                              # API endpoints
-│   ├── ecommerece-category.ts       # Scrape category links from menu
-│   ├── ecommerece-list.ts           # List products from category page
-│   └── ecommerece-details.ts        # Extract detailed product info
+│   ├── category.ts       # Scrape category links from menu
+│   ├── list.ts           # List products from category page
+│   └── details.ts        # Extract detailed product info
 ├── utils/                            # Utility modules
 │   └── typesAndSchemas.ts           # Type definitions and Zod schemas
 ├── Intuned.jsonc                    # Intuned project configuration
@@ -103,9 +103,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 | API | Description |
 |-----|-------------|
-| `ecommerece-category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `ecommerece-list` for each category using `extendPayload` |
-| `ecommerece-list` | Scrapes product listings from a specific category page. Automatically triggers `ecommerece-details` for each product using `extendPayload` |
-| `ecommerece-details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
+| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extendPayload` |
+| `list` | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload` |
+| `details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
 
 
 ## Learn More
@@ -113,4 +113,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
-- [extendPayload Helper](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extendPayload)
+- [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
