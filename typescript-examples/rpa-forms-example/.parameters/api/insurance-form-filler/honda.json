@@ -1,0 +1,40 @@
+{
+    "metadata": {
+      "site": "https://www.erieinsurance.com/",
+      "insurance_type": "auto"
+    },
+    "applicant": {
+      "first_name": "Michael",
+      "last_name": "Smith",
+      "date_of_birth": "09/18/1988",
+      "gender": "male",
+      "marital_status": "married",
+      "accident_prevention_course": false,
+      "email": "michael.smith@example.com",
+      "phone_number": "555-987-6543",
+      "is_cell_phone": true,
+      "can_text": true,
+      "preferred_name": "Mike",
+      "home_multi_policy_discount": true,
+      "currently_has_auto_insurance": true,
+      "coverage_effective_date": "02/15/2026"
+    },
+    "address": {
+      "street_line1": "245 Market St",
+      "city": "Philadelphia",
+      "state": "PA",
+      "zip_code": "19106"
+    },
+    "vehicle": {
+      "vehicle_type": "Automobile",
+      "year": 2019,
+      "make": "Honda",
+      "model": "Civic EX",
+      "primary_use": "Farm",
+      "annual_mileage": 14000,
+      "days_driven_per_week": 5,
+      "miles_driven_one_way": 12,
+      "model_details": "Car02 2D,1.5,4"
+    }
+  }
+  

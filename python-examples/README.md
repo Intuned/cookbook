@@ -8,6 +8,7 @@ Intuned sample projects in Python.
 | [quick-recipes](./quick-recipes/) | Quick browser automation recipes |
 | [rpa-example](./rpa-example/) | Consultation booking automation |
 | [rpa-auth-example](./rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
+| [rpa-forms-example](./rpa-forms-example/) | AI-powered form automation using Stagehand to fill insurance quote forms |
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) verification |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
