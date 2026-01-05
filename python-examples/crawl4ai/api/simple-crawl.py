@@ -4,10 +4,12 @@ Crawls a single URL and returns the page content as clean markdown.
 Based on: https://docs.crawl4ai.com/core/simple-crawling/
 """
 
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
+
+from playwright.async_api import BrowserContext, Page
+
 from crawl4ai import AsyncWebCrawler
-from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig, CacheMode
+from crawl4ai.async_configs import BrowserConfig, CacheMode, CrawlerRunConfig
 
 
 class Params(TypedDict):

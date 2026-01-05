@@ -4,6 +4,12 @@ Quick-start examples for using [crawl4ai](https://crawl4ai.com) on the Intuned p
 
 This project serves as a reference for the [crawl4ai documentation](https://docs.crawl4ai.com/) tutorials, demonstrating how to integrate crawl4ai with Intuned's browser automation infrastructure.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/crawl4ai" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+
 ## APIs
 
 ### Core Crawling
@@ -39,7 +45,7 @@ This project serves as a reference for the [crawl4ai documentation](https://docs
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

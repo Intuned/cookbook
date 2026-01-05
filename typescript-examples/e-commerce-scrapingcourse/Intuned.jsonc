@@ -1,0 +1,42 @@
+{
+  "projectName": "e-commerce-scrapingcourse",
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "e-commerce-scrapingcourse",
+      "description": "Basic e-commerce scraper using scrapingcourse.com",
+      "tags": ["web-scraping", "e-commerce", "pagination", "jobs"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list",
+      "parameters": {
+        "limit": 10
+      }
+    },
+    "defaultJobInput": {
+      "configuration": {
+        "maxConcurrentRequests": 2,
+        "retry": {
+          "maximumAttempts": 3
+        }
+      },
+      "payload": [
+        {
+          "apiName": "list",
+          "parameters": {
+            "limit": 10
+          }
+        }
+      ]
+    }
+  }
+}

@@ -14,5 +14,11 @@
   },
   "proxy": {
     "enabled": false
+  },
+  "metadata": {
+    "template": {
+      "name": "simple-firecrawl",
+      "description": "Simple web crawling and scraping using Firecrawl"
+    }
   }
 }

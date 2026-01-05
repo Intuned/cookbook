@@ -12,8 +12,17 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "defaultRunPlaygroundInput": {
-    "apiName": "sample",
-    "parameters": {}
+  "metadata": {
+    "template": {
+      "name": "browser-sdk-showcase",
+      "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "go-to-url",
+      "parameters": {
+        "timeout": 15000,
+        "retries": 3
+      }
+    }
   }
 }

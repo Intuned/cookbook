@@ -1,6 +1,7 @@
 // For more information, see our Intuned settings reference
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
+  
   "projectName": "rpa",
   "apiAccess": {
     "enabled": true
@@ -13,8 +14,13 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "rpa-example",
+      "description": "RPA example for booking consultations without authentication"
+    },
+    "tags": ["rpa", "automation", "forms"],
     "defaultRunPlaygroundInput": {
-      "api": "book-consultations",
+      "apiName": "book-consultations",
       "parameters": {
         "name": "Foo Bar",
         "email": "foo@bar.com",

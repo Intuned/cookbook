@@ -7,10 +7,16 @@ Based on: https://docs.crawl4ai.com/core/content-selection/
 """
 
 import json
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Any
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from crawl4ai import JsonCssExtractionStrategy
+from typing import Any, TypedDict
+
+from playwright.async_api import BrowserContext, Page
+
+from crawl4ai import (
+    AsyncWebCrawler,
+    CacheMode,
+    CrawlerRunConfig,
+    JsonCssExtractionStrategy,
+)
 
 
 class Params(TypedDict, total=False):

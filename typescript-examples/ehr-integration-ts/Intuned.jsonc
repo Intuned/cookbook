@@ -1,0 +1,28 @@
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "ehr-integration-ts",
+      "description": "Electronic Health Records integration example with authentication",
+      "tags": ["ehr", "healthcare", "auth-sessions", "data-extraction"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "claims",
+      "parameters": {}
+    },
+    "testAuthSessionInput": {
+      "username": "Admin",
+      "password": "admin123"
+    }
+  }
+}

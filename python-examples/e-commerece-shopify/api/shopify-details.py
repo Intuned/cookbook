@@ -1,14 +1,15 @@
-from playwright.async_api import Page, BrowserContext
-from intuned_browser import go_to_url
-from typing import TypedDict, List, Optional
 import re
+from typing import TypedDict
+
+from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
 
 
 class Params(TypedDict):
     name: str
     vendor: str
     product_type: str
-    tags: List[str]
+    tags: list[str]
     details_url: str
 
 
@@ -16,7 +17,7 @@ class ProductVariant(TypedDict):
     sku: str
     title: str
     price: str
-    compare_at_price: Optional[str]
+    compare_at_price: str | None
     available: bool
     inventory_quantity: int
 
@@ -28,12 +29,12 @@ class ProductDetails(TypedDict, total=False):
     handle: str
     vendor: str
     product_type: str
-    tags: List[str]
+    tags: list[str]
     description: str
     price: str
-    images: List[str]
-    options: List[dict]
-    variants: List[ProductVariant]
+    images: list[str]
+    options: list[dict]
+    variants: list[ProductVariant]
 
 
 def strip_html(html: str) -> str:
@@ -58,7 +59,7 @@ def extract_product_from_json(data: dict, params: Params) -> ProductDetails:
 
     # Extract variants
     raw_variants = product.get("variants", [])
-    variants: List[ProductVariant] = []
+    variants: list[ProductVariant] = []
     if len(raw_variants) > 1:
         # if there are multiple variants, collect all of them
         for variant in raw_variants:

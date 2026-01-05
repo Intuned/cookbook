@@ -1,0 +1,25 @@
+{
+  "url": "https://crawl4ai.com",
+  "strategy": "best-first",
+  "max_depth": 2,
+  "max_pages": 5,
+  "include_external": false,
+  "keywords": [
+    "crawl",
+    "scrape",
+    "async",
+    "api"
+  ],
+  "allowed_domains": [
+    "crawl4ai.com",
+    "docs.crawl4ai.com"
+  ],
+  "blocked_domains": [
+    "old.crawl4ai.com"
+  ],
+  "url_patterns": [
+    "*docs*",
+    "*guide*",
+    "*api*"
+  ]
+}

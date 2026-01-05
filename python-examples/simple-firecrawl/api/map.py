@@ -5,19 +5,19 @@ Firecrawl-compatible /map endpoint using crawl4ai.
 https://docs.firecrawl.dev/api-reference/endpoint/map
 """
 
-from playwright.async_api import Page, BrowserContext
-from typing import TypedDict, Literal, Any
-from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
-from crawl4ai import LinkPreviewConfig
+from typing import Any, Literal, TypedDict
 
+from playwright.async_api import BrowserContext, Page
 from utils import (
     LocationParams,
-    get_locale_settings,
     create_browser_config,
-    normalize_url,
-    is_subdomain_of,
     fetch_sitemap_urls,
+    get_locale_settings,
+    is_subdomain_of,
+    normalize_url,
 )
+
+from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig, LinkPreviewConfig
 
 
 class Params(TypedDict, total=False):

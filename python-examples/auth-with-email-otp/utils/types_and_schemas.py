@@ -3,6 +3,7 @@ from pydantic import BaseModel, EmailStr
 
 class CreateAuthSessionParams(BaseModel):
     username: EmailStr
+    password: str
 
 
 class Contract(BaseModel):

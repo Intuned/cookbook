@@ -1,9 +1,12 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData
 import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 import { extractStructuredData } from "@intuned/browser/ai";
 import { z } from "zod";
 
-interface Params {}
+interface Params {
+  // No params needed
+}
 
 const BookSchema = z.object({
   name: z.string().describe("Book title"),
@@ -29,7 +32,7 @@ export default async function handler(
   const product = await extractStructuredData({
     source: page,
     strategy: "HTML",
-    model: "claude-haiku-4-5-20251001",
+    model: "gpt-5-mini",
     dataSchema: BookSchema, // Pass Zod schema directly, or use a normal JSON schema object too.
     prompt: "Extract book details from this page",
     enableCache: false, // To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.

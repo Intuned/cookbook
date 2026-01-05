@@ -1,3 +1,4 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/validateDataUsingSchema
 import { BrowserContext, Page } from "playwright";
 import { validateDataUsingSchema } from "@intuned/browser";
 
@@ -10,24 +11,31 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
-  const userData = {
-    name: "John Doe",
-    email: "john@example.com",
-    age: 30,
+  const uploadData = {
+    file: {
+      file_name: "documents/report.pdf",
+      bucket: "my-bucket",
+      region: "us-east-1",
+      key: "documents/report.pdf",
+      endpoint: null,
+      suggested_file_name: "Monthly Report.pdf",
+      file_type: "document",
+    },
+    name: "Test File Upload",
   };
 
-  const userSchema = {
+  const uploadSchema = {
     type: "object",
-    required: ["name", "email", "age"],
+    required: ["file", "name"],
     properties: {
-      name: { type: "string", minLength: 1 },
-      email: { type: "string" },
-      age: { type: "number", minimum: 0 },
+      file: { type: "attachment" },
+      name: { type: "string" },
     },
   };
 
-  validateDataUsingSchema({ data: userData, schema: userSchema });
-  
-  return "Data validated successfully";
+  validateDataUsingSchema({ data: uploadData, schema: uploadSchema });
+  // Validation passes with Attachment type, it also validates Pydantic Attachment type.
+  console.log("Validation passed");
+  return "Validation passed";
 }
 

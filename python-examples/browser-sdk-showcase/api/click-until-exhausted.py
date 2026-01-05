@@ -1,16 +1,19 @@
-from playwright.async_api import Page
+# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_markdown
 from typing import TypedDict
+
 from intuned_browser import click_until_exhausted
-from intuned_browser import go_to_url
+from playwright.async_api import Page
+
 
 class Params(TypedDict):
-        pass
-
-async def automation(page: Page, params: Params | None = None, **_kwargs):
-    await go_to_url(page, "https://careers.qualcomm.com/careers")
-    button_locator = page.locator("xpath=//button[@class='btn btn-sm btn-secondary show-more-positions']")
-    # Click on the button to load more content 5 times.
-    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/click_until_exhausted for more details.
-    await click_until_exhausted(page=page, button_locator=button_locator, max_clicks=5)
-    # Now content is loaded and visible
-    return "Success"
+    pass
+async def automation(page: Page, params: Params, **_kwargs):
+    await page.goto("https://sandbox.intuned.dev/load-more")
+    load_more_button = page.locator("main main button")  # Select the main button in the main content area.
+    # Click until button disappears or is disabled
+    await click_until_exhausted(
+        page=page,
+        button_locator=load_more_button,
+        max_clicks=20
+    )
+    # Will keep clicking the button until the button disappears or is disabled or the max_clicks is reached.

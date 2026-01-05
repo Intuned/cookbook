@@ -1,8 +1,7 @@
-from playwright.async_api import Page, BrowserContext
-from typing import List
-from intuned_browser import go_to_url
 
-from utils.types_and_schemas import GetConsultationsByEmailSchema, Consultation
+from intuned_browser import go_to_url
+from playwright.async_api import BrowserContext, Page
+from utils.types_and_schemas import Consultation, GetConsultationsByEmailSchema
 
 
 async def search_by_email(page: Page, email: str):
@@ -23,8 +22,8 @@ async def find_consultation_items(page: Page):
     return consultation_items
 
 
-async def extract_consultations_data(consultation_items: list) -> List[Consultation]:
-    consultations: List[Consultation] = []
+async def extract_consultations_data(consultation_items: list) -> list[Consultation]:
+    consultations: list[Consultation] = []
 
     for consultation_item in consultation_items:
         try:
@@ -88,7 +87,7 @@ async def automation(
     params: dict | None = None,
     context: BrowserContext | None = None,
     **_kwargs,
-) -> List[Consultation]:
+) -> list[Consultation]:
     if params is None:
         raise ValueError("Params are required for this automation")
 
@@ -96,7 +95,7 @@ async def automation(
     validated_params = GetConsultationsByEmailSchema(**params)
 
     # Step 1: Navigate to the consultations list page
-    # waitUntil: "networkidle" ensures all consultations are loaded
+    # wait_for_load_state: "networkidle" ensures all consultations are loaded
     await go_to_url(
         page=page,
         url="https://sandbox.intuned.dev/consultations-auth/list",

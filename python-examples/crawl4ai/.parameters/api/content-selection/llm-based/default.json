@@ -1,0 +1,4 @@
+{
+  "url": "https://news.ycombinator.com",
+  "provider": "openai/gpt-4o-mini"
+}

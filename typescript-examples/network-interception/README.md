@@ -5,6 +5,12 @@ Network interception examples demonstrating two common patterns:
 1. **CSRF Token Capture** (`network-interceptor.ts`) - Log in to a website, intercept requests to capture CSRF tokens, and make authenticated API calls
 2. **Paginated API Data** (`api-interceptor.ts`) - Intercept API responses while paginating through pages to capture all data
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/network-interception" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -29,11 +35,19 @@ yarn
 ### Run an API
 
 ```bash
+# CSRF Token Capture - Intercept network requests to capture authentication tokens
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api network-interceptor .parameters/api/network-interceptor/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api network-interceptor .parameters/api/network-interceptor/default.json
+
+# Paginated API Data - Intercept API responses while paginating
+# npm
+npm run intuned run api api-interceptor .parameters/api/api-interceptor/default.json
+
+# yarn
+yarn intuned run api api-interceptor .parameters/api/api-interceptor/default.json
 ```
 
 ### Deploy project
@@ -89,7 +103,7 @@ The project structure is as follows:
 These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

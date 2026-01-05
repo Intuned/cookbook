@@ -1,0 +1,9 @@
+{
+  "query": "AI news today",
+  "limit": 5,
+  "sources": [
+    "news"
+  ],
+  "tbs": "past_week",
+  "api_key": "tvly-api-key"
+}

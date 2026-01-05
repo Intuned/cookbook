@@ -1,6 +1,7 @@
-from playwright.async_api import Page, BrowserContext
+from typing import TypedDict
+
 from intuned_browser import go_to_url
-from typing import TypedDict, List
+from playwright.async_api import BrowserContext, Page
 
 
 class Params(TypedDict, total=False):
@@ -17,8 +18,8 @@ class ProductDetails(TypedDict):
     short_description: str
     full_description: str
     image_url: str
-    sizes: List[str]
-    colors: List[str]
+    sizes: list[str]
+    colors: list[str]
 
 
 async def automation(

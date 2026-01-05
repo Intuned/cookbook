@@ -13,8 +13,13 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "e-commerece-shopify",
+      "description": "Shopify store product scraper",
+      "tags": ["web-scraping", "shopify", "e-commerce", "api-based"]
+    },
     "defaultRunPlaygroundInput": {
-      "api": "shopify-list",
+      "apiName": "shopify-list",
       "parameters": {
         "store_url": "https://the-outrage.com",
         "maxPages": 10

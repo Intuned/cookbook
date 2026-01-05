@@ -1,8 +1,0 @@
-[
-  {
-    "name": "OpenIMIS Insurees",
-    "value": "{\n  \"url\": \"https://demo.openimis.org/front/insuree/insurees\",\n  \"api_url\": \"https://demo.openimis.org/api/graphql\",\n  \"query\": \"{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }\",\n  \"username\": \"Admin\",\n  \"password\": \"admin123\"\n}",
-    "lastUsed": true,
-    "id": "e1f2a3b4-c5d6-7890-1234-56789abcdef0"
-  }
-]

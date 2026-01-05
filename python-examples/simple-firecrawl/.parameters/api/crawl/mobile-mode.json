@@ -1,0 +1,10 @@
+{
+  "url": "https://example.com",
+  "limit": 2,
+  "scrapeOptions": {
+    "formats": [
+      "screenshot"
+    ],
+    "mobile": true
+  }
+}

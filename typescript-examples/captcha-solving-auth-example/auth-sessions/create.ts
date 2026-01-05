@@ -22,11 +22,11 @@ export default async function* create(
 
   await waitForCaptchaSolve(page, {
     timeoutInMs: 30_000,
-    settlePeriodInMs: 10_000,
+    settleDurationMs: 10_000,
   });
 
   await page.locator("#submit-button").click();
-  await page.getByText("Logout").isVisible();
-
-  return true;
+  // Verify successful login by checking if Logout button is visible
+  // If the Logout button is not visible, waitFor will raise an exception
+  await page.getByText("Logout").waitFor({ state: "visible", timeout: 10_000 });
 }

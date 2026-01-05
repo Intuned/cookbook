@@ -1,0 +1,13 @@
+{
+  "query": "python",
+  "limit": 10,
+  "categories": [
+    {
+      "type": "research"
+    },
+    {
+      "type": "github"
+    }
+  ],
+  "api_key": "tvly-api-key"
+}

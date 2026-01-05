@@ -11,5 +11,11 @@
   "replication": {
     "maxConcurrentRequests": 1,
     "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "browser-use",
+      "description": "AI-powered browser automation using browser-use library"
+    }
   }
 }

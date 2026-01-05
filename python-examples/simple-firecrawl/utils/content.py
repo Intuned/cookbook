@@ -1,6 +1,5 @@
 import re
 
-
 # Default tags to exclude for onlyMainContent
 MAIN_CONTENT_EXCLUDED_TAGS = [
     "nav",

@@ -1,0 +1,29 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
+{
+  
+  "projectName": "scrapy-example",
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "scrapy-example",
+      "description": "Web scraping examples using Scrapy framework"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "scrapy-crawler",
+      "parameters": {
+        "url": "https://quotes.toscrape.com/",
+        "max_pages": 10
+      }
+    }
+  }
+}

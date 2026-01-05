@@ -2,6 +2,12 @@
 
 Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions.
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-auth-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -13,80 +19,56 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -e .
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 
 ### Run an API
 
 ```bash
-# Using uv
-uv run intuned run api <api-name> <parameters>
-
-# Using pip
-intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 #### Example: List Products
 
 ```bash
 # List products from authenticated dashboard
-uv run intuned run api list
+uv run intuned run api list .parameters/api/list/default.json
 ```
 
 #### Example: Get Product Details
 
 ```bash
 # Get details for a specific product
-uv run intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
 ```bash
-# Using uv
 uv run intuned deploy
-
-# Using pip
-intuned deploy
 ```
 
 
 ## Auth Sessions
 
-This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [Authenticated Browser Automations: Conceptual Guide](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/authenticated-browser-automations-conceptual-guide).
+This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
 ```bash
-# Using uv
-uv run intuned run authsession create <parameters>
-
-# Using pip
-intuned run authsession create <parameters>
-
-# Example
-uv run intuned run authsession create '{"username": "admin@example.com", "password": "password"}'
+uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
 ```bash
-# Using uv
 uv run intuned run authsession update <auth-session-id>
-
-# Using pip
-intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
 ```bash
-# Using uv
 uv run intuned run authsession validate <auth-session-id>
-
-# Using pip
-intuned run authsession validate <auth-session-id>
 ```
 
 
@@ -102,7 +84,7 @@ The project structure is as follows:
 │   └── create.py            # API to create/recreate the auth session programmatically
 ├── utils/                    # Utility files
 │   └── types_and_schemas.py # Python types and Pydantic models
-└── Intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
@@ -147,7 +129,7 @@ Product details object with:
 - `variants`: List of product variants with stock information
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // API access settings
@@ -211,4 +193,4 @@ This project uses the Intuned browser SDK for enhanced reliability:
 - **`save_file_to_s3`**: Automatically upload images and files to S3 storage
 - **`extend_payload`**: Trigger additional API calls dynamically (used to trigger `details` API for each product)
 
-For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).

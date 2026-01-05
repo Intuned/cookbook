@@ -1,17 +1,17 @@
-from utils.helpers import get_job_run_id
-from playwright.async_api import Page, BrowserContext
 from typing import TypedDict
 
 from intuned_browser import go_to_url, save_file_to_s3
 from intuned_runtime import extend_payload, persistent_store
+from playwright.async_api import BrowserContext, Page
 from utils import (
     extract_links,
     extract_page_content,
-    normalize_url,
     get_base_domain,
     is_file_url,
+    normalize_url,
     sanitize_key,
 )
+from utils.helpers import get_job_run_id
 
 
 class Params(TypedDict, total=False):

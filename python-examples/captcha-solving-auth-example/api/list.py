@@ -1,7 +1,9 @@
-from playwright.async_api import Page, BrowserContext
+from typing import TypedDict
+
 from intuned_browser import go_to_url
 from typing import TypedDict, List
 from intuned_runtime import extend_payload
+from playwright.async_api import BrowserContext, Page
 
 
 class Params(TypedDict):
@@ -30,7 +32,7 @@ async def automation(
     """
 
     await go_to_url(page, "https://scrapingcourse.com/dashboard")
-    products: List[Product] = []
+    products: list[Product] = []
     items = page.locator('.product-item')
     count = await items.count()
 

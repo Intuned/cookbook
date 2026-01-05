@@ -1,0 +1,11 @@
+{
+  "urls": [
+    "https://news.ycombinator.com",
+    "https://news.ycombinator.com/newest",
+    "https://news.ycombinator.com/ask",
+    "https://news.ycombinator.com/show",
+    "https://news.ycombinator.com/jobs"
+  ],
+  "dispatcher": "memory-adaptive",
+  "max_concurrent": 3
+}

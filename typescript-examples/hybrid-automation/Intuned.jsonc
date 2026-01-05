@@ -1,0 +1,34 @@
+// For more information, see our Intuned settings reference
+// https://docs.intunedhq.com/docs/05-references/intuned-json
+{
+  
+  "projectName": "hybrid-automation-ts",
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "hybrid-automation-ts",
+      "description": "Hybrid automation combining Playwright with Stagehand AI fallback for resilient browser automation",
+      "tags": ["stagehand", "ai", "rpa", "scraping", "flexible-automation"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "hybrid-rpa/fill-form",
+      "parameters": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "+1-555-1234",
+        "date": "2025-01-15",
+        "time": "10:00",
+        "topic": "automation"
+      }
+    }
+  }
+}

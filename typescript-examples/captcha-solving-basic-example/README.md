@@ -2,6 +2,12 @@
 
 Automation project to demonstrate our captcha solving capabilities
 
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/captcha-solving-basic-example" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
@@ -26,11 +32,12 @@ yarn
 ### Run an API
 
 ```bash
+# Run the captcha solver
 # npm
-npm run intuned run api <api-name> <parameters>
+npm run intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 
 # yarn
-yarn intuned run api <api-name> <parameters>
+yarn intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 ```
 
 ### Deploy project
@@ -48,7 +55,7 @@ yarn intuned deploy
 
 ### `@intuned/browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 
 
@@ -64,11 +71,11 @@ The project structure is as follows:
 │   └── create.ts          # API to create/recreate the auth session programmatically
 ├── auth-sessions-instances/  # Auth session instances created and used by the CLI
 │   └── ...
-└── intuned.json              # Intuned project configuration file
+└── Intuned.jsonc              # Intuned project configuration file
 ```
 
 
-## `Intuned.json` Reference
+## `Intuned.jsonc` Reference
 ```jsonc
 {
   // Your Intuned workspace ID. 

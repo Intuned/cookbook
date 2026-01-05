@@ -1,21 +1,20 @@
-from playwright.async_api import Page
-from typing import List, Optional
-from intuned_browser import go_to_url, save_file_to_s3, Attachment
 import json
 import re
 
+from intuned_browser import Attachment, go_to_url, save_file_to_s3
+from playwright.async_api import Page
 from utils.types_and_schemas import (
+    DetailsSchema,
     ProductDetails,
     ProductVariant,
-    DetailsSchema,
 )
 
 
-async def get_product_images(page: Page) -> List[Attachment]:
+async def get_product_images(page: Page) -> list[Attachment]:
     # Extract all product images from the gallery
     image_elements = await page.locator(".woocommerce-product-gallery__image img").all()
 
-    images: List[Attachment] = []
+    images: list[Attachment] = []
     for img_element in image_elements:
         img_src = await img_element.get_attribute("src")
         if img_src:
@@ -27,11 +26,11 @@ async def get_product_images(page: Page) -> List[Attachment]:
     return images
 
 
-async def get_available_sizes(page: Page) -> List[str]:
+async def get_available_sizes(page: Page) -> list[str]:
     # Extract available sizes from the size dropdown
     size_options = await page.locator("#size option[value]:not([value=''])").all()
 
-    sizes: List[str] = []
+    sizes: list[str] = []
     for option in size_options:
         size_value = await option.get_attribute("value")
         if size_value:
@@ -39,11 +38,11 @@ async def get_available_sizes(page: Page) -> List[str]:
     return sizes
 
 
-async def get_available_colors(page: Page) -> List[str]:
+async def get_available_colors(page: Page) -> list[str]:
     # Extract available colors from the color dropdown
     color_options = await page.locator("#color option[value]:not([value=''])").all()
 
-    colors: List[str] = []
+    colors: list[str] = []
     for option in color_options:
         color_value = await option.get_attribute("value")
         if color_value:
@@ -51,7 +50,7 @@ async def get_available_colors(page: Page) -> List[str]:
     return colors
 
 
-async def get_product_variants(page: Page) -> List[ProductVariant]:
+async def get_product_variants(page: Page) -> list[ProductVariant]:
     # Extract product variants from the JSON data in the form
     # WooCommerce stores all variant information in a data attribute
     variants_form = page.locator("form.variations_form")
@@ -63,7 +62,7 @@ async def get_product_variants(page: Page) -> List[ProductVariant]:
 
     variants_data = await variants_form.get_attribute("data-product_variations")
 
-    variants: List[ProductVariant] = []
+    variants: list[ProductVariant] = []
 
     if not variants_data:
         return variants

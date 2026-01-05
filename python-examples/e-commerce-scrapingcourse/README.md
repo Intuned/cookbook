@@ -1,6 +1,20 @@
-# E-Commerce Product Scraper
+# e-commerce-scrapingcourse Intuned project
 
 E-commerce scraping automation that extracts product information from an online store with pagination support.
+
+## Key Features
+
+- **Automatic Pagination**: The `list` API automatically handles pagination to scrape multiple pages
+- **Dynamic API Chaining**: Uses `extend_payload` to automatically trigger the `details` API for each product found
+- **S3 File Upload**: Product images are automatically uploaded to S3 using `save_file_to_s3`
+- **Job Configuration**: Configured as a job template with retry logic and concurrent request handling
+
+<!-- IDE-IGNORE-START -->
+## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
+
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 
@@ -13,160 +27,68 @@ To get started developing browser automation projects with Intuned, check out ou
 
 ### Install dependencies
 ```bash
-# Using uv (recommended)
 uv sync
-
-# Using pip
-pip install -e .
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 
 ### Run an API
-
 ```bash
-# Using uv
-uv run intuned run api <api-name> <parameters>
-
-# Using pip
-intuned run api <api-name> <parameters>
+uv run intuned run api list .parameters/api/list/default.json
+uv run intuned run api details .parameters/api/details/default.json
 ```
 
-#### Example: List Products
-
+### Save project
 ```bash
-# List products with default page limit (50)
-uv run intuned run api list
-
-# List products with custom page limit
-uv run intuned run api list '{"limit": 5}'
+uv run intuned run save
 ```
 
-#### Example: Get Product Details
-
-```bash
-# Get details for a specific product
-uv run intuned run api details '{"name": "Product Name", "detailsUrl": "https://www.scrapingcourse.com/ecommerce/product/example"}'
-```
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 ```bash
-# Using uv
 uv run intuned deploy
-
-# Using pip
-intuned deploy
 ```
+
+### `intuned-browser`: Intuned Browser SDK
+
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+
+<!-- IDE-IGNORE-END -->
 
 
 ## Project Structure
-The project structure is as follows:
 ```
 /
-├── api/                      # Your API endpoints
-│   ├── list.py              # API to scrape product list with pagination
-│   └── details.py           # API to scrape detailed product information
-├── utils/                    # Utility files
-│   └── types_and_schemas.py # Python types and Pydantic models
-└── Intuned.json              # Intuned project configuration file
+├── .parameters/              # Test parameters for APIs
+│   └── api/
+│       ├── list/
+│       │   └── default.json
+│       └── details/
+│           └── default.json
+├── api/                      # API endpoints
+│   ├── list.py              # Scrape product list with pagination
+│   └── details.py           # Extract detailed product information
+├── utils/                    # Utility modules
+│   └── types_and_schemas.py # Type definitions and Pydantic models
+├── Intuned.jsonc            # Intuned project configuration
+└── pyproject.toml           # Python project dependencies
 ```
 
 
 ## APIs
 
-### `list` - Product List Scraper
-
-Scrapes products from the e-commerce store with pagination support.
-
-**Parameters:**
-- `limit` (optional): Maximum number of pages to scrape (default: 50)
-
-**Returns:**
-List of products with:
-- `name`: Product name
-- `detailsUrl`: URL to product details page
-
-**Features:**
-- Automatic pagination handling
-- Triggers `details` API for each product using `extend_payload`
-- Configurable page limit
-
-### `details` - Product Details Scraper
-
-Scrapes detailed information for a specific product.
-
-**Parameters:**
-- `name`: Product name
-- `detailsUrl`: URL to the product details page
-
-**Returns:**
-Product details object with:
-- `name`: Product name
-- `price`: Product price
-- `sku`: Stock Keeping Unit
-- `category`: Product category
-- `shortDescription`: Brief product description
-- `fullDescription`: Complete product description
-- `imageAttachments`: List of product images (uploaded to S3)
-- `availableSizes`: List of available sizes
-- `availableColors`: List of available colors
-- `variants`: List of product variants with stock information
+| API | Description |
+|-----|-------------|
+| `list` | Scrapes products from the e-commerce store with pagination support. Automatically triggers `details` API for each product using `extend_payload` |
+| `details` | Extracts detailed information for a specific product including price, SKU, category, descriptions, images (uploaded to S3), sizes, colors, and variants |
 
 
-## `Intuned.json` Reference
-```jsonc
-{
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API
-    "enabled": false
-  },
+## Learn More
 
-  // Auth session settings
-  "authSessions": {
-    // Auth sessions are not used in this project
-    "enabled": false
-  },
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  },
-
-  // Default job configuration
-  "metadata": {
-    "defaultJobInput": {
-      "configuration": {
-        // Number of concurrent API calls within the job
-        "maxConcurrentRequests": 2,
-        // Retry configuration
-        "retry": {
-          "maximumAttempts": 3
-        }
-      },
-      "payload": [
-        {
-          "apiName": "list",
-          "parameters": {}
-        }
-      ]
-    }
-  }
-}
-```
-
-## Using `intuned_browser` SDK
-
-This project uses the Intuned browser SDK for enhanced reliability:
-
-- **`go_to_url`**: Navigate to URLs with automatic retries and intelligent timeout detection
-- **`save_file_to_s3`**: Automatically upload images and files to S3 storage
-- **`extend_payload`**: Trigger additional API calls dynamically (used to trigger `details` API for each product)
-
-For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/intuned-sdk/overview).
+- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
+- [extend_payload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload)
+- [save_file_to_s3 Helper](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/save_file_to_s3)

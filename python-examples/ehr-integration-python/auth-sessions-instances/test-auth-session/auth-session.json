@@ -1,0 +1,55 @@
+{
+  "cookies": [
+    {
+      "name": "openimis_session",
+      "value": "c9xrp7104ni7fpsmvm3loails0id48g4",
+      "domain": "demo.openimis.org",
+      "path": "/",
+      "expires": 1766598101.647077,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "publicPageLanguage",
+      "value": "en",
+      "domain": "demo.openimis.org",
+      "path": "/",
+      "expires": 1798105300.0,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "JWT",
+      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwiZXhwIjoxNzY2NjU1NzAxLCJvcmlnSWF0IjoxNzY2NTY5MzAxLCJqdGkiOiJkOTlhM2NhOS0zYmU3LTRjNDAtYjBiZC01NGIxNDg5NzY4MTAiLCJuYmYiOjE3NjY1NjkzMDF9.66Kjep66OlbEfZ5raCCPdqXFpiHFmf9GBlvlL4CdEtw",
+      "domain": "demo.openimis.org",
+      "path": "/",
+      "expires": 1766655701.474485,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://demo.openimis.org",
+      "localStorage": [
+        {
+          "name": "csrfToken",
+          "value": "bOrVuVt7BrwTckmumAW4Kc1AriqkrLNFN5oncxDx5UGUN9u1G2FzalXMOxlOJsah"
+        },
+        {
+          "name": "isSecondaryCalendarEnabled",
+          "value": "false"
+        }
+      ]
+    }
+  ],
+  "sessionStorage": [
+    {
+      "origin": "https://demo.openimis.org",
+      "sessionStorage": []
+    }
+  ]
+}

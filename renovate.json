@@ -38,42 +38,6 @@
       ],
       "groupName": "intuned-python",
       "dependencyDashboardApproval": false
-    },
-    {
-      "description": "Weekly updates for all other TypeScript dependencies",
-      "matchManagers": [
-        "npm"
-      ],
-      "matchFileNames": [
-        "typescript-examples/**"
-      ],
-      "schedule": [
-        "every weekend"
-      ],
-      "groupName": "typescript-examples-deps",
-      "dependencyDashboardApproval": false,
-      "matchPackageNames": [
-        "!@intuned/browser",
-        "!@intuned/runtime"
-      ]
-    },
-    {
-      "description": "Weekly updates for all other Python dependencies",
-      "matchManagers": [
-        "pep621"
-      ],
-      "matchFileNames": [
-        "python-examples/**"
-      ],
-      "schedule": [
-        "every weekend"
-      ],
-      "groupName": "python-examples-deps",
-      "dependencyDashboardApproval": false,
-      "matchPackageNames": [
-        "!intuned-browser",
-        "!intuned-runtime"
-      ]
     }
   ]
 }

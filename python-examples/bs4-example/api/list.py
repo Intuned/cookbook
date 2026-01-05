@@ -1,18 +1,18 @@
-from playwright.async_api import Page, BrowserContext
-from typing import List
+
 from bs4 import BeautifulSoup
 from intuned_browser import go_to_url
 from intuned_runtime import extend_payload
+from playwright.async_api import BrowserContext, Page
 from utils.types_and_schemas import ListParams, Product
 
 
-def extract_products(html: str) -> List[Product]:
+def extract_products(html: str) -> list[Product]:
     """
     Extracts product info from the page HTML using BeautifulSoup.
     Replace selectors with appropriate ones for your target site.
     """
     soup = BeautifulSoup(html, "html.parser")
-    products: List[Product] = []
+    products: list[Product] = []
 
     # Find all product items - replace selector as needed
     product_elements = soup.select("li.product")
@@ -90,7 +90,7 @@ async def automation(
     print(f"Starting scrape from: {url}")
     print(f"Max pages: {max_pages}")
 
-    all_products: List[Product] = []
+    all_products: list[Product] = []
     current_url: str | None = url
     current_page = 1
 

@@ -1,3 +1,4 @@
+// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/resolveUrl
 import { BrowserContext, Page } from "playwright";
 import { resolveUrl } from "@intuned/browser";
 
@@ -11,26 +12,29 @@ export default async function handler(
   context: BrowserContext
 ) {
   // Resolve a relative URL to an absolute URL
-  const absoluteUrl1 = await resolveUrl({
+  let absoluteUrl = await resolveUrl({
     url: "/api/users",
     baseUrl: "https://example.com",
   });
-  console.log(absoluteUrl1);
+  console.log("Result of resolving relative URL to absolute URL:");
+  console.log(absoluteUrl);
 
   // Resolve relative URL from the current page
   await page.goto("https://intunedhq.com");
-  const absoluteUrl2 = await resolveUrl({
+  absoluteUrl = await resolveUrl({
     url: "/blog/intuned-act-3",
     page,
   });
-  console.log(absoluteUrl2);
+  console.log("Result of resolving relative URL from the current page:");
+  console.log(absoluteUrl);
 
   // Resolve relative URL from an anchor tag
   await page.goto("https://intunedhq.com");
-  const absoluteUrl3 = await resolveUrl({
+  absoluteUrl = await resolveUrl({
     url: page.locator("a:has-text('Schedule a demo')"),
   });
-  console.log(absoluteUrl3);
+  console.log("Result of resolving relative URL from an anchor tag:");
+  console.log(absoluteUrl);
 
   return "Success";
 }

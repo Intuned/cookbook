@@ -1,9 +1,14 @@
-from playwright.async_api import Page
-from typing import TypedDict, List, Optional
-from intuned_runtime import extend_payload
-from intuned_browser import go_to_url
+# List products from e-commerce site with pagination
+from typing import TypedDict
 
+from intuned_browser import go_to_url
+from intuned_runtime import extend_payload
+from playwright.async_api import Page
 from utils.types_and_schemas import ListSchema
+
+
+class Params(TypedDict):
+    limit: int
 
 
 class Product(TypedDict):
@@ -23,7 +28,7 @@ async def has_next_page(page: Page) -> bool:
     return count > 0
 
 
-async def extract_products_from_page(page: Page) -> List[Product]:
+async def extract_products_from_page(page: Page) -> list[Product]:
     # Wait for the product list container to be visible on the page
     # This ensures the page has fully loaded before we try to scrape
     products_container = page.locator("#product-list")
@@ -36,7 +41,7 @@ async def extract_products_from_page(page: Page) -> List[Product]:
     ).all()
 
     # Array to store all extracted product data
-    products: List[Product] = []
+    products: list[Product] = []
 
     # Loop through each product element to extract its information
     for product_element in product_elements:
@@ -83,16 +88,9 @@ async def navigate_to_next_page(page: Page) -> None:
     await page.locator("#product-list").wait_for(state="visible")
 
 
-async def automation(
-    page: Page,
-    params: dict | None = None,
-    **_kwargs,
-) -> List[Product]:
+async def automation(page: Page, params: Params, **_kwargs) -> list[Product]:
     # Get the page limit from params, default to 50 if not provided
-    if params is None:
-        params = {}
-
-    validated_params = ListSchema(**params)
+    validated_params = ListSchema(**(params or {}))
     page_limit = validated_params.limit or 50
 
     # Navigate to the e-commerce website
@@ -102,7 +100,7 @@ async def automation(
     )
 
     # Array to store all products from all pages
-    all_products: List[Product] = []
+    all_products: list[Product] = []
     current_page = 1
 
     # Loop through all pages until there are no more pages or limit is reached
@@ -132,6 +130,10 @@ async def automation(
         await navigate_to_next_page(page)
 
         current_page += 1
+
+    print(
+        f"Successfully scraped {len(all_products)} products from {current_page} page(s)"
+    )
 
     # Return the scraped products
     return all_products

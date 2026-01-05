@@ -12,12 +12,18 @@
     "maxConcurrentRequests": 1,
     "size": "standard"
   },
-  "defaultRunPlaygroundInput": {
-    "apiName": "crawl",
-    "parameters": {
-      "url": "https://books.toscrape.com",
-      "max_depth": 1,
-      "max_pages": 5
+  "metadata": {
+    "template": {
+      "name": "native-crawler",
+      "description": "Native web crawler for sitemaps and recursive link following"
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "crawl",
+      "parameters": {
+        "url": "https://books.toscrape.com",
+        "max_depth": 1,
+        "max_pages": 5
+      }
     }
   }
 }
