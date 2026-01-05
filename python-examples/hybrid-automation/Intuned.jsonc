@@ -1,6 +1,8 @@
 // For more information, see our Intuned settings reference
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
+  // "workspaceId": "your-workspace-id", // Add your workspace ID here for local development
+  // "projectName": "your-project-name", // Add your project name here for local development
   "apiAccess": {
     "enabled": false
   },
@@ -14,7 +16,7 @@
   "metadata": {
     "template": {
       "name": "hybrid-automation",
-      "description": "Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData",
+      "description": "Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data",
       "tags": ["hybrid", "ai", "scraping", "rpa", "crawler", "stagehand"]
     },
     "defaultRunPlaygroundInput": {
@@ -24,10 +26,9 @@
         "email": "sarah.w@startup.com",
         "phone": "+1-555-7890",
         "date": "2025-01-05",
-        "time": "11:30",
+        "time": "11:47",
         "topic": "api-integration"
       }
-      
     }
   }
 }

@@ -149,7 +149,7 @@ async def automation(
     for product in all_products:
         extend_payload(
             {
-                "api": "hyprid-scraper/details",
+                "api": "hybrid-scraper/details",
                 "parameters": dict(product),
             }
         )

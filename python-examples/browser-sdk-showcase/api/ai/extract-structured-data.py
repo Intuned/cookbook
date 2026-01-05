@@ -26,7 +26,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Extract from the Page directly using Pydantic model.
     # You can also extract from a specific locator or by passing TextContentItem.
-    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_structured_data for more details.
+    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data for more details.
     product = await extract_structured_data(
         source=page,
         strategy="HTML",
