@@ -115,7 +115,7 @@ async def extract_shipping_and_returns(page: Page) -> str | None:
 async def find_entity(page: Page, url: str) -> None:
     await go_to_url(page=page, url=url)
     try:
-        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=5000)
+        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=60000)
         await page.click("#onetrust-accept-btn-handler")
         print("Accepted cookies")
         await page.wait_for_timeout(1000)
@@ -157,7 +157,7 @@ async def automation(
         pass
 
     # Wait for product title to load - replace selector
-    await page.wait_for_selector("h1.product-name")
+    await page.wait_for_selector("h1.product-name", timeout=60000)
 
     # Extract title - replace selector
     title_element = await page.query_selector("h1.product-name")

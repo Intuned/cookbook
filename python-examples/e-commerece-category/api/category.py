@@ -13,7 +13,7 @@ async def handle_cookies(page: Page) -> None:
     """
     try:
         # Replace selector with appropriate one for your store
-        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=5000)
+        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=60000)
         await page.click("#onetrust-accept-btn-handler")
         print("Accepted cookies")
         await page.wait_for_timeout(1000)
@@ -91,7 +91,7 @@ async def automation(
 
     # Wait for the main menu to be present
     # Replace selector with appropriate one for your store
-    await page.wait_for_selector(".has-submenu a.main-menu__link")
+    await page.wait_for_selector(".has-submenu a.main-menu__link", timeout=60000)
 
     # Extract all categories from the menu
     all_categories = await extract_categories(page, store_url)

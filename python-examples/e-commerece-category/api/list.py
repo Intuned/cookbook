@@ -77,7 +77,7 @@ async def extract_products(page: Page, category_url: str) -> list[Product]:
 async def find_entity(page: Page, url: str) -> None:
     await go_to_url(page=page, url=url)
     try:
-        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=5000)
+        await page.wait_for_selector("#onetrust-accept-btn-handler", timeout=60000)
         await page.click("#onetrust-accept-btn-handler")
         print("Accepted cookies")
         await page.wait_for_timeout(1000)
@@ -124,7 +124,7 @@ async def automation(
 
     # Wait for product grid to load
     # Replace this selector with the appropriate one for your store
-    await page.wait_for_selector(".product-grid")
+    await page.wait_for_selector(".product-grid", timeout=60000)
 
     # Load all products by clicking "Load More" button
     await load_all_products(page)
