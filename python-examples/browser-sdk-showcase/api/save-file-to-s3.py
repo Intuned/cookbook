@@ -18,4 +18,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     )
     signed_url = await uploaded_file.get_signed_url()
     print(f"Signed URL: {signed_url}")
-    return signed_url
+    return {
+        "file_name": uploaded_file.file_name,
+        "signed_url": signed_url,
+        "message": "File uploaded successfully to S3"
+    }

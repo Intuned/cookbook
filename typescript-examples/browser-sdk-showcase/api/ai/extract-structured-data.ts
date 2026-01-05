@@ -40,6 +40,12 @@ export default async function handler(
 
   console.log(`Found product: ${product.name} - ${product.price}`);
 
-  return "Success";
+  return {
+    name: product.name,
+    price: product.price,
+    description: product.description,
+    in_stock: product.in_stock,
+    rating: product.rating,
+  };
 }
 

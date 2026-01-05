@@ -24,9 +24,12 @@ export default async function handler(
   });
 
   const signedUrl = await uploadedFile.getSignedUrl();
-  console.log("Signed URL:");
-  console.log(signedUrl);
+  console.log("Signed URL:", signedUrl);
 
-  return signedUrl;
+  return {
+    file_name: uploadedFile.fileName,
+    signed_url: signedUrl,
+    message: "File uploaded successfully to S3"
+  };
 }
 

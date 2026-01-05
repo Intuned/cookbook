@@ -34,8 +34,13 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         data_schema=Book,  # Pass Pydantic model directly, or use a normal json schema dictionary too.
         prompt="Extract book details from this page",
         enable_cache=False,  # To enable cache, you must run in Intuned context (IDE/CLI) and save the project, with the correct API credentials.
-        max_retries=3,
     )
     print(f"Found product: {product['name']} - {product['price']}")
 
-    return "Success"
+    return {
+        "name": product["name"],
+        "price": product["price"],
+        "description": product["description"],
+        "in_stock": product.get("in_stock", None),
+        "rating": product.get("rating", None),
+    }

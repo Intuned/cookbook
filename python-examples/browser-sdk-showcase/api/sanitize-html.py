@@ -21,4 +21,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     sanitized_html = sanitize_html(html, remove_styles=remove_styles, max_attribute_length=max_attribute_length)
     print("Sanitized HTML:")
     print(sanitized_html)
-    return sanitized_html
+    return {
+        "sanitized_html": sanitized_html,
+    }

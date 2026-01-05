@@ -28,6 +28,12 @@ export default async function handler(
   });
 
   // Start your automation here, the page is already loaded and ready to use.
-  return "Success";
+  const title = await page.title();
+  const url = page.url();
+
+  return {
+    title,
+    url,
+  };
 }
 

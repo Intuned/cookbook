@@ -6,7 +6,7 @@ from stagehand import Stagehand
 async def setup_context(*, api_name: str, api_parameters: str, cdp_url: str):
     if api_name == "api/gemini-computer-use":
         stagehand = Stagehand(
-            env="LOCAL", local_browser_launch_options=dict(cdp_url=cdp_url)
+            env="LOCAL", local_browser_launch_options=dict(cdp_url=cdp_url, downloadPath="./tmp")
         )
         await stagehand.init()
         attempt_store.set("stagehand", stagehand)
