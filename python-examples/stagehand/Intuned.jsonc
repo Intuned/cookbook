@@ -14,9 +14,9 @@
   "metadata": {
     "template": {
       "name": "stagehand",
-      "description": "AI-powered browser automation using Stagehand library"
+      "description": "AI-powered browser automation using Stagehand library",
+      "tags": ["stagehand", "scraping"]
     },
-    "tags": ["stagehand", "scraping"],
     "defaultRunPlaygroundInput": {
       "apiName": "get-books",
       "parameters": {

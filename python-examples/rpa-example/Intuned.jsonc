@@ -14,9 +14,9 @@
   "metadata": {
     "template": {
       "name": "rpa-example",
-      "description": "RPA example for booking consultations without authentication"
+      "description": "RPA example for booking consultations without authentication",
+      "tags": ["rpa"]
     },
-    "tags": ["rpa"],
     "defaultRunPlaygroundInput": {
       "apiName": "book-consultations",
       "parameters": {

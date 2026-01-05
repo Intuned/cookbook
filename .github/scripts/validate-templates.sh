@@ -177,7 +177,7 @@ validate_template() {
         fi
     fi
 
-    # If not found, check metadata.tags (legacy location)
+    # If not found at correct location, check metadata.tags (wrong location)
     if [[ -z "$tags_location" ]]; then
         local meta_tags
         meta_tags=$(echo "$config" | jq -r '.metadata.tags // empty' 2>/dev/null || echo "")
@@ -196,9 +196,15 @@ validate_template() {
         error "[$full_path] tags array is empty (at least one tag required)"
         error "[$full_path] Allowed tags: ${ALLOWED_TAGS[*]}"
     else
-        success "[$full_path] tags found at $tags_location with $tags_count tag(s)"
+        # Report location error if tags are in wrong place
+        if [[ "$tags_location" == "metadata.tags" ]]; then
+            error "[$full_path] tags found at wrong location (metadata.tags) - must be inside metadata.template.tags"
+            error "[$full_path] Move tags array from metadata.tags to metadata.template.tags in $dir/Intuned.jsonc"
+        else
+            success "[$full_path] tags found at $tags_location with $tags_count tag(s)"
+        fi
 
-        # Validate each tag against allowed list
+        # Validate each tag against allowed list (regardless of location)
         local invalid_tags=()
         local jq_path=".metadata.template.tags[]"
         [[ "$tags_location" == "metadata.tags" ]] && jq_path=".metadata.tags[]"
