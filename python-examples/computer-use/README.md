@@ -4,9 +4,7 @@ AI-powered browser automation using computer use capabilities from multiple prov
 
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/computer-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/computer-use)
 
 ## Overview
 
@@ -63,17 +61,49 @@ Uses the Browser Use library which provides DOM-based automation with built-in t
 
 ## Getting Started
 
+**Important:** This project uses AI-powered computer use capabilities (Anthropic, OpenAI, Gemini, and Browser Use) that require Intuned's AI gateway. The AI gateway requires the project to be saved before running.
+
+### Setup
+
+To run this example locally, you need to set up your Intuned workspace:
+
+1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
+
+2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
+
+3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+   ```jsonc
+   {
+     "workspaceId": "your-workspace-id",
+     "projectName": "your-project-name"
+     // ... rest of config
+   }
+   ```
+
+4. **Set environment variables**:
+   ```bash
+   export INTUNED_API_KEY=your-api-key
+   
+   # For Gemini Computer Use implementation
+   export GEMINI_API_KEY=your-gemini-api-key
+   ```
+
 ### Install Dependencies
 ```bash
 uv sync
 ```
 
-### Environment Variables
+### Initialize Project
 
-The Gemini Computer Use implementation requires `GEMINI_API_KEY`:
+Run the save command to upload your project and set up the required `.env` file:
+
 ```bash
-export GEMINI_API_KEY=your_api_key_here
+uv run intuned save
 ```
+
+This configures your local environment and prepares the AI gateway for running computer use automations.
+
+Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Run an API
 ```bash
