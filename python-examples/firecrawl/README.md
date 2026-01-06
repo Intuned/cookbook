@@ -1,4 +1,4 @@
-# Simple Firecrawl
+# Firecrawl
 
 > **Firecrawl-compatible web scraping APIs powered by [crawl4ai](https://crawl4ai.com) 🔥**
 
