@@ -22,7 +22,8 @@
     },
     "testAuthSessionInput": {
       "username": "demo@email.com",
-      "password": "password"
+      "password": "DemoUser2024!",
+      "secret": "JBSWY3DPEHPK3PXP"
     }
   }
 }

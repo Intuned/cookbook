@@ -20,8 +20,9 @@
     "defaultRunPlaygroundInput": {
       "apiName": "list",
       "parameters": {
-        "url": "https://www.scrapingcourse.com/ecommerce/"
-      }
+        "url": "https://www.scrapingcourse.com/ecommerce/",
+        "maxPages": 2
+      }      
     }
   }
 }

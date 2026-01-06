@@ -1,4 +1,4 @@
 {"createdAt":"2025-01-01T00:00:00.000Z","updatedAt":"2025-01-01T00:00:00.000Z","authSessionId":"test-auth-session","authSessionType":"API","authSessionInput":{
-    "username": "demo@email.com",
-    "password": "password"
-  }}
+  "email": "admin@example.com",
+  "password": "password"
+}}
