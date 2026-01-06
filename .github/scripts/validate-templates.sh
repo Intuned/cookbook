@@ -14,6 +14,7 @@ declare -a WARNING_MESSAGES=()
 
 # Allowed tags - only these tags are permitted in Intuned.jsonc files
 ALLOWED_TAGS=(
+    "starter"
     "scraping"
     "rpa"
     "crawling"

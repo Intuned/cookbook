@@ -15,7 +15,7 @@
     "template": {
       "name": "starter",
       "description": "Default Intuned project template for browser automation",
-      "tags": ["browser-sdk"]
+      "tags": ["starter", "browser-sdk"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample",

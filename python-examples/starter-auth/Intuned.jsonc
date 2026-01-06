@@ -16,7 +16,7 @@
     "template": {
       "name": "starter-auth",
       "description": "Default AuthSession Intuned project template for browser automation",
-      "tags": ["browser-sdk", "auth-sessions"]
+      "tags": ["starter", "browser-sdk", "auth-sessions"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample",
