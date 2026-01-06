@@ -38,16 +38,26 @@ After installing dependencies, `intuned` command should be available in your env
 
 ```bash
 # npm
-npm run intuned run api download-file .parameters/api/download-file/default.json
-npm run intuned run api pagination .parameters/api/pagination/default.json
-npm run intuned run api upload-to-s3 .parameters/api/upload-to-s3/default.json
-npm run intuned run api capture-screenshots .parameters/api/capture-screenshots/default.json
+npm run intuned -- run api download-file .parameters/api/download-file/default.json
+npm run intuned -- run api pagination .parameters/api/pagination/default.json
+npm run intuned -- run api upload-to-s3 .parameters/api/upload-to-s3/default.json
+npm run intuned -- run api capture-screenshots .parameters/api/capture-screenshots/default.json
+npm run intuned -- run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
+npm run intuned -- run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
+npm run intuned -- run api handle-long-run .parameters/api/handle-long-run/default.json
+npm run intuned -- run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
+
 
 # yarn
 yarn intuned run api download-file .parameters/api/download-file/default.json
 yarn intuned run api pagination .parameters/api/pagination/default.json
 yarn intuned run api upload-to-s3 .parameters/api/upload-to-s3/default.json
 yarn intuned run api capture-screenshots .parameters/api/capture-screenshots/default.json
+yarn intuned run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
+yarn intuned run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
+yarn intuned run api handle-long-run .parameters/api/handle-long-run/default.json
+yarn intuned run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
+
 ```
 
 ### Save project
@@ -81,24 +91,39 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ```
 /
-├── api/                          # API recipes
-│   ├── capture-screenshots.ts    # Capture and upload screenshots
-│   ├── download-file.ts          # Download files from triggers
-│   ├── pagination.ts             # Scrape paginated data
-│   └── upload-to-s3.ts           # Download and upload to S3
-├── .parameters/                  # Test parameters for APIs
-│   └── api/                      # API parameters folder
+├── api/                                   # API recipes 
+│   ├── capture-screenshots.ts             # Capture and upload screenshots
+│   ├── download-file.ts                   # Download files from triggers
+│   ├── pagination.ts                      # Scrape paginated data
+│   ├── upload-to-s3.ts                    # Download and upload to S3
+│   ├── handle-load-more-button.ts         # Repeatedly click "Load More" buttons to scrape data
+│   ├── infinite-scrolling.ts              # Scrape content loaded via infinite scrolling
+│   ├── handle-long-run.ts                 # Handle long-running scraping jobs using timeouts
+│   └── scrape-without-selectors.ts        # AI-based scraping without CSS selectors
+│
+├── .parameters/                           # Test parameters for APIs
+│   └── api/                               # API parameters folder
 │       ├── capture-screenshots/
-│       │   └── default.json
+│       │   └── default.json               
 │       ├── download-file/
-│       │   └── default.json
+│       │   └── default.json              
 │       ├── pagination/
-│       │   └── default.json
-│       └── upload-to-s3/
-│           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-├── package.json                  # Node.js project dependencies
-└── tsconfig.json                 # TypeScript configuration
+│       │   └── default.json              
+│       ├── upload-to-s3/
+│       │   └── default.json              
+│       ├── handle-load-more-button/
+│       │   └── default.json              
+│       ├── infinite-scrolling/
+│       │   └── default.json               
+│       ├── handle-long-run/
+│       │   └── default.json               
+│       └── scrape-without-selectors/
+│           └── default.json              
+│
+├── Intuned.jsonc                          # Intuned project configuration
+├── package.json                           # Node.js dependencies and scripts
+└── tsconfig.json                          # TypeScript compiler configuration
+
 ```
 
 ## APIs
@@ -117,3 +142,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Upload Files Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/upload-files)
 - [Capture Screenshots Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/capture-screenshots)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Handle Infinite Scrolling Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/infinite-scrolling)
+- [Handle load more buttons Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/load-more-button)
+- [Scrape without writing selectors Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/ai-scraper)
+- [Handle long-running automations with timeouts Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/long-running-api)
