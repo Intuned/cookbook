@@ -1,4 +1,4 @@
-# default-auth Intuned project
+# starter-auth Intuned project
 
 Empty Intuned AuthSession session template.
 

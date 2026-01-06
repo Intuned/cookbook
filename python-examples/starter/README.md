@@ -1,4 +1,4 @@
-# empty Intuned project
+# starter Intuned project
 
 This template is a setup with no boilerplate that can get you started quickly. All the project structure, configuration files, and folder organization are already in place—just setup your parameters, rename your API, and write down your automation code. Everything else is ready to go.
 

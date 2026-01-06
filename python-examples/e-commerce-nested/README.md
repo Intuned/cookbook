@@ -1,4 +1,4 @@
-# e-commerce-category Intuned project
+# e-commerce-nested Intuned project
 
 E-commerce store scraper template for sites with category-based navigation. Scrapes categories, product listings, and detailed product information.
 
