@@ -10,7 +10,10 @@ class Params(TypedDict):
 
 
 async def cloudflare_challenge(page: Page, params: Params | None = None, **_kwargs):
-    """Solve Cloudflare challenge captcha with callable pattern
+    """Solve Cloudflare challenge captcha with callable pattern.
+    
+    Demonstrates manually awaiting wait_for_captcha_solve after navigation for fine-grained control.
+    Check our [CAPTCHA Helpers reference](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/captcha-helpers#wait-for-captcha-solve) for more info
 
     Configuration (Intuned.json):
         captchaSolver.enabled: true
