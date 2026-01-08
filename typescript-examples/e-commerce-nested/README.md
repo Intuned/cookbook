@@ -114,3 +114,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
 - [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

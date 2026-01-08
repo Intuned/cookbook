@@ -116,3 +116,4 @@ uv run intuned deploy
 - **Intuned Runtime SDK**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview
 - **Setup Hooks**: https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks
 - **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

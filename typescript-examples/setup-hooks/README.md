@@ -66,3 +66,7 @@ The project structure is as follows:
 │           └── default.json  # Default parameters
 └── Intuned.jsonc             # Intuned project configuration file
 ```
+
+## Learn More
+
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

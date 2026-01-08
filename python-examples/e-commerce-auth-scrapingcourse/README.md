@@ -194,3 +194,7 @@ This project uses the Intuned browser SDK for enhanced reliability:
 - **`extend_payload`**: Trigger additional API calls dynamically (used to trigger `details` API for each product)
 
 For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+
+## Learn More
+
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
