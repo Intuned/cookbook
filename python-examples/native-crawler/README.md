@@ -183,3 +183,4 @@ The `persistent_store` uses these key patterns:
 - [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
 - [Nested Scheduling / extend_payload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

@@ -121,3 +121,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Handle load more buttons Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/load-more-button)
 - [Scrape without writing selectors Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/ai-scraper)
 - [Handle long-running automations with timeouts Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/long-running-api)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

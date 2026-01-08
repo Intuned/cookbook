@@ -113,3 +113,4 @@ uv run intuned deploy
 
 - [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
 - [Intuned SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

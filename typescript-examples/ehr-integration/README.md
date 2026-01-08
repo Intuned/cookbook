@@ -149,3 +149,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Auth Sessions Guide](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [OpenIMIS Documentation](https://openimis.org/)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

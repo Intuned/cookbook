@@ -156,6 +156,7 @@ uv run intuned deploy
 - **OpenAI Operator API**: https://platform.openai.com/docs/
 - **Stagehand Documentation**: https://docs.stagehand.dev/
 - **Browser Use Documentation**: https://github.com/browser-use/browser-use
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
 ## Acknowledgments
 
