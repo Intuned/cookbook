@@ -8,7 +8,10 @@ export async function cloudflareChallenge(
   params?: Params
 ): Promise<{}> {
   /**
-   * Solve Cloudflare challenge captcha with callable pattern
+   * Solve Cloudflare challenge captcha with callable pattern.
+   *
+   * Demonstrates manually awaiting waitForCaptchaSolve after navigation for fine-grained control.
+   * @see https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/captcha-helpers#waitforcaptchasolve
    *
    * Configuration (Intuned.json):
    *   captchaSolver.enabled: true
@@ -16,7 +19,6 @@ export async function cloudflareChallenge(
    *   captchaSolver.settings: { autoSolve, maxRetries }
    */
   await page.goto("https://2captcha.com/demo/cloudflare-turnstile-challenge");
-
   await waitForCaptchaSolve(page, {
     timeoutInMs: 30_000,
     settleDurationMs: 10_000,
