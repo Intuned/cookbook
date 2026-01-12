@@ -7,6 +7,7 @@ from playwright.async_api import Page
 
 class Params(TypedDict):
     query: str  # The task you want the AI to perform
+    max_iterations: int | None = None
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
@@ -24,13 +25,16 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     final_messages = await sampling_loop(
         model=model,
-        messages=[{
-            "role": "user",
-            "content": params["query"],
-        }],
+        messages=[
+            {
+                "role": "user",
+                "content": params["query"],
+            }
+        ],
         api_key=api_key,
         base_url=base_url,
         thinking_budget=1024,
+        max_iterations=params.get("max_iterations", 50),
         playwright_page=page,
     )
 
@@ -47,7 +51,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         result = last_message["content"]  # type: ignore[assignment]
     else:
         result = "".join(
-            block["text"] for block in last_message["content"]  # type: ignore[index]
+            block["text"]
+            for block in last_message["content"]  # type: ignore[index]
             if isinstance(block, dict) and block.get("type") == "text"
         )
 
