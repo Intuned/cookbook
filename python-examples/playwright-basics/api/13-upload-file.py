@@ -22,9 +22,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     await page.wait_for_load_state("load")
 
     # Download a file
-    downloaded_file = await download_file(
-        page, page.locator("a[href*='.txt']").first
-    )
+    downloaded_file = await download_file(page, page.locator("a[href*='.txt']").first)
 
     print(f"Downloaded: {downloaded_file.suggested_filename}")
 

@@ -3,6 +3,7 @@ from intuned_runtime import extend_timeout
 from playwright.async_api import Page, BrowserContext
 from typing import Any, Dict, List
 
+
 async def automation(page: Page, params: Dict[str, Any] = None, **_kwargs):
     all_books = []
     max_pages = params.get("max_pages", 50) if params else 50
@@ -24,11 +25,13 @@ async def automation(page: Page, params: Dict[str, Any] = None, **_kwargs):
             book_url = await book.locator("h3 a").get_attribute("href")
 
             if title and price and book_url:
-                all_books.append({
-                    "title": title,
-                    "price": price.strip(),
-                    "url": f"https://books.toscrape.com/{book_url}",
-                })
+                all_books.append(
+                    {
+                        "title": title,
+                        "price": price.strip(),
+                        "url": f"https://books.toscrape.com/{book_url}",
+                    }
+                )
 
         print(f"Completed page {current_page}. Books collected: {len(all_books)}")
 

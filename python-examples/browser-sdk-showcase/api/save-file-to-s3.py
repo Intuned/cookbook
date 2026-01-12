@@ -21,5 +21,5 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     return {
         "file_name": uploaded_file.file_name,
         "signed_url": signed_url,
-        "message": "File uploaded successfully to S3"
+        "message": "File uploaded successfully to S3",
     }

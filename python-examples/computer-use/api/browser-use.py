@@ -23,7 +23,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     agent = Agent(
         browser=browser,
         task=params["query"],
-        llm=ChatOpenAI(model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key),
+        llm=ChatOpenAI(
+            model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key
+        ),
         flash_mode=True,
         tools=tools,
     )

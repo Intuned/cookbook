@@ -79,7 +79,7 @@ async def sampling_loop(
 ):
     """
     Agentic sampling loop for the assistant/tool interaction of computer use.
-    
+
     Args:
         model: The model to use for the API call
         messages: The conversation history
@@ -96,7 +96,12 @@ async def sampling_loop(
     tool_group = TOOL_GROUPS_BY_VERSION[tool_version]
     tool_collection = ToolCollection(
         *(
-            ToolCls(page=playwright_page if ToolCls.__name__ in ("ComputerTool20241022", "ComputerTool20250124", "BrowserTool") else None)
+            ToolCls(
+                page=playwright_page
+                if ToolCls.__name__
+                in ("ComputerTool20241022", "ComputerTool20250124", "BrowserTool")
+                else None
+            )
             for ToolCls in tool_group.tools
         )
     )
@@ -259,12 +264,17 @@ def _response_to_params(
             res.append(cast(BetaContentBlockParam, thinking_block))
         elif block_type == "tool_use":
             # Handle tool use blocks - only include required fields to avoid 'caller' error
-            res.append(cast(BetaToolUseBlockParam, {
-                "type": "tool_use",
-                "id": block_dict["id"],
-                "name": block_dict["name"],
-                "input": block_dict["input"],
-            }))
+            res.append(
+                cast(
+                    BetaToolUseBlockParam,
+                    {
+                        "type": "tool_use",
+                        "id": block_dict["id"],
+                        "name": block_dict["name"],
+                        "input": block_dict["input"],
+                    },
+                )
+            )
     return res
 
 

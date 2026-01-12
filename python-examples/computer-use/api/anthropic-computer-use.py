@@ -24,10 +24,12 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     final_messages = await sampling_loop(
         model=model,
-        messages=[{
-            "role": "user",
-            "content": params["query"],
-        }],
+        messages=[
+            {
+                "role": "user",
+                "content": params["query"],
+            }
+        ],
         api_key=api_key,
         base_url=base_url,
         thinking_budget=1024,
@@ -47,7 +49,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         result = last_message["content"]  # type: ignore[assignment]
     else:
         result = "".join(
-            block["text"] for block in last_message["content"]  # type: ignore[index]
+            block["text"]
+            for block in last_message["content"]  # type: ignore[index]
             if isinstance(block, dict) and block.get("type") == "text"
         )
 

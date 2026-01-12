@@ -59,7 +59,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     return {
         "postsCount": len(posts),
-        "firstFivePosts": [{"id": p["id"], "title": p["title"][:50]} for p in first_five_posts],
+        "firstFivePosts": [
+            {"id": p["id"], "title": p["title"][:50]} for p in first_five_posts
+        ],
         "userPostsCount": len(user_posts),
         "createdPost": created_post,
     }

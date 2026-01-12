@@ -33,8 +33,7 @@ async def automation(page: Page, params: Params, **_kwargs):
     stagehand = Stagehand(
         env="LOCAL",
         local_browser_launch_options=dict(
-            cdp_url=cdp_url, viewport=dict(width=1280, height=800), 
-            downloadPath="./tmp"
+            cdp_url=cdp_url, viewport=dict(width=1280, height=800), downloadPath="./tmp"
         ),
         model_api_key=api_key,
         model_client_options={
@@ -55,11 +54,15 @@ async def automation(page: Page, params: Params, **_kwargs):
         # Navigate to category if specified using act
         if category:
             # Use observe to find the category link in the sidebar
-            observed = await stagehand.page.observe(f'the "{category}" category link in the sidebar')
+            observed = await stagehand.page.observe(
+                f'the "{category}" category link in the sidebar'
+            )
             print(f"Observed category link: {observed}")
 
             # Use act to click on the category
-            await stagehand.page.act(f'Click on the "{category}" category link in the sidebar')
+            await stagehand.page.act(
+                f'Click on the "{category}" category link in the sidebar'
+            )
             print(f"Navigated to {category} category")
 
         # Collect books from all pages
@@ -72,19 +75,25 @@ async def automation(page: Page, params: Params, **_kwargs):
                 schema=BooksResponse,
             )
             all_books.extend(result.books)
-            print(f"Found {len(result.books)} books on page {page_num}, total: {len(all_books)}")
+            print(
+                f"Found {len(result.books)} books on page {page_num}, total: {len(all_books)}"
+            )
 
             # Check if there's a next page and navigate to it
             if page_num < MAX_PAGES:
                 try:
                     # Use observe to check if next button exists
-                    next_button = await stagehand.page.observe('the "next" button or link to go to the next page')
+                    next_button = await stagehand.page.observe(
+                        'the "next" button or link to go to the next page'
+                    )
                     if not next_button:
                         print("No more pages available")
                         break
 
                     # Use act to click the next button
-                    await stagehand.page.act('Click the "next" button to go to the next page')
+                    await stagehand.page.act(
+                        'Click the "next" button to go to the next page'
+                    )
                     print(f"Navigated to page {page_num + 1}")
                 except Exception as e:
                     print(f"No more pages or navigation failed: {e}")

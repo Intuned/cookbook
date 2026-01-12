@@ -24,9 +24,21 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Access content inside nested frames
     top_frame = page.frame_locator('frame[name="frame-top"]')
 
-    left_content = await top_frame.frame_locator('frame[name="frame-left"]').locator("body").text_content()
-    middle_content = await top_frame.frame_locator('frame[name="frame-middle"]').locator("body").text_content()
-    right_content = await top_frame.frame_locator('frame[name="frame-right"]').locator("body").text_content()
+    left_content = (
+        await top_frame.frame_locator('frame[name="frame-left"]')
+        .locator("body")
+        .text_content()
+    )
+    middle_content = (
+        await top_frame.frame_locator('frame[name="frame-middle"]')
+        .locator("body")
+        .text_content()
+    )
+    right_content = (
+        await top_frame.frame_locator('frame[name="frame-right"]')
+        .locator("body")
+        .text_content()
+    )
 
     bottom_frame = page.frame_locator('frame[name="frame-bottom"]')
     bottom_content = await bottom_frame.locator("body").text_content()
@@ -42,7 +54,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     if frame:
         # Now we can interact with the frame content
         editor_body = frame.locator("#tinymce")
-        frame_title = await editor_body.text_content() if await editor_body.count() > 0 else ""
+        frame_title = (
+            await editor_body.text_content() if await editor_body.count() > 0 else ""
+        )
 
     return {
         "frames": {

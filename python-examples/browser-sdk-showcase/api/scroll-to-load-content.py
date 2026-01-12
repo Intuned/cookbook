@@ -24,8 +24,7 @@ async def automation(page: Page, params: Params, **_kwargs):
         max_scrolls=max_scrolls,
     )
     # Will keep scrolling until the page has loaded all content or the max_scrolls is reached.
-    elements = await page.locator("main slot slot slot div").count() 
-    
+    elements = await page.locator("main slot slot slot div").count()
 
     return {
         "number_of_elements": elements,

@@ -1,4 +1,3 @@
-
 from bs4 import BeautifulSoup
 from intuned_browser import go_to_url
 from intuned_runtime import extend_payload

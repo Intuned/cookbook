@@ -1,6 +1,7 @@
 """
 From https://github.com/anthropics/anthropic-quickstarts/blob/main/computer-use-demo/computer_use_demo/tools/base.py
 """
+
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass, fields, replace
 from typing import Any
@@ -55,6 +56,7 @@ class ToolResult:
     def replace(self, **kwargs):
         """Returns a new ToolResult with the given fields replaced."""
         return replace(self, **kwargs)
+
 
 class ToolFailure(ToolResult):
     """A ToolResult that represents a failure."""

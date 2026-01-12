@@ -37,7 +37,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Create a new page manually from context
     context = page.context
     new_page = await context.new_page()
-    await new_page.goto("https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html")
+    await new_page.goto(
+        "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    )
     await new_page.wait_for_load_state("networkidle")
 
     new_page_title = await new_page.locator(".product_main h1").text_content()
