@@ -18,7 +18,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     max_attribute_length = params.get("max_attribute_length", 100)
     first_row = page.locator("ol.row").locator("li").first
     html = await first_row.inner_html()
-    sanitized_html = sanitize_html(html, remove_styles=remove_styles, max_attribute_length=max_attribute_length)
+    sanitized_html = sanitize_html(
+        html, remove_styles=remove_styles, max_attribute_length=max_attribute_length
+    )
     print("Sanitized HTML:")
     print(sanitized_html)
     return {

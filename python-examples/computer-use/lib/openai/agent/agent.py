@@ -164,4 +164,3 @@ class Agent:
                     new_items += await self.handle_item(item)
 
         return new_items
-

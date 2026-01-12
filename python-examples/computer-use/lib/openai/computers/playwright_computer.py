@@ -121,4 +121,3 @@ class PlaywrightComputer:
 
     async def forward(self) -> None:
         await self._page.go_forward()
-

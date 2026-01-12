@@ -12,7 +12,7 @@ class Params(TypedDict):
 async def create(page: Page, params: Params | None = None, **_kwargs):
     if params is None:
         raise ValueError("Params with email and password are required")
-    
+
     await page.goto("https://www.scrapingcourse.com/login/cf-turnstile")
     await page.locator("#email").fill(params["email"])
     await page.locator("#password").fill(params["password"])

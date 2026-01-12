@@ -1,4 +1,3 @@
-
 import pyotp
 from intuned_browser import go_to_url
 from playwright.async_api import Page

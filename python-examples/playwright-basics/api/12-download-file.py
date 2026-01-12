@@ -43,9 +43,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     url_download = await download_file(page, full_url)
 
     # Option B: Download from a trigger (locator that triggers download on click)
-    trigger_download = await download_file(
-        page, page.locator("a[href*='.txt']").first
-    )
+    trigger_download = await download_file(page, page.locator("a[href*='.txt']").first)
 
     return {
         "playwrightDownload": {

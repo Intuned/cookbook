@@ -49,7 +49,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Pass arguments to evaluate
     greeting = await page.evaluate(
         "(name) => `Hello, ${name}! Current URL is ${window.location.href}`",
-        "Playwright User"
+        "Playwright User",
     )
 
     # Manipulate DOM - hide all images

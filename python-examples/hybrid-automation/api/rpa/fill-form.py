@@ -146,7 +146,9 @@ async def automation(
         except Exception as e:
             print(f"Playwright failed for submit, using Stagehand act: {e}")
             stagehand_page = stagehand.page
-            await stagehand_page.act("Click the submit button to submit the booking form")
+            await stagehand_page.act(
+                "Click the submit button to submit the booking form"
+            )
             print("✓ Submitted form with Stagehand act")
 
         # Step 8: Wait for and verify the success modal

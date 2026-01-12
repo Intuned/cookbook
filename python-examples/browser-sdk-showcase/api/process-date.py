@@ -11,7 +11,6 @@ class Params(TypedDict):
     pass
 
 
-
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Basic date string
     date1 = process_date("22/11/2024")
@@ -43,5 +42,5 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         "date2": str(date2),
         "date3": str(date3),
         "date4": str(date4),
-        "date5": str(date5)
+        "date5": str(date5),
     }

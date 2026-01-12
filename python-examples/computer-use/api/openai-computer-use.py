@@ -39,7 +39,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         tools=[],  # can provide additional tools to the agent
         acknowledge_safety_check_callback=lambda message: (
             print(f"⚠️  Safety check: {message}") or True
-        )
+        ),
     )
 
     # Prepare input messages
@@ -62,10 +62,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 - Complete the entire task before responding with your final answer.
 </IMPORTANT_INSTRUCTIONS>""",
         },
-        {
-            "role": "user",
-            "content": params["query"]
-        }
+        {"role": "user", "content": params["query"]},
     ]
 
     # Run the agent
@@ -81,7 +78,12 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Extract the final result
     content = response_items[-1]["content"]
-    if isinstance(content, list) and content and isinstance(content[0], dict) and "text" in content[0]:
+    if (
+        isinstance(content, list)
+        and content
+        and isinstance(content[0], dict)
+        and "text" in content[0]
+    ):
         result = content[0]["text"]
     elif isinstance(content, str):
         result = content
