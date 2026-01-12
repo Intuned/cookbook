@@ -7,6 +7,7 @@ from playwright.async_api import Page
 
 class Params(TypedDict):
     query: str  # The task you want the AI to perform
+    max_iterations: int | None = None
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
@@ -33,6 +34,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         api_key=api_key,
         base_url=base_url,
         thinking_budget=1024,
+        max_iterations=params.get("max_iterations", 50),
         playwright_page=page,
     )
 

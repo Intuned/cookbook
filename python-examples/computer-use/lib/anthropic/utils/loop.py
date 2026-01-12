@@ -76,6 +76,7 @@ async def sampling_loop(
     thinking_budget: int | None = None,
     token_efficient_tools_beta: bool = False,
     playwright_page: Page,
+    max_iterations: int = 50,
 ):
     """
     Agentic sampling loop for the assistant/tool interaction of computer use.
@@ -92,6 +93,7 @@ async def sampling_loop(
         thinking_budget: Optional token budget for thinking
         token_efficient_tools_beta: Whether to use token efficient tools beta
         playwright_page: The Playwright page instance for browser automation
+        max_iterations: Maximum number of loop iterations before stopping (defaults to 50)
     """
     tool_group = TOOL_GROUPS_BY_VERSION[tool_version]
     tool_collection = ToolCollection(
@@ -110,7 +112,12 @@ async def sampling_loop(
         text=f"{SYSTEM_PROMPT}{' ' + system_prompt_suffix if system_prompt_suffix else ''}",
     )
 
+    iteration = 0
     while True:
+        iteration += 1
+        if iteration > max_iterations:
+            print(f"Maximum iterations ({max_iterations}) reached, ending loop")
+            return messages
         enable_prompt_caching = False
         betas = [tool_group.beta_flag] if tool_group.beta_flag else []
         if token_efficient_tools_beta:
