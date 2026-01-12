@@ -5,7 +5,7 @@ from playwright.async_api import Page
 
 
 class Params(TypedDict):
-    pass
+    max_pages: int
 
 
 async def extract_claims_data(page: Page) -> list[dict[str, str]]:
@@ -42,7 +42,10 @@ async def extract_claims_data(page: Page) -> list[dict[str, str]]:
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     all_results = []
     await go_to_url(page, "https://demo.openimis.org/front/claim/healthFacilities")
-    while True:
+    max_pages = params.max_pages if params else 10
+    current_page = 0
+    while current_page < max_pages:
+        current_page += 1
         # Extract data from current page
         result = await extract_claims_data(page)
         all_results.extend(result)
