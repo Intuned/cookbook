@@ -8,16 +8,12 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/bs4" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
-
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
-
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -25,31 +21,29 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
 ```bash
 uv run intuned run api list .parameters/api/list/default.json
 uv run intuned run api details .parameters/api/details/default.json
 ```
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
-
-
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
-├── api/                      # Your API endpoints 
+├── api/                      # Your API endpoints
 │   ├── list.py               # API to scrape product listings with pagination
 │   └── details.py            # API to extract detailed product information
 ├── utils/
@@ -64,15 +58,15 @@ The project structure is as follows:
 
 2. **details.py** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
-  // Your Intuned workspace ID. 
+  // Your Intuned workspace ID.
   // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
   "workspaceId": "your_workspace_id",
 
-  // The name of your Intuned project. 
+  // The name of your Intuned project.
   // Optional - If not provided here, it must be supplied via the command line when deploying.
   "projectName": "your_project_name",
 
@@ -103,7 +97,7 @@ The project structure is as follows:
     // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
     // "MANUAL" type uses a recorder to manually create the auth session.
     "type": "API",
-    
+
 
     // Recorder start URL for the recorder to navigate to when creating the auth session.
     // Required if "type" is "MANUAL". Not used if "type" is "API".
@@ -119,7 +113,7 @@ The project structure is as follows:
     // Only applicable for "MANUAL" type.
     "browserMode": "fullscreen"
   }
-  
+
   // API access settings
   "apiAccess": {
     // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
