@@ -11,9 +11,6 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/scrapy" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
-
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
 
 ## Development

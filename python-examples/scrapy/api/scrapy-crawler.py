@@ -1,12 +1,26 @@
 import scrapy
+import platform
 from collector.item_collector import ItemCollector
 from intuned_browser import go_to_url
 from playwright.async_api import BrowserContext, Page
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.utils.reactor import install_reactor
-from twisted.internet import reactor
 from utils.types_and_schemas import ListParams, Quote
+
+
+def get_reactor_path() -> str:
+    system = platform.system().lower()
+    if system == "linux":
+        return "twisted.internet.epollreactor.EPollReactor"
+    if system == "darwin":
+        return "twisted.internet.kqreactor.KQueueReactor"
+    if system == "windows":
+        return "twisted.internet.iocpreactor.IOCPReactor"
+    return "twisted.internet.selectreactor.SelectReactor"
+
+
+REACTOR_PATH = get_reactor_path()
 
 
 class QuotesSpider(scrapy.Spider):
@@ -14,7 +28,7 @@ class QuotesSpider(scrapy.Spider):
     """QuotesSpider with pagination support for Scrapy's request system."""
 
     custom_settings = {
-        "TWISTED_REACTOR": "twisted.internet.epollreactor.EPollReactor",
+        "TWISTED_REACTOR": REACTOR_PATH,
     }
 
     def __init__(self, url: str, max_pages: int, *args, **kwargs):
@@ -46,8 +60,9 @@ class QuotesSpider(scrapy.Spider):
 
 
 def run_scrapy(url: str, max_pages: int):
-    install_reactor("twisted.internet.epollreactor.EPollReactor")
+    install_reactor(REACTOR_PATH)
     configure_logging({"LOG_FORMAT": "%(levelname)s: %(message)s"})
+    from twisted.internet import reactor
 
     # Create collector to gather scraped items
     collector = ItemCollector()
@@ -66,7 +81,7 @@ def run_scrapy(url: str, max_pages: int):
 
     # Stop reactor when crawl completes
     d.addBoth(lambda _: reactor.stop())
-    reactor.run()
+    reactor.run(installSignalHandlers=False)
 
     # Return collected items
     return [Quote(**item) for item in collector.items]
