@@ -5,12 +5,12 @@ interface Params {
   password: string;
 }
 
-export default async function *create(
+export default async function create(
   params: Params,
   page: Page,
   context: BrowserContext
-):AsyncGenerator<unknown, any, string>{
- 
+): Promise<void> {
+
   // Step 1: Navigate to the login page
   // Wait for the page to fully load before proceeding
   await page.goto("https://demo.openimis.org/front/login", {
