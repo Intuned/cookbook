@@ -2,10 +2,11 @@
 
 Example demonstrating how to use setup hooks in Intuned to prepare data and configuration before your API executes
 
-## Getting Started
+## Run on Intuned
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+Open this project in Intuned by clicking the button below.
 
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/setup-hooks" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Development
 

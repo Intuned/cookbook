@@ -10,20 +10,17 @@ E-commerce store scraper template for sites with category-based navigation. Scra
 - **Comprehensive Product Data**: Extracts titles, prices, sizes, descriptions, shipping, and returns information
 
 <!-- IDE-IGNORE-START -->
+
 ## Run on Intuned
 
 [![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-nested)
 
-## Getting Started
-
-To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
-
-
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -32,10 +29,10 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
+> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
+
 ```bash
 # npm
 npm run intuned run api category .parameters/api/category/default.json
@@ -49,6 +46,7 @@ yarn intuned run api details .parameters/api/details/default.json
 ```
 
 ### Save project
+
 ```bash
 # npm
 npm run intuned run save
@@ -60,6 +58,7 @@ yarn intuned run save
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -74,10 +73,8 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 <!-- IDE-IGNORE-END -->
 
-
-
-
 ## Project Structure
+
 ```
 /
 ├── .parameters/                      # Test parameters for APIs
@@ -98,15 +95,13 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── package.json                     # Node.js project dependencies
 ```
 
-
 ## APIs
 
-| API | Description |
-|-----|-------------|
+| API        | Description                                                                                                                                              |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extendPayload` |
-| `list` | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload` |
-| `details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
-
+| `list`     | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload`                          |
+| `details`  | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy                    |
 
 ## Learn More
 
