@@ -16,7 +16,11 @@ class Params(TypedDict):
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
-    url = params.get("url", "https://books.toscrape.com/") if params else "https://books.toscrape.com/"
+    url = (
+        params.get("url", "https://books.toscrape.com/")
+        if params
+        else "https://books.toscrape.com/"
+    )
 
     await page.goto(url)
 

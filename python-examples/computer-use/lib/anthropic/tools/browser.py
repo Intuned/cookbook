@@ -70,9 +70,7 @@ class BrowserTool(BaseAnthropicTool):
             output = f"Navigated to {url} - Status: {status_text}"
 
             return ToolResult(
-                output=output,
-                base64_image=base64.b64encode(screenshot_bytes).decode()
+                output=output, base64_image=base64.b64encode(screenshot_bytes).decode()
             )
         except Exception as e:
             raise ToolError(f"Failed to navigate to {url}: {str(e)}")
-

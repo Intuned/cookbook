@@ -47,7 +47,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     third_product_title = await third_product.locator("h3 a").get_attribute("title")
 
     # Filter locators
-    in_stock_products = page.locator(".product_pod").filter(has=page.locator(".instock"))
+    in_stock_products = page.locator(".product_pod").filter(
+        has=page.locator(".instock")
+    )
     in_stock_count = await in_stock_products.count()
 
     return {

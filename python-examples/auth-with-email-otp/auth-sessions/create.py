@@ -1,4 +1,3 @@
-
 from intuned_browser import go_to_url
 from playwright.async_api import Page
 from pydantic import ValidationError
@@ -60,5 +59,3 @@ async def create(page: Page, params: dict | None = None, **_kwargs):
     # If the protected page is not visible, wait_for will raise an exception
     protected_page = page.locator("#book-consultations-title")
     await protected_page.wait_for(state="visible", timeout=10_000)
-
-

@@ -44,12 +44,14 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         # Check if in stock
         in_stock = await product.locator(".instock").count() > 0
 
-        items.append({
-            "title": title,
-            "price": price,
-            "rating": rating,
-            "inStock": in_stock,
-        })
+        items.append(
+            {
+                "title": title,
+                "price": price,
+                "rating": rating,
+                "inStock": in_stock,
+            }
+        )
 
     return {
         "totalAvailable": total_count,

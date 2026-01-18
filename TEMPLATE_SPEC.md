@@ -227,11 +227,11 @@ export interface CreateAuthSessionParams {
   password: string;
 }
 
-export default async function* create(
+export default async function create(
   params: CreateAuthSessionParams,
   page: Page,
   context: BrowserContext
-): AsyncGenerator<unknown, any, string> {
+): Promise<void> {
   // Perform login steps
   return true; // success
 }

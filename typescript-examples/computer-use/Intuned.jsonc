@@ -19,7 +19,10 @@
     },
     "defaultRunPlaygroundInput": {
       "apiName": "anthropic-computer-use",
-      "parameters": {}
+      "parameters": {
+        "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices"
+      }
+      
     }
   }
 }

@@ -1,4 +1,4 @@
-# Simple Firecrawl
+# Firecrawl
 
 > **Firecrawl-compatible web scraping APIs powered by [crawl4ai](https://crawl4ai.com) 🔥**
 
@@ -220,6 +220,7 @@ See [Intuned Documentation](https://docs.intunedhq.com) for deployment details.
 - **Firecrawl API Reference:** [docs.firecrawl.dev](https://docs.firecrawl.dev/api-reference/introduction)
 - **crawl4ai Documentation:** [docs.crawl4ai.com](https://docs.crawl4ai.com)
 - **Intuned Platform:** [docs.intunedhq.com](https://docs.intunedhq.com)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
 ---
 

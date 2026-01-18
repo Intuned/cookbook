@@ -109,3 +109,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
 - [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-timeout)
 - [saveFileToS3 Helper](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/saveFileToS3)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

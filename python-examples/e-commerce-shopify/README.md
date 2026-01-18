@@ -88,4 +88,4 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Shopify API Documentation](https://shopify.dev/docs/api)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
-
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

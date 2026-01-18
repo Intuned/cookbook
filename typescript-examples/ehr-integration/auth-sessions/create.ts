@@ -7,10 +7,10 @@ interface Params {
 
 export default async function create(
   params: Params,
-  _playwrightPage: Page,
+  page: Page,
   context: BrowserContext
 ): Promise<void> {
-  const page = _playwrightPage;
+
   // Step 1: Navigate to the login page
   // Wait for the page to fully load before proceeding
   await page.goto("https://demo.openimis.org/front/login", {

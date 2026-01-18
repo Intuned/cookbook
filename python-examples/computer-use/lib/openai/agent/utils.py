@@ -16,11 +16,12 @@ def sanitize_message(msg: dict) -> dict:
 
 def create_response(api_key: str, base_url: str | None = None, **kwargs):
     """Call OpenAI's responses API."""
-    url = f"{base_url.rstrip('/')}/responses" if base_url else "https://api.openai.com/v1/responses"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
+    url = (
+        f"{base_url.rstrip('/')}/responses"
+        if base_url
+        else "https://api.openai.com/v1/responses"
+    )
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
 
     openai_org = os.getenv("OPENAI_ORG")
     if openai_org:
@@ -33,4 +34,3 @@ def create_response(api_key: str, base_url: str | None = None, **kwargs):
         raise Exception(f"OpenAI API error: {response.status_code} {response.text}")
 
     return response.json()
-

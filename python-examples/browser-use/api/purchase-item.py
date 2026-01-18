@@ -41,7 +41,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 5. Proceed to checkout
 6. Fill in the checkout information: First Name: '{first_name}', Last Name: '{last_name}', Zip Code: '{zip_code}'
 7. Complete the purchase""",
-        llm=ChatOpenAI(model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key),
+        llm=ChatOpenAI(
+            model="gpt-5-mini", temperature=0, base_url=base_url, api_key=api_key
+        ),
         flash_mode=True,
         tools=tools,
     )

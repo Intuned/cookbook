@@ -223,3 +223,4 @@ yarn intuned deploy
 For detailed documentation on each helper function, visit:
 - [Intuned Browser SDK - TypeScript](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/)
 - [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

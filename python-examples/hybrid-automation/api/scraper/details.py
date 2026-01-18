@@ -1,4 +1,3 @@
-
 from intuned_browser import go_to_url
 from intuned_browser.ai import extract_structured_data
 from playwright.async_api import BrowserContext, Page
@@ -63,6 +62,7 @@ class ProductDetails(BaseModel):
     shipping_details: ShippingDetails | None = Field(
         default=None, description="Structured shipping and returns information"
     )
+
 
 async def extract_price_info(page: Page) -> dict:
     """
@@ -167,37 +167,43 @@ async def extract_shipping_and_returns(page: Page) -> ShippingDetails | None:
         "properties": {
             "free_shipping_threshold": {
                 "type": "string",
-                "description": "Minimum order amount for free shipping (e.g., '$95')"
+                "description": "Minimum order amount for free shipping (e.g., '$95')",
             },
             "return_days": {
                 "type": "integer",
-                "description": "Number of days for returns and exchanges"
+                "description": "Number of days for returns and exchanges",
             },
             "shipping_options": {
                 "type": "array",
                 "items": {
                     "type": "object",
                     "properties": {
-                        "name": {"type": "string", "description": "Shipping carrier and service name"},
-                        "delivery_time": {"type": "string", "description": "Estimated delivery time"}
+                        "name": {
+                            "type": "string",
+                            "description": "Shipping carrier and service name",
+                        },
+                        "delivery_time": {
+                            "type": "string",
+                            "description": "Estimated delivery time",
+                        },
                     },
-                    "required": ["name", "delivery_time"]
+                    "required": ["name", "delivery_time"],
                 },
-                "description": "Available shipping options with delivery times"
+                "description": "Available shipping options with delivery times",
             },
             "delivery_days": {
                 "type": "string",
-                "description": "Days of the week when delivery is available"
+                "description": "Days of the week when delivery is available",
             },
             "return_window_days": {
                 "type": "integer",
-                "description": "Number of days from delivery date to return purchase"
+                "description": "Number of days from delivery date to return purchase",
             },
             "taxes_note": {
                 "type": "string",
-                "description": "Note about taxes and additional fees"
-            }
-        }
+                "description": "Note about taxes and additional fees",
+            },
+        },
     }
 
     try:

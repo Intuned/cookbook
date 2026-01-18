@@ -17,49 +17,49 @@ TYPING_GROUP_SIZE = 50
 
 # Map alternative names to standard Playwright modifier keys
 MODIFIER_KEY_MAP = {
-    'ctrl': 'Control',
-    'alt': 'Alt',
-    'cmd': 'Meta',
-    'command': 'Meta',
-    'win': 'Meta',
+    "ctrl": "Control",
+    "alt": "Alt",
+    "cmd": "Meta",
+    "command": "Meta",
+    "win": "Meta",
 }
 
 # Essential key mappings for Playwright compatibility
 KEY_MAP = {
-    'return': 'Enter',
-    'space': ' ',
-    'left': 'ArrowLeft',
-    'right': 'ArrowRight',
-    'up': 'ArrowUp',
-    'down': 'ArrowDown',
-    'home': 'Home',
-    'end': 'End',
-    'pageup': 'PageUp',
-    'page_up': 'PageUp',
-    'pagedown': 'PageDown',
-    'page_down': 'PageDown',
-    'delete': 'Delete',
-    'backspace': 'Backspace',
-    'tab': 'Tab',
-    'esc': 'Escape',
-    'escape': 'Escape',
-    'insert': 'Insert',
-    'super_l': 'Meta',
-    'f1': 'F1',
-    'f2': 'F2',
-    'f3': 'F3',
-    'f4': 'F4',
-    'f5': 'F5',
-    'f6': 'F6',
-    'f7': 'F7',
-    'f8': 'F8',
-    'f9': 'F9',
-    'f10': 'F10',
-    'f11': 'F11',
-    'f12': 'F12',
-    'minus': '-',
-    'equal': '=',
-    'plus': '+',
+    "return": "Enter",
+    "space": " ",
+    "left": "ArrowLeft",
+    "right": "ArrowRight",
+    "up": "ArrowUp",
+    "down": "ArrowDown",
+    "home": "Home",
+    "end": "End",
+    "pageup": "PageUp",
+    "page_up": "PageUp",
+    "pagedown": "PageDown",
+    "page_down": "PageDown",
+    "delete": "Delete",
+    "backspace": "Backspace",
+    "tab": "Tab",
+    "esc": "Escape",
+    "escape": "Escape",
+    "insert": "Insert",
+    "super_l": "Meta",
+    "f1": "F1",
+    "f2": "F2",
+    "f3": "F3",
+    "f4": "F4",
+    "f5": "F5",
+    "f6": "F6",
+    "f7": "F7",
+    "f8": "F8",
+    "f9": "F9",
+    "f10": "F10",
+    "f11": "F11",
+    "f12": "F12",
+    "minus": "-",
+    "equal": "=",
+    "plus": "+",
 }
 
 Action_20241022 = Literal[
@@ -96,13 +96,16 @@ MOUSE_BUTTONS = {
     "middle_click": "middle",
 }
 
+
 class ComputerToolOptions(TypedDict):
     display_height_px: int
     display_width_px: int
     display_number: int | None
 
+
 def chunks(s: str, chunk_size: int) -> list[str]:
     return [s[i : i + chunk_size] for i in range(0, len(s), chunk_size)]
+
 
 class BaseComputerTool:
     """
@@ -130,7 +133,9 @@ class BaseComputerTool:
         super().__init__()
         self.page = page
 
-    def validate_coordinates(self, coordinate: tuple[int, int] | list[int] | None = None) -> tuple[int, int] | None:
+    def validate_coordinates(
+        self, coordinate: tuple[int, int] | list[int] | None = None
+    ) -> tuple[int, int] | None:
         """Validate that coordinates are non-negative integers and convert lists to tuples if needed."""
         if coordinate is None:
             return None
@@ -144,7 +149,9 @@ class BaseComputerTool:
 
         x, y = coordinate
         if not isinstance(x, int) or not isinstance(y, int) or x < 0 or y < 0:
-            raise ToolError(f"{coordinate} must be a tuple or list of non-negative ints")
+            raise ToolError(
+                f"{coordinate} must be a tuple or list of non-negative ints"
+            )
 
         return coordinate
 
@@ -159,8 +166,8 @@ class BaseComputerTool:
             return KEY_MAP[key.lower()]
 
         # Handle key combinations (e.g. "ctrl+a")
-        if '+' in key:
-            parts = key.split('+')
+        if "+" in key:
+            parts = key.split("+")
             if len(parts) == 2:
                 modifier, main_key = parts
                 mapped_modifier = MODIFIER_KEY_MAP.get(modifier.lower(), modifier)
@@ -263,15 +270,15 @@ class BaseComputerTool:
 
         # Take screenshot using Playwright and get the buffer directly
         screenshot_bytes = await self.page.screenshot(type="png")
-        return ToolResult(
-            base64_image=base64.b64encode(screenshot_bytes).decode()
-        )
+        return ToolResult(base64_image=base64.b64encode(screenshot_bytes).decode())
+
 
 class ComputerTool20241022(BaseComputerTool, BaseAnthropicTool):
     api_type: Literal["computer_20241022"] = "computer_20241022"
 
     def to_params(self) -> BetaToolComputerUse20241022Param:
         return {"name": self.name, "type": self.api_type, **self.options}
+
 
 class ComputerTool20250124(BaseComputerTool, BaseAnthropicTool):
     api_type: Literal["computer_20250124"] = "computer_20250124"
@@ -327,8 +334,8 @@ class ComputerTool20250124(BaseComputerTool, BaseAnthropicTool):
             )
             page_partitions = 25
             scroll_factor = scroll_amount / page_partitions
-            page_width = page_dimensions['w']
-            page_height = page_dimensions['h']
+            page_width = page_dimensions["w"]
+            page_height = page_dimensions["h"]
 
             delta_x = 0
             delta_y = 0
@@ -341,7 +348,9 @@ class ComputerTool20250124(BaseComputerTool, BaseAnthropicTool):
             elif scroll_direction == "right":
                 delta_x = scroll_factor * page_width
 
-            print(f"Scrolling {abs(delta_x) if delta_x != 0 else abs(delta_y):.02f} pixels {scroll_direction}")
+            print(
+                f"Scrolling {abs(delta_x) if delta_x != 0 else abs(delta_y):.02f} pixels {scroll_direction}"
+            )
 
             await self.page.mouse.wheel(delta_x=delta_x, delta_y=delta_y)
             return await self.screenshot()

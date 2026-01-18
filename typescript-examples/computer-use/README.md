@@ -204,6 +204,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 - **Anthropic Computer Use**: https://docs.anthropic.com/en/docs/computer-use
 - **OpenAI Operator API**: https://platform.openai.com/docs/
 - **Stagehand Documentation**: https://docs.stagehand.dev/
+- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
 ## Acknowledgments
 

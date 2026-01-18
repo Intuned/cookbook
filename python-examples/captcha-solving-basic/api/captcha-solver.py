@@ -10,7 +10,10 @@ class Params(TypedDict):
 
 
 async def cloudflare_challenge(page: Page, params: Params | None = None, **_kwargs):
-    """Solve Cloudflare challenge captcha with callable pattern
+    """Solve Cloudflare challenge captcha with callable pattern.
+    
+    Demonstrates manually awaiting wait_for_captcha_solve after navigation for fine-grained control.
+    Check our [CAPTCHA Helpers reference](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/captcha-helpers#wait-for-captcha-solve) for more info
 
     Configuration (Intuned.json):
         captchaSolver.enabled: true
@@ -30,7 +33,9 @@ async def cloudflare_turnstile(page: Page, params: Params | None = None, **_kwar
         captchaSolver.cloudflare.enabled: true
         captchaSolver.settings: { autoSolve, maxRetries }
     """
-    await go_to_with_captcha_solve(page, "https://2captcha.com/demo/cloudflare-turnstile")
+    await go_to_with_captcha_solve(
+        page, "https://2captcha.com/demo/cloudflare-turnstile"
+    )
     return {}
 
 
@@ -42,7 +47,9 @@ async def custom_captcha(page: Page, params: Params | None = None, **_kwargs):
         captchaSolver.customCaptcha.enabled: true
         captchaSolver.settings: { autoSolve, maxRetries }
     """
-    await go_to_with_captcha_solve(page, "https://captcha.com/demos/features/captcha-demo.aspx")
+    await go_to_with_captcha_solve(
+        page, "https://captcha.com/demos/features/captcha-demo.aspx"
+    )
     return {}
 
 
@@ -66,7 +73,9 @@ async def recaptcha(page: Page, params: Params | None = None, **_kwargs):
         captchaSolver.googleRecaptchaV2.enabled: true
         captchaSolver.settings: { autoSolve, maxRetries }
     """
-    await go_to_with_captcha_solve(page, url="https://2captcha.com/demo/recaptcha-v2-enterprise")
+    await go_to_with_captcha_solve(
+        page, url="https://2captcha.com/demo/recaptcha-v2-enterprise"
+    )
     return {}
 
 

@@ -13,12 +13,10 @@ class Params(TypedDict):
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
     await page.goto("https://books.toscrape.com")
-    header_locator = page.locator('h1')
-    markdown = await extract_markdown(header_locator) # Extract markdown from the header locator.
+    header_locator = page.locator("h1")
+    markdown = await extract_markdown(
+        header_locator
+    )  # Extract markdown from the header locator.
     print("Markdown content of the header:")
     print(markdown)
-    return {
-        "markdown": markdown,
-        "source": "h1 header",
-        "url": page.url
-    }
+    return {"markdown": markdown, "source": "h1 header", "url": page.url}

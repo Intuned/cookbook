@@ -17,7 +17,9 @@ class Params(TypedDict):
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
-    await page.goto("https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html")
+    await page.goto(
+        "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    )
     await page.wait_for_load_state("networkidle")
 
     # Get text content
@@ -42,7 +44,9 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
         "title": title,
         "price": price,
         "imageUrl": image_url,
-        "description": description[:100] + "..." if description and len(description) > 100 else description,
+        "description": description[:100] + "..."
+        if description and len(description) > 100
+        else description,
         "breadcrumbVisible": breadcrumb_visible,
         "stockInfo": stock_info.strip() if stock_info else None,
     }

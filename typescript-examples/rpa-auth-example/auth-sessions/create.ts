@@ -6,11 +6,11 @@ export interface CreateAuthSessionParams {
   password: string;
 }
 
-export default async function* create(
+export default async function create(
   params: CreateAuthSessionParams,
   page: Page,
   context: BrowserContext
-): AsyncGenerator<unknown, any, string> {
+): Promise<void> {
   // Step 1: Navigate to the login page
   // Wait for the page to fully load before proceeding
   await goToUrl({

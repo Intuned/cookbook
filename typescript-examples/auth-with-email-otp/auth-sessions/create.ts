@@ -8,11 +8,11 @@ import { getRecentOTP } from "../utils/resend";
 
 type Params = z.infer<typeof createAuthSessionParams>;
 
-export default async function* create(
+export default async function create(
   params: Params,
   page: Page,
   context: BrowserContext
-): AsyncGenerator<unknown, any, string> {
+): Promise<void> {
   const validatedParams = createAuthSessionParams.safeParse(params);
   if (!validatedParams.success) {
     throw new RunError(validatedParams.error.message);

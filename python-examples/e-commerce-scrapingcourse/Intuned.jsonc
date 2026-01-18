@@ -29,7 +29,9 @@
       "payload": [
         {
           "apiName": "list",
-          "parameters": {}
+          "parameters": {
+            "limit": 10
+        }
         }
       ]
     }

@@ -24,8 +24,14 @@ JOB_POSTING_SCHEMA = {
         "department": {"type": "string", "description": "Department name"},
         "team": {"type": "string", "description": "Team name"},
         "description": {"type": "string", "description": "Full job description"},
-        "commitment": {"type": "string", "description": "Employment type (Full-time, Part-time, etc.)"},
-        "workplace_type": {"type": "string", "description": "Workplace type (Remote, On-site, Hybrid)"},
+        "commitment": {
+            "type": "string",
+            "description": "Employment type (Full-time, Part-time, etc.)",
+        },
+        "workplace_type": {
+            "type": "string",
+            "description": "Workplace type (Remote, On-site, Hybrid)",
+        },
         "apply_url": {"type": "string", "description": "URL to apply for the job"},
         "company": {"type": "string", "description": "Company name"},
     },
@@ -279,7 +285,9 @@ async def automation(
         }
     else:
         print(f"[crawl] Using AI extraction for: {url}")
-        job_data = await extract_structured_data(source=page, data_schema=JOB_POSTING_SCHEMA, model="gpt-5-mini")
+        job_data = await extract_structured_data(
+            source=page, data_schema=JOB_POSTING_SCHEMA, model="gpt-5-mini"
+        )
         content = {
             "title": job_data.get("title", "Unknown"),
             "type": "job_posting",
