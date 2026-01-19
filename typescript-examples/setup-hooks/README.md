@@ -2,16 +2,18 @@
 
 Example demonstrating how to use setup hooks in Intuned to prepare data and configuration before your API executes
 
-## Getting Started
+## Run on Intuned
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+Open this project in Intuned by clicking the button below.
 
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/setup-hooks" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Development
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -20,9 +22,10 @@ npm install
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
+
 ```bash
 # npm
 npm run intuned run api demo-hook .parameters/api/demo-hook/default.json
@@ -32,6 +35,7 @@ yarn intuned run api demo-hook .parameters/api/demo-hook/default.json
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -40,18 +44,14 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 
-
-
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
 ├── api/                      # Your API endpoints
