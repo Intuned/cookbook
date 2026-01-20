@@ -1,5 +1,4 @@
-import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
-import { createOpenAI } from "@ai-sdk/openai";
+import { Stagehand } from "@browserbasehq/stagehand";
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
 import { listParametersSchema, ListParameters } from "../utils/typesAndSchemas";
@@ -52,24 +51,19 @@ export default async function handler(
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
   // Create AI SDK provider with Intuned's AI gateway
-  const openai = createOpenAI({
-    apiKey,
-    baseURL: baseUrl,
-  });
-
-  const llmClient = new AISdkClient({
-    model: openai("gpt-5-mini"),
-  });
-
-  // Initialize Stagehand with act/extract/observe capabilities
   const stagehand = new Stagehand({
     env: "LOCAL",
     localBrowserLaunchOptions: {
       cdpUrl: webSocketUrl,
       viewport: { width: 1280, height: 800 },
+      downloadsPath: "./tmp",
     },
-    llmClient,
     logger: console.log,
+    model: {
+      modelName: "openai/gpt-5-mini",
+      apiKey: apiKey,
+      baseURL: baseUrl
+    }
   });
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");

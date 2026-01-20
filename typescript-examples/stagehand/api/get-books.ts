@@ -1,6 +1,5 @@
 import z from "zod";
-import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
-import { createOpenAI } from "@ai-sdk/openai";
+import { Stagehand } from "@browserbasehq/stagehand";
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
 
@@ -44,17 +43,6 @@ export default async function handler(
   const cdpUrl = attemptStore.get("cdpUrl") as string;
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
-  // Create AI SDK provider with Intuned's AI gateway
-  const openai = createOpenAI({
-    apiKey,
-    baseURL: baseUrl,
-  });
-
-  const llmClient = new AISdkClient({
-    model: openai("gpt-5-mini"),
-  });
-
-  // Initialize Stagehand with act/extract/observe capabilities
   const stagehand = new Stagehand({
     env: "LOCAL",
     localBrowserLaunchOptions: {
@@ -62,8 +50,12 @@ export default async function handler(
       viewport: { width: 1280, height: 800 },
       downloadsPath: "./tmp",
     },
-    llmClient,
     logger: console.log,
+    model: {
+      modelName: "openai/gpt-5-mini",
+      apiKey: apiKey,
+      baseURL: baseUrl
+    }
   });
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");
@@ -71,7 +63,6 @@ export default async function handler(
   await page.setViewportSize({ width: 1280, height: 800 });
 
   const allBooks: BookDetails[] = [];
-
   try {
     await page.goto("https://books.toscrape.com");
 
@@ -97,7 +88,7 @@ export default async function handler(
       // Extract all book details from the current page
       const result = await stagehand.extract(
         "Extract all books visible on the page with their complete details including title, price, rating, and availability",
-         bookDetailsSchema ,
+        bookDetailsSchema,
       );
       allBooks.push(...result.books ?? []);
       console.log(
