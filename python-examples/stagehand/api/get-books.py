@@ -27,14 +27,13 @@ MAX_PAGES = 10
 
 async def automation(page: Page, params: Params, **_kwargs):
     base_url, api_key = get_ai_gateway_config()
-    openai_api_key = os.getenv("OPENAI_API_KEY")
+    model_api_key = os.getenv("MODEL_API_KEY")
     cdp_url = attempt_store.get("cdp_url")
 
     # Initialize Stagehand with act/extract/observe capabilities
     client = AsyncStagehand(
         server="local",
-        local_openai_api_key=openai_api_key,
-        model_api_key=openai_api_key,
+        model_api_key=model_api_key,
         local_ready_timeout_s=30.0,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
