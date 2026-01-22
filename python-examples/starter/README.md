@@ -11,12 +11,12 @@ This template is a setup with no boilerplate that can get you started quickly. A
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -24,18 +24,21 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
 ```bash
 uv run intuned run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
+
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
@@ -46,10 +49,8 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 <!-- IDE-IGNORE-END -->
 
-
-
-
 ## Project Structure
+
 ```
 /
 ├── .parameters/              # Test parameters for APIs
@@ -62,13 +63,11 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── pyproject.toml           # Python project dependencies
 ```
 
-
 ## APIs
 
 | API | Description |
 |-----|-------------|
 | `sample` | A basic sample API that demonstrates the Intuned project structure and API pattern |
-
 
 ## Learn More
 

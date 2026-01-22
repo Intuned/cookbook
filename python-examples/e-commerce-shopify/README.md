@@ -37,7 +37,7 @@ uv run intuned run api shopify-details .parameters/api/shopify-details/default.j
 ### Save project
 
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -56,7 +56,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── .parameters/              # Test parameters for APIs
 │   └── api/

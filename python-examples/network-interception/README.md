@@ -15,12 +15,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -28,6 +28,7 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
 ```bash
 # CSRF Token Capture - Intercept network requests to capture authentication tokens
 uv run intuned run api network-interceptor .parameters/api/network-interceptor/default.json
@@ -36,24 +37,27 @@ uv run intuned run api network-interceptor .parameters/api/network-interceptor/d
 uv run intuned run api api-interceptor .parameters/api/api-interceptor/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
-
-
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                              # Your API endpoints 
 │   ├── network-interceptor.py        # CSRF token capture and authenticated API calls
@@ -70,6 +74,7 @@ The project structure is as follows:
 ## How It Works
 
 ### network-interceptor.py (CSRF Token Capture)
+
 1. Logs in to the target website using provided credentials
 2. Sets up a request interceptor to capture CSRF tokens from outgoing requests
 3. Navigates to the target URL and waits for network activity
@@ -77,6 +82,7 @@ The project structure is as follows:
 5. Makes authenticated API calls using the captured token
 
 ### api-interceptor.py (Paginated API Data)
+
 1. Sets up a response listener for a specified API pattern
 2. Navigates to the URL and captures initial data from matching API responses
 3. Clicks the "Next" button to load more pages
@@ -84,8 +90,8 @@ The project structure is as follows:
 
 These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

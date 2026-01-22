@@ -12,7 +12,8 @@ Open this project in Intuned by clicking the button below.
 ## What This Example Does
 
 The `get-books` API demonstrates a practical Stagehand integration that:
-1. Navigates to a book store website (https://books.toscrape.com)
+
+1. Navigates to a book store website (<https://books.toscrape.com>)
 2. Uses Stagehand's AI-powered `act()` and `observe()` methods to navigate to a specific book category (if provided)
 3. Extracts structured data about all visible books using Stagehand's `extract()` method with type-safe Pydantic schemas
 4. Automatically paginate through multiple pages to collect all books
@@ -24,6 +25,7 @@ The `get-books` API demonstrates a practical Stagehand integration that:
 The `hooks/setup_context.py` file runs before every API call and stores the CDP URL for Stagehand initialization.
 
 **Key Points:**
+
 - Stores the CDP (Chrome DevTools Protocol) URL in `attempt_store` for later use
 - The API handler then uses this CDP URL to initialize Stagehand and connect to Intuned's managed browser
 - This allows Stagehand to control the same browser instance managed by Intuned
@@ -33,6 +35,7 @@ The `hooks/setup_context.py` file runs before every API call and stores the CDP 
 The `api/get-books.py` handler receives Stagehand's `page` object and leverages Stagehand's AI capabilities.
 
 **Key Points:**
+
 - Initialize Stagehand with the CDP URL from `attempt_store` and Intuned's AI Gateway credentials
 - Use `stagehand.page.observe()` to locate elements using natural language
 - Use `stagehand.page.act()` to perform actions using natural language instructions
@@ -49,6 +52,7 @@ The API accepts an optional `category` parameter:
 ```
 
 **Examples:**
+
 - `{ "category": "Travel" }` - Navigates to Travel category and extracts books
 - `{}` - Extracts books from the homepage (all categories)
 
@@ -56,6 +60,7 @@ The API accepts an optional `category` parameter:
 ## Getting Started
 
 ### Install Dependencies
+
 ```bash
 uv sync
 ```
@@ -67,14 +72,22 @@ uv run intuned run api get-books .parameters/api/get-books/travel-category.json
 uv run intuned run api get-books .parameters/api/get-books/no-category-all-books.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy to Intuned
+
 ```bash
 uv run intuned deploy
 ```
 <!-- IDE-IGNORE-END -->
 
 ## Project Structure
-```
+
+```text
 /
 ├── api/
 │   └── get-books.py          # Main API handler
@@ -91,8 +104,8 @@ uv run intuned deploy
 
 ## Learn More
 
-- **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Stagehand Documentation**: https://docs.stagehand.dev/
-- **Intuned Runtime SDK**: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview
-- **Setup Hooks**: https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks
+- **Intuned Concepts**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- **Stagehand Documentation**: <https://docs.stagehand.dev/>
+- **Intuned Runtime SDK**: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview>
+- **Setup Hooks**: <https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

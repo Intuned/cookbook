@@ -3,7 +3,7 @@
 Intuned sample projects in Python.
 
 | Example | Description |
-|--------|-------------|
+| -------- | ------------- |
 | [starter](./starter/) | Starter template for new projects |
 | [starter-auth](./starter-auth/) | Starter template with Auth Sessions enabled |
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
