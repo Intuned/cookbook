@@ -29,12 +29,14 @@ async def automation(page: Page, params: Params, **_kwargs):
     base_url, api_key = get_ai_gateway_config()
     model_api_key = os.getenv("MODEL_API_KEY")
     cdp_url = attempt_store.get("cdp_url")
-
+    print(f"CDP URL: {cdp_url}")
+    print(f"Base URL: {base_url}")
     # Initialize Stagehand with act/extract/observe capabilities
     client = AsyncStagehand(
         server="local",
         model_api_key=model_api_key,
         local_ready_timeout_s=30.0,
+        base_url=base_url,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
     session = await client.sessions.start(
