@@ -13,15 +13,19 @@ Open this project in Intuned by clicking the button below.
 This project demonstrates four different approaches to AI-powered browser automation:
 
 ### 1. Anthropic Computer Use
+
 Uses Claude's native computer use API with X/Y coordinate-based interactions and extended thinking capabilities.
 
 ### 2. OpenAI Operator API
+
 Uses OpenAI's computer-use-preview model (Operator API) for autonomous browser control with X/Y coordinate-based interactions.
 
 ### 3. Gemini Computer Use
+
 Uses Google's Gemini with Stagehand for computer use automation, leveraging Gemini's CUA capabilities with Stagehand's agent framework.
 
 ### 4. Stagehand (Non-CUA)
+
 Stagehand agent without computer use API for traditional DOM-based automation.
 
 ## APIs
@@ -31,6 +35,7 @@ Stagehand agent without computer use API for traditional DOM-based automation.
 Claude-powered automation using native computer use tools.
 
 **Parameters**:
+
 ```typescript
 {
   query: string;  // The task you want the AI to perform
@@ -42,6 +47,7 @@ Claude-powered automation using native computer use tools.
 OpenAI's Operator model for autonomous browser control.
 
 **Parameters**:
+
 ```typescript
 {
   query: string;  // The task you want the AI to perform
@@ -53,6 +59,7 @@ OpenAI's Operator model for autonomous browser control.
 Google's Gemini with Stagehand for enhanced computer use automation.
 
 **Parameters**:
+
 ```typescript
 {
   query: string;  // The task you want the AI to perform
@@ -64,6 +71,7 @@ Google's Gemini with Stagehand for enhanced computer use automation.
 Stagehand agent without computer use API for traditional DOM-based automation.
 
 **Parameters**:
+
 ```typescript
 {
   query: string;  // The task you want the AI to perform
@@ -73,17 +81,21 @@ Stagehand agent without computer use API for traditional DOM-based automation.
 ## How It Works
 
 ### Anthropic & OpenAI Implementations
+
 Both use native computer use APIs that operate with X/Y coordinates to control the browser, mimicking human computer interaction. They capture screenshots, decide on actions, and execute mouse/keyboard commands.
 
 ### Gemini Implementation
+
 Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer Use API) with Stagehand's agent framework for enhanced automation.
 
 ### Stagehand Implementation
+
 Uses the Stagehand library which provides DOM-based automation with built-in tools for common browser tasks.
 
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out the:
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
@@ -144,14 +156,14 @@ npm run intuned run api stagehand .parameters/api/stagehand/default.json
 yarn intuned run api stagehand .parameters/api/stagehand/default.json
 ```
 
-### Save Project
+### Save project
 
 ```bash
 # npm
-npm run intuned save
+npm run intuned provision
 
 # yarn
-yarn intuned save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -168,7 +180,7 @@ yarn intuned deploy
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/
 │   ├── anthropic-computer-use.ts   # Anthropic Claude computer use
@@ -200,10 +212,10 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Learn More
 
-- **Intuned Documentation**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Anthropic Computer Use**: https://docs.anthropic.com/en/docs/computer-use
-- **OpenAI Operator API**: https://platform.openai.com/docs/
-- **Stagehand Documentation**: https://docs.stagehand.dev/
+- **Intuned Documentation**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
+- **OpenAI Operator API**: <https://platform.openai.com/docs/>
+- **Stagehand Documentation**: <https://docs.stagehand.dev/>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
 ## Acknowledgments

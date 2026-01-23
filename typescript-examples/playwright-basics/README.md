@@ -13,7 +13,7 @@ Open this project in Intuned by clicking the button below.
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `01-basic-navigation` | Navigate to URLs, get page info |
 | `02-wait-strategies` | waitForLoadState, waitForSelector |
 | `03-locators-and-selectors` | CSS, XPath, getByRole, chaining |
@@ -81,6 +81,16 @@ yarn intuned run api 12-download-file .parameters/api/12-download-file/default.j
 yarn intuned run api 13-upload-file .parameters/api/13-upload-file/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy
 
 ```bash
@@ -89,7 +99,7 @@ yarn intuned deploy
 
 ## Project structure
 
-```
+```text
 /
 ├── api/
 │   ├── 01-basic-navigation.ts      # Navigate to URLs

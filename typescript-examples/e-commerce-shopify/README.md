@@ -47,10 +47,10 @@ yarn intuned run api shopify-details .parameters/api/shopify-details/default.jso
 
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -73,7 +73,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── .parameters/              # Test parameters for APIs
 │   └── api/

@@ -11,8 +11,6 @@ A comprehensive collection of browser automation helper functions from the Intun
 
 To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
 
-
-
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
@@ -28,6 +26,7 @@ If you plan to use the AI helpers, you need to set up your Intuned workspace:
 2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
 
 3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+
    ```jsonc
    {
      "workspaceId": "your-workspace-id",
@@ -37,11 +36,13 @@ If you plan to use the AI helpers, you need to set up your Intuned workspace:
    ```
 
 4. **Set environment variable** - Add your API key as an environment variable:
+
    ```bash
    export INTUNED_API_KEY=your-api-key
    ```
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -60,10 +61,10 @@ If you plan to use AI helpers, run the save command to upload your project and s
 
 ```bash
 # npm
-npm run intuned save
+npm run intuned provision
 
 # yarn
-yarn intuned save
+yarn intuned provision
 ```
 
 This configures your local environment and prepares the AI gateway for running AI-powered helpers.
@@ -111,6 +112,7 @@ yarn intuned run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -120,11 +122,9 @@ yarn intuned deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-
-
 ## Project Structure
 
-```
+```text
 /
 ├── api/                          # Browser SDK helper examples
 │   ├── ai/                       # AI-powered helpers (requires API keys & credits)
@@ -187,26 +187,31 @@ yarn intuned deploy
 ## SDK Helpers Showcase
 
 ### Navigation & Page Management
+
 - **go-to-url**: Navigate to URLs with advanced options
 - **wait-for-dom-settled**: Wait for DOM mutations to stabilize
 - **wait-for-network-settled**: Wait for all network requests to complete
 
 ### Content Loading & Interaction
+
 - **click-until-exhausted**: Click "Load More" buttons until all content is loaded
 - **scroll-to-load-content**: Scroll to trigger lazy-loaded content
 
 ### Data Extraction & Processing
+
 - **extract-markdown**: Convert HTML content to clean markdown
 - **sanitize-html**: Clean and sanitize HTML content
 - **filter-empty-values**: Remove null/empty values from objects
 - **validate-data-using-schema**: Validate data against JSON/Zod schemas
 
 ### File Operations
+
 - **download-file**: Download files from URLs or user interactions
 - **upload-file-to-s3**: Upload files to S3 (uses Intuned's managed bucket via gateway by default, or your own S3 with credentials)
 - **save-file-to-s3**: Save content directly to S3 (uses Intuned's managed bucket via gateway by default, or your own S3 with credentials)
 
 ### Utilities
+
 - **process-date**: Parse various date formats into standardized format
 - **resolve-url**: Resolve relative URLs to absolute URLs
 
@@ -217,10 +222,10 @@ yarn intuned deploy
 - **extract-structured-data**: Extract structured data using AI from unstructured content
 - **is-page-loaded**: Use AI to determine if a page has finished loading
 
-
 ## Learn More
 
 For detailed documentation on each helper function, visit:
+
 - [Intuned Browser SDK - TypeScript](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/)
 - [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

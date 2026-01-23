@@ -11,16 +11,17 @@ Open this project in Intuned by clicking the button below.
 ## Getting Started
 
 To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -30,7 +31,6 @@ yarn
 ```
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
 
 #### Run an API with Auth Session
 
@@ -44,7 +44,18 @@ npm run intuned -- run api sample .parameters/api/sample/default.json --auth-ses
 yarn intuned run api sample .parameters/api/sample/default.json --auth-session test-auth-session
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -54,12 +65,12 @@ yarn intuned deploy
 
 ```
 
-
 ## Auth Sessions
 
 This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create .parameters/auth-sessions/create/default.json
@@ -69,6 +80,7 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update <auth-session-id>
@@ -78,6 +90,7 @@ yarn intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate <auth-session-id>
@@ -86,17 +99,15 @@ npm run intuned run authsession validate <auth-session-id>
 yarn intuned run authsession validate <auth-session-id>
 ```
 
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints
 │   └── sample.ts             # Sample API endpoint
@@ -108,8 +119,8 @@ The project structure is as follows:
 └── Intuned.jsonc             # Intuned project configuration file
 ```
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID.

@@ -25,6 +25,7 @@ export OPENAI_API_KEY=your_openai_api_key_here
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install Dependencies
+
 ```bash
 # npm
 npm install
@@ -34,6 +35,7 @@ yarn
 ```
 
 ### Run the API Locally
+
 ```bash
 # npm
 npm run intuned run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
@@ -42,7 +44,18 @@ npm run intuned run api insurance-form-filler .parameters/api/insurance-form-fil
 yarn intuned run api insurance-form-filler  .parameters/api/insurance-form-filler/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy to Intuned
+
 ```bash
 # npm
 npm run intuned deploy
@@ -62,8 +75,10 @@ All intuned projects use the Intuned runtime SDK. It also exposes some helpers f
 This project uses the `setupContext` hook from the Intuned runtime SDK. This hook is used to set up the browser context and page for the project. For more information, check out the documentation coming soon.
 
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints 
 │   └── insurance-form-filler.ts   # Main automation API for filling insurance forms
@@ -83,11 +98,11 @@ The project structure is as follows:
    - Address information (street, city, state, zip code)
    - Vehicle details (type, year, make, model, usage)
    - Additional preferences (multi-policy discount, current insurance status, coverage effective date)
-   
+
    The automation uses natural language instructions to interact with form elements, making it resilient to UI changes.
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

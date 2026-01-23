@@ -1,6 +1,7 @@
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
@@ -10,6 +11,7 @@ To get started developing browser automation projects with Intuned, check out th
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -50,10 +52,10 @@ yarn intuned run api <api-name> <parameters> --auth-session <auth-session-id>
 
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -65,6 +67,7 @@ This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessi
 
 <!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth-sessions/create/default.json -->
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create <parameters>
@@ -74,6 +77,7 @@ yarn intuned run authsession create <parameters>
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update <auth-session-id>
@@ -83,6 +87,7 @@ yarn intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate <auth-session-id>
@@ -92,6 +97,7 @@ yarn intuned run authsession validate <auth-session-id>
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -101,16 +107,15 @@ yarn intuned deploy
 
 ```
 
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
 <!-- This should always match the project structure the readme is in -->
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
 ├── apis/                     # Your API endpoints 
@@ -125,4 +130,3 @@ The project structure is as follows:
 
 ## Envs
 <!-- Here you should mention all the do -->
-
