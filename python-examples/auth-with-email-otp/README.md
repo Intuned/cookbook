@@ -9,11 +9,11 @@ Authentication automation with email-based OTP verification using Resend for ema
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
@@ -26,6 +26,7 @@ To get started developing browser automation projects with Intuned, check out th
 1. **Resend Account** - Sign up at [resend.com](https://resend.com) to get an API key
 2. **Resend API Key** - Generate an API key from your Resend dashboard
 3. **Set Environment Variable**:
+
    ```bash
    export RESEND_API_KEY=your-resend-api-key
    ```
@@ -89,7 +90,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/                          # API endpoints
 │   └── list-contracts.py         # List contracts for authenticated user
@@ -121,7 +122,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 This project requires the following environment variables:
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `RESEND_API_KEY` | Your Resend API key from [resend.com](https://resend.com) - Required for OTP email retrieval |
 
 ## Learn More
