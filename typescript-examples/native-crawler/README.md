@@ -24,7 +24,7 @@ Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript
 
 ## Flow
 
-```test
+```text
                     ┌─────────────────────────────────────────────────┐
                     │                   JOB RUN                       │
                     │                                                 │
