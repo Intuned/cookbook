@@ -61,7 +61,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 The project structure is as follows:
 
-```
+```text
 /
 ├── api/                      # Your API endpoints
 │   ├── list.ts               # API to scrape product listings with pagination

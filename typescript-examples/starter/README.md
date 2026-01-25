@@ -11,12 +11,12 @@ This template is a setup with no boilerplate that can get you started quickly. A
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -27,8 +27,8 @@ yarn
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
-
 ### Run an API
+
 ```bash
 # npm
 npm run intuned run api sample .parameters/api/sample/default.json
@@ -38,17 +38,19 @@ yarn intuned run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
+
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -63,11 +65,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 <!-- IDE-IGNORE-END -->
 
-
-
-
 ## Project Structure
-```
+
+```text
 /
 ├── .parameters/              # Test parameters for APIs
 │   └── api/
@@ -79,13 +79,11 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── package.json             # Node.js project dependencies
 ```
 
-
 ## APIs
 
 | API | Description |
 |-----|-------------|
 | `sample` | A basic sample API that demonstrates the Intuned project structure and API pattern |
-
 
 ## Learn More
 

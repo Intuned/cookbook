@@ -12,18 +12,17 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
 
 After installing dependencies, `intuned` command should be available in your environment.
-
 
 ### Run an API
 
@@ -46,35 +45,45 @@ uv run intuned run api list .parameters/api/list/default.json
 uv run intuned run api details .parameters/api/details/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
 
 ## Auth Sessions
 
 This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
+
 ```bash
 uv run intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 uv run intuned run authsession validate <auth-session-id>
 ```
 
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints
 │   ├── list.py              # API to scrape product list from dashboard
@@ -87,7 +96,6 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## APIs
 
 ### `list` - Product List Scraper
@@ -99,10 +107,12 @@ None
 
 **Returns:**
 List of products with:
+
 - `name`: Product name
 - `detailsUrl`: URL to product details page
 
 **Features:**
+
 - Requires authenticated session
 - Automatically navigates to dashboard
 - Triggers `details` API for each product using `extend_payload`
@@ -112,11 +122,13 @@ List of products with:
 Scrapes detailed information for a specific product.
 
 **Parameters:**
+
 - `name`: Product name
 - `detailsUrl`: URL to the product details page
 
 **Returns:**
 Product details object with:
+
 - `name`: Product name
 - `price`: Product price
 - `sku`: Stock Keeping Unit
@@ -128,8 +140,8 @@ Product details object with:
 - `availableColors`: List of available colors
 - `variants`: List of product variants with stock information
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // API access settings

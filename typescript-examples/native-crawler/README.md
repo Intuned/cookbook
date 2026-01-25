@@ -13,16 +13,18 @@ Open this project in Intuned by clicking the button below.
 This project showcases two key Intuned runtime features:
 
 ### `extendPayload`
+
 Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
-Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload
+Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload>
 
 ### `persistentStore`
+
 A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
-Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store
+Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store>
 
 ## Flow
 
-```
+```text
                     ┌─────────────────────────────────────────────────┐
                     │                   JOB RUN                       │
                     │                                                 │
@@ -50,7 +52,7 @@ Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/
 
 ## Project Structure
 
-```
+```text
 native-crawler/
 ├── api/
 │   └── crawl.ts          # Main API: extract content + discover links + recurse
@@ -69,7 +71,7 @@ native-crawler/
 Crawls a URL: extracts content, discovers links, and queues them for further crawling.
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| ----------- | ------ | --------- | ------------- |
 | `url` | string | required | URL to crawl |
 | `max_depth` | number | 2 | Maximum crawl depth from seed |
 | `max_pages` | number | 50 | Maximum total pages to process |
@@ -141,6 +143,7 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 ```
 
 Then run:
+
 ```bash
 # npm
 npm run intuned run api crawl .parameters/api/crawl/default.json
@@ -164,6 +167,7 @@ Edit `.parameters/api/crawl/default.json`:
 ```
 
 Then run:
+
 ```bash
 # npm
 npm run intuned run api crawl .parameters/api/crawl/default.json
@@ -175,9 +179,11 @@ yarn intuned run api crawl .parameters/api/crawl/default.json
 ## Utils
 
 ### `utils/content.ts`
+
 - `extractPageContent(page)` — Returns `{title, markdown, markdown_length}`
 
 ### `utils/links.ts`
+
 - `extractLinks(page, baseDomain, includeExternal)` — Returns list of normalized URLs
 - `normalizeUrl(url)` — Normalize URL (remove fragments, trailing slashes)
 - `getBaseDomain(url)` — Extract domain from URL
@@ -187,7 +193,7 @@ yarn intuned run api crawl .parameters/api/crawl/default.json
 The `persistentStore` uses these key patterns:
 
 | Key Pattern | Purpose |
-|-------------|---------|
+| ------------- | --------- |
 | `visited_{url}` | Tracks URLs that have been visited |
 | `__page_count__` | Global counter for pages processed |
 | `__base_domain__` | Stored config: base domain for filtering |

@@ -11,17 +11,18 @@ Open this project in Intuned by clicking the button below.
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -45,12 +46,13 @@ uv run intuned run api scrape-without-selectors .parameters/api/scrape-without-s
 ### Save project
 
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
@@ -62,7 +64,8 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 <!-- IDE-IGNORE-END -->
 
 ## Project Structure
-```
+
+```text
 /
 ├── api/                                   # API recipes (Python scripts)
 │   ├── capture-screenshots.py             # Capture and upload screenshots
@@ -96,6 +99,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ├── Intuned.jsonc                          # Intuned project configuration
 └── pyproject.toml                         # Python project dependencies 
 ```
+
 ## APIs
 
 | API                          | Description                                                       |
@@ -108,7 +112,6 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 | **infinite-scrolling**       | Scrape content loaded dynamically via infinite scrolling          |
 | **handle-long-run**          | Handle long-running scraping jobs with proper timeouts            |
 | **scrape-without-selectors** | Use AI-based scraping without relying on CSS selectors            |
-
 
 ## Learn More
 

@@ -64,6 +64,16 @@ npm run intuned run api get-consultations-by-email .parameters/api/get-consultat
 yarn intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy to Intuned
 
 ```bash
@@ -75,14 +85,13 @@ yarn intuned deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-
 ## `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/
 │   ├── book-consultations.ts              # Book a consultation
@@ -106,7 +115,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Learn More
 
-- **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Intuned Browser SDK**: https://docs.intunedhq.com/automation-sdks/overview
-- **CLI Documentation**: https://docs.intunedhq.com/docs/05-references/cli
+- **Intuned Concepts**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- **Intuned Browser SDK**: <https://docs.intunedhq.com/automation-sdks/overview>
+- **CLI Documentation**: <https://docs.intunedhq.com/docs/05-references/cli>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

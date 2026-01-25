@@ -18,12 +18,12 @@ Electronic Health Records (EHR) integration template for extracting data from Op
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -31,6 +31,7 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
 ```bash
 uv run intuned run api claims .parameters/api/claims/default.json --auth-session test-auth-session
 uv run intuned run api families .parameters/api/families/default.json --auth-session test-auth-session
@@ -38,8 +39,9 @@ uv run intuned run api insurees .parameters/api/insurees/default.json --auth-ses
 ```
 
 ### Save project
+
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -49,21 +51,25 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
+
 ```bash
 uv run intuned run authsession update test-auth-session
 ```
 
 ### Validate an auth session
+
 ```bash
 uv run intuned run authsession validate test-auth-session
 ```
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
@@ -74,11 +80,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 <!-- IDE-IGNORE-END -->
 
-
-
-
 ## Project Structure
-```
+
+```text
 /
 ├── .parameters/                   # Test parameters for APIs
 │   ├── api/
@@ -102,15 +106,13 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── pyproject.toml                 # Python project dependencies
 ```
 
-
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `claims` | Extracts claims data from the EHR system including claim status, dates, and associated patient information |
 | `families` | Retrieves family/group data from the EHR system with member relationships and coverage details |
 | `insurees` | Extracts insuree (patient) data including demographics, enrollment status, and insurance information |
-
 
 ## Learn More
 
