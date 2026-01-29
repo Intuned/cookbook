@@ -25,7 +25,7 @@ dependencies = [
     "openai~=1.0",
     "python-dateutil~=2.9.0",
     "httpx~=0.28.1",
-    "stagehand~=0.5.7",
+    "stagehand~=3.5.0",
 ]
 
 [tool.uv]
