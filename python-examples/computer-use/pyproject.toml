@@ -21,7 +21,7 @@ dependencies = [
     "python-dateutil~=2.9.0",
     "httpx~=0.28.1",
     "stagehand~=0.5.7",
-    "browser-use==0.11.2",
+    "browser-use==0.11.11",
 ]
 
 [tool.uv]
