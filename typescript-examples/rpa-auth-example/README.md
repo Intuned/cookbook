@@ -11,17 +11,18 @@ Open this project in Intuned by clicking the button below.
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -84,10 +85,10 @@ yarn intuned run api get-consultations-by-email .parameters/api/get-consultation
 
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -97,6 +98,7 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 This project uses Intuned Auth Sessions. To learn more, check out the [Authsessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create .parameters/auth-sessions/create/default.json
@@ -106,6 +108,7 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update test-auth-session
@@ -115,6 +118,7 @@ yarn intuned run authsession update test-auth-session
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate test-auth-session
@@ -124,6 +128,7 @@ yarn intuned run authsession validate test-auth-session
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -140,7 +145,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/                          # API endpoints
 │   ├── book-consultations.ts    # Book a consultation

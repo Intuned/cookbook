@@ -11,17 +11,18 @@ Open this project in Intuned by clicking the button below.
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -64,15 +65,16 @@ yarn intuned run api scrape-without-selectors .parameters/api/scrape-without-sel
 
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -89,7 +91,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/                                   # API recipes 
 │   ├── capture-screenshots.ts             # Capture and upload screenshots
@@ -129,7 +131,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | **download-file** | Download a file triggered by a button click |
 | **pagination** | Scrape data across paginated listings |
 | **upload-to-s3** | Download a file and upload it to S3 in one step |

@@ -12,12 +12,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -27,7 +27,6 @@ yarn
 ```
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
 
 ### Run an API
 
@@ -40,7 +39,18 @@ npm run intuned run api captcha-solver .parameters/api/captcha-solver/default.js
 yarn intuned run api captcha-solver .parameters/api/captcha-solver/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -50,19 +60,15 @@ yarn intuned deploy
 
 ```
 
-
-
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── apis/                     # Your API endpoints 
 │   └── ...   
@@ -74,8 +80,8 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

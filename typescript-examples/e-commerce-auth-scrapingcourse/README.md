@@ -12,12 +12,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -27,7 +27,6 @@ yarn
 ```
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
 
 ### Run an API
 
@@ -63,7 +62,18 @@ npm run intuned run api details .parameters/api/details/default.json
 yarn intuned run api details .parameters/api/details/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -72,12 +82,12 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 
-
 ## Auth Sessions
 
 This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create .parameters/auth-sessions/create/default.json
@@ -87,6 +97,7 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update <auth-session-id>
@@ -96,6 +107,7 @@ yarn intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate <auth-session-id>
@@ -104,10 +116,11 @@ npm run intuned run authsession validate <auth-session-id>
 yarn intuned run authsession validate <auth-session-id>
 ```
 
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints
 │   ├── list.ts              # API to scrape product list from dashboard
@@ -120,7 +133,6 @@ The project structure is as follows:
 └── Intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## APIs
 
 ### `list` - Product List Scraper
@@ -132,10 +144,12 @@ None
 
 **Returns:**
 Array of products with:
+
 - `name`: Product name
 - `detailsUrl`: URL to product details page
 
 **Features:**
+
 - Requires authenticated session
 - Automatically navigates to dashboard
 - Triggers `details` API for each product using `extendPayload`
@@ -145,11 +159,13 @@ Array of products with:
 Scrapes detailed information for a specific product.
 
 **Parameters:**
+
 - `name`: Product name
 - `detailsUrl`: URL to the product details page
 
 **Returns:**
 Product details object with:
+
 - `name`: Product name
 - `price`: Product price
 - `sku`: Stock Keeping Unit
@@ -161,8 +177,8 @@ Product details object with:
 - `availableColors`: Array of available colors
 - `variants`: Array of product variants with stock information
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // API access settings

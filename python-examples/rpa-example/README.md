@@ -46,6 +46,12 @@ uv run intuned run api book-consultations .parameters/api/book-consultations/oth
 uv run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy to Intuned
 
 ```bash
@@ -57,12 +63,9 @@ uv run intuned deploy
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
 
-```
+```text
 /
 ├── api/
 │   ├── book-consultations.py           # Book a consultation
@@ -85,7 +88,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Learn More
 
-- **Intuned Concepts**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Intuned Browser SDK**: https://docs.intunedhq.com/automation-sdks/overview
-- **CLI Documentation**: https://docs.intunedhq.com/docs/05-references/cli
+- **Intuned Concepts**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- **Intuned Browser SDK**: <https://docs.intunedhq.com/automation-sdks/overview>
+- **CLI Documentation**: <https://docs.intunedhq.com/docs/05-references/cli>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

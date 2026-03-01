@@ -11,15 +11,19 @@ AI-powered browser automation using computer use capabilities from multiple prov
 This project demonstrates four different approaches to AI-powered browser automation:
 
 ### 1. Anthropic Computer Use
+
 Uses Claude's native computer use API with X/Y coordinate-based interactions and extended thinking capabilities.
 
 ### 2. OpenAI Operator API
+
 Uses OpenAI's computer-use-preview model (Operator API) for autonomous browser control with X/Y coordinate-based interactions.
 
 ### 3. Gemini Computer Use
+
 Uses Google's Gemini with Stagehand for computer use automation, leveraging Gemini's CUA capabilities with Stagehand's agent framework.
 
 ### 4. Browser Use
+
 Uses the Browser Use library for agentic browser automation with DOM-based interactions and built-in tools.
 
 ## APIs
@@ -51,12 +55,15 @@ Browser Use library for agentic browser automation.
 ## How It Works
 
 ### Anthropic & OpenAI Implementations
+
 Both use native computer use APIs that operate with X/Y coordinates to control the browser, mimicking human computer interaction. They capture screenshots, decide on actions, and execute mouse/keyboard commands.
 
 ### Gemini Implementation
+
 Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer Use API) with Stagehand's agent framework for enhanced automation.
 
 ### Browser Use Implementation
+
 Uses the Browser Use library which provides DOM-based automation with built-in tools for common browser tasks, operating via CDP for direct browser control.
 
 ## Getting Started
@@ -72,6 +79,7 @@ To run this example locally, you need to set up your Intuned workspace:
 2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
 
 3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+
    ```jsonc
    {
      "workspaceId": "your-workspace-id",
@@ -81,6 +89,7 @@ To run this example locally, you need to set up your Intuned workspace:
    ```
 
 4. **Set environment variables**:
+
    ```bash
    export INTUNED_API_KEY=your-api-key
    
@@ -89,6 +98,7 @@ To run this example locally, you need to set up your Intuned workspace:
    ```
 
 ### Install Dependencies
+
 ```bash
 uv sync
 ```
@@ -98,7 +108,7 @@ uv sync
 Run the save command to upload your project and set up the required `.env` file:
 
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 This configures your local environment and prepares the AI gateway for running computer use automations.
@@ -106,6 +116,7 @@ This configures your local environment and prepares the AI gateway for running c
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Run an API
+
 ```bash
 # Anthropic Computer Use
 uv run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
@@ -121,12 +132,14 @@ uv run intuned run api browser-use .parameters/api/browser-use/default.json
 ```
 
 ### Deploy to Intuned
+
 ```bash
 uv run intuned deploy
 ```
 
 ## Project Structure
-```
+
+```text
 /
 ├── api/
 │   ├── anthropic-computer-use.py   # Anthropic Claude computer use
@@ -151,11 +164,11 @@ uv run intuned deploy
 
 ## Learn More
 
-- **Intuned Documentation**: https://docs.intunedhq.com/docs/00-getting-started/introduction
-- **Anthropic Computer Use**: https://docs.anthropic.com/en/docs/computer-use
-- **OpenAI Operator API**: https://platform.openai.com/docs/
-- **Stagehand Documentation**: https://docs.stagehand.dev/
-- **Browser Use Documentation**: https://github.com/browser-use/browser-use
+- **Intuned Documentation**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
+- **OpenAI Operator API**: <https://platform.openai.com/docs/>
+- **Stagehand Documentation**: <https://docs.stagehand.dev/>
+- **Browser Use Documentation**: <https://github.com/browser-use/browser-use>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
 ## Acknowledgments

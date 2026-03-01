@@ -13,7 +13,7 @@ Open this project in Intuned by clicking the button below.
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `01-basic-navigation` | Navigate to URLs, get page info |
 | `02-wait-strategies` | wait_for_load_state, wait_for_selector |
 | `03-locators-and-selectors` | CSS, XPath, get_by_role, chaining |
@@ -79,6 +79,12 @@ uv run intuned run api 12-download-file .parameters/api/12-download-file/default
 uv run intuned run api 13-upload-file .parameters/api/13-upload-file/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy
 
 ```bash
@@ -87,7 +93,7 @@ uv run intuned deploy
 
 ## Project structure
 
-```
+```text
 /
 ├── api/
 │   ├── 01-basic-navigation.py      # Navigate to URLs

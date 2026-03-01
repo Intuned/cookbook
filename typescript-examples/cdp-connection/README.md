@@ -6,12 +6,12 @@ Basic example demonstrating how to connect to a browser using Chrome DevTools Pr
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -23,6 +23,7 @@ yarn
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
+
 ```bash
 # npm
 npm run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
@@ -31,7 +32,18 @@ npm run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.js
 yarn intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -40,19 +52,15 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 
-
-
-
 ### `@intuned/browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints
 │   └── connect-to-cdp.ts     # CDP connection example

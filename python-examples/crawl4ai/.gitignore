@@ -49,3 +49,5 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+.intuned
+.intuned-agent

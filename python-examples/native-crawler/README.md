@@ -13,16 +13,18 @@ Open this project in Intuned by clicking the button below.
 This project showcases two key Intuned runtime features:
 
 ### `extend_payload`
+
 Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
-Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload
+Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload>
 
 ### `persistent_store`
+
 A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
-Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/persistent-store
+Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/persistent-store>
 
 ## Flow
 
-```
+```text
                     ┌─────────────────────────────────────────────────┐
                     │                   JOB RUN                       │
                     │                                                 │
@@ -50,7 +52,7 @@ Reference: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/pers
 
 ## Project Structure
 
-```
+```text
 native-crawler/
 ├── api/
 │   └── crawl.py          # Main API: extract content + discover links + recurse
@@ -69,7 +71,7 @@ native-crawler/
 Crawls a URL: extracts content, discovers links, and queues them for further crawling.
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| ----------- | ------ | --------- | ------------- |
 | `url` | string | required | URL to crawl |
 | `max_depth` | int | 2 | Maximum crawl depth from seed |
 | `max_pages` | int | 50 | Maximum total pages to process |
@@ -133,6 +135,7 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 ```
 
 Then run:
+
 ```bash
 uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
@@ -152,6 +155,7 @@ Edit `.parameters/api/crawl/default.json`:
 ```
 
 Then run:
+
 ```bash
 uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
@@ -159,9 +163,11 @@ uv run intuned run api crawl .parameters/api/crawl/default.json
 ## Utils
 
 ### `utils/content.py`
+
 - `extract_page_content(page)` — Returns `{title, markdown, markdown_length}`
 
 ### `utils/links.py`
+
 - `extract_links(page, base_domain)` — Returns list of normalized internal URLs
 - `normalize_url(url)` — Normalize URL (remove fragments, trailing slashes)
 - `get_base_domain(url)` — Extract domain from URL
@@ -171,7 +177,7 @@ uv run intuned run api crawl .parameters/api/crawl/default.json
 The `persistent_store` uses these key patterns:
 
 | Key Pattern | Purpose |
-|-------------|---------|
+| ------------- | --------- |
 | `visited:{url}` | Tracks URLs that have been crawled |
 | `__page_count__` | Global counter for pages processed |
 | `__max_depth__` | Stored config: max depth |

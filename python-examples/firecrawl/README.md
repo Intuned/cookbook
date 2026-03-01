@@ -202,6 +202,12 @@ uv run intuned run api crawl .parameters/api/crawl/default.json
 uv run intuned run api search .parameters/api/search/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy to Intuned
 
 ```bash

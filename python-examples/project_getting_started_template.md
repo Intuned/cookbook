@@ -1,16 +1,17 @@
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -21,6 +22,7 @@ After installing dependencies, `intuned` command should be available in your env
 <!-- You should also Include an example for all the apis on Run ap API -->
 <!-- For templates with enabled AuthSessions we need to also link the auth session id in the run  -->
 ### Run an API
+
 ```bash
 uv run intuned run api <api-name> <parameters>
 ```
@@ -37,7 +39,7 @@ uv run intuned run api <api-name> <parameters> --auth-session <auth-session-id>
 ### Save project
 
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -49,22 +51,25 @@ This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessi
 
 <!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth-sessions/create/default.json -->
 ### Create a new auth session
+
 ```bash
 uv run intuned run authsession create <parameters>
 ```
 
 ### Update an existing auth session
+
 ```bash
 uv run intuned run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
+
 ```bash
 uv run intuned run authsession validate <auth-session-id>
 ```
 
-
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
@@ -73,10 +78,11 @@ uv run intuned deploy
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
 <!-- This should always match the project structure the readme is in -->
 ## Project Structure
+
 The project structure is as follows:
+
 ```
 /
 ├── apis/                     # Your API endpoints 
@@ -89,7 +95,5 @@ The project structure is as follows:
 └── intuned.jsonc              # Intuned project configuration file
 ```
 
-
 ## Envs
 <!-- Here you should mention all the do -->
-

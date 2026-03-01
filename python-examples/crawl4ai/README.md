@@ -15,7 +15,7 @@ Open this project in Intuned by clicking the button below.
 ### Core Crawling
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `simple-crawl` | Crawls a single URL and returns the page content as clean markdown |
 | `deep-crawl` | Deep crawl a website following links with BFS, DFS, or Best-First strategies |
 | `multi-crawl` | Crawl multiple URLs concurrently with dispatchers for rate limiting and memory management |
@@ -23,14 +23,14 @@ Open this project in Intuned by clicking the button below.
 ### Content Selection
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `content-selection/css-based` | Extract structured data from a webpage using CSS selectors with content filtering |
 | `content-selection/llm-based` | Extract structured data using an LLM with a Pydantic schema |
 
 ### Adaptive Crawling
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `adaptive-crawl/statistical` | Adaptive crawling with statistical strategy (term-based analysis) |
 | `adaptive-crawl/embedding` | Adaptive crawling with embedding strategy (semantic understanding) |
 
@@ -40,13 +40,12 @@ Open this project in Intuned by clicking the button below.
 - [Intuned Documentation](https://docs.intunedhq.com/)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
 
-
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

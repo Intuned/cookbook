@@ -18,12 +18,12 @@ Electronic Health Records (EHR) integration template for extracting data from Op
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 # npm
 npm install
@@ -34,8 +34,8 @@ yarn
 
 > **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
-
 ### Run an API
+
 ```bash
 # npm
 npm run intuned run api claims .parameters/api/claims/default.json --auth-session test-auth-session
@@ -49,12 +49,13 @@ yarn intuned run api insurees .parameters/api/insurees/default.json --auth-sessi
 ```
 
 ### Save project
+
 ```bash
 # npm
-npm run intuned run save
+npm run intuned provision
 
 # yarn
-yarn intuned run save
+yarn intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -64,6 +65,7 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 # npm
 npm run intuned run authsession create .parameters/auth-sessions/create/default.json
@@ -73,6 +75,7 @@ yarn intuned run authsession create .parameters/auth-sessions/create/default.jso
 ```
 
 ### Update an existing auth session
+
 ```bash
 # npm
 npm run intuned run authsession update test-auth-session
@@ -82,6 +85,7 @@ yarn intuned run authsession update test-auth-session
 ```
 
 ### Validate an auth session
+
 ```bash
 # npm
 npm run intuned run authsession validate test-auth-session
@@ -91,6 +95,7 @@ yarn intuned run authsession validate test-auth-session
 ```
 
 ### Deploy project
+
 ```bash
 # npm
 npm run intuned deploy
@@ -105,11 +110,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 <!-- IDE-IGNORE-END -->
 
-
-
-
 ## Project Structure
-```
+
+```text
 /
 ├── .parameters/                   # Test parameters for APIs
 │   ├── api/
@@ -133,15 +136,13 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── package.json                   # Node.js project dependencies
 ```
 
-
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `claims` | Extracts claims data from the EHR system including claim status, dates, and associated patient information |
 | `families` | Retrieves family/group data from the EHR system with member relationships and coverage details |
 | `insurees` | Extracts insuree (patient) data including demographics, enrollment status, and insurance information |
-
 
 ## Learn More
 

@@ -47,6 +47,16 @@ npm run intuned run api details .parameters/api/details/default.json
 yarn intuned run api details .parameters/api/details/default.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
 
 ```bash
@@ -66,7 +76,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 The project structure is as follows:
 
-```
+```text
 /
 ├── apis/                     # Your API endpoints
 │   └── ...

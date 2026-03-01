@@ -12,12 +12,12 @@ Open this project in Intuned by clicking the button below.
 
 To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
 
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -25,28 +25,32 @@ uv sync
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
+
 ```bash
 uv run intuned run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
-
-
 
 ### `intuned-browser`: Intuned Browser SDK
 
 This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # Your API endpoints 
 │   └── insurance_form_filler.py   # Main automation API for filling insurance forms
@@ -66,11 +70,11 @@ The project structure is as follows:
    - Address information (street, city, state, zip code)
    - Vehicle details (type, year, make, model, usage)
    - Additional preferences (multi-policy discount, current insurance status, coverage effective date)
-   
+
    The automation uses natural language instructions to interact with form elements, making it resilient to UI changes.
 
-
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

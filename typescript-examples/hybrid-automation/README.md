@@ -12,7 +12,7 @@ Flexible automation combining the [Intuned Browser SDK](https://docs.intunedhq.c
 ## Why Hybrid?
 
 | Approach | Pros | Cons |
-|----------|------|------|
+| ---------- | ------ | ------ |
 | **Deterministic (Intuned Browser SDK)** | Fast, reliable, cost-effective | Breaks when site structure changes |
 | **AI-Driven (Stagehand, extractStructuredData)** | Adapts to layout changes | Slower, less predictable |
 | **Hybrid (This example)** | Best of both worlds | Slightly more complex |
@@ -20,7 +20,6 @@ Flexible automation combining the [Intuned Browser SDK](https://docs.intunedhq.c
 The hybrid pattern: Use Intuned Browser SDK first (fast path), fall back to AI tools when needed.
 
 Learn more: [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
-
 
 ## `@intuned/browser`: Intuned Browser SDK
 
@@ -43,7 +42,6 @@ To get started developing browser automation projects with Intuned, check out ou
 
 **Important:** This template uses Intuned's AI gateway for AI-powered features (Stagehand and `extractStructuredData`). The AI gateway requires the project to be saved before running any APIs.
 
-
 To save the project to intuned, you need to set up your Intuned workspace:
 
 1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
@@ -51,6 +49,7 @@ To save the project to intuned, you need to set up your Intuned workspace:
 2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
 
 3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+
    ```jsonc
    {
      "workspaceId": "your-workspace-id",
@@ -60,11 +59,13 @@ To save the project to intuned, you need to set up your Intuned workspace:
    ```
 
 4. **Set environment variable** - Add your API key as an environment variable:
+
    ```bash
    export INTUNED_API_KEY=your-api-key
    ```
 
 ### Install dependencies
+
 ```bash
 npm install
 ```
@@ -81,7 +82,6 @@ npx intuned save
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
-
 This will configure your local environment and prepare the AI gateway for running.
 
 ### Run an API
@@ -97,7 +97,18 @@ npx intuned run api crawler/crawl .parameters/api/crawler/crawl/job-posting.json
 npx intuned run api crawler/crawl .parameters/api/crawler/crawl/not-lever.json
 ```
 
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
+
 ### Deploy project
+
 ```bash
 yarn intuned deploy
 ```
@@ -106,7 +117,7 @@ yarn intuned deploy
 
 ## Project Structure
 
-```
+```text
 /
 ├── .parameters/                  # Test parameters for APIs
 │   └── api/
@@ -143,7 +154,7 @@ yarn intuned deploy
 ## APIs
 
 | API | Description |
-|-----|-------------|
+| ----- | ------------- |
 | `rpa/fill-form` | RPA automation that fills consultation booking forms. Uses Playwright via Intuned Browser SDK for form fields, falls back to `stagehand.page.act()` if selectors fail. Verifies success with Playwright, falls back to `stagehand.page.extract()` |
 | `scraper/list` | E-commerce product list scraping. Uses Intuned Browser SDK for pagination and link extraction with AI-powered adaptability |
 | `scraper/details` | Product details extraction combining SDK methods with `extractStructuredData` for unstructured fields like descriptions and specifications |

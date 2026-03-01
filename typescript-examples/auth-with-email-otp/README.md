@@ -22,6 +22,7 @@ To get started developing browser automation projects with Intuned, check out ou
 1. **Resend Account** - Sign up at [resend.com](https://resend.com) to get an API key
 2. **Resend API Key** - Generate an API key from your Resend dashboard
 3. **Set Environment Variable**:
+
    ```bash
    export RESEND_API_KEY=your-resend-api-key
    ```
@@ -39,6 +40,16 @@ yarn
 > **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 After installing dependencies, `intuned` command should be available in your environment.
+
+### Save project
+
+```bash
+# npm
+npm run intuned provision
+
+# yarn
+yarn intuned provision
+```
 
 ### Deploy project
 
@@ -103,7 +114,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/                          # API endpoints
 │   └── list-contracts.ts         # List contracts for authenticated user

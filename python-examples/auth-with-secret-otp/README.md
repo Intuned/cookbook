@@ -11,17 +11,18 @@ Open this project in Intuned by clicking the button below.
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the 
+To get started developing browser automation projects with Intuned, check out the
+
 - Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
 - CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
 - Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
 
 ## Development
 
 > **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -37,7 +38,7 @@ uv run intuned run api list-contracts .parameters/api/list-contracts/default.jso
 ### Save project
 
 ```bash
-uv run intuned save
+uv run intuned provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -47,21 +48,25 @@ Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/
 This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
 
 ### Create a new auth session
+
 ```bash
 uv run intuned run authsession create .parameters/auth-sessions/create/default.json
 ```
 
 ### Update an existing auth session
+
 ```bash
 uv run intuned run authsession update test-auth-session
 ```
 
 ### Validate an auth session
+
 ```bash
 uv run intuned run authsession validate test-auth-session
 ```
 
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
@@ -74,7 +79,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Project Structure
 
-```
+```text
 /
 ├── api/                          # API endpoints
 │   └── list-contracts.py         # List all contracts

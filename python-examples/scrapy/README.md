@@ -11,13 +11,12 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/scrapy" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-
-
 ## Development
 
 > **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
@@ -27,6 +26,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 Run the Scrapy crawler with Scrapy's HTTP requests:
+
 ```bash
 # Scrapy crawler (static sites)
 uv run intuned run api scrapy-crawler .parameters/api/scrapy-crawler/default.json
@@ -35,19 +35,24 @@ uv run intuned run api scrapy-crawler .parameters/api/scrapy-crawler/default.jso
 uv run intuned run api scrapy-crawler-js .parameters/api/scrapy-crawler-js/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy project
+
 ```bash
 uv run intuned deploy
 ```
-
-
-
 
 ## Technologies Used
 
 ### Scrapy
 
 This project uses [Scrapy](https://scrapy.org/), a powerful web scraping framework for Python. Scrapy provides:
+
 - Built-in HTTP request handling
 - Powerful CSS and XPath selectors
 - Item pipelines for data processing
@@ -61,12 +66,11 @@ This project uses Intuned browser SDK for browser automation. For more informati
 
 The `scrapy-crawler-js` API uses Playwright to render JavaScript-heavy pages before parsing with Scrapy. This allows you to scrape dynamic content that requires JavaScript execution.
 
-
-
-
 ## Project Structure
+
 The project structure is as follows:
-```
+
+```text
 /
 ├── api/                      # API endpoints
 │   ├── scrapy-crawler.py     # Scrapy crawler using Scrapy's HTTP requests
@@ -91,7 +95,6 @@ The project structure is as follows:
 - **`ListParams`**: Pydantic model for API parameters (url, max_pages)
 - **`Quote`**: Pydantic model for scraped quote data (text, author, tags)
 
-
 ## Customizing for Your Use Case
 
 To adapt this example for your own scraping needs:
@@ -110,6 +113,7 @@ To adapt this example for your own scraping needs:
    - Use `scrapy-crawler-js` for JavaScript-heavy sites
 
 ## `Intuned.jsonc` Reference
+
 ```jsonc
 {
   // Your Intuned workspace ID. 

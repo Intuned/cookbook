@@ -35,6 +35,12 @@ uv run intuned run api list .parameters/api/list/default.json
 uv run intuned run api details .parameters/api/details/default.json
 ```
 
+### Save project
+
+```bash
+uv run intuned provision
+```
+
 ### Deploy project
 
 ```bash
@@ -49,7 +55,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 The project structure is as follows:
 
-```
+```text
 /
 ├── apis/                     # Your API endpoints
 │   └── ...
