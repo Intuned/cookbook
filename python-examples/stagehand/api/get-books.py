@@ -26,7 +26,7 @@ MAX_PAGES = 10
 
 
 async def automation(page: Page, params: Params, **_kwargs):
-    base_url, api_key = get_ai_gateway_config()
+    base_url, model_api_key = get_ai_gateway_config()
     model_api_key = os.getenv("MODEL_API_KEY")
     cdp_url = attempt_store.get("cdp_url")
     print(f"CDP URL: {cdp_url}")
@@ -36,7 +36,6 @@ async def automation(page: Page, params: Params, **_kwargs):
         server="local",
         model_api_key=model_api_key,
         local_ready_timeout_s=30.0,
-        base_url=base_url,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
     session = await client.sessions.start(
