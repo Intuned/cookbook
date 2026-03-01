@@ -11,6 +11,9 @@ class InvalidActionError extends Error {
 }
 
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
+    return cdpUrl;
+  }
   const versionUrl = cdpUrl.endsWith("/")
     ? `${cdpUrl}json/version`
     : `${cdpUrl}/json/version`;

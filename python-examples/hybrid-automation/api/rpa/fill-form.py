@@ -1,11 +1,12 @@
 from typing import Literal
+import os
 
 from intuned_browser import go_to_url
 from intuned_runtime import attempt_store, get_ai_gateway_config
 from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel, Field, field_validator
 
-from stagehand import Stagehand
+from stagehand import AsyncStagehand
 
 
 class BookConsultationSchema(BaseModel):
@@ -37,21 +38,29 @@ async def automation(
     _context: BrowserContext | None = None,
     **_kwargs,
 ) -> dict:
-    base_url, api_key = get_ai_gateway_config()
+    base_url, model_api_key = get_ai_gateway_config()
+    model_api_key = os.getenv("MODEL_API_KEY")
     cdp_url = attempt_store.get("cdp_url")
 
     # Initialize Stagehand with act/extract/observe capabilities
-    stagehand = Stagehand(
-        env="LOCAL",
-        local_browser_launch_options=dict(
-            cdp_url=cdp_url, viewport=dict(width=1280, height=800), downloadPath="./tmp"
-        ),
-        model_api_key=api_key,
-        model_client_options={
-            "baseURL": base_url,
+    client = AsyncStagehand(
+        server="local",
+        model_api_key=model_api_key,
+        local_ready_timeout_s=30.0,
+    )
+    print("⏳ Starting local session (this will start the embedded SEA binary)...")
+    session = await client.sessions.start(
+        model_name="openai/gpt-4o-mini",
+        browser={
+            "type": "local",
+            "launchOptions": {
+                "headless": False,
+                "cdpUrl": cdp_url,
+            },
         },
     )
-    await stagehand.init()
+    session_id = session.data.session_id
+    print(f"✅ Session started: {session_id}")
     print("\nInitialized 🤘 Stagehand")
 
     await page.set_viewport_size({"width": 1280, "height": 800})
@@ -85,8 +94,10 @@ async def automation(
             print("✓ Filled name with Playwright")
         except Exception as e:
             print(f"Playwright failed for name, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Type "{name}" in the name input field')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Type "{name}" in the name input field',
+            )
             print("✓ Filled name with Stagehand act")
 
         # Step 2: Fill email field
@@ -95,8 +106,10 @@ async def automation(
             print("✓ Filled email with Playwright")
         except Exception as e:
             print(f"Playwright failed for email, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Type "{email}" in the email input field')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Type "{email}" in the email input field',
+            )
             print("✓ Filled email with Stagehand act")
 
         # Step 3: Fill phone field
@@ -105,8 +118,10 @@ async def automation(
             print("✓ Filled phone with Playwright")
         except Exception as e:
             print(f"Playwright failed for phone, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Type "{phone}" in the phone input field')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Type "{phone}" in the phone input field',
+            )
             print("✓ Filled phone with Stagehand act")
 
         # Step 4: Fill date field
@@ -115,8 +130,10 @@ async def automation(
             print("✓ Filled date with Playwright")
         except Exception as e:
             print(f"Playwright failed for date, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Type "{date}" in the date input field')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Type "{date}" in the date input field',
+            )
             print("✓ Filled date with Stagehand act")
 
         # Step 5: Fill time field
@@ -125,8 +142,10 @@ async def automation(
             print("✓ Filled time with Playwright")
         except Exception as e:
             print(f"Playwright failed for time, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Type "{time}" in the time input field')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Type "{time}" in the time input field',
+            )
             print("✓ Filled time with Stagehand act")
 
         # Step 6: Select the consultation topic from dropdown
@@ -135,8 +154,10 @@ async def automation(
             print("✓ Selected topic with Playwright")
         except Exception as e:
             print(f"Playwright failed for topic selection, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(f'Select "{topic}" from the topic dropdown')
+            await client.sessions.act(
+                id=session_id,
+                input=f'Select "{topic}" from the topic dropdown',
+            )
             print("✓ Selected topic with Stagehand act")
 
         # Step 7: Submit the booking form
@@ -145,9 +166,9 @@ async def automation(
             print("✓ Submitted form with Playwright")
         except Exception as e:
             print(f"Playwright failed for submit, using Stagehand act: {e}")
-            stagehand_page = stagehand.page
-            await stagehand_page.act(
-                "Click the submit button to submit the booking form"
+            await client.sessions.act(
+                id=session_id,
+                input="Click the submit button to submit the booking form",
             )
             print("✓ Submitted form with Stagehand act")
 
@@ -159,17 +180,37 @@ async def automation(
             print("✓ Verified success with Playwright")
         except Exception as e:
             print(f"Playwright failed for verification, using Stagehand extract: {e}")
-            result = await stagehand.extract(
-                "Check if the booking was successful. Look for a success modal or confirmation message.",
-                SuccessCheck,
+            result = await client.sessions.extract(
+                id=session_id,
+                instruction="Check if the booking was successful. Look for a success modal or confirmation message.",
+                schema={
+                    "type": "object",
+                    "properties": {
+                        "success": {
+                            "type": "boolean",
+                            "description": "Whether the booking was successful",
+                        },
+                        "message": {
+                            "type": "string",
+                            "description": "The success or error message displayed",
+                        },
+                    },
+                    "required": ["success", "message"],
+                },
             )
-            is_success = result.success if result else False
-            print(f"✓ Verified with Stagehand extract: {result}")
+            result_data = (
+                SuccessCheck.model_validate(result.data.result)
+                if result.data.result
+                else None
+            )
+            is_success = result_data.success if result_data else False
+            print(f"✓ Verified with Stagehand extract: {result_data}")
 
     finally:
         # Cleanup Stagehand
         print("\nClosing 🤘 Stagehand...")
-        await stagehand.close()
+        await client.sessions.end(session_id)
+        print("✅ Session ended")
 
     # Return booking details
     return {

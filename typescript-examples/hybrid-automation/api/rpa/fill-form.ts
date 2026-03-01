@@ -2,7 +2,6 @@ import { BrowserContext, Page } from "playwright";
 import { Stagehand, AISdkClient } from "@browserbasehq/stagehand";
 import { goToUrl } from "@intuned/browser";
 import { attemptStore, getAiGatewayConfig } from "@intuned/runtime";
-import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 
 const bookConsultationSchema = z.object({
@@ -34,6 +33,9 @@ const successCheckSchema = z.object({
 });
 
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
+    return cdpUrl;
+  }
   const versionUrl = cdpUrl.endsWith("/")
     ? `${cdpUrl}json/version`
     : `${cdpUrl}/json/version`;
@@ -51,7 +53,6 @@ export default async function handler(
   const { baseUrl, apiKey } = await getAiGatewayConfig();
   const cdpUrl = attemptStore.get("cdpUrl") as string;
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
-
   // Create AI SDK provider with Intuned's AI gateway
   const stagehand = new Stagehand({
     env: "LOCAL",
