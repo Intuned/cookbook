@@ -1,5 +1,4 @@
 from typing import Literal
-import os
 
 from intuned_browser import go_to_url
 from intuned_runtime import attempt_store, get_ai_gateway_config
@@ -39,8 +38,15 @@ async def automation(
     **_kwargs,
 ) -> dict:
     base_url, model_api_key = get_ai_gateway_config()
-    model_api_key = os.getenv("MODEL_API_KEY")
     cdp_url = attempt_store.get("cdp_url")
+
+    model_name = "openai/gpt-4o-mini"
+    model_config = {
+        "model_name": model_name,
+        "api_key": model_api_key,
+        "base_url": base_url,
+        "provider": "openai",
+    }
 
     # Initialize Stagehand with act/extract/observe capabilities
     client = AsyncStagehand(
@@ -50,7 +56,7 @@ async def automation(
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
     session = await client.sessions.start(
-        model_name="openai/gpt-4o-mini",
+        model_name=model_name,
         browser={
             "type": "local",
             "launchOptions": {
@@ -97,6 +103,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Type "{name}" in the name input field',
+                options={"model": model_config},
             )
             print("✓ Filled name with Stagehand act")
 
@@ -109,6 +116,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Type "{email}" in the email input field',
+                options={"model": model_config},
             )
             print("✓ Filled email with Stagehand act")
 
@@ -121,6 +129,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Type "{phone}" in the phone input field',
+                options={"model": model_config},
             )
             print("✓ Filled phone with Stagehand act")
 
@@ -133,6 +142,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Type "{date}" in the date input field',
+                options={"model": model_config},
             )
             print("✓ Filled date with Stagehand act")
 
@@ -145,6 +155,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Type "{time}" in the time input field',
+                options={"model": model_config},
             )
             print("✓ Filled time with Stagehand act")
 
@@ -157,6 +168,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input=f'Select "{topic}" from the topic dropdown',
+                options={"model": model_config},
             )
             print("✓ Selected topic with Stagehand act")
 
@@ -169,6 +181,7 @@ async def automation(
             await client.sessions.act(
                 id=session_id,
                 input="Click the submit button to submit the booking form",
+                options={"model": model_config},
             )
             print("✓ Submitted form with Stagehand act")
 
@@ -183,6 +196,7 @@ async def automation(
             result = await client.sessions.extract(
                 id=session_id,
                 instruction="Check if the booking was successful. Look for a success modal or confirmation message.",
+                options={"model": model_config},
                 schema={
                     "type": "object",
                     "properties": {
