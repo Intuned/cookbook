@@ -40,7 +40,7 @@ async def automation(
     base_url, model_api_key = get_ai_gateway_config()
     cdp_url = attempt_store.get("cdp_url")
 
-    model_name = "openai/gpt-4o-mini"
+    model_name = "openai/gpt-5-mini"
     model_config = {
         "model_name": model_name,
         "api_key": model_api_key,
