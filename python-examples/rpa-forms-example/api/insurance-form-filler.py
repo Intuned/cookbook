@@ -9,13 +9,13 @@ class InvalidActionError(Exception):
 
 
 async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: ...):
-    base_url, model_api_key = get_ai_gateway_config()
+    base_url, api_key = get_ai_gateway_config()
     cdp_url = attempt_store.get("cdp_url")
 
     model_name = "openai/gpt-5-mini"
     model_config = {
         "model_name": model_name,
-        "api_key": model_api_key,
+        "api_key": api_key,
         "base_url": base_url,
         "provider": "openai",
     }
@@ -23,7 +23,7 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
     # Initialize Stagehand with act/extract/observe capabilities
     client = AsyncStagehand(
         server="local",
-        model_api_key=model_api_key,
+        model_api_key=api_key,
         local_ready_timeout_s=30.0,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
