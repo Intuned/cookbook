@@ -1,5 +1,4 @@
 from typing import TypedDict
-import os
 from intuned_runtime import attempt_store, get_ai_gateway_config
 from playwright.async_api import Page
 from pydantic import BaseModel
@@ -26,20 +25,27 @@ MAX_PAGES = 10
 
 
 async def automation(page: Page, params: Params, **_kwargs):
-    base_url, model_api_key = get_ai_gateway_config()
-    model_api_key = os.getenv("MODEL_API_KEY")
+    base_url, api_key = get_ai_gateway_config()
     cdp_url = attempt_store.get("cdp_url")
     print(f"CDP URL: {cdp_url}")
-    print(f"Base URL: {base_url}")
+
+    model_name = "openai/gpt-5-mini"
+    model_config = {
+        "model_name": model_name,
+        "api_key": api_key,
+        "base_url": base_url,
+        "provider": "openai",
+    }
+
     # Initialize Stagehand with act/extract/observe capabilities
     client = AsyncStagehand(
         server="local",
-        model_api_key=model_api_key,
+        model_api_key=api_key,
         local_ready_timeout_s=30.0,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
     session = await client.sessions.start(
-        model_name="openai/gpt-5-mini",
+        model_name=model_name,
         browser={
             "type": "local",
             "launchOptions": {
@@ -70,6 +76,7 @@ async def automation(page: Page, params: Params, **_kwargs):
             observed = await client.sessions.observe(
                 id=session_id,
                 instruction=f'the "{category}" category link in the sidebar',
+                options={"model": model_config},
             )
             print(f"Observed category link: {observed.data.result}")
 
@@ -77,6 +84,7 @@ async def automation(page: Page, params: Params, **_kwargs):
             await client.sessions.act(
                 id=session_id,
                 input=f'Click on the "{category}" category link in the sidebar',
+                options={"model": model_config},
             )
             print(f"Navigated to {category} category")
 
@@ -88,6 +96,7 @@ async def automation(page: Page, params: Params, **_kwargs):
             result = await client.sessions.extract(
                 id=session_id,
                 instruction="Extract all books on this page including title, price, rating and availability for each book",
+                options={"model": model_config},
                 schema={
                     "type": "object",
                     "properties": {
@@ -123,6 +132,7 @@ async def automation(page: Page, params: Params, **_kwargs):
                     next_button = await client.sessions.observe(
                         id=session_id,
                         instruction='the "next" button or link to go to the next page',
+                        options={"model": model_config},
                     )
                     if not next_button.data.result:
                         print("No more pages available")
@@ -132,6 +142,7 @@ async def automation(page: Page, params: Params, **_kwargs):
                     await client.sessions.act(
                         id=session_id,
                         input='Click the "next" button to go to the next page',
+                        options={"model": model_config},
                     )
                     print(f"Navigated to page {page_num + 1}")
                 except Exception as e:
