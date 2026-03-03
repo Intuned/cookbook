@@ -1,7 +1,9 @@
-from stagehand import AsyncStagehand
 from playwright.async_api import Page
 from intuned_runtime import attempt_store, get_ai_gateway_config
 from utils.types_and_schemas import ListParameters
+from stagehand import AsyncStagehand
+from stagehand.types.model_config_param import ModelConfigParam
+from stagehand.types.session_start_params import Browser, BrowserLaunchOptions
 
 
 class InvalidActionError(Exception):
@@ -13,7 +15,7 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
     cdp_url = attempt_store.get("cdp_url")
 
     model_name = "openai/gpt-5-mini"
-    model_config = {
+    model_config: ModelConfigParam = {
         "model_name": model_name,
         "api_key": api_key,
         "base_url": base_url,
@@ -27,15 +29,13 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
         local_ready_timeout_s=30.0,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
+    launch_options: BrowserLaunchOptions = {"headless": False}
+    if cdp_url is not None:
+        launch_options["cdp_url"] = str(cdp_url)
+    browser: Browser = {"type": "local", "launch_options": launch_options}
     session = await client.sessions.start(
         model_name=model_name,
-        browser={
-            "type": "local",
-            "launchOptions": {
-                "headless": False,
-                "cdpUrl": cdp_url,
-            },
-        },
+        browser=browser,
     )
     session_id = session.data.session_id
     print(f"✅ Session started: {session_id}")
@@ -60,7 +60,9 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
                 return
             else:
                 await page.wait_for_timeout(2000)
-        raise InvalidActionError(f"Could not find action for instruction: {instruction}")
+        raise InvalidActionError(
+            f"Could not find action for instruction: {instruction}"
+        )
 
     params = ListParameters.model_validate(params)
 

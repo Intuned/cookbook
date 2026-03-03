@@ -1,7 +1,7 @@
 import asyncio
 from intuned_runtime import extend_timeout
-from playwright.async_api import Page, BrowserContext
-from typing import Any, Dict, List
+from playwright.async_api import Page
+from typing import Any, Dict
 
 
 async def automation(page: Page, params: Dict[str, Any] = None, **_kwargs):
