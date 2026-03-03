@@ -2,8 +2,9 @@ from typing import TypedDict
 from intuned_runtime import attempt_store, get_ai_gateway_config
 from playwright.async_api import Page
 from pydantic import BaseModel
-
 from stagehand import AsyncStagehand
+from stagehand.types.model_config_param import ModelConfigParam
+from stagehand.types.session_start_params import Browser, BrowserLaunchOptions
 
 
 class Params(TypedDict):
@@ -30,7 +31,7 @@ async def automation(page: Page, params: Params, **_kwargs):
     print(f"CDP URL: {cdp_url}")
 
     model_name = "openai/gpt-5-mini"
-    model_config = {
+    model_config: ModelConfigParam = {
         "model_name": model_name,
         "api_key": api_key,
         "base_url": base_url,
@@ -44,15 +45,13 @@ async def automation(page: Page, params: Params, **_kwargs):
         local_ready_timeout_s=30.0,
     )
     print("⏳ Starting local session (this will start the embedded SEA binary)...")
+    launch_options: BrowserLaunchOptions = {"headless": False}
+    if cdp_url is not None:
+        launch_options["cdp_url"] = str(cdp_url)
+    browser: Browser = {"type": "local", "launch_options": launch_options}
     session = await client.sessions.start(
         model_name=model_name,
-        browser={
-            "type": "local",
-            "launchOptions": {
-                "headless": False,
-                "cdpUrl": cdp_url,
-            },
-        },
+        browser=browser,
     )
     session_id = session.data.session_id
     print(f"✅ Session started: {session_id}")
