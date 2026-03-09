@@ -54,6 +54,9 @@ intuned dev deploy
 │   └── setupContext.ts           # Captures CDP URL from Intuned runtime
 ├── utils/
 │   └── typesAndSchemas.ts        # Zod schemas and TypeScript types
+├── intuned-resources/
+│   └── jobs/
+│       └── connect-cdp.job.jsonc # Job definition (schedule, payload)
 ├── .parameters/api/              # Test parameters
 ├── Intuned.jsonc                  # Project config
 ├── package.json                   # Node.js dependencies

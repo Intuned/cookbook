@@ -52,6 +52,9 @@ intuned dev deploy
 │   └── setup_context.py          # Captures CDP URL from Intuned runtime
 ├── utils/
 │   └── types_and_schemas.py      # Pydantic models and type definitions
+├── intuned-resources/
+│   └── jobs/
+│       └── connect-cdp.job.jsonc # Job definition (schedule, payload)
 ├── .parameters/api/              # Test parameters
 ├── Intuned.jsonc                  # Project config
 ├── pyproject.toml                 # Python dependencies

@@ -1,0 +1,11 @@
+{
+  "configuration": {},
+  "payload": [
+    {
+      "apiName": "connect-to-cdp",
+      "parameters": {
+        "url": "https://books.toscrape.com/index.html"
+      }
+    }
+  ]
+}
