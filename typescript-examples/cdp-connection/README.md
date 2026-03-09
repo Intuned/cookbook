@@ -24,6 +24,8 @@ npm install
 yarn
 ```
 
+After installing dependencies, `intuned` command should be available in your environment.
+
 ### Run an API
 
 ```bash

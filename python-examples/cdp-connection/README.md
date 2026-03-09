@@ -22,6 +22,8 @@ Open this project in Intuned by clicking the button below.
 uv sync
 ```
 
+After installing dependencies, `intuned` command should be available in your environment.
+
 ### Run an API
 
 ```bash
