@@ -1,26 +1,28 @@
-# cdp-connection Intuned project
+# CDP Connection (TypeScript)
 
-Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP)
+Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP) with Intuned.
 
-## Getting Started
+## Run on Intuned
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+Open this project in Intuned by clicking the button below.
 
-## Development
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/cdp-connection" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+## APIs
+
+| API | Description |
+| ----- | ------------- |
+| `connect-to-cdp` | Connect to browser via CDP, fetch browser info, navigate to a URL |
+
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
-
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
 
 ### Run an API
 
@@ -42,7 +44,7 @@ npm run intuned provision
 yarn intuned provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 # npm
@@ -52,29 +54,23 @@ npm run intuned deploy
 yarn intuned deploy
 ```
 
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
-│   └── connect-to-cdp.ts     # CDP connection example
-├── hooks/                    # Setup hooks that run before API execution
-│   └── setupContext.ts       # Captures CDP URL from Intuned runtime
-├── utils/                    # Utility functions and schemas
-│   └── typesAndSchemas.ts    # Zod schemas and TypeScript types
-├── .parameters/              # Parameter files for testing APIs
-│   └── api/                  # API parameters folder
-│       └── connect-to-cdp/   # Parameters for CDP connection API
-│           └── default.json  # Default parameters (URL to navigate to)
-└── Intuned.jsonc             # Intuned project configuration file
+├── api/
+│   └── connect-to-cdp.ts         # CDP connection example
+├── hooks/
+│   └── setupContext.ts           # Captures CDP URL from Intuned runtime
+├── utils/
+│   └── typesAndSchemas.ts        # Zod schemas and TypeScript types
+├── .parameters/api/              # Test parameters
+├── Intuned.jsonc                  # Project config
+├── package.json                   # Node.js dependencies
+└── README.md
 ```
 
-## Learn More
+## Related
 
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

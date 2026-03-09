@@ -16,11 +16,19 @@ class BrowserInfo(BaseModel):
     web_socket_debugger_url: str  # WebSocket URL as string (ws:// or wss://)
 
 
+class ViewportSize(BaseModel):
+    """Viewport dimensions"""
+
+    width: int
+    height: int
+
+
 class PageInfo(BaseModel):
     """Page information"""
 
     title: str
     url: str  # Page URL as string
+    viewport: ViewportSize | None = None
 
 
 class WebDriverInfo(BaseModel):
