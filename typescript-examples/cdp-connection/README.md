@@ -27,31 +27,19 @@ yarn
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
-
-# yarn
-yarn intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
+intuned dev run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
 ### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
 
 ## Project structure

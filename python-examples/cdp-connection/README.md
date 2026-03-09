@@ -25,19 +25,19 @@ uv sync
 ### Run an API
 
 ```bash
-uv run intuned run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
+intuned dev run api connect-to-cdp .parameters/api/connect-to-cdp/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
 ### Deploy
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
 
 ## Project structure
