@@ -10,8 +10,8 @@ Open this project in Intuned by clicking the button below.
 
 ## APIs
 
-| API | Description |
-| ----- | ------------- |
+| API              | Description                                                       |
+| ---------------- | ----------------------------------------------------------------- |
 | `connect-to-cdp` | Connect to browser via CDP, fetch browser info, navigate to a URL |
 
 ## Getting started

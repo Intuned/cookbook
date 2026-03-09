@@ -127,7 +127,9 @@ export default async function handler(
   console.log(`  - Title: ${pageInfo.title}`);
   console.log(`  - URL: ${pageInfo.url}`);
   if (pageInfo.viewport) {
-    console.log(`  - Viewport: ${pageInfo.viewport.width}x${pageInfo.viewport.height}`);
+    console.log(
+      `  - Viewport: ${pageInfo.viewport.width}x${pageInfo.viewport.height}`
+    );
   }
 
   console.log("\n✓ CDP connection successful!\n");
