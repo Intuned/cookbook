@@ -13,10 +13,17 @@ export const browserInfoSchema = z.object({
   webSocketDebuggerUrl: z.string().url(),
 });
 
+// Viewport Size schema
+export const viewportSizeSchema = z.object({
+  width: z.number(),
+  height: z.number(),
+});
+
 // Page Info schema
 export const pageInfoSchema = z.object({
   title: z.string(),
-  url: z.string().url()
+  url: z.string().url(),
+  viewport: viewportSizeSchema.optional(),
 });
 
 // WebDriver Info schema
@@ -37,6 +44,7 @@ export const cdpConnectionResultSchema = z.object({
 // Type exports inferred from schemas
 export type ConnectToCdpParams = z.infer<typeof connectToCdpParamsSchema>;
 export type BrowserInfo = z.infer<typeof browserInfoSchema>;
+export type ViewportSize = z.infer<typeof viewportSizeSchema>;
 export type PageInfo = z.infer<typeof pageInfoSchema>;
 export type WebDriverInfo = z.infer<typeof webDriverInfoSchema>;
 export type CDPConnectionResult = z.infer<typeof cdpConnectionResultSchema>;

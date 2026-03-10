@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "connect-to-cdp",
+      "parameters": {
+        "url": "https://books.toscrape.com/index.html"
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import platform
+from urllib.parse import urlparse
 
 import httpx
 from intuned_browser import go_to_url
@@ -10,17 +11,18 @@ from utils.types_and_schemas import (
     CDPConnectionResult,
     ConnectToCdpParams,
     PageInfo,
+    ViewportSize,
     WebDriverInfo,
 )
 
 
-async def get_browser_info(cdp_url: str) -> BrowserInfo:
+async def get_browser_info(http_url: str) -> BrowserInfo:
     """
     Fetches browser information from the CDP endpoint
     """
-    version_url = (
-        f"{cdp_url}json/version" if cdp_url.endswith("/") else f"{cdp_url}/json/version"
-    )
+    parsed = urlparse(http_url)
+    base_url = f"{parsed.scheme}://{parsed.netloc}"
+    version_url = f"{base_url}/json/version"
 
     async with httpx.AsyncClient() as client:
         response = await client.get(version_url)
@@ -64,9 +66,9 @@ async def automation(page: Page, params: dict | None = None, **_kwargs) -> dict:
         raise ValueError("CDP URL not found in attempt_store")
 
     print(f"✓ CDP URL: {cdp_url}")
-
+    http_url = cdp_url.replace("wss://", "https://", 1).replace("ws://", "http://", 1)
     # Step 1: Fetch browser information via CDP
-    browser_info = await get_browser_info(cdp_url)
+    browser_info = await get_browser_info(http_url)
     print("\n✓ Browser Information:")
     print(f"  - Browser Version: {browser_info.browser_version}")
     print(f"  - Protocol Version: {browser_info.protocol_version}")
@@ -117,16 +119,19 @@ async def automation(page: Page, params: dict | None = None, **_kwargs) -> dict:
     # Step 5: Get page information
     title = await page.title()
     current_url = page.url
+    pw_viewport = page.viewport_size
 
     page_info = PageInfo(
         title=title,
         url=current_url,
+        viewport=ViewportSize(**pw_viewport) if pw_viewport else None,
     )
 
     print("\n✓ Page Information:")
     print(f"  - Title: {page_info.title}")
     print(f"  - URL: {page_info.url}")
-    print(f"  - Viewport: {page_info.viewport.width}x{page_info.viewport.height}")
+    if page_info.viewport:
+        print(f"  - Viewport: {page_info.viewport.width}x{page_info.viewport.height}")
 
     print("\n✓ CDP connection successful!\n")
 

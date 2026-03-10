@@ -8,15 +8,18 @@ import {
   type PageInfo,
   type WebDriverInfo,
   type CDPConnectionResult,
+  type ViewportSize,
 } from "../utils/typesAndSchemas";
 
 /**
  * Fetches browser information from the CDP endpoint
  */
 async function getBrowserInfo(cdpUrl: string): Promise<BrowserInfo> {
-  const versionUrl = cdpUrl.endsWith("/")
-    ? `${cdpUrl}json/version`
-    : `${cdpUrl}/json/version`;
+  const httpUrl = cdpUrl.replace(/^wss?:\/\//, (match) =>
+    match === "wss://" ? "https://" : "http://"
+  );
+  const url = new URL(httpUrl);
+  const versionUrl = `${url.protocol}//${url.host}/json/version`;
 
   const response = await fetch(versionUrl);
   const data = await response.json();
@@ -112,15 +115,22 @@ export default async function handler(
   // Step 5: Get page information
   const title = await page.title();
   const currentUrl = page.url();
+  const pwViewport = page.viewportSize();
 
   const pageInfo: PageInfo = {
     title,
-    url: currentUrl
+    url: currentUrl,
+    viewport: pwViewport ? (pwViewport as ViewportSize) : undefined,
   };
 
   console.log("\n✓ Page Information:");
   console.log(`  - Title: ${pageInfo.title}`);
   console.log(`  - URL: ${pageInfo.url}`);
+  if (pageInfo.viewport) {
+    console.log(
+      `  - Viewport: ${pageInfo.viewport.width}x${pageInfo.viewport.height}`
+    );
+  }
 
   console.log("\n✓ CDP connection successful!\n");
 
