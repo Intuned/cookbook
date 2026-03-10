@@ -14,6 +14,11 @@ export default async function check(
   // Step 2: Check if the user menu toggle is visible
   // The user menu toggle should only be visible on the dashboard if we're logged in
   // If we were redirected to login, this element won't exist
+  try {
+    await page.waitForSelector("#user-menu-toggle", { timeout: 10_000 });
+  } catch {
+    return false;
+  }
   const userMenuToggle = page.locator("#user-menu-toggle");
   const isSessionValid = await userMenuToggle.isVisible();
 

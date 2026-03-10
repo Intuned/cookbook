@@ -1,25 +1,20 @@
-# Auth with Secret OTP
+# Auth with Secret OTP (Python)
 
-Authentication automation with multi-step OTP verification using a secret key.
+Authentication example using secret-based OTP verification.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/auth-with-secret-otp" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
 
-To get started developing browser automation projects with Intuned, check out the
+| API | Description |
+| --- | ----------- |
+| `list-contracts` | List contracts for the authenticated user |
 
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
 
@@ -27,87 +22,74 @@ To get started developing browser automation projects with Intuned, check out th
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-uv run intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+intuned dev run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+```
+
+### Auth Sessions
+
+```bash
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
+
+# Validate
+intuned dev run authsession validate test-auth-session
+
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-## Auth Sessions
-
-This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
-
-### Create a new auth session
+### Deploy
 
 ```bash
-uv run intuned run authsession create .parameters/auth-sessions/create/default.json
+intuned dev deploy
 ```
 
-### Update an existing auth session
-
-```bash
-uv run intuned run authsession update test-auth-session
-```
-
-### Validate an auth session
-
-```bash
-uv run intuned run authsession validate test-auth-session
-```
-
-### Deploy project
-
-```bash
-uv run intuned deploy
-```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-<!-- IDE-IGNORE-END -->
-
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                          # API endpoints
-│   └── list-contracts.py         # List all contracts
-├── auth-sessions/                # Auth session related APIs
-│   ├── check.py                  # API to check if the auth session is still valid
-│   └── create.py                 # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/      # Auth session instances created and used by the CLI
-│   └── test-auth-session/        # Example test auth session
-│       ├── auth-session.json     # Browser state (cookies, localStorage)
-│       └── metadata.json         # Auth session metadata
-├── .parameters/                  # Test parameters for APIs
-│   ├── api/                      # API parameters folder
-│   │   └── list-contracts/
-│   │       └── default.json
-│   └── auth-sessions/            # Auth session parameters
-│       ├── check/
-│       │   └── default.json
-│       └── create/
-│           └── default.json
-├── utils/                        # Utility modules
-│   └── types_and_schemas.py     # Type definitions and schemas
-├── Intuned.jsonc                 # Intuned project configuration file
-└── pyproject.toml                # Python project dependencies
+├── api/
+│   └── list-contracts.py             # List contracts for authenticated user
+├── auth-sessions/
+│   ├── check.py                      # Validates if the auth session is still active
+│   └── create.py                     # Creates/recreates the auth session via OTP
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── utils/
+│   └── types_and_schemas.py          # Type definitions and schemas
+├── intuned-resources/
+│   ├── jobs/
+│   │   └── list-contracts.job.jsonc  # Job definition (payload, auth session)
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── pyproject.toml                     # Python dependencies
+└── README.md
 ```
 
-## Learn More
+## Related
 
-- [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [OTP Authentication Guide](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
