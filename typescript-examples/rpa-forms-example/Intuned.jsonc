@@ -16,7 +16,10 @@
     "template": {
       "name": "rpa-forms-example",
       "description": "Insurance form filler using Stagehand in Intuned",
-      "tags": ["stagehand", "rpa"]
+      "tags": [
+        "stagehand",
+        "rpa"
+      ]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "insurance-form-filler",
@@ -62,4 +65,3 @@
     }
   }
 }
-

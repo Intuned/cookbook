@@ -1,27 +1,12 @@
-// For more information, see our Intuned settings reference
-// https://docs.intunedhq.com/docs/05-references/intuned-json
 {
-  "projectName": "insurance-form-filler",
-  "apiAccess": {
-    "enabled": true
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
   },
-  "authSessions": {
-    "enabled": false
-  },
-  "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
-  },
-  "metadata": {
-    "template": {
-      "name": "rpa-forms-example",
-      "description": "Insurance form filler using Stagehand in Intuned",
-      "tags": [
-        "stagehand",
-        "rpa"
-      ]
-    },
-    "defaultRunPlaygroundInput": {
+  "payload": [
+    {
       "apiName": "insurance-form-filler",
       "parameters": {
         "metadata": {
@@ -42,7 +27,7 @@
           "preferred_name": "Johnny",
           "home_multi_policy_discount": false,
           "currently_has_auto_insurance": false,
-          "coverage_effective_date": "01/01/2026"
+          "coverage_effective_date": "01/01/2027"
         },
         "address": {
           "street_line1": "350 W 42nd St",
@@ -63,5 +48,5 @@
         }
       }
     }
-  }
+  ]
 }
