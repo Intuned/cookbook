@@ -31,6 +31,8 @@ npm install -g @intuned/cli
 
 After installing dependencies, `intuned` command should be available in your environment.
 
+**Important:** This example uses Stagehand with Intuned's AI gateway. Run `intuned dev provision` once before running any APIs so the AI gateway is configured for local runs.
+
 ### Run an API
 
 ```bash
