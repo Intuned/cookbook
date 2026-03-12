@@ -98,7 +98,8 @@ intuned dev deploy
 │   └── jobs/                       # Job definitions for each API
 ├── .parameters/api/                # Test parameters
 ├── Intuned.jsonc                   # Project config
-└── package.json
+├── package.json                    # Node.js dependencies
+└── README.md
 ```
 
 ## Related
