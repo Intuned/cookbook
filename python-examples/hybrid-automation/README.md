@@ -1,36 +1,24 @@
-# Hybrid Automation
+# Hybrid Automation (Python)
 
-Flexible automation combining the [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview) with AI-powered tools like [Stagehand](https://docs.stagehand.dev/) and `extract_structured_data` for speed, reliability, and adaptability.
+Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data.
 
-## Key Features
-
-- **Best of Both Worlds**: Combines fast, reliable SDK automation with AI adaptability
-- **Smart Fallbacks**: Uses deterministic methods first, falls back to AI when needed
-- **Three Use Cases**: RPA form filling, e-commerce scraping, and job board crawling
-- **Production Ready**: Cost-effective primary path with AI safety net for edge cases
-
-## Why Hybrid?
-
-| Approach | Pros | Cons |
-| ---------- | ------ | ------ |
-| **Deterministic (Intuned Browser SDK)** | Fast, reliable, cost-effective | Breaks when site structure changes |
-| **AI-Driven (Stagehand, extract_structured_data)** | Adapts to layout changes | Slower, less predictable |
-| **Hybrid (This example)** | Best of both worlds | Slightly more complex |
-
-The hybrid pattern: Use Intuned Browser SDK first (fast path), fall back to AI tools when needed.
-
-Learn more: [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
-
-## `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/hybrid-automation" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `rpa/fill-form` | RPA automation that fills consultation booking forms. Uses Playwright via Intuned Browser SDK for form fields, falls back to `stagehand.page.act()` if selectors fail. Verifies success with Playwright, falls back to `stagehand.page.extract()` |
+| `scraper/list` | E-commerce product list scraping. Uses Intuned Browser SDK for pagination and link extraction with AI-powered adaptability |
+| `scraper/details` | Product details extraction combining SDK methods with `extract_structured_data` for unstructured fields like descriptions and specifications |
+| `crawler/crawl` | Job board crawler that extracts structured job postings. Uses static Playwright extraction for Lever (`jobs.lever.co`), AI extraction with `extract_structured_data` for other boards (Greenhouse, etc.) |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
@@ -63,34 +51,17 @@ intuned dev run api crawler/crawl .parameters/api/crawler/crawl/not-lever.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
-
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── .parameters/                  # Test parameters for APIs
-│   └── api/
-│       ├── rpa/
-│       │   └── fill-form/
-│       │       └── default.json
-│       ├── scraper/
-│       │   ├── list/
-│       │   │   └── default.json
-│       │   └── details/
-│       │       ├── default.json
-│       │       └── example2.json
-│       └── crawler/
-│           └── crawl/
-│               ├── default.json
-│               ├── job-posting.json
-│               └── not-lever.json
 ├── api/                          # API endpoints
 │   ├── rpa/
 │   │   └── fill-form.py          # Form filling with Stagehand fallback
@@ -112,18 +83,28 @@ intuned dev deploy
 │       │   └── details.job.jsonc        # Job for product details
 │       └── crawler/
 │           └── crawl.job.jsonc          # Job for job board crawling
-├── Intuned.jsonc                 # Intuned project configuration
-└── pyproject.toml                # Python project dependencies
+├── .parameters/api/              # Test parameters
+├── Intuned.jsonc                 # Project config
+├── pyproject.toml                # Python dependencies
+└── README.md
 ```
 
-## APIs
+## Key features
 
-| API | Description |
-| ----- | ------------- |
-| `rpa/fill-form` | RPA automation that fills consultation booking forms. Uses Playwright via Intuned Browser SDK for form fields, falls back to `stagehand.page.act()` if selectors fail. Verifies success with Playwright, falls back to `stagehand.page.extract()` |
-| `scraper/list` | E-commerce product list scraping. Uses Intuned Browser SDK for pagination and link extraction with AI-powered adaptability |
-| `scraper/details` | Product details extraction combining SDK methods with `extract_structured_data` for unstructured fields like descriptions and specifications |
-| `crawler/crawl` | Job board crawler that extracts structured job postings. Uses static Playwright extraction for Lever (`jobs.lever.co`), AI extraction with `extract_structured_data` for other boards (Greenhouse, etc.). Extracts title, location, department, team, description, commitment, workplace type |
+- **Best of both worlds**: Combines fast, reliable SDK automation with AI adaptability
+- **Smart fallbacks**: Uses deterministic methods first, falls back to AI when needed
+- **Three use cases**: RPA form filling, e-commerce scraping, and job board crawling
+- **Production ready**: Cost-effective primary path with AI safety net for edge cases
+
+## Why hybrid?
+
+| Approach | Pros | Cons |
+| ---------- | ------ | ------ |
+| **Deterministic (Intuned Browser SDK)** | Fast, reliable, cost-effective | Breaks when site structure changes |
+| **AI-Driven (Stagehand, extract_structured_data)** | Adapts to layout changes | Slower, less predictable |
+| **Hybrid (this example)** | Best of both worlds | Slightly more complex |
+
+The hybrid pattern: use Intuned Browser SDK first (fast path), fall back to AI tools when needed.
 
 ## Related
 
