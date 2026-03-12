@@ -1,4 +1,4 @@
-# native-crawler
+# Native Crawler (Python)
 
 A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `persistent_store` features for parallel crawling with deduplication.
 
@@ -167,7 +167,7 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 Then run:
 
 ```bash
-uv run intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ### Download Attachments
@@ -187,7 +187,7 @@ Edit `.parameters/api/crawl/default.json`:
 Then run:
 
 ```bash
-uv run intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils

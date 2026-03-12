@@ -1,4 +1,4 @@
-# Computer Use Automation
+# Computer Use Automation (TypeScript)
 
 AI-powered browser automation using computer use capabilities from multiple providers with Intuned's infrastructure.
 
@@ -93,7 +93,7 @@ Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer 
 Uses the Stagehand library which provides DOM-based automation with built-in tools for common browser tasks.
 
 <!-- IDE-IGNORE-START -->
-## Getting Started
+## Getting started
 
 ### Install dependencies
 
@@ -182,11 +182,7 @@ intuned dev deploy
 └── Intuned.jsonc                   # Intuned configuration
 ```
 
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-## Learn More
+## Related
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
