@@ -8,6 +8,9 @@ interface Params {
 }
 
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
+    return cdpUrl;
+  }
   const versionUrl = cdpUrl.endsWith("/")
     ? `${cdpUrl}json/version`
     : `${cdpUrl}/json/version`;
@@ -39,7 +42,7 @@ export default async function handler(
   });
 
   const llmClient = new AISdkClient({
-    model: openai("computer-use-preview"),
+    model: openai("gpt-5-mini"),
   });
 
   // Initialize Stagehand (non-CUA mode)
