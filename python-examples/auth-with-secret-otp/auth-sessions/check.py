@@ -12,6 +12,10 @@ async def check(page: Page, **_kwargs) -> bool:
     # Step 2: Check if the user menu toggle is visible
     # The user menu toggle should only be visible on the dashboard if we're logged in
     # If we were redirected to login, this element won't exist
+    try:
+        await page.wait_for_selector("#user-menu-toggle", timeout=10_000)
+    except TimeoutError:
+        return False
     user_menu_toggle = page.locator("#user-menu-toggle")
     is_session_valid = await user_menu_toggle.is_visible()
 
