@@ -1,15 +1,6 @@
-# e-commerce-scrapingcourse Intuned project
+# E-Commerce Scrapingcourse (Python)
 
-E-commerce scraping automation that extracts product information from an online store with pagination support.
-
-## Key Features
-
-- **Automatic Pagination**: The `list` API automatically handles pagination to scrape multiple pages
-- **Dynamic API Chaining**: Uses `extend_payload` to automatically trigger the `details` API for each product found
-- **S3 File Upload**: Product images are automatically uploaded to S3 using `save_file_to_s3`
-- **Job Configuration**: Configured as a job template with retry logic and concurrent request handling
-
-<!-- IDE-IGNORE-START -->
+Basic e-commerce scraper using scrapingcourse.com.
 
 ## Run on Intuned
 
@@ -17,7 +8,16 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `list` | Scrapes products from the e-commerce store with pagination support. Automatically triggers `details` API for each product using `extend_payload` |
+| `details` | Extracts detailed information for a specific product including price, SKU, category, descriptions, images (uploaded to S3), sizes, colors, and variants |
+
+<!-- IDE-IGNORE-START -->
+
+## Getting started
 
 ### Install dependencies
 
@@ -46,7 +46,7 @@ intuned dev run api details .parameters/api/details/default.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
@@ -54,39 +54,35 @@ intuned dev deploy
 
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── .parameters/              # Test parameters for APIs
-│   └── api/
-│       ├── list/
-│       │   └── default.json
-│       └── details/
-│           └── default.json
-├── api/                      # API endpoints
-│   ├── list.py              # Scrape product list with pagination
-│   └── details.py           # Extract detailed product information
-├── utils/                    # Utility modules
-│   └── types_and_schemas.py # Type definitions and Pydantic models
+├── api/
+│   ├── list.py                       # Scrapes product list with pagination
+│   └── details.py                    # Extracts detailed product information
+├── utils/
+│   └── types_and_schemas.py          # Type definitions and Pydantic models
 ├── intuned-resources/
 │   └── jobs/
-│       ├── list.job.jsonc   # Job for product list
-│       └── details.job.jsonc # Job for product details
-├── Intuned.jsonc            # Intuned project configuration
-└── pyproject.toml           # Python project dependencies
+│       ├── list.job.jsonc            # Job definition for list API
+│       └── details.job.jsonc         # Job definition for details API
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                     # Project config
+├── pyproject.toml                    # Python dependencies
+└── README.md
 ```
 
-## APIs
+## Key features
 
-| API       | Description                                                                                                                                             |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `list`    | Scrapes products from the e-commerce store with pagination support. Automatically triggers `details` API for each product using `extend_payload`        |
-| `details` | Extracts detailed information for a specific product including price, SKU, category, descriptions, images (uploaded to S3), sizes, colors, and variants |
+- **Automatic pagination**: The `list` API automatically handles pagination to scrape multiple pages
+- **Dynamic API chaining**: Uses `extend_payload` to automatically trigger the `details` API for each product found
+- **S3 file upload**: Product images are automatically uploaded to S3 using `save_file_to_s3`
+- **Job configuration**: Configured as a job template with retry logic and concurrent request handling
 
 ## Related
 
-- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
 - [extend_payload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload)
