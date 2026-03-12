@@ -72,7 +72,7 @@ intuned dev deploy
 
 2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
-## Learn More
+## Related
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

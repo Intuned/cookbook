@@ -153,6 +153,6 @@ The project structure is as follows:
 }
 ```
 
-## Learn More
+## Related
 
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

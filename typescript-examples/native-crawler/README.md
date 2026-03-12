@@ -214,7 +214,7 @@ The `persistentStore` uses these key patterns:
 | `__page_count__` | Global counter for pages processed |
 | `__base_domain__` | Stored config: base domain for filtering |
 
-## Learn More
+## Related
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

@@ -119,7 +119,7 @@ To adapt this example for your own scraping needs:
    - Use `scrapy-crawler` for static websites
    - Use `scrapy-crawler-js` for JavaScript-heavy sites
 
-## Learn More
+## Related
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

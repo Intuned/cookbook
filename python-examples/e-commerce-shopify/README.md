@@ -80,7 +80,7 @@ intuned dev deploy
 | `shopify-list`    | Lists all products from a Shopify store using pagination. Extracts product handles, titles, and basic information via Shopify's JSON API |
 | `shopify-details` | Fetches comprehensive product details including variants, images, pricing, and availability for a specific product                       |
 
-## Learn More
+## Related
 
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

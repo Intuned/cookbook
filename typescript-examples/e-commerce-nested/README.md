@@ -90,7 +90,7 @@ intuned dev deploy
 | `list`     | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload`                          |
 | `details`  | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy                    |
 
-## Learn More
+## Related
 
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

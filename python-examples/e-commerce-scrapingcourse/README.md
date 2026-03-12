@@ -84,7 +84,7 @@ intuned dev deploy
 | `list`    | Scrapes products from the e-commerce store with pagination support. Automatically triggers `details` API for each product using `extend_payload`        |
 | `details` | Extracts detailed information for a specific product including price, SKU, category, descriptions, images (uploaded to S3), sizes, colors, and variants |
 
-## Learn More
+## Related
 
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

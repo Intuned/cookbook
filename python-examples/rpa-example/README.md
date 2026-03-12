@@ -92,7 +92,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 └── pyproject.toml                      # Python dependencies
 ```
 
-## Learn More
+## Related
 
 - **Intuned Concepts**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
 - **Intuned Browser SDK**: <https://docs.intunedhq.com/automation-sdks/overview>

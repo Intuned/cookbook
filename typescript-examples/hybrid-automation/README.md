@@ -127,7 +127,7 @@ intuned dev deploy
 | `scraper/details` | Product details extraction combining SDK methods with `extractStructuredData` for unstructured fields like descriptions and specifications |
 | `crawler/crawl` | Job board crawler that extracts structured job postings. Uses static Playwright extraction for Lever (`jobs.lever.co`), AI extraction with `extractStructuredData` for other boards (Greenhouse, etc.). Extracts title, location, department, team, description, commitment, workplace type |
 
-## Learn More
+## Related
 
 - [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

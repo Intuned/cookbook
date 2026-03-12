@@ -114,7 +114,7 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 | `families` | Retrieves family/group data from the EHR system with member relationships and coverage details |
 | `insurees` | Extracts insuree (patient) data including demographics, enrollment status, and insurance information |
 
-## Learn More
+## Related
 
 - [Intuned Documentation](https://docs.intunedhq.com)
 - [Auth Sessions Guide](https://docs.intunedhq.com/docs/02-features/auth-sessions)

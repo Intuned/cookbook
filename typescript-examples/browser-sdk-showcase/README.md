@@ -222,7 +222,7 @@ yarn intuned deploy
 - **extract-structured-data**: Extract structured data using AI from unstructured content
 - **is-page-loaded**: Use AI to determine if a page has finished loading
 
-## Learn More
+## Related
 
 For detailed documentation on each helper function, visit:
 

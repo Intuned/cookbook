@@ -104,7 +104,7 @@ intuned dev deploy
 | **handle-long-run**          | Handle long-running scraping jobs with proper timeouts            |
 | **scrape-without-selectors** | Use AI-based scraping without relying on CSS selectors            |
 
-## Learn More
+## Related
 
 - [Download File Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/download-file)
 - [Pagination Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/pagination)

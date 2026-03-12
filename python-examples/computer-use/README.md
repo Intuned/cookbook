@@ -155,7 +155,7 @@ intuned dev deploy
 └── Intuned.jsonc                   # Intuned configuration
 ```
 
-## Learn More
+## Related
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)

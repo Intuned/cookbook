@@ -103,7 +103,7 @@ intuned dev deploy
 | **upload-to-s3** | Download a file and upload it to S3 in one step |
 | **capture-screenshots** | Capture a screenshot and upload it to S3 |
 
-## Learn More
+## Related
 
 - [Download File Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/download-file)
 - [Pagination Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/pagination)
