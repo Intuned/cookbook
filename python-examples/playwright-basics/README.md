@@ -2,13 +2,11 @@
 
 A comprehensive Python template covering core Playwright automation patterns. Each API demonstrates a specific concept, numbered for progressive learning.
 
-**Documentation:** [Playwright for automation](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
+Open this project in Intuned by clicking the button below.
+
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/playwright-basics" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
-<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -104,6 +102,7 @@ intuned dev deploy
 
 ## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
