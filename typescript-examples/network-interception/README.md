@@ -1,16 +1,22 @@
-# network-interception Intuned project
+# Network Interception (TypeScript)
 
-Network interception examples demonstrating two common patterns:
+Network request interception for API data extraction.
 
-1. **CSRF Token Capture** (`network-interceptor.ts`) - Log in to a website, intercept requests to capture CSRF tokens, and make authenticated API calls
-2. **Paginated API Data** (`api-interceptor.ts`) - Intercept API responses while paginating through pages to capture all data
-
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/network-interception" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `network-interceptor` | Logs in to a website, intercepts outgoing requests to capture CSRF tokens, and makes authenticated API calls |
+| `api-interceptor` | Intercepts API responses while paginating through pages to capture all data from paginated endpoints |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
@@ -31,10 +37,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 ```bash
-# CSRF Token Capture
 intuned dev run api network-interceptor .parameters/api/network-interceptor/default.json
-
-# Paginated API Data
 intuned dev run api api-interceptor .parameters/api/api-interceptor/default.json
 ```
 
@@ -44,18 +47,18 @@ intuned dev run api api-interceptor .parameters/api/api-interceptor/default.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                              # Your API endpoints
+├── api/
 │   ├── network-interceptor.ts        # CSRF token capture and authenticated API calls
 │   └── api-interceptor.ts            # Paginated API response interception
 ├── utils/
@@ -64,14 +67,15 @@ intuned dev deploy
 │   └── jobs/
 │       ├── network-interceptor.job.jsonc  # Job for CSRF interceptor
 │       └── api-interceptor.job.jsonc      # Job for paginated API interceptor
-├── .parameters/api/                  # Parameter files for testing
-├── package.json                      # TypeScript project dependencies
-└── Intuned.jsonc                     # Intuned project configuration file
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                     # Project config
+├── package.json                      # Node.js dependencies
+└── README.md
 ```
 
-## How It Works
+## How it works
 
-### network-interceptor.ts (CSRF Token Capture)
+### `network-interceptor` (CSRF token capture)
 
 1. Logs in to the target website using provided credentials
 2. Sets up a request interceptor to capture CSRF tokens from outgoing requests
@@ -79,14 +83,12 @@ intuned dev deploy
 4. Captures the CSRF token from request headers (e.g., `x-csrftoken`)
 5. Makes authenticated API calls using the captured token
 
-### api-interceptor.ts (Paginated API Data)
+### `api-interceptor` (paginated API data)
 
 1. Sets up a response listener for a specified API pattern
 2. Navigates to the URL and captures initial data from matching API responses
 3. Clicks the "Next" button to load more pages
 4. Aggregates all captured data and returns it
-
-These patterns are useful when you need to interact with APIs that require CSRF protection or when data is loaded via API calls rather than rendered in HTML.
 
 ## Related
 

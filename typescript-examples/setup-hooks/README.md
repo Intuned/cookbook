@@ -1,13 +1,21 @@
-# setup-hooks Intuned project
+# Setup Hooks (TypeScript)
 
-Example demonstrating how to use setup hooks in Intuned to prepare data and configuration before your API executes
+Demonstrates how to use setup hooks to prepare data and configuration before API execution.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/setup-hooks" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `demo-hook` | Demonstrates how setup hook data is passed to and used within an API handler |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
@@ -37,33 +45,30 @@ intuned dev run api demo-hook .parameters/api/demo-hook/default.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
+├── api/
 │   └── demo-hook.ts          # Demo API showing hook data usage
-├── hooks/                    # Setup hooks executed before API runs
-│   └── setupContext.ts       # Main setup hook
-├── utils/                    # Utility functions and schemas
+├── hooks/
+│   └── setupContext.ts       # Main setup hook executed before API runs
+├── utils/
 │   └── typesAndSchemas.ts    # Zod schemas and TypeScript types
 ├── intuned-resources/
 │   └── jobs/
 │       └── demo-hook.job.jsonc  # Job definition for demo-hook API
-├── .parameters/              # Parameter files for testing APIs
-│   └── api/                  # API parameters folder
-│       └── demo-hook/        # Parameters for demo API
-│           └── default.json  # Default parameters
-└── Intuned.jsonc             # Intuned project configuration file
+├── .parameters/api/          # Test parameters
+├── Intuned.jsonc             # Project config
+├── package.json              # Node.js dependencies
+└── README.md
 ```
 
 ## Related

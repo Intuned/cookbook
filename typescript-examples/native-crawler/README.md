@@ -1,12 +1,12 @@
-# native-crawler
+# Native Crawler (TypeScript)
 
 A simple, library-free web crawler demonstrating Intuned's `extendPayload` and `persistentStore` features for parallel crawling with deduplication.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
+Open this project in Intuned by clicking the button below.
+
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/native-crawler" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
-<!-- IDE-IGNORE-END -->
 
 ## Architecture
 
@@ -50,39 +50,14 @@ Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript
                     └─────────────────────────────────────────────────┘
 ```
 
-## Project Structure
+## APIs
 
-```text
-native-crawler/
-├── api/
-│   └── crawl.ts          # Main API: extract content + discover links + recurse
-├── utils/
-│   ├── index.ts
-│   ├── content.ts        # extractPageContent() - markdown extraction
-│   └── links.ts          # extractLinks() - link discovery + normalization
-├── intuned-resources/
-│   └── jobs/
-│       └── crawl.job.jsonc  # Job definition for crawl API
-├── .parameters/api/         # Parameter files for testing
-├── Intuned.jsonc
-└── README.md
-```
-
-## API
-
-### `crawl`
-
-Crawls a URL: extracts content, discovers links, and queues them for further crawling.
-
-| Parameter | Type | Default | Description |
-| ----------- | ------ | --------- | ------------- |
-| `url` | string | required | URL to crawl |
-| `max_depth` | number | 2 | Maximum crawl depth from seed |
-| `max_pages` | number | 50 | Maximum total pages to process |
-| `depth` | number | 0 | Current depth (set internally by extendPayload) |
+| API | Description |
+| --- | ----------- |
+| `crawl` | Crawls a URL: extracts markdown content, discovers links, and queues them via `extendPayload` for parallel recursive crawling |
 
 <!-- IDE-IGNORE-START -->
-## Getting Started
+## Getting started
 
 ### Install dependencies
 
@@ -119,9 +94,37 @@ intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
+## Project structure
+
+```text
+/
+├── api/
+│   └── crawl.ts          # Main API: extract content + discover links + recurse
+├── utils/
+│   ├── index.ts
+│   ├── content.ts        # extractPageContent() - markdown extraction
+│   └── links.ts          # extractLinks() - link discovery + normalization
+├── intuned-resources/
+│   └── jobs/
+│       └── crawl.job.jsonc  # Job definition for crawl API
+├── .parameters/api/         # Test parameters
+├── Intuned.jsonc
+├── package.json
+└── README.md
+```
+
+## API parameters
+
+| Parameter | Type | Default | Description |
+| ----------- | ------ | --------- | ------------- |
+| `url` | string | required | URL to crawl |
+| `max_depth` | number | 2 | Maximum crawl depth from seed |
+| `max_pages` | number | 50 | Maximum total pages to process |
+| `depth` | number | 0 | Current depth (set internally by extendPayload) |
+
 ## Usage
 
-### As a Job (Production)
+### As a job (production)
 
 When run as a job, `extendPayload` spawns parallel payloads and `persistentStore` deduplicates across all of them:
 
@@ -144,9 +147,7 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
   }'
 ```
 
-### Structured Data Extraction (Schema)
-
-You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
+### Structured data extraction (schema)
 
 Edit `.parameters/api/crawl/default.json` to include a schema:
 
@@ -172,9 +173,7 @@ Then run:
 intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
-### Download Attachments
-
-You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
+### Download attachments
 
 Edit `.parameters/api/crawl/default.json`:
 
@@ -204,7 +203,7 @@ intuned dev run api crawl .parameters/api/crawl/default.json
 - `normalizeUrl(url)` — Normalize URL (remove fragments, trailing slashes)
 - `getBaseDomain(url)` — Extract domain from URL
 
-## Deduplication Keys
+## Deduplication keys
 
 The `persistentStore` uses these key patterns:
 
@@ -218,6 +217,6 @@ The `persistentStore` uses these key patterns:
 
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
-- [Nested Scheduling / extendPayload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
+- [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
+- [persistentStore Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

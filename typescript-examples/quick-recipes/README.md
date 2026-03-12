@@ -1,15 +1,28 @@
-# Quick Recipes
+# Quick Recipes (TypeScript)
 
-Ready-to-run Intuned API examples for common browser automation patterns. Each recipe demonstrates a specific automation task.
+Collection of quick automation recipes for common browser tasks.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
+Open this project in Intuned by clicking the button below.
+
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/quick-recipes" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
-<!-- IDE-IGNORE-END -->
+
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `download-file` | Download a file triggered by a button click |
+| `pagination` | Scrape data across paginated listings |
+| `upload-to-s3` | Download a file and upload it to S3 in one step |
+| `capture-screenshots` | Capture a screenshot and upload it to S3 |
+| `handle-load-more-button` | Scrape data by clicking a "Load More" button repeatedly |
+| `infinite-scrolling` | Scrape content loaded dynamically via infinite scrolling |
+| `handle-long-run` | Handle long-running scraping jobs with proper timeouts |
+| `scrape-without-selectors` | Use AI-based scraping without relying on CSS selectors |
 
 <!-- IDE-IGNORE-START -->
-## Getting Started
+## Getting started
 
 ### Install dependencies
 
@@ -46,72 +59,45 @@ intuned dev run api scrape-without-selectors .parameters/api/scrape-without-sele
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
-
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                                   # API recipes 
+├── api/
 │   ├── capture-screenshots.ts             # Capture and upload screenshots
 │   ├── download-file.ts                   # Download files from triggers
 │   ├── pagination.ts                      # Scrape paginated data
 │   ├── upload-to-s3.ts                    # Download and upload to S3
-│   ├── handle-load-more-button.ts         # Repeatedly click "Load More" buttons to scrape data
-│   ├── infinite-scrolling.ts              # Scrape content loaded via infinite scrolling
-│   ├── handle-long-run.ts                 # Handle long-running scraping jobs using timeouts
-│   └── scrape-without-selectors.ts        # AI-based scraping without CSS selectors
-│
-├── .parameters/                           # Test parameters for APIs
-│   └── api/                               # API parameters folder
-│       ├── capture-screenshots/
-│       │   └── default.json               
-│       ├── download-file/
-│       │   └── default.json              
-│       ├── pagination/
-│       │   └── default.json              
-│       ├── upload-to-s3/
-│       │   └── default.json              
-│       ├── handle-load-more-button/
-│       │   └── default.json              
-│       ├── infinite-scrolling/
-│       │   └── default.json               
-│       ├── handle-long-run/
-│       │   └── default.json               
-│       └── scrape-without-selectors/
-│           └── default.json              
-│
+│   ├── handle-load-more-button.ts         # Handle "Load More" button pagination
+│   ├── handle-long-run.ts                 # Handle long-running scraping jobs
+│   ├── infinite-scrolling.ts              # Scrape pages with infinite scrolling
+│   └── scrape-without-selectors.ts        # AI-based scraping without selectors
 ├── intuned-resources/
 │   └── jobs/                              # Job definitions for each API
-├── Intuned.jsonc                          # Intuned project configuration
-├── package.json                           # Node.js dependencies and scripts
-└── tsconfig.json                          # TypeScript compiler configuration
+├── .parameters/api/                       # Test parameters
+├── Intuned.jsonc                          # Project config
+├── package.json                           # Node.js dependencies
+├── tsconfig.json                          # TypeScript configuration
+└── README.md
 ```
-
-## APIs
-
-| API | Description |
-| ----- | ------------- |
-| **download-file** | Download a file triggered by a button click |
-| **pagination** | Scrape data across paginated listings |
-| **upload-to-s3** | Download a file and upload it to S3 in one step |
-| **capture-screenshots** | Capture a screenshot and upload it to S3 |
 
 ## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Download File Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/download-file)
 - [Pagination Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/pagination)
 - [Upload Files Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/upload-files)
 - [Capture Screenshots Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/capture-screenshots)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Handle Infinite Scrolling Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/infinite-scrolling)
 - [Handle load more buttons Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/load-more-button)
 - [Scrape without writing selectors Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/ai-scraper)
-- [Handle long-running automations with timeouts Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/long-running-api)
+- [Handle long-running automations Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/long-running-api)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
