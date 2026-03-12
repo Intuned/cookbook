@@ -1,45 +1,35 @@
-# Browser SDK Showcase
+# Browser SDK Showcase (Python)
 
-A comprehensive collection of browser automation helper functions from the Intuned Browser SDK. This project demonstrates various utilities for web scraping, data processing, file handling, and AI-powered operations.
+Showcase of Intuned Browser SDK helper functions for common automation tasks.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-sdk-showcase)
+Open this project in Intuned by clicking the button below.
 
-## Getting Started
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-sdk-showcase" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
+## APIs
 
-## Development
+| API | Description |
+| --- | ----------- |
+| `click-until-exhausted` | Click a button repeatedly until it's exhausted or disappears |
+| `download-file` | Download files from a URL or triggered by a page interaction |
+| `extract-markdown` | Convert page HTML content to clean markdown |
+| `filter-empty-values` | Remove null and empty values from objects and lists |
+| `go-to-url` | Navigate to a URL with configurable timeout and retry options |
+| `process-date` | Parse date strings in various formats to a standardized output |
+| `resolve-url` | Resolve relative URLs to absolute URLs |
+| `sanitize-html` | Clean and sanitize HTML content |
+| `save-file-to-s3` | Save a downloaded file directly to S3 |
+| `scroll-to-load-content` | Scroll the page to trigger lazy-loaded content |
+| `upload-file-to-s3` | Download a file and upload it to S3 |
+| `validate-data-using-schema` | Validate structured data against a Pydantic schema |
+| `wait-for-dom-settled` | Wait for DOM mutations to stabilize before proceeding |
+| `wait-for-network-settled` | Wait for all network requests to complete |
+| `ai/extract-structured-data` | Extract structured data from page content using AI |
+| `ai/is-page-loaded` | Use AI to determine if a page has finished loading |
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Setup (Required for AI Helpers)
-
-**Important:** The AI-powered helpers (`ai/extract-structured-data` and `ai/is-page-loaded`) use Intuned's AI gateway, which requires the project to be saved before running.
-
-If you plan to use the AI helpers, you need to set up your Intuned workspace:
-
-1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
-
-2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
-
-3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
-
-   ```jsonc
-   {
-     "workspaceId": "your-workspace-id",
-     "projectName": "your-project-name"
-     // ... rest of config
-   }
-   ```
-
-4. **Set environment variable** - Add your API key as an environment variable:
-
-   ```bash
-   export INTUNED_API_KEY=your-api-key
-   ```
+## Getting started
 
 ### Install dependencies
 
@@ -47,107 +37,100 @@ If you plan to use the AI helpers, you need to set up your Intuned workspace:
 uv sync
 ```
 
-After installing dependencies, `intuned` command should be available in your environment.
-
-### Initialize project (Required for AI Helpers)
-
-If you plan to use AI helpers, run the save command to upload your project and set up the required `.env` file:
+If the `intuned` CLI is not installed, install it globally:
 
 ```bash
-uv run intuned provision
+npm install -g @intuned/cli
 ```
 
-This configures your local environment and prepares the AI gateway for running AI-powered helpers.
+After installing dependencies, `intuned` command should be available in your environment.
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+### Setup for AI helpers
+
+The `ai/extract-structured-data` and `ai/is-page-loaded` APIs use Intuned's AI gateway and require the project to be saved before running.
+
+1. Add your workspace ID and project name to `Intuned.jsonc`:
+
+   ```jsonc
+   {
+     "workspaceId": "your-workspace-id",
+     "projectName": "your-project-name"
+   }
+   ```
+
+2. Set your Intuned API key:
+
+   ```bash
+   export INTUNED_API_KEY=your-api-key
+   ```
+
+3. Save the project:
+
+   ```bash
+   intuned dev provision
+   ```
 
 ### Run an API
 
 ```bash
-uv run intuned run api click-until-exhausted .parameters/api/click-until-exhausted/default.json
-uv run intuned run api download-file .parameters/api/download-file/default.json
-uv run intuned run api extract-markdown .parameters/api/extract-markdown/default.json
-uv run intuned run api filter-empty-values .parameters/api/filter-empty-values/default.json
-uv run intuned run api go-to-url .parameters/api/go-to-url/default.json
-uv run intuned run api process-date .parameters/api/process-date/default.json
-uv run intuned run api resolve-url .parameters/api/resolve-url/default.json
-uv run intuned run api sanitize-html .parameters/api/sanitize-html/default.json
-uv run intuned run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
-uv run intuned run api scroll-to-load-content .parameters/api/scroll-to-load-content/default.json
-uv run intuned run api upload-file-to-s3 .parameters/api/upload-file-to-s3/default.json
-uv run intuned run api validate-data-using-schema .parameters/api/validate-data-using-schema/default.json
-uv run intuned run api wait-for-dom-settled .parameters/api/wait-for-dom-settled/default.json
-uv run intuned run api wait-for-network-settled .parameters/api/wait-for-network-settled/default.json
-uv run intuned run api ai/extract-structured-data .parameters/api/ai/extract-structured-data/default.json
-uv run intuned run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default.json
+intuned dev run api click-until-exhausted .parameters/api/click-until-exhausted/default.json
+intuned dev run api download-file .parameters/api/download-file/default.json
+intuned dev run api extract-markdown .parameters/api/extract-markdown/default.json
+intuned dev run api filter-empty-values .parameters/api/filter-empty-values/default.json
+intuned dev run api go-to-url .parameters/api/go-to-url/default.json
+intuned dev run api process-date .parameters/api/process-date/default.json
+intuned dev run api resolve-url .parameters/api/resolve-url/default.json
+intuned dev run api sanitize-html .parameters/api/sanitize-html/default.json
+intuned dev run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
+intuned dev run api scroll-to-load-content .parameters/api/scroll-to-load-content/default.json
+intuned dev run api upload-file-to-s3 .parameters/api/upload-file-to-s3/default.json
+intuned dev run api validate-data-using-schema .parameters/api/validate-data-using-schema/default.json
+intuned dev run api wait-for-dom-settled .parameters/api/wait-for-dom-settled/default.json
+intuned dev run api wait-for-network-settled .parameters/api/wait-for-network-settled/default.json
+intuned dev run api ai/extract-structured-data .parameters/api/ai/extract-structured-data/default.json
+intuned dev run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default.json
 ```
 
-### Deploy project
+### Save project
 
 ```bash
-uv run intuned deploy
+intuned dev provision
 ```
-<!-- IDE-IGNORE-END -->
 
-## Project Structure
+### Deploy
+
+```bash
+intuned dev deploy
+```
+
+## Project structure
 
 ```text
 /
-├── api/                          # Browser SDK helper examples
-│   ├── ai/                       # AI-powered helpers (requires API keys & credits)
-│   │   ├── extract-structured-data.py  # Extract structured data from content
-│   │   └── is-page-loaded.py           # Check if page is fully loaded
-│   ├── click-until-exhausted.py        # Click button until no more content
-│   ├── download-file.py                # Download files from URL or triggers
-│   ├── extract-markdown.py             # Convert HTML to markdown
-│   ├── filter-empty-values.py          # Remove empty values from data
-│   ├── go-to-url.py                    # Navigate to URLs with options
-│   ├── process-date.py                 # Parse various date formats
-│   ├── resolve-url.py                  # Resolve relative URLs
-│   ├── sanitize-html.py                # Clean and sanitize HTML
-│   ├── save-file-to-s3.py              # Save files to S3
-│   ├── scroll-to-load-content.py       # Scroll to load dynamic content
-│   ├── upload-file-to-s3.py            # Upload files to S3
-│   ├── validate-data-using-schema.py   # Validate data with Pydantic schemas
-│   ├── wait-for-dom-settled.py         # Wait for DOM to stabilize
-│   └── wait-for-network-settled.py     # Wait for network requests to settle
-├── .parameters/                  # Test parameters for APIs
-│   └── api/                      # API parameters folder
-│       ├── ai/                   # AI helpers parameters
-│       │   ├── extract-structured-data/
-│       │   │   └── default.json
-│       │   └── is-page-loaded/
-│       │       └── default.json
-│       ├── click-until-exhausted/
-│       │   └── default.json
-│       ├── download-file/
-│       │   └── default.json
-│       ├── extract-markdown/
-│       │   └── default.json
-│       ├── filter-empty-values/
-│       │   └── default.json
-│       ├── go-to-url/
-│       │   └── default.json
-│       ├── process-date/
-│       │   └── default.json
-│       ├── resolve-url/
-│       │   └── default.json
-│       ├── sanitize-html/
-│       │   └── default.json
-│       ├── save-file-to-s3/
-│       │   └── default.json
-│       ├── scroll-to-load-content/
-│       │   └── default.json
-│       ├── upload-file-to-s3/
-│       │   └── default.json
-│       ├── validate-data-using-schema/
-│       │   └── default.json
-│       ├── wait-for-dom-settled/
-│       │   └── default.json
-│       └── wait-for-network-settled/
-│           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-└── pyproject.toml                # Python project dependencies
+├── api/                                        # Browser SDK helper examples
+│   ├── ai/                                     # AI-powered helpers (requires project save)
+│   │   ├── extract-structured-data.py          # Extract structured data from content using AI
+│   │   └── is-page-loaded.py                   # Check if page is fully loaded using AI
+│   ├── click-until-exhausted.py                # Click button until no more content loads
+│   ├── download-file.py                        # Download files from URL or triggers
+│   ├── extract-markdown.py                     # Convert HTML to markdown
+│   ├── filter-empty-values.py                  # Remove empty values from data structures
+│   ├── go-to-url.py                            # Navigate to URLs with retry options
+│   ├── process-date.py                         # Parse various date formats
+│   ├── resolve-url.py                          # Resolve relative URLs to absolute
+│   ├── sanitize-html.py                        # Clean and sanitize HTML
+│   ├── save-file-to-s3.py                      # Save files to S3
+│   ├── scroll-to-load-content.py               # Scroll to load dynamic content
+│   ├── upload-file-to-s3.py                    # Upload files to S3
+│   ├── validate-data-using-schema.py           # Validate data with Pydantic schemas
+│   ├── wait-for-dom-settled.py                 # Wait for DOM mutations to stabilize
+│   └── wait-for-network-settled.py             # Wait for network requests to settle
+├── intuned-resources/
+│   └── jobs/                                   # Job definitions for each API
+├── .parameters/api/                            # Test parameters
+├── Intuned.jsonc                               # Project config
+├── pyproject.toml                              # Python dependencies
+└── README.md
 ```
 
 ## SDK Helpers Showcase
@@ -183,15 +166,12 @@ uv run intuned deploy
 
 ### AI-Powered Helpers
 
-**⚠️ Setup Required:** The AI helpers require workspace setup and project save (see Setup section above).
-
 - **extract-structured-data**: Extract structured data using AI from unstructured content
 - **is-page-loaded**: Use AI to determine if a page has finished loading
 
 ## Related
 
-For detailed documentation on each helper function, visit:
-
-- [Intuned Browser SDK - Python](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/)
-- [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned Browser SDK — Python helpers](https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
