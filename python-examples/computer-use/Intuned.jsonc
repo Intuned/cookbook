@@ -1,8 +1,8 @@
 // For more information, see our Intuned settings reference
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
-  // "workspaceId": "your-workspace-id", // Add your workspace ID here for local development
-  // "projectName": "your-project-name", // Add your project name here for local development
+  "workspaceId": "69d03bc7-04af-486f-bcaa-c4df1c364aa0", // Add your workspace ID here for local development
+  "projectName": "tst-computer-use", // Add your project name here for local development
   "apiAccess": {
     "enabled": true
   },

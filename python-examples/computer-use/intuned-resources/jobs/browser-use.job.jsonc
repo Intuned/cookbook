@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "browser-use",
+      "parameters": {
+        "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices"
+      }
+    }
+  ]
+}

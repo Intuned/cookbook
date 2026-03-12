@@ -1,223 +1,111 @@
-# Computer Use Automation
+# computer-use (TypeScript)
 
-AI-powered browser automation using computer use capabilities from multiple providers with Intuned's infrastructure.
+AI-powered browser automation using computer use capabilities from multiple providers.
 
-## Run on Intuned
-
-Open this project in Intuned by clicking the button below.
-
+<!-- IDE-IGNORE-START -->
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/computer-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
-
-## Overview
-
-This project demonstrates four different approaches to AI-powered browser automation:
-
-### 1. Anthropic Computer Use
-
-Uses Claude's native computer use API with X/Y coordinate-based interactions and extended thinking capabilities.
-
-### 2. OpenAI Operator API
-
-Uses OpenAI's computer-use-preview model (Operator API) for autonomous browser control with X/Y coordinate-based interactions.
-
-### 3. Gemini Computer Use
-
-Uses Google's Gemini with Stagehand for computer use automation, leveraging Gemini's CUA capabilities with Stagehand's agent framework.
-
-### 4. Stagehand (Non-CUA)
-
-Stagehand agent without computer use API for traditional DOM-based automation.
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
-### Anthropic Computer Use (`api/anthropic-computer-use.ts`)
+| API | Description |
+| --- | ----------- |
+| `anthropic-computer-use` | Autonomous browser automation using Claude's native computer use API with X/Y coordinate-based interactions |
+| `openai-computer-use` | Autonomous browser automation using OpenAI's computer-use-preview model (Operator API) |
+| `gemini-computer-use` | Browser automation using Google Gemini with Stagehand's CUA (Computer Use API) framework |
+| `stagehand` | DOM-based browser automation using the Stagehand library without computer use |
 
-Claude-powered automation using native computer use tools.
+### Provider Notes
 
-**Parameters**:
+**Anthropic Computer Use** — Uses Claude's native computer use tools. Requires Intuned's AI gateway (no separate API key needed).
 
-```typescript
-{
-  query: string;  // The task you want the AI to perform
-}
+**OpenAI Operator API** — Uses `computer-use-preview` model via OpenAI's Responses API. Requires Intuned's AI gateway.
+
+**Gemini Computer Use** — Uses `@browserbasehq/stagehand` with Gemini's CUA capabilities. Requires `GEMINI_API_KEY`:
+
+```bash
+export GEMINI_API_KEY=your_gemini_api_key
 ```
 
-### OpenAI Operator API (`api/openai-computer-use.ts`)
+**Stagehand** — Uses `@browserbasehq/stagehand` for DOM-based agentic automation. Requires Intuned's AI gateway.
 
-OpenAI's Operator model for autonomous browser control.
-
-**Parameters**:
-
-```typescript
-{
-  query: string;  // The task you want the AI to perform
-}
-```
-
-### Gemini Computer Use (`api/gemini-computer-use.ts`)
-
-Google's Gemini with Stagehand for enhanced computer use automation.
-
-**Parameters**:
-
-```typescript
-{
-  query: string;  // The task you want the AI to perform
-}
-```
-
-### Stagehand (`api/stagehand.ts`)
-
-Stagehand agent without computer use API for traditional DOM-based automation.
-
-**Parameters**:
-
-```typescript
-{
-  query: string;  // The task you want the AI to perform
-}
-```
-
-## How It Works
-
-### Anthropic & OpenAI Implementations
-
-Both use native computer use APIs that operate with X/Y coordinates to control the browser, mimicking human computer interaction. They capture screenshots, decide on actions, and execute mouse/keyboard commands.
-
-### Gemini Implementation
-
-Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer Use API) with Stagehand's agent framework for enhanced automation.
-
-### Stagehand Implementation
-
-Uses the Stagehand library which provides DOM-based automation with built-in tools for common browser tasks.
-
+<!-- IDE-IGNORE-START -->
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the:
-
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Install Dependencies
+### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
-yarn install
+# or
+yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
-### Environment Variables
-
-The Gemini Computer Use implementation requires `GEMINI_API_KEY`:
+If the `intuned` CLI is not installed, install it globally:
 
 ```bash
-export GEMINI_API_KEY=your_api_key_here
+npm install -g @intuned/cli
 ```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# Anthropic Computer Use
-# npm
-npm run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+intuned dev run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+```
 
-# yarn
-yarn intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+```bash
+intuned dev run api openai-computer-use .parameters/api/openai-computer-use/default.json
+```
 
-# OpenAI Operator API
-# npm
-npm run intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
+```bash
+intuned dev run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
+```
 
-# yarn
-yarn intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
-
-# Gemini Computer Use
-# npm
-npm run intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
-
-# yarn
-yarn intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
-
-# Stagehand
-# npm
-npm run intuned run api stagehand .parameters/api/stagehand/default.json
-
-# yarn
-yarn intuned run api stagehand .parameters/api/stagehand/default.json
+```bash
+intuned dev run api stagehand .parameters/api/stagehand/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Deploy to Intuned
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project Structure
 
-```text
-/
+```
 ├── api/
-│   ├── anthropic-computer-use.ts   # Anthropic Claude computer use
-│   ├── openai-computer-use.ts      # OpenAI Operator API
-│   ├── gemini-computer-use.ts      # Gemini with Stagehand
-│   └── stagehand.ts                # Stagehand without CUA
+│   ├── anthropic-computer-use.ts        # Anthropic Claude computer use
+│   ├── openai-computer-use.ts           # OpenAI Operator API
+│   ├── gemini-computer-use.ts           # Gemini with Stagehand CUA
+│   └── stagehand.ts                     # Stagehand without CUA
 ├── hooks/
-│   └── setupContext.ts             # Setup hook for Stagehand and Gemini
-├── .parameters/api/                # Parameter files for each API
-│   ├── anthropic-computer-use/
-│   │   └── default.json
-│   ├── openai-computer-use/
-│   │   └── default.json
-│   ├── gemini-computer-use/
-│   │   └── default.json
-│   └── stagehand/
-│       └── default.json
-├── lib/                            # Shared libraries for Anthropic and OpenAI
-│   ├── anthropic/                  # Anthropic computer use implementation
-│   └── openai/                     # OpenAI computer use implementation
-├── package.json                    # Dependencies
-├── tsconfig.json                   # TypeScript configuration
-└── Intuned.jsonc                   # Intuned configuration
+│   └── setupContext.ts                  # Sets up Stagehand context
+├── lib/
+│   ├── anthropic/                       # Anthropic CUA tools and sampling loop
+│   └── openai/                         # OpenAI CUA agent and computer helpers
+├── intuned-resources/
+│   └── jobs/
+│       ├── anthropic-computer-use.job.jsonc
+│       ├── openai-computer-use.job.jsonc
+│       ├── gemini-computer-use.job.jsonc
+│       └── stagehand.job.jsonc
+├── .parameters/api/                     # Default parameter files for each API
+├── Intuned.jsonc
+├── package.json
+└── README.md
 ```
 
-### `@intuned/browser`: Intuned Browser SDK
+## Related
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-## Learn More
-
-- **Intuned Documentation**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
-- **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
-- **OpenAI Operator API**: <https://platform.openai.com/docs/>
-- **Stagehand Documentation**: <https://docs.stagehand.dev/>
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
-
-## Acknowledgments
-
-The Anthropic and OpenAI implementations were built using templates from [create-kernel-app](https://github.com/onkernel/create-kernel-app).
