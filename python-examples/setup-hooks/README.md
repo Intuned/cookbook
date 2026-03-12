@@ -1,13 +1,21 @@
-# setup-hooks Intuned project
+# Setup Hooks (Python)
 
-Example demonstrating how to use setup hooks in Intuned to prepare data and configuration before your API executes
+Demonstrates how to use setup hooks to prepare data and configuration before API execution.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/setup-hooks" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `demo-hook` | Demonstrates how setup hook data is passed to and used within an API handler |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
@@ -35,33 +43,30 @@ intuned dev run api demo-hook .parameters/api/demo-hook/default.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
+├── api/
 │   └── demo-hook.py          # Demo API showing hook data usage
-├── hooks/                    # Setup hooks executed before API runs
-│   └── setup_context.py      # Main setup hook
-├── utils/                    # Utility functions and schemas
+├── hooks/
+│   └── setup_context.py      # Main setup hook executed before API runs
+├── utils/
 │   └── types_and_schemas.py  # Pydantic models and type definitions
 ├── intuned-resources/
 │   └── jobs/
 │       └── demo-hook.job.jsonc  # Job definition for demo-hook API
-├── .parameters/              # Parameter files for testing APIs
-│   └── api/                  # API parameters folder
-│       └── demo-hook/        # Parameters for demo API
-│           └── default.json  # Default parameters
-└── Intuned.jsonc             # Intuned project configuration file
+├── .parameters/api/          # Test parameters
+├── Intuned.jsonc             # Project config
+├── pyproject.toml            # Python dependencies
+└── README.md
 ```
 
 ## Related

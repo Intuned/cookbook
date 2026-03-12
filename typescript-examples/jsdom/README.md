@@ -1,13 +1,22 @@
-# jsdom Intuned project
+# JSDOM (TypeScript)
 
-E-commerce scraper using JSDOM for HTML parsing to extract product listings and details with pagination support.
+Web scraping example using JSDOM for HTML parsing.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
+
+Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/jsdom" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `list` | Scrapes product listings with pagination using JSDOM. Extracts product title, price, and URL, then calls `extendPayload` to trigger `details` for each product |
+| `details` | Extracts detailed product information (description, SKU, category, sizes, colors, images) from individual product pages using JSDOM |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
@@ -28,10 +37,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 ```bash
-# List products with pagination
 intuned dev run api list .parameters/api/list/default.json
-
-# Get product details
 intuned dev run api details .parameters/api/details/default.json
 ```
 
@@ -41,36 +47,31 @@ intuned dev run api details .parameters/api/details/default.json
 intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
 intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
-│   ├── list.ts               # API to scrape product listings with pagination
-│   └── details.ts            # API to extract detailed product information
+├── api/
+│   ├── list.ts               # Scrape product listings with pagination
+│   └── details.ts            # Extract detailed product information
 ├── utils/
 │   └── typesAndSchemas.ts    # Zod schemas and TypeScript interfaces
 ├── intuned-resources/
 │   └── jobs/
 │       ├── list.job.jsonc    # Job for product list
 │       └── details.job.jsonc # Job for product details
-├── .parameters/api/          # Parameter files for testing
-├── package.json              # Typescript project dependencies
-└── Intuned.jsonc             # Intuned project configuration file
+├── .parameters/api/          # Test parameters
+├── Intuned.jsonc             # Project config
+├── package.json              # Node.js dependencies
+└── README.md
 ```
-
-### How It Works
-
-1. **list.ts** - Navigates to the listing page, extracts product title, price, and URL using JSDOM, follows pagination links, and calls `extendPayload` to send each product to the details API.
-
-2. **details.ts** - Receives product data from list API, navigates to the product page, and extracts additional details (description, SKU, category, sizes, colors, images).
 
 ## Related
 
