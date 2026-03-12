@@ -2,11 +2,11 @@
 
 A simple, library-free web crawler demonstrating Intuned's `extendPayload` and `persistentStore` features for parallel crawling with deduplication.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/native-crawler" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## Architecture
 
@@ -60,6 +60,10 @@ native-crawler/
 │   ├── index.ts
 │   ├── content.ts        # extractPageContent() - markdown extraction
 │   └── links.ts          # extractLinks() - link discovery + normalization
+├── intuned-resources/
+│   └── jobs/
+│       └── crawl.job.jsonc  # Job definition for crawl API
+├── .parameters/api/         # Parameter files for testing
 ├── Intuned.jsonc
 └── README.md
 ```
@@ -77,25 +81,45 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 | `max_pages` | number | 50 | Maximum total pages to process |
 | `depth` | number | 0 | Current depth (set internally by extendPayload) |
 
-## Usage
+<!-- IDE-IGNORE-START -->
+## Getting Started
 
-### Local Development
+### Install dependencies
 
 ```bash
-# Install dependencies
-# npm
 npm install
-
-# yarn
-yarn install
-
-# Run the crawler
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
+# or
+yarn
 ```
+
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
+### Run an API
+
+```bash
+intuned dev run api crawl .parameters/api/crawl/default.json
+```
+
+### Save project
+
+```bash
+intuned dev provision
+```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+<!-- IDE-IGNORE-END -->
+
+## Usage
 
 ### As a Job (Production)
 
@@ -145,11 +169,7 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 Then run:
 
 ```bash
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ### Download Attachments
@@ -169,11 +189,7 @@ Edit `.parameters/api/crawl/default.json`:
 Then run:
 
 ```bash
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils
@@ -200,7 +216,8 @@ The `persistentStore` uses these key patterns:
 
 ## Learn More
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
 - [Nested Scheduling / extendPayload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

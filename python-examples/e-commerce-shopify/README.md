@@ -13,11 +13,9 @@ Shopify store scraper to list all products and fetch detailed product informatio
 
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-shopify)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-shopify" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting Started
 
 ### Install dependencies
 
@@ -25,32 +23,32 @@ Shopify store scraper to list all products and fetch detailed product informatio
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-uv run intuned run api shopify-list .parameters/api/shopify-list/default.json
-uv run intuned run api shopify-details .parameters/api/shopify-details/default.json
+intuned dev run api shopify-list .parameters/api/shopify-list/default.json
+intuned dev run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -67,6 +65,10 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 ├── api/                      # API endpoints
 │   ├── shopify-list.py      # List all products from Shopify store
 │   └── shopify-details.py   # Get detailed product information
+├── intuned-resources/
+│   └── jobs/
+│       ├── shopify-list.job.jsonc    # Job for product list
+│       └── shopify-details.job.jsonc # Job for product details
 ├── Intuned.jsonc            # Intuned project configuration
 └── pyproject.toml           # Python project dependencies
 ```

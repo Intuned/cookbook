@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "demo-hook",
+      "parameters": {
+        "message": "Hello from Setup Hooks!"
+      }
+    }
+  ]
+}

@@ -2,9 +2,11 @@
 
 AI-powered browser automation using computer use capabilities from multiple providers with Intuned's infrastructure.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/computer-use)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/computer-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## Overview
 
@@ -68,74 +70,59 @@ Uses the Browser Use library which provides DOM-based automation with built-in t
 
 ## Getting Started
 
-**Important:** This project uses AI-powered computer use capabilities (Anthropic, OpenAI, Gemini, and Browser Use) that require Intuned's AI gateway. The AI gateway requires the project to be saved before running.
+<!-- IDE-IGNORE-START -->
+## Getting Started
 
-### Setup
-
-To run this example locally, you need to set up your Intuned workspace:
-
-1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
-
-2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
-
-3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
-
-   ```jsonc
-   {
-     "workspaceId": "your-workspace-id",
-     "projectName": "your-project-name"
-     // ... rest of config
-   }
-   ```
-
-4. **Set environment variables**:
-
-   ```bash
-   export INTUNED_API_KEY=your-api-key
-   
-   # For Gemini Computer Use implementation
-   export GEMINI_API_KEY=your-gemini-api-key
-   ```
-
-### Install Dependencies
+### Install dependencies
 
 ```bash
 uv sync
 ```
 
-### Initialize Project
-
-Run the save command to upload your project and set up the required `.env` file:
+If the `intuned` CLI is not installed, install it globally:
 
 ```bash
-uv run intuned provision
+npm install -g @intuned/cli
 ```
 
-This configures your local environment and prepares the AI gateway for running computer use automations.
+After installing dependencies, `intuned` command should be available in your environment.
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+### Environment Variables
+
+For Gemini Computer Use:
+
+```bash
+export GEMINI_API_KEY=your-gemini-api-key
+```
 
 ### Run an API
 
 ```bash
 # Anthropic Computer Use
-uv run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+intuned dev run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
 
 # OpenAI Operator API
-uv run intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
+intuned dev run api openai-computer-use .parameters/api/openai-computer-use/default.json
 
 # Gemini Computer Use
-uv run intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
+intuned dev run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
 
 # Browser Use
-uv run intuned run api browser-use .parameters/api/browser-use/default.json
+intuned dev run api browser-use .parameters/api/browser-use/default.json
 ```
 
-### Deploy to Intuned
+### Save project
 
 ```bash
-uv run intuned deploy
+intuned dev provision
 ```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+<!-- IDE-IGNORE-END -->
 
 ## Project Structure
 
@@ -158,13 +145,20 @@ uv run intuned deploy
 │   └── browser-use/
 │       └── default.json
 ├── lib/                            # Shared libraries for Anthropic and OpenAI
+├── intuned-resources/
+│   └── jobs/
+│       ├── anthropic-computer-use.job.jsonc  # Job for Anthropic computer use
+│       ├── openai-computer-use.job.jsonc     # Job for OpenAI computer use
+│       ├── gemini-computer-use.job.jsonc     # Job for Gemini computer use
+│       └── browser-use.job.jsonc             # Job for Browser Use
 ├── pyproject.toml                  # Dependencies
 └── Intuned.jsonc                   # Intuned configuration
 ```
 
 ## Learn More
 
-- **Intuned Documentation**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
 - **OpenAI Operator API**: <https://platform.openai.com/docs/>
 - **Stagehand Documentation**: <https://docs.stagehand.dev/>

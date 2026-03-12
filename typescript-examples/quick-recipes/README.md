@@ -5,87 +5,52 @@ Ready-to-run Intuned API examples for common browser automation patterns. Each r
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/quick-recipes" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
+<!-- IDE-IGNORE-START -->
 ## Getting Started
-
-To get started developing browser automation projects with Intuned, check out the
-
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
 
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned -- run api download-file .parameters/api/download-file/default.json
-npm run intuned -- run api pagination .parameters/api/pagination/default.json
-npm run intuned -- run api upload-to-s3 .parameters/api/upload-to-s3/default.json
-npm run intuned -- run api capture-screenshots .parameters/api/capture-screenshots/default.json
-npm run intuned -- run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
-npm run intuned -- run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
-npm run intuned -- run api handle-long-run .parameters/api/handle-long-run/default.json
-npm run intuned -- run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
-
-
-# yarn
-yarn intuned run api download-file .parameters/api/download-file/default.json
-yarn intuned run api pagination .parameters/api/pagination/default.json
-yarn intuned run api upload-to-s3 .parameters/api/upload-to-s3/default.json
-yarn intuned run api capture-screenshots .parameters/api/capture-screenshots/default.json
-yarn intuned run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
-yarn intuned run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
-yarn intuned run api handle-long-run .parameters/api/handle-long-run/default.json
-yarn intuned run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
-
+intuned dev run api download-file .parameters/api/download-file/default.json
+intuned dev run api pagination .parameters/api/pagination/default.json
+intuned dev run api upload-to-s3 .parameters/api/upload-to-s3/default.json
+intuned dev run api capture-screenshots .parameters/api/capture-screenshots/default.json
+intuned dev run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
+intuned dev run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
+intuned dev run api handle-long-run .parameters/api/handle-long-run/default.json
+intuned dev run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -122,10 +87,11 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 │       └── scrape-without-selectors/
 │           └── default.json              
 │
+├── intuned-resources/
+│   └── jobs/                              # Job definitions for each API
 ├── Intuned.jsonc                          # Intuned project configuration
 ├── package.json                           # Node.js dependencies and scripts
 └── tsconfig.json                          # TypeScript compiler configuration
-
 ```
 
 ## APIs

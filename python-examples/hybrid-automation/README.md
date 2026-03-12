@@ -28,41 +28,9 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/hybrid-automation)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/hybrid-automation" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
-
-To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
-
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Setup
-
-**Important:** This template uses Intuned's AI gateway for AI-powered features (Stagehand and `extract_structured_data`). The AI gateway requires the project to be saved before running any APIs.
-
-To save the project to intuned, you need to set up your Intuned workspace:
-
-1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
-
-2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
-
-3. **Configure workspace ID** - Add your workspace ID to `Intuned.jsonc`:
-
-   ```jsonc
-   {
-     "workspaceId": "your-workspace-id",
-     "projectName": "your-project-name", // Will be used as the name of this project.
-     // ... rest of config
-   }
-   ```
-
-4. **Set environment variable** - Add your API key as an environment variable:
-
-   ```bash
-   export INTUNED_API_KEY=your-api-key
-   ```
 
 ### Install dependencies
 
@@ -70,37 +38,35 @@ To save the project to intuned, you need to set up your Intuned workspace:
 uv sync
 ```
 
-After installing dependencies, `intuned` command should be available in your environment.
-
-### Initialize project
-
-Run the save command to upload your project and set up the required `.env` file:
+If the `intuned` CLI is not installed, install it globally:
 
 ```bash
-uv run intuned provision
+npm install -g @intuned/cli
 ```
 
-This will configure your local environment and prepare the AI gateway for running.
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
-Now you're ready to run the APIs:
+```bash
+intuned dev run api rpa/fill-form .parameters/api/rpa/fill-form/default.json
+intuned dev run api scraper/list .parameters/api/scraper/list/default.json
+intuned dev run api scraper/details .parameters/api/scraper/details/default.json
+intuned dev run api crawler/crawl .parameters/api/crawler/crawl/default.json
+intuned dev run api crawler/crawl .parameters/api/crawler/crawl/job-posting.json
+intuned dev run api crawler/crawl .parameters/api/crawler/crawl/not-lever.json
+```
+
+### Save project
 
 ```bash
-uv run intuned run api rpa/fill-form .parameters/api/rpa/fill-form/default.json
-uv run intuned run api scraper/list .parameters/api/scraper/list/default.json
-uv run intuned run api scraper/details .parameters/api/scraper/details/default.json
-uv run intuned run api crawler/crawl .parameters/api/crawler/crawl/default.json
-uv run intuned run api crawler/crawl .parameters/api/crawler/crawl/job-posting.json
-uv run intuned run api crawler/crawl .parameters/api/crawler/crawl/not-lever.json
+intuned dev provision
 ```
 
 ### Deploy project
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
 
 <!-- IDE-IGNORE-END -->
@@ -137,6 +103,15 @@ uv run intuned deploy
 │   └── setup_context.py          # CDP URL setup for Stagehand
 ├── utils/
 │   └── crawler/                  # Crawler utilities
+├── intuned-resources/
+│   └── jobs/
+│       ├── rpa/
+│       │   └── fill-form.job.jsonc      # Job for RPA form filling
+│       ├── scraper/
+│       │   ├── list.job.jsonc           # Job for product list scraping
+│       │   └── details.job.jsonc        # Job for product details
+│       └── crawler/
+│           └── crawl.job.jsonc          # Job for job board crawling
 ├── Intuned.jsonc                 # Intuned project configuration
 └── pyproject.toml                # Python project dependencies
 ```

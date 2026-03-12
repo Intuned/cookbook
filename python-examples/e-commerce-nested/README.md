@@ -13,11 +13,9 @@ E-commerce store scraper template for sites with category-based navigation. Scra
 
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-nested)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-nested" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting Started
 
 ### Install dependencies
 
@@ -25,33 +23,33 @@ E-commerce store scraper template for sites with category-based navigation. Scra
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-uv run intuned run api category .parameters/api/category/default.json
-uv run intuned run api list .parameters/api/list/default.json
-uv run intuned run api details .parameters/api/details/default.json
+intuned dev run api category .parameters/api/category/default.json
+intuned dev run api list .parameters/api/list/default.json
+intuned dev run api details .parameters/api/details/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -73,6 +71,11 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 │   └── details.py        # Extract detailed product info
 ├── utils/                            # Utility modules
 │   └── types_and_schemas.py         # Type definitions and Pydantic models
+├── intuned-resources/
+│   └── jobs/
+│       ├── category.job.jsonc       # Job for category scraping
+│       ├── list.job.jsonc           # Job for product list
+│       └── details.job.jsonc        # Job for product details
 ├── Intuned.jsonc                    # Intuned project configuration
 └── pyproject.toml                   # Python project dependencies
 ```

@@ -5,21 +5,11 @@ Ready-to-run Intuned API examples for common browser automation patterns. Each r
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/quick-recipes" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
+<!-- IDE-IGNORE-START -->
 ## Getting Started
-
-To get started developing browser automation projects with Intuned, check out the
-
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
 
 ### Install dependencies
 
@@ -27,39 +17,38 @@ To get started developing browser automation projects with Intuned, check out th
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-uv run intuned run api download-file .parameters/api/download-file/default.json
-uv run intuned run api pagination .parameters/api/pagination/default.json
-uv run intuned run api upload-to-s3 .parameters/api/upload-to-s3/default.json
-uv run intuned run api capture-screenshots .parameters/api/capture-screenshots/default.json
-uv run intuned run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
-uv run intuned run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
-uv run intuned run api handle-long-run .parameters/api/handle-long-run/default.json
-uv run intuned run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
-
+intuned dev run api download-file .parameters/api/download-file/default.json
+intuned dev run api pagination .parameters/api/pagination/default.json
+intuned dev run api upload-to-s3 .parameters/api/upload-to-s3/default.json
+intuned dev run api capture-screenshots .parameters/api/capture-screenshots/default.json
+intuned dev run api handle-load-more-button .parameters/api/handle-load-more-button/default.json
+intuned dev run api infinite-scrolling .parameters/api/infinite-scrolling/default.json
+intuned dev run api handle-long-run .parameters/api/handle-long-run/default.json
+intuned dev run api scrape-without-selectors .parameters/api/scrape-without-selectors/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 ### Deploy project
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -96,8 +85,10 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 │       └── scrape-without-selectors/
 │           └── default.json               
 │
+├── intuned-resources/
+│   └── jobs/                              # Job definitions for each API
 ├── Intuned.jsonc                          # Intuned project configuration
-└── pyproject.toml                         # Python project dependencies 
+└── pyproject.toml                         # Python project dependencies
 ```
 
 ## APIs

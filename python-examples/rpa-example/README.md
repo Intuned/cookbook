@@ -20,42 +20,44 @@ This example demonstrates basic RPA (Robotic Process Automation) workflows:
 <!-- IDE-IGNORE-START -->
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
-
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
-
 ### Install Dependencies
 
 ```bash
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
 ### Run an API
 
 ```bash
 # Book consultations with different topics
-uv run intuned run api book-consultations .parameters/api/book-consultations/default.json
-uv run intuned run api book-consultations .parameters/api/book-consultations/automation-consultation.json
-uv run intuned run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json
-uv run intuned run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json
-uv run intuned run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json
+intuned dev run api book-consultations .parameters/api/book-consultations/default.json
+intuned dev run api book-consultations .parameters/api/book-consultations/automation-consultation.json
+intuned dev run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json
+intuned dev run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json
+intuned dev run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json
 
 # Get consultations by email
-uv run intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
+intuned dev run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
 ### Deploy to Intuned
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
@@ -82,6 +84,10 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 │           └── default.json                        # Get consultations query
 ├── utils/
 │   └── types_and_schemas.py           # Type definitions and schemas
+├── intuned-resources/
+│   └── jobs/
+│       ├── book-consultations.job.jsonc         # Job for booking consultations
+│       └── get-consultations-by-email.job.jsonc # Job for getting consultations
 ├── Intuned.jsonc                       # Intuned project configuration
 └── pyproject.toml                      # Python dependencies
 ```

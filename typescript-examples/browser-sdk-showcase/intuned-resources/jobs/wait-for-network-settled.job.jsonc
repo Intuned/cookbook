@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "wait-for-network-settled",
+      "parameters": {
+        "timeout": 30000,
+        "maxInflightRequests": 0
+      }
+    }
+  ]
+}

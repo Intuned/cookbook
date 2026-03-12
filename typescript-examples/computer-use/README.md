@@ -2,11 +2,11 @@
 
 AI-powered browser automation using computer use capabilities from multiple providers with Intuned's infrastructure.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/computer-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## Overview
 
@@ -92,29 +92,24 @@ Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer 
 
 Uses the Stagehand library which provides DOM-based automation with built-in tools for common browser tasks.
 
+<!-- IDE-IGNORE-START -->
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the:
-
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Install Dependencies
+### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
-yarn install
+# or
+yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Environment Variables
 
@@ -128,55 +123,30 @@ export GEMINI_API_KEY=your_api_key_here
 
 ```bash
 # Anthropic Computer Use
-# npm
-npm run intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
-
-# yarn
-yarn intuned run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
+intuned dev run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
 
 # OpenAI Operator API
-# npm
-npm run intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
-
-# yarn
-yarn intuned run api openai-computer-use .parameters/api/openai-computer-use/default.json
+intuned dev run api openai-computer-use .parameters/api/openai-computer-use/default.json
 
 # Gemini Computer Use
-# npm
-npm run intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
-
-# yarn
-yarn intuned run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
+intuned dev run api gemini-computer-use .parameters/api/gemini-computer-use/default.json
 
 # Stagehand
-# npm
-npm run intuned run api stagehand .parameters/api/stagehand/default.json
-
-# yarn
-yarn intuned run api stagehand .parameters/api/stagehand/default.json
+intuned dev run api stagehand .parameters/api/stagehand/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Deploy to Intuned
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project Structure
 
@@ -201,6 +171,12 @@ yarn intuned deploy
 ├── lib/                            # Shared libraries for Anthropic and OpenAI
 │   ├── anthropic/                  # Anthropic computer use implementation
 │   └── openai/                     # OpenAI computer use implementation
+├── intuned-resources/
+│   └── jobs/
+│       ├── anthropic-computer-use.job.jsonc  # Job for Anthropic computer use
+│       ├── openai-computer-use.job.jsonc     # Job for OpenAI computer use
+│       ├── gemini-computer-use.job.jsonc     # Job for Gemini computer use
+│       └── stagehand.job.jsonc               # Job for Stagehand
 ├── package.json                    # Dependencies
 ├── tsconfig.json                   # TypeScript configuration
 └── Intuned.jsonc                   # Intuned configuration
@@ -212,7 +188,8 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ## Learn More
 
-- **Intuned Documentation**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
 - **OpenAI Operator API**: <https://platform.openai.com/docs/>
 - **Stagehand Documentation**: <https://docs.stagehand.dev/>

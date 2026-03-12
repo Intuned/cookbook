@@ -1,158 +1,106 @@
-# Auth with Email OTP
+# Auth with Email OTP (TypeScript)
 
 Authentication automation with email-based OTP verification using Resend for email inbox access.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/auth-with-email-otp)
+Open this project in Intuned by clicking the button below.
 
-## Getting Started
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/auth-with-email-otp" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
+## APIs
 
-## Development
+| API | Description |
+| --- | ----------- |
+| `list-contracts` | List contracts for the authenticated user |
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
-
-### Prerequisites
-
-**Important:** This example uses [Resend](https://resend.com) for email-based OTP verification. You'll need:
-
-1. **Resend Account** - Sign up at [resend.com](https://resend.com) to get an API key
-2. **Resend API Key** - Generate an API key from your Resend dashboard
-3. **Set Environment Variable**:
-
-   ```bash
-   export RESEND_API_KEY=your-resend-api-key
-   ```
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Save project
-
-```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
-```
-
-### Deploy project
-
-```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
-
-```
-
-## Auth Sessions
-
-This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).  
-
-### Create a new auth session
-
-```bash
-# npm
-npm run intuned run authsession create .parameters/auth-sessions/create/default.json
-
-# yarn
-yarn intuned run authsession create .parameters/auth-sessions/create/default.json
-```
-
-### Update an existing auth session
-
-```bash
-# npm
-npm run intuned run authsession update <auth-session-id>
-
-# yarn
-yarn intuned run authsession update <auth-session-id>
-```
-
-### Validate an auth session
-
-```bash
-# npm
-npm run intuned run authsession validate <auth-session-id>
-
-# yarn
-yarn intuned run authsession validate <auth-session-id>
-```
+> **Note:** This example requires a [Resend](https://resend.com) account and API key. Set the `RESEND_API_KEY` environment variable before running.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
-
-# yarn
-yarn intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+intuned dev run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
 ```
 
-### `@intuned/browser`: Intuned Browser SDK
+### Auth Sessions
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+```bash
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
-<!-- IDE-IGNORE-END -->
+# Validate
+intuned dev run authsession validate test-auth-session
 
-## Project Structure
+# Update
+intuned dev run authsession update test-auth-session
+```
+
+### Save project
+
+```bash
+intuned dev provision
+```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+
+## Project structure
 
 ```text
 /
-├── api/                          # API endpoints
-│   └── list-contracts.ts         # List contracts for authenticated user
-├── auth-sessions/                # Auth session related APIs
-│   ├── check.ts                  # API to check if the auth session is still valid
-│   └── create.ts                 # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/      # Auth session instances created and used by the CLI
-│   └── test-auth-session/        # Example test auth session
-│       ├── auth-session.json     # Browser state (cookies, localStorage)
-│       └── metadata.json         # Auth session metadata
-├── utils/                        # Utility modules
-│   ├── resend.ts                 # Resend API integration for email OTP
-│   └── types-and-schemas.ts      # Type definitions and schemas
-├── .parameters/                  # Test parameters for APIs
-│   ├── api/                      # API parameters folder
-│   │   └── list-contracts/
-│   │       └── default.json
-│   └── auth-sessions/            # Auth session parameters
-│       ├── check/
-│       │   └── default.json
-│       └── create/
-│           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-├── package.json                  # Node.js project dependencies
-└── tsconfig.json                 # TypeScript configuration
+├── api/
+│   └── list-contracts.ts             # List contracts for authenticated user
+├── auth-sessions/
+│   ├── check.ts                      # Validates if the auth session is still active
+│   └── create.ts                     # Creates/recreates the auth session via email OTP
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── utils/
+│   ├── resend.ts                     # Resend API integration for email OTP
+│   └── types-and-schemas.ts          # Type definitions and schemas
+├── intuned-resources/
+│   ├── jobs/
+│   │   └── list-contracts.job.jsonc  # Job definition (payload, auth session)
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── package.json                       # Node.js dependencies
+└── README.md
 ```
 
 ## Environment Variables
 
-This project requires the following environment variables:
-
 | Variable | Description |
-|----------|-------------|
-| `RESEND_API_KEY` | Your Resend API key from [resend.com](https://resend.com) - Required for OTP email retrieval |
+| --- | ----------- |
+| `RESEND_API_KEY` | Your Resend API key from [resend.com](https://resend.com) — required for OTP email retrieval |
 
-## Learn More
+## Related
 
-- [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Intuned In-Depth](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

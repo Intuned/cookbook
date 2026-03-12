@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "map",
+      "parameters": {
+        "url": "https://docs.crawl4ai.com",
+        "sitemap": "only",
+        "limit": 100
+      }
+    }
+  ]
+}

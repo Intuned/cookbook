@@ -1,161 +1,93 @@
-# starter-auth Intuned project
+# Starter Auth (Python)
 
-Empty Intuned AuthSession session template.
+Empty Intuned Auth Session template — a starting point for building authenticated browser automations.
 
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/empty-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/starter-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
 
-To get started developing browser automation projects with Intuned, check out the
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
+| API | Description |
+| --- | ----------- |
+| `sample` | Sample API endpoint for authenticated automation |
 
-
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
+
 ```bash
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
-
-#### Run an API with Auth Session
-
-When AuthSessions are enabled, APIs require an AuthSession ID to run:
+### Run an API
 
 ```bash
-uv run intuned run api sample .parameters/api/sample/default.json --auth-session test-auth-session
+intuned dev run api sample .parameters/api/sample/default.json --auth-session test-auth-session
 ```
 
-### Deploy project
+### Auth Sessions
+
 ```bash
-uv run intuned deploy
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
+
+# Validate
+intuned dev run authsession validate test-auth-session
+
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
+### Save project
 
-## Auth Sessions
-
-This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
-
-### Create a new auth session
 ```bash
-uv run intuned run authsession create .parameters/auth-sessions/create/default.json
+intuned dev provision
 ```
 
-### Update an existing auth session
+### Deploy
+
 ```bash
-uv run intuned run authsession update <auth-session-id>
+intuned dev deploy
 ```
 
-### Validate an auth session
-```bash
-uv run intuned run authsession validate <auth-session-id>
-```
+## Project structure
 
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-
-
-
-## Project Structure
-The project structure is as follows:
-```
+```text
 /
-├── api/                      # Your API endpoints
-│   └── sample.py             # Sample API endpoint
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.py              # API to check if the auth session is still valid
-│   └── create.py             # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── Intuned.jsonc             # Intuned project configuration file
+├── api/
+│   └── sample.py                     # Sample API endpoint
+├── auth-sessions/
+│   ├── check.py                      # Validates if the auth session is still active
+│   └── create.py                     # Creates/recreates the auth session
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── intuned-resources/
+│   ├── jobs/
+│   │   └── sample.job.jsonc          # Job definition (payload, auth session)
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── pyproject.toml                     # Python dependencies
+└── README.md
 ```
 
+## Related
 
-## `Intuned.jsonc` Reference
-```jsonc
-{
-  // Your Intuned workspace ID.
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project.
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.py" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.py" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-
-## Learn More
-
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

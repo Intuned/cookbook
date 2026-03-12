@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "sanitize-html",
+      "parameters": {
+        "remove_styles": true,
+        "max_attribute_length": 30
+      }
+    }
+  ]
+}
