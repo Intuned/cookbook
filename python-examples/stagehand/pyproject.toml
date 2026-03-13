@@ -24,7 +24,7 @@ dependencies = [
     "anthropic~=0.75.0",
     "python-dateutil~=2.9.0",
     "httpx~=0.28.1",
-    "stagehand~=3.5.0",
+    "stagehand~=3.6.0",
 ]
 
 [tool.uv]
