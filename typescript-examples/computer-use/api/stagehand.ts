@@ -8,6 +8,9 @@ interface Params {
 }
 
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  if (!cdpUrl) {
+    throw new Error("CDP URL is not available. Make sure the browser is running and the setupContext hook is configured.");
+  }
   if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
     return cdpUrl;
   }
@@ -21,7 +24,7 @@ async function getWebSocketUrl(cdpUrl: string): Promise<string> {
 
 export default async function handler(
   params: Params,
-  page: Page,
+  _page: Page,
   _context: BrowserContext,
 ) {
   const { query } = params;
@@ -30,8 +33,13 @@ export default async function handler(
     throw new Error('Query is required');
   }
 
-  // Get AI gateway config for Stagehand
+  // Get AI gateway config for Stagehand (requires running "intuned dev provision" first)
   const { baseUrl, apiKey } = await getAiGatewayConfig();
+  if (!baseUrl || !apiKey) {
+    throw new Error(
+      "AI gateway config is missing. Run 'intuned dev provision' first to configure the project and AI gateway for local runs."
+    );
+  }
   const cdpUrl = attemptStore.get("cdpUrl") as string;
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
@@ -64,6 +72,11 @@ export default async function handler(
     const agent = stagehand.agent({
       cua: false, // Non-CUA agent using DOM-based automation
       systemPrompt: "You are a helpful assistant that can use a web browser to complete tasks.",
+      model: {
+        modelName: "openai/gpt-5-mini",
+        apiKey,
+        baseURL: baseUrl,
+      },
     });
 
     // Agent runs on current page
