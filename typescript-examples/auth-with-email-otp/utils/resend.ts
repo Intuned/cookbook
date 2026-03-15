@@ -32,9 +32,9 @@ function isEmailRecent(createdAt: string, maxAgeSeconds: number = 30): boolean {
 }
 
 /**
- * Gets the most recent email from the list
+ * Gets the most recent email from the list, optionally filtered by recipient
  */
-async function getLatestEmail() {
+async function getLatestEmail(recipient?: string) {
   const emails = await resend.emails.receiving.list({
     limit: 1,
   });
@@ -43,7 +43,28 @@ async function getLatestEmail() {
     throw new Error("No emails found");
   }
 
-  return emails.data.data[0];
+  let data = emails.data.data;
+
+  if (recipient) {
+    data = data.filter((email) => {
+      const to: string | string[] = email.to as string | string[];
+      if (Array.isArray(to)) {
+        return to.some((addr) =>
+          addr.toLowerCase().includes(recipient.toLowerCase())
+        );
+      }
+      if (typeof to === "string") {
+        return to.toLowerCase().includes(recipient.toLowerCase());
+      }
+      return false;
+    });
+
+    if (data.length === 0) {
+      throw new Error(`No emails found for recipient ${recipient}`);
+    }
+  }
+
+  return data[0];
 }
 
 /**
@@ -71,6 +92,7 @@ function sleep(ms: number): Promise<void> {
  * Retries for up to timeoutSeconds (default 30s) with polling intervals
  */
 export async function getRecentOTP(
+  recipient?: string,
   maxAgeSeconds: number = 30,
   timeoutSeconds: number = 30,
   pollingIntervalMs: number = 2000
@@ -84,8 +106,8 @@ export async function getRecentOTP(
     try {
       console.log(`Attempt ${attemptNumber}: Checking for OTP...`);
 
-      // Get the latest email
-      const latestEmail = await getLatestEmail();
+      // Get the latest email, filtered by recipient if provided
+      const latestEmail = await getLatestEmail(recipient);
 
       // Check if it's recent enough
       if (

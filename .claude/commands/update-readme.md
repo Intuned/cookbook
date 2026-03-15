@@ -216,3 +216,6 @@ If the project uses auth sessions, also add:
 - Do not include sections that don't apply (e.g. no Auth Sessions section if auth is disabled)
 - Do not include environment variable sections unless the project actually uses env vars
 - Keep the README concise — no filler paragraphs, no "Getting Started" preamble docs links
+- Keep any information that will help while updating the rest of sections to align with the template
+- Keep the references in the Related parts while adding the new ones
+- Do Not remove ide ignore

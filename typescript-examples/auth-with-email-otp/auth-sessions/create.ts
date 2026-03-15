@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { Page, BrowserContext } from "playwright";
+import type { z } from "zod";
+import type { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 import { RunError } from "@intuned/runtime";
 
@@ -11,7 +11,7 @@ type Params = z.infer<typeof createAuthSessionParams>;
 export default async function create(
   params: Params,
   page: Page,
-  context: BrowserContext
+  _context: BrowserContext
 ): Promise<void> {
   const validatedParams = createAuthSessionParams.safeParse(params);
   if (!validatedParams.success) {
@@ -37,9 +37,10 @@ export default async function create(
   const submitButton = page.locator("#submit-button");
   await submitButton.click();
 
-  // Step 5: Generate the OTP code using the secret
+  // Step 5: Wait for OTP input field to appear, then retrieve OTP from email
   const otpInput = page.locator("#otp-input");
-  const otpCode = await getRecentOTP();
+  await otpInput.waitFor({ state: "visible", timeout: 10_000 });
+  const otpCode = await getRecentOTP(username);
 
   if (!otpCode) {
     throw new RunError("Failed to extract OTP");
