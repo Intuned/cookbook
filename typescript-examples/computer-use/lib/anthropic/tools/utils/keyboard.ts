@@ -48,7 +48,7 @@ export class KeyboardUtils {
 
   static isModifierKey(key: string | undefined): boolean {
     if (!key) return false;
-    const normalizedKey = this.modifierKeyMap[key.toLowerCase()] || key;
+    const normalizedKey = KeyboardUtils.modifierKeyMap[key.toLowerCase()] || key;
     return ['Control', 'Alt', 'Shift', 'Meta'].includes(normalizedKey);
   }
 
@@ -60,13 +60,13 @@ export class KeyboardUtils {
     const normalizedKey = key.toLowerCase();
 
     // Handle special cases
-    if (normalizedKey in this.keyMap) {
-      return this.keyMap[normalizedKey] as string;
+    if (normalizedKey in KeyboardUtils.keyMap) {
+      return KeyboardUtils.keyMap[normalizedKey] as string;
     }
 
     // Normalize modifier keys
-    if (normalizedKey in this.modifierKeyMap) {
-      return this.modifierKeyMap[normalizedKey] as string;
+    if (normalizedKey in KeyboardUtils.modifierKeyMap) {
+      return KeyboardUtils.modifierKeyMap[normalizedKey] as string;
     }
 
     // Return the key as is - Playwright handles standard key names
@@ -82,7 +82,7 @@ export class KeyboardUtils {
       if (!trimmedKey) {
         throw new Error('Invalid key combination: empty key');
       }
-      return this.getPlaywrightKey(trimmedKey);
+      return KeyboardUtils.getPlaywrightKey(trimmedKey);
     });
   }
 }

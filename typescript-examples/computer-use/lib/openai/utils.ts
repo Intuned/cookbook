@@ -1,5 +1,5 @@
-import OpenAI from 'openai';
-import { type ResponseItem } from 'openai/resources/responses/responses.js';
+import type OpenAI from 'openai';
+import type { ResponseItem } from 'openai/resources/responses/responses.js';
 
 export function sanitizeMessage(msg: ResponseItem): ResponseItem {
   const sanitizedMsg = { ...msg } as ResponseItem;

@@ -5,10 +5,10 @@ import type { BetaMessageParam, BetaTextBlock } from './types/beta';
 import { ToolCollection, DEFAULT_TOOL_VERSION, TOOL_GROUPS_BY_VERSION, type ToolVersion } from './tools/collection';
 import { responseToParams, maybeFilterToNMostRecentImages, injectPromptCaching, PROMPT_CACHING_BETA_FLAG } from './utils/message-processing';
 import { makeApiToolResult } from './utils/tool-results';
-import { ComputerTool20241022, ComputerTool20250124 } from './tools/computer';
+import type { ComputerTool20241022, ComputerTool20250124 } from './tools/computer';
 import { BrowserTool } from './tools/browser';
 import type { ActionParams } from './types/computer';
-import { Action } from './types/computer';
+import type { Action } from './types/computer';
 
 // System prompt optimized for the environment
 const SYSTEM_PROMPT = `<SYSTEM_CAPABILITY>
