@@ -1,9 +1,9 @@
-import { BrowserContext, Page } from "playwright";
+import type { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 
-import { Contract } from "../utils/typesAndSchemas";
+import type { Contract } from "../utils/typesAndSchemas";
 
-interface Params {}
+type Params = Record<string, never>;
 
 async function extractContractsFromTable(page: Page): Promise<Contract[]> {
   // Wait for the table to be visible on the page
@@ -68,7 +68,6 @@ async function extractContractsFromTable(page: Page): Promise<Contract[]> {
     } catch (error) {
       // If extraction fails for a single row, log the error but continue with others
       console.error("Failed to extract contract data from row:", error);
-      continue;
     }
   }
 
@@ -76,9 +75,9 @@ async function extractContractsFromTable(page: Page): Promise<Contract[]> {
 }
 
 export default async function handler(
-  params: Params,
+  _params: Params,
   page: Page,
-  context: BrowserContext
+  _context: BrowserContext
 ): Promise<Contract[]> {
   // Navigate to the contracts list authentication page
   await goToUrl({
