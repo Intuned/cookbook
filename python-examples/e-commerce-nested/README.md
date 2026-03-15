@@ -1,23 +1,24 @@
-# e-commerce-nested Intuned project
+# E-Commerce Nested (Python)
 
-E-commerce store scraper template for sites with category-based navigation. Scrapes categories, product listings, and detailed product information.
-
-## Key Features
-
-- **Category-Based Navigation**: Automatically discovers and scrapes all product categories from store menus
-- **Three-Step Workflow**: Categories → Product Lists → Product Details using `extend_payload` chaining
-- **Dynamic API Chaining**: Each API automatically triggers the next step in the scraping workflow
-- **Comprehensive Product Data**: Extracts titles, prices, sizes, descriptions, shipping, and returns information
-
-<!-- IDE-IGNORE-START -->
+E-commerce category and product scraper.
 
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-nested)
+Open this project in Intuned by clicking the button below.
 
-## Development
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-nested" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extend_payload` |
+| `list` | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extend_payload` |
+| `details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
+
+<!-- IDE-IGNORE-START -->
+
+## Getting started
 
 ### Install dependencies
 
@@ -25,69 +26,67 @@ E-commerce store scraper template for sites with category-based navigation. Scra
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-uv run intuned run api category .parameters/api/category/default.json
-uv run intuned run api list .parameters/api/list/default.json
-uv run intuned run api details .parameters/api/details/default.json
+intuned dev run api category .parameters/api/category/default.json
+intuned dev run api list .parameters/api/list/default.json
+intuned dev run api details .parameters/api/details/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Deploy project
+### Deploy
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── .parameters/                      # Test parameters for APIs
-│   └── api/
-│       ├── category/
-│       │   └── default.json
-│       ├── list/
-│       │   └── default.json
-│       └── details/
-│           └── default.json
-├── api/                              # API endpoints
-│   ├── category.py       # Scrape category links from menu
-│   ├── list.py           # List products from category page
-│   └── details.py        # Extract detailed product info
-├── utils/                            # Utility modules
-│   └── types_and_schemas.py         # Type definitions and Pydantic models
-├── Intuned.jsonc                    # Intuned project configuration
-└── pyproject.toml                   # Python project dependencies
+├── api/
+│   ├── category.py                   # Scrapes category links from the store's main menu
+│   ├── list.py                       # Scrapes product listings from a category page
+│   └── details.py                    # Extracts detailed product info from a product page
+├── utils/
+│   └── types_and_schemas.py          # Type definitions and Pydantic models
+├── intuned-resources/
+│   └── jobs/
+│       ├── category.job.jsonc        # Job definition for category API
+│       ├── list.job.jsonc            # Job definition for list API
+│       └── details.job.jsonc         # Job definition for details API
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                     # Project config
+├── pyproject.toml                    # Python dependencies
+└── README.md
 ```
 
-## APIs
+## Key features
 
-| API        | Description                                                                                                                                               |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extend_payload` |
-| `list`     | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extend_payload`                          |
-| `details`  | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy                     |
+- **Category-based navigation**: Automatically discovers and scrapes all product categories from store menus
+- **Three-step workflow**: Categories → Product Lists → Product Details using `extend_payload` chaining
+- **Dynamic API chaining**: Each API automatically triggers the next step in the scraping workflow
+- **Comprehensive product data**: Extracts titles, prices, sizes, descriptions, shipping, and returns information
 
-## Learn More
+## Related
 
-- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
 - [extend_payload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload)

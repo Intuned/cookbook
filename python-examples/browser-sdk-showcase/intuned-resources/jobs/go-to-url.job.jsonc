@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "go-to-url",
+      "parameters": {
+        "timeout": 15,
+        "retries": 3
+      }
+    }
+  ]
+}

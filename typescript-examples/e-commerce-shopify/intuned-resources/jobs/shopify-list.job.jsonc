@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "shopify-list",
+      "parameters": {
+        "store_url": "https://goodfair1.myshopify.com/",
+        "maxPages": 10
+      }
+    }
+  ]
+}

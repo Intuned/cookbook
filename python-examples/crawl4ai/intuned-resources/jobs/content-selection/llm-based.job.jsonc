@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "content-selection/llm-based",
+      "parameters": {
+        "url": "https://news.ycombinator.com",
+        "provider": "openai/gpt-4o-mini"
+      }
+    }
+  ]
+}

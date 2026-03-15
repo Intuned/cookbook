@@ -1,4 +1,4 @@
-# native-crawler
+# Native Crawler (TypeScript)
 
 A simple, library-free web crawler demonstrating Intuned's `extendPayload` and `persistentStore` features for parallel crawling with deduplication.
 
@@ -50,25 +50,70 @@ Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript
                     └─────────────────────────────────────────────────┘
 ```
 
-## Project Structure
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `crawl` | Crawls a URL: extracts markdown content, discovers links, and queues them via `extendPayload` for parallel recursive crawling |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
+
+### Install dependencies
+
+```bash
+npm install
+# or
+yarn
+```
+
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
+### Run an API
+
+```bash
+intuned dev run api crawl .parameters/api/crawl/default.json
+```
+
+### Save project
+
+```bash
+intuned dev provision
+```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+<!-- IDE-IGNORE-END -->
+
+## Project structure
 
 ```text
-native-crawler/
+/
 ├── api/
 │   └── crawl.ts          # Main API: extract content + discover links + recurse
 ├── utils/
 │   ├── index.ts
 │   ├── content.ts        # extractPageContent() - markdown extraction
 │   └── links.ts          # extractLinks() - link discovery + normalization
+├── intuned-resources/
+│   └── jobs/
+│       └── crawl.job.jsonc  # Job definition for crawl API
+├── .parameters/api/         # Test parameters
 ├── Intuned.jsonc
+├── package.json
 └── README.md
 ```
 
-## API
-
-### `crawl`
-
-Crawls a URL: extracts content, discovers links, and queues them for further crawling.
+## API parameters
 
 | Parameter | Type | Default | Description |
 | ----------- | ------ | --------- | ------------- |
@@ -79,25 +124,7 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 
 ## Usage
 
-### Local Development
-
-```bash
-# Install dependencies
-# npm
-npm install
-
-# yarn
-yarn install
-
-# Run the crawler
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
-```
-
-### As a Job (Production)
+### As a job (production)
 
 When run as a job, `extendPayload` spawns parallel payloads and `persistentStore` deduplicates across all of them:
 
@@ -120,9 +147,7 @@ curl -X POST "https://api.intunedhq.com/projects/{project}/jobs" \
   }'
 ```
 
-### Structured Data Extraction (Schema)
-
-You can extract structured data instead of markdown by providing a generic JSON schema. This uses Intuned's AI extraction model.
+### Structured data extraction (schema)
 
 Edit `.parameters/api/crawl/default.json` to include a schema:
 
@@ -145,16 +170,10 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 Then run:
 
 ```bash
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
-### Download Attachments
-
-You can automatically find and download files (PDFs, images, etc.) to S3 by enabling `include_attachments`.
+### Download attachments
 
 Edit `.parameters/api/crawl/default.json`:
 
@@ -169,11 +188,7 @@ Edit `.parameters/api/crawl/default.json`:
 Then run:
 
 ```bash
-# npm
-npm run intuned run api crawl .parameters/api/crawl/default.json
-
-# yarn
-yarn intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils
@@ -188,7 +203,7 @@ yarn intuned run api crawl .parameters/api/crawl/default.json
 - `normalizeUrl(url)` — Normalize URL (remove fragments, trailing slashes)
 - `getBaseDomain(url)` — Extract domain from URL
 
-## Deduplication Keys
+## Deduplication keys
 
 The `persistentStore` uses these key patterns:
 
@@ -198,9 +213,10 @@ The `persistentStore` uses these key patterns:
 | `__page_count__` | Global counter for pages processed |
 | `__base_domain__` | Stored config: base domain for filtering |
 
-## Learn More
+## Related
 
-- [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
-- [Nested Scheduling / extendPayload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
+- [persistentStore Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

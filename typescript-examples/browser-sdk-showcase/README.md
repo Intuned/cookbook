@@ -1,152 +1,156 @@
-# Browser SDK Showcase
+# Browser SDK Showcase (TypeScript)
 
-A comprehensive collection of browser automation helper functions from the Intuned Browser SDK. This project demonstrates various utilities for web scraping, data processing, file handling, and AI-powered operations.
+Showcase of Intuned Browser SDK helper functions for common automation tasks.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/browser-sdk-showcase)
+Open this project in Intuned by clicking the button below.
 
-## Getting Started
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/browser-sdk-showcase" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-To get started developing browser automation projects with Intuned, check out our [Quick Starts Guide](https://docs.intunedhq.com/docs/00-getting-started/quickstarts).
+## APIs
 
-## Development
+| API | Description |
+| --- | ----------- |
+| `click-until-exhausted` | Click "Load More" buttons until all content is loaded |
+| `download-file` | Download files from URLs or user interactions |
+| `extract-markdown` | Convert HTML content to clean markdown |
+| `filter-empty-values` | Remove null/empty values from objects |
+| `go-to-url` | Navigate to URLs with advanced options |
+| `process-date` | Parse various date formats into standardized format |
+| `resolve-url` | Resolve relative URLs to absolute URLs |
+| `sanitize-html` | Clean and sanitize HTML content |
+| `save-file-to-s3` | Save content directly to S3 |
+| `scroll-to-load-content` | Scroll to trigger lazy-loaded content |
+| `upload-file-to-s3` | Upload files to S3 |
+| `validate-data-using-schema` | Validate data against Zod schemas |
+| `wait-for-dom-settled` | Wait for DOM mutations to stabilize |
+| `wait-for-network-settled` | Wait for all network requests to complete |
+| `ai/extract-structured-data` | Extract structured data using AI from unstructured content |
+| `ai/is-page-loaded` | Use AI to determine if a page has finished loading |
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+<!-- IDE-IGNORE-START -->
+## Getting started
 
-### Setup (Required for AI Helpers)
+### Install dependencies
 
-**Important:** The AI-powered helpers (`ai/extract-structured-data` and `ai/is-page-loaded`) use Intuned's AI gateway, which requires the project to be saved before running.
+```bash
+npm install
+# or
+yarn
+```
 
-If you plan to use the AI helpers, you need to set up your Intuned workspace:
+If the `intuned` CLI is not installed, install it globally:
 
-1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
+```bash
+npm install -g @intuned/cli
+```
 
-2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
+After installing dependencies, `intuned` command should be available in your environment.
 
-3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
+### Setup for AI helpers
+
+The `ai/extract-structured-data` and `ai/is-page-loaded` APIs use Intuned's AI gateway and require the project to be saved before running.
+
+1. Add your workspace ID and project name to `Intuned.jsonc`:
 
    ```jsonc
    {
      "workspaceId": "your-workspace-id",
      "projectName": "your-project-name"
-     // ... rest of config
    }
    ```
 
-4. **Set environment variable** - Add your API key as an environment variable:
+2. Set your Intuned API key:
 
    ```bash
    export INTUNED_API_KEY=your-api-key
    ```
 
-### Install dependencies
+3. Save the project:
 
-```bash
-# npm
-npm install
-
-# yarn
-yarn
-```
-
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
-
-After installing dependencies, `intuned` command should be available in your environment.
-
-### Initialize project (Required for AI Helpers)
-
-If you plan to use AI helpers, run the save command to upload your project and set up the required `.env` file:
-
-```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
-```
-
-This configures your local environment and prepares the AI gateway for running AI-powered helpers.
-
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+   ```bash
+   intuned dev provision
+   ```
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api click-until-exhausted .parameters/api/click-until-exhausted/default.json
-npm run intuned run api download-file .parameters/api/download-file/default.json
-npm run intuned run api extract-markdown .parameters/api/extract-markdown/default.json
-npm run intuned run api filter-empty-values .parameters/api/filter-empty-values/default.json
-npm run intuned run api go-to-url .parameters/api/go-to-url/default.json
-npm run intuned run api process-date .parameters/api/process-date/default.json
-npm run intuned run api resolve-url .parameters/api/resolve-url/default.json
-npm run intuned run api sanitize-html .parameters/api/sanitize-html/default.json
-npm run intuned run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
-npm run intuned run api scroll-to-load-content .parameters/api/scroll-to-load-content/default.json
-npm run intuned run api upload-file-to-s3 .parameters/api/upload-file-to-s3/default.json
-npm run intuned run api validate-data-using-schema .parameters/api/validate-data-using-schema/default.json
-npm run intuned run api wait-for-dom-settled .parameters/api/wait-for-dom-settled/default.json
-npm run intuned run api wait-for-network-settled .parameters/api/wait-for-network-settled/default.json
-npm run intuned run api ai/extract-structured-data .parameters/api/ai/extract-structured-data/default.json
-npm run intuned run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default.json
-
-# yarn
-yarn intuned run api click-until-exhausted .parameters/api/click-until-exhausted/default.json
-yarn intuned run api download-file .parameters/api/download-file/default.json
-yarn intuned run api extract-markdown .parameters/api/extract-markdown/default.json
-yarn intuned run api filter-empty-values .parameters/api/filter-empty-values/default.json
-yarn intuned run api go-to-url .parameters/api/go-to-url/default.json
-yarn intuned run api process-date .parameters/api/process-date/default.json
-yarn intuned run api resolve-url .parameters/api/resolve-url/default.json
-yarn intuned run api sanitize-html .parameters/api/sanitize-html/default.json
-yarn intuned run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
-yarn intuned run api scroll-to-load-content .parameters/api/scroll-to-load-content/default.json
-yarn intuned run api upload-file-to-s3 .parameters/api/upload-file-to-s3/default.json
-yarn intuned run api validate-data-using-schema .parameters/api/validate-data-using-schema/default.json
-yarn intuned run api wait-for-dom-settled .parameters/api/wait-for-dom-settled/default.json
-yarn intuned run api wait-for-network-settled .parameters/api/wait-for-network-settled/default.json
-yarn intuned run api ai/extract-structured-data .parameters/api/ai/extract-structured-data/default.json
-yarn intuned run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default.json
+intuned dev run api click-until-exhausted .parameters/api/click-until-exhausted/default.json
+intuned dev run api download-file .parameters/api/download-file/default.json
+intuned dev run api extract-markdown .parameters/api/extract-markdown/default.json
+intuned dev run api filter-empty-values .parameters/api/filter-empty-values/default.json
+intuned dev run api go-to-url .parameters/api/go-to-url/default.json
+intuned dev run api process-date .parameters/api/process-date/default.json
+intuned dev run api resolve-url .parameters/api/resolve-url/default.json
+intuned dev run api sanitize-html .parameters/api/sanitize-html/default.json
+intuned dev run api save-file-to-s3 .parameters/api/save-file-to-s3/default.json
+intuned dev run api scroll-to-load-content .parameters/api/scroll-to-load-content/default.json
+intuned dev run api upload-file-to-s3 .parameters/api/upload-file-to-s3/default.json
+intuned dev run api validate-data-using-schema .parameters/api/validate-data-using-schema/default.json
+intuned dev run api wait-for-dom-settled .parameters/api/wait-for-dom-settled/default.json
+intuned dev run api wait-for-network-settled .parameters/api/wait-for-network-settled/default.json
+intuned dev run api ai/extract-structured-data .parameters/api/ai/extract-structured-data/default.json
+intuned dev run api ai/is-page-loaded .parameters/api/ai/is-page-loaded/default.json
 ```
 
-### Deploy project
+### Save project
 
 ```bash
-# npm
-npm run intuned deploy
+intuned dev provision
+```
 
-# yarn
-yarn intuned deploy
+### Deploy
+
+```bash
+intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                          # Browser SDK helper examples
-│   ├── ai/                       # AI-powered helpers (requires API keys & credits)
-│   │   ├── extract-structured-data.ts  # Extract structured data from content
-│   │   └── is-page-loaded.ts           # Check if page is fully loaded
-│   ├── click-until-exhausted.ts        # Click button until no more content
-│   ├── download-file.ts                # Download files from URL or triggers
-│   ├── extract-markdown.ts             # Convert HTML to markdown
-│   ├── filter-empty-values.ts          # Remove empty values from data
-│   ├── go-to-url.ts                    # Navigate to URLs with options
-│   ├── process-date.ts                 # Parse various date formats
-│   ├── resolve-url.ts                  # Resolve relative URLs
-│   ├── sanitize-html.ts                # Clean and sanitize HTML
-│   ├── save-file-to-s3.ts              # Save files to S3
-│   ├── scroll-to-load-content.ts       # Scroll to load dynamic content
-│   ├── upload-file-to-s3.ts            # Upload files to S3
-│   ├── validate-data-using-schema.ts   # Validate data with JSON/Zod schemas
-│   ├── wait-for-dom-settled.ts         # Wait for DOM to stabilize
-│   └── wait-for-network-settled.ts     # Wait for network requests to settle
-├── .parameters/                  # Test parameters for APIs
-│   └── api/                      # API parameters folder
-│       ├── ai/                   # AI helpers parameters
+├── api/                                              # Browser SDK helper examples
+│   ├── ai/                                           # AI-powered helpers (requires project save)
+│   │   ├── extract-structured-data.ts               # Extract structured data using AI
+│   │   └── is-page-loaded.ts                        # Check if page is fully loaded using AI
+│   ├── click-until-exhausted.ts                     # Click button until no more content
+│   ├── download-file.ts                             # Download files from URL or triggers
+│   ├── extract-markdown.ts                          # Convert HTML to markdown
+│   ├── filter-empty-values.ts                       # Remove empty values from data
+│   ├── go-to-url.ts                                 # Navigate to URLs with options
+│   ├── process-date.ts                              # Parse various date formats
+│   ├── resolve-url.ts                               # Resolve relative URLs
+│   ├── sanitize-html.ts                             # Clean and sanitize HTML
+│   ├── save-file-to-s3.ts                           # Save files to S3
+│   ├── scroll-to-load-content.ts                    # Scroll to load dynamic content
+│   ├── upload-file-to-s3.ts                         # Upload files to S3
+│   ├── validate-data-using-schema.ts                # Validate data with Zod schemas
+│   ├── wait-for-dom-settled.ts                      # Wait for DOM to stabilize
+│   └── wait-for-network-settled.ts                  # Wait for network requests to settle
+├── intuned-resources/                               # Intuned platform resources
+│   └── jobs/                                        # Job configurations for each API
+│       ├── ai/
+│       │   ├── extract-structured-data.job.jsonc
+│       │   └── is-page-loaded.job.jsonc
+│       ├── click-until-exhausted.job.jsonc
+│       ├── download-file.job.jsonc
+│       ├── extract-markdown.job.jsonc
+│       ├── filter-empty-values.job.jsonc
+│       ├── go-to-url.job.jsonc
+│       ├── process-date.job.jsonc
+│       ├── resolve-url.job.jsonc
+│       ├── sanitize-html.job.jsonc
+│       ├── save-file-to-s3.job.jsonc
+│       ├── scroll-to-load-content.job.jsonc
+│       ├── upload-file-to-s3.job.jsonc
+│       ├── validate-data-using-schema.job.jsonc
+│       ├── wait-for-dom-settled.job.jsonc
+│       └── wait-for-network-settled.job.jsonc
+├── .parameters/                                     # Test parameters for APIs
+│   └── api/                                         # API parameters folder
+│       ├── ai/                                      # AI helpers parameters
 │       │   ├── extract-structured-data/
 │       │   │   └── default.json
 │       │   └── is-page-loaded/
@@ -179,9 +183,9 @@ yarn intuned deploy
 │       │   └── default.json
 │       └── wait-for-network-settled/
 │           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-├── package.json                  # Node.js project dependencies
-└── tsconfig.json                 # TypeScript configuration
+├── Intuned.jsonc                                    # Intuned project configuration file
+├── package.json                                     # Node.js project dependencies
+└── tsconfig.json                                    # TypeScript configuration
 ```
 
 ## SDK Helpers Showcase
@@ -202,7 +206,7 @@ yarn intuned deploy
 - **extract-markdown**: Convert HTML content to clean markdown
 - **sanitize-html**: Clean and sanitize HTML content
 - **filter-empty-values**: Remove null/empty values from objects
-- **validate-data-using-schema**: Validate data against JSON/Zod schemas
+- **validate-data-using-schema**: Validate data against Zod schemas
 
 ### File Operations
 
@@ -217,15 +221,14 @@ yarn intuned deploy
 
 ### AI-Powered Helpers
 
-**⚠️ Setup Required:** The AI helpers require workspace setup and project save (see Setup section above).
+**Setup Required:** The AI helpers require workspace setup and project save (see Setup for AI helpers section above).
 
 - **extract-structured-data**: Extract structured data using AI from unstructured content
 - **is-page-loaded**: Use AI to determine if a page has finished loading
 
-## Learn More
+## Related
 
-For detailed documentation on each helper function, visit:
-
-- [Intuned Browser SDK - TypeScript](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/)
-- [Browser SDK Overview](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned Browser SDK — TypeScript helpers](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

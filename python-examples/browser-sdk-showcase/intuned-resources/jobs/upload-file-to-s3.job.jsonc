@@ -1,0 +1,14 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "upload-file-to-s3",
+      "parameters": {}
+    }
+  ]
+}

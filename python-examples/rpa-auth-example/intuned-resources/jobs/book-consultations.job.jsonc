@@ -1,0 +1,22 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "book-consultations",
+      "parameters": {
+        "name": "John Smith",
+        "email": "john.smith@example.com",
+        "phone": "+1-555-0123",
+        "date": "2024-12-25",
+        "time": "14:30",
+        "topic": "web-scraping"
+      }
+    }
+  ],
+  "auth_session": { "id": "test-auth-session" }
+}

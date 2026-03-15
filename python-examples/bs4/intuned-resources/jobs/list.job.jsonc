@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "list",
+      "parameters": {
+        "url": "https://www.scrapingcourse.com/ecommerce/",
+        "max_pages": 2
+      }
+    }
+  ]
+}

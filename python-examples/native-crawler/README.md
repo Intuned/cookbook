@@ -1,12 +1,12 @@
-# native-crawler
+# Native Crawler (Python)
 
 A simple, library-free web crawler demonstrating Intuned's `extend_payload` and `persistent_store` features for parallel crawling with deduplication.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/native-crawler" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## Architecture
 
@@ -60,6 +60,10 @@ native-crawler/
 │   ├── __init__.py
 │   ├── content.py        # extract_page_content() - markdown extraction
 │   └── links.py          # extract_links() - link discovery + normalization
+├── intuned-resources/
+│   └── jobs/
+│       └── crawl.job.jsonc  # Job definition for crawl API
+├── .parameters/api/         # Parameter files for testing
 ├── Intuned.jsonc
 └── README.md
 ```
@@ -77,17 +81,43 @@ Crawls a URL: extracts content, discovers links, and queues them for further cra
 | `max_pages` | int | 50 | Maximum total pages to process |
 | `depth` | int | 0 | Current depth (set internally by extend_payload) |
 
-## Usage
+<!-- IDE-IGNORE-START -->
+## Getting Started
 
-### Local Development
+### Install dependencies
 
 ```bash
-# Install dependencies
 uv sync
-
-# Run the crawler
-uv run intuned run api crawl .parameters/api/crawl/default.json
 ```
+
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
+### Run an API
+
+```bash
+intuned dev run api crawl .parameters/api/crawl/default.json
+```
+
+### Save project
+
+```bash
+intuned dev provision
+```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+<!-- IDE-IGNORE-END -->
+
+## Usage
 
 ### As a Job (Production)
 
@@ -137,7 +167,7 @@ Edit `.parameters/api/crawl/default.json` to include a schema:
 Then run:
 
 ```bash
-uv run intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ### Download Attachments
@@ -157,7 +187,7 @@ Edit `.parameters/api/crawl/default.json`:
 Then run:
 
 ```bash
-uv run intuned run api crawl .parameters/api/crawl/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
 ```
 
 ## Utils
@@ -184,9 +214,10 @@ The `persistent_store` uses these key patterns:
 | `__max_pages__` | Stored config: max pages |
 | `__base_domain__` | Stored config: base domain for filtering |
 
-## Learn More
+## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
 - [Nested Scheduling / extend_payload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

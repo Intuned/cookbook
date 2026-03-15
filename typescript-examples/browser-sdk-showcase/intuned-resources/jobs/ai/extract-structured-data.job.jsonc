@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "ai/extract-structured-data",
+      "parameters": {
+        "extractFromContent": true,
+        "extractFromPage": true,
+        "extractList": true
+      }
+    }
+  ]
+}

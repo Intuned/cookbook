@@ -1,0 +1,26 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "shopify-details",
+      "parameters": {
+        "name": "Cotton Summer T-Shirts for Newborn Baby Boys and Girls - # BAAA1111010003",
+        "vendor": "Yo KIDZ LLC",
+        "product_type": "Baby & Toddler clothing",
+        "tags": [
+          "Girls",
+          "Shirt",
+          "Shopify Collective",
+          "T-shirt",
+          "Yo KIDZ LLC"
+        ],
+        "details_url": "https://goodfair1.myshopify.com/products/cotton-summer-t-shirts-for-newborn-baby-boys-and-girls-baaa1111010003"
+      }
+    }
+  ]
+}

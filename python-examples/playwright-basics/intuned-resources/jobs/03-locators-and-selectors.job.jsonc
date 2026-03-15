@@ -1,0 +1,14 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "03-locators-and-selectors",
+      "parameters": {}
+    }
+  ]
+}

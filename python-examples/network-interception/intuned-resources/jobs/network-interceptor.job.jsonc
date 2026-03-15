@@ -1,0 +1,20 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "network-interceptor",
+      "parameters": {
+        "url": "https://demo.openimis.org/front/insuree/insurees",
+        "api_url": "https://demo.openimis.org/api/graphql",
+        "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
+        "username": "Admin",
+        "password": "admin123"
+      }
+    }
+  ]
+}

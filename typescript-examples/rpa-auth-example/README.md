@@ -1,185 +1,101 @@
-# RPA Example with Auth Sessions
+# RPA Example with Auth Sessions (TypeScript)
 
 Credentials-based booking automation to book a consultation with a consultant and list consultations using Auth Sessions.
 
-<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-auth-example" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
 
-To get started developing browser automation projects with Intuned, check out the
+| API | Description |
+| --- | ----------- |
+| `book-consultations` | Book a consultation with the provided details |
+| `get-consultations-by-email` | Get all consultations for a given email address |
 
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
 
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# Book a consultation with default parameters
-# npm
-npm run intuned -- run api book-consultations .parameters/api/book-consultations/default.json --auth-session test-auth-session
+intuned dev run api book-consultations .parameters/api/book-consultations/default.json --auth-session test-auth-session
+intuned dev run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json --auth-session test-auth-session
+```
 
-# yarn
-yarn intuned run api book-consultations .parameters/api/book-consultations/default.json --auth-session test-auth-session
+### Auth Sessions
 
-# Book an automation consultation
-# npm
-npm run intuned -- run api book-consultations .parameters/api/book-consultations/automation-consultation.json --auth-session test-auth-session
+```bash
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
-# yarn
-yarn intuned run api book-consultations .parameters/api/book-consultations/automation-consultation.json --auth-session test-auth-session
+# Validate
+intuned dev run authsession validate test-auth-session
 
-# Book an API integration consultation
-# npm
-npm run intuned -- run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json --auth-session test-auth-session
-
-# yarn
-yarn intuned run api book-consultations .parameters/api/book-consultations/api-integration-consultation.json --auth-session test-auth-session
-
-# Book a data extraction consultation
-# npm
-npm run intuned -- run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json --auth-session test-auth-session
-
-# yarn
-yarn intuned run api book-consultations .parameters/api/book-consultations/data-extraction-consultation.json --auth-session test-auth-session
-
-# Book an other topic consultation
-# npm
-npm run intuned -- run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json --auth-session test-auth-session
-
-# yarn
-yarn intuned run api book-consultations .parameters/api/book-consultations/other-topic-consultation.json --auth-session test-auth-session
-
-# Get consultations by email
-# npm
-npm run intuned -- run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json --auth-session test-auth-session
-
-# yarn
-yarn intuned run api get-consultations-by-email .parameters/api/get-consultations-by-email/default.json --auth-session test-auth-session
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-## Auth Sessions
-
-This project uses Intuned Auth Sessions. To learn more, check out the [Authsessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
-
-### Create a new auth session
+### Deploy
 
 ```bash
-# npm
-npm run intuned run authsession create .parameters/auth-sessions/create/default.json
-
-# yarn
-yarn intuned run authsession create .parameters/auth-sessions/create/default.json
+intuned dev deploy
 ```
 
-### Update an existing auth session
-
-```bash
-# npm
-npm run intuned run authsession update test-auth-session
-
-# yarn
-yarn intuned run authsession update test-auth-session
-```
-
-### Validate an auth session
-
-```bash
-# npm
-npm run intuned run authsession validate test-auth-session
-
-# yarn
-yarn intuned run authsession validate test-auth-session
-```
-
-### Deploy project
-
-```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
-```
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-<!-- IDE-IGNORE-END -->
-
-## Project Structure
+## Project structure
 
 ```text
 /
-├── api/                          # API endpoints
-│   ├── book-consultations.ts    # Book a consultation
-│   └── get-consultations-by-email.ts  # Get consultations by email
-├── auth-sessions/                # Auth session related APIs
-│   ├── check.ts                  # API to check if the auth session is still valid
-│   └── create.ts                 # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/      # Auth session instances created and used by the CLI
-│   └── test-auth-session/        # Example test auth session
-│       ├── auth-session.json     # Browser state (cookies, localStorage)
-│       └── metadata.json         # Auth session metadata
-├── .parameters/                  # Test parameters for APIs
-│   ├── api/                      # API parameters folder
-│   │   ├── book-consultations/
-│   │   │   ├── api-integration-consultation.json
-│   │   │   ├── automation-consultation.json
-│   │   │   ├── data-extraction-consultation.json
-│   │   │   ├── default.json
-│   │   │   └── other-topic-consultation.json
-│   │   └── get-consultations-by-email/
-│   │       └── default.json
-│   └── auth-sessions/            # Auth session parameters
-│       ├── check/
-│       │   └── default.json
-│       └── create/
-│           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-├── package.json                  # Node.js project dependencies
-└── tsconfig.json                 # TypeScript configuration
+├── api/
+│   ├── book-consultations.ts         # Book a consultation
+│   └── get-consultations-by-email.ts # Get consultations by email
+├── auth-sessions/
+│   ├── check.ts                      # Validates if the auth session is still active
+│   └── create.ts                     # Creates/recreates the auth session
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── utils/
+│   └── typesAndSchemas.ts            # Type definitions and schemas
+├── intuned-resources/
+│   ├── jobs/
+│   │   ├── book-consultations.job.jsonc          # Job definition for booking
+│   │   └── get-consultations-by-email.job.jsonc  # Job definition for listing
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── package.json                       # Node.js dependencies
+└── README.md
 ```
 
-## Learn More
+## Related
 
-- [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [RPA with Intuned](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

@@ -1,4 +1,4 @@
-# E-Commerce Auth Product Scraper
+# E-Commerce Auth Product Scraper (TypeScript)
 
 Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions.
 
@@ -8,164 +8,117 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-auth-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+| API | Description |
+| --- | ----------- |
+| `list` | List products from the authenticated dashboard |
+| `details` | Get detailed information for a specific product |
 
-## Development
-
-> **_NOTE:_**  All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_**  If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api list .parameters/api/list/default.json
-npm run intuned run api details .parameters/api/details/default.json
-
-# yarn
-yarn intuned run api list .parameters/api/list/default.json
-yarn intuned run api details .parameters/api/details/default.json
+intuned dev run api list .parameters/api/list/default.json --auth-session test-auth-session
+intuned dev run api details .parameters/api/details/default.json --auth-session test-auth-session
 ```
 
-#### Example: List Products
+### Auth Sessions
 
 ```bash
-# List products from authenticated dashboard
-# npm
-npm run intuned run api list .parameters/api/list/default.json
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
-# yarn
-yarn intuned run api list .parameters/api/list/default.json
-```
+# Validate
+intuned dev run authsession validate test-auth-session
 
-#### Example: Get Product Details
-
-```bash
-# Get details for a specific product
-# npm
-npm run intuned run api details .parameters/api/details/default.json
-
-# yarn
-yarn intuned run api details .parameters/api/details/default.json
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
 
-## Auth Sessions
-
-This project uses Intuned Auth Sessions to maintain authenticated access to the dashboard. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
-
-### Create a new auth session
-
-```bash
-# npm
-npm run intuned run authsession create .parameters/auth-sessions/create/default.json
-
-# yarn
-yarn intuned run authsession create .parameters/auth-sessions/create/default.json
-```
-
-### Update an existing auth session
-
-```bash
-# npm
-npm run intuned run authsession update <auth-session-id>
-
-# yarn
-yarn intuned run authsession update <auth-session-id>
-```
-
-### Validate an auth session
-
-```bash
-# npm
-npm run intuned run authsession validate <auth-session-id>
-
-# yarn
-yarn intuned run authsession validate <auth-session-id>
-```
-
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
-│   ├── list.ts              # API to scrape product list from dashboard
-│   └── details.ts           # API to scrape detailed product information
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts             # API to check if the auth session is still valid
-│   └── create.ts            # API to create/recreate the auth session programmatically
-├── utils/                    # Utility files
-│   └── typeAndSchemas.ts    # TypeScript types and Zod schemas
-└── Intuned.jsonc              # Intuned project configuration file
+├── api/
+│   ├── list.ts                       # List products from the authenticated dashboard
+│   └── details.ts                    # Get detailed product information
+├── auth-sessions/
+│   ├── check.ts                      # Validates if the auth session is still active
+│   └── create.ts                     # Creates/recreates the auth session
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── utils/
+│   └── typeAndSchemas.ts             # TypeScript types and Zod schemas
+├── intuned-resources/
+│   ├── jobs/
+│   │   ├── list.job.jsonc            # Job definition for list API
+│   │   └── details.job.jsonc         # Job definition for details API
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── package.json                       # Node.js dependencies
+└── README.md
 ```
 
-## APIs
+## API Reference
 
-### `list` - Product List Scraper
+### `list` — Product List Scraper
 
 Scrapes products from the authenticated dashboard.
 
-**Parameters:**
-None
+**Parameters:** None
 
-**Returns:**
-Array of products with:
-
+**Returns:** Array of products with:
 - `name`: Product name
 - `detailsUrl`: URL to product details page
 
 **Features:**
-
 - Requires authenticated session
 - Automatically navigates to dashboard
 - Triggers `details` API for each product using `extendPayload`
 
-### `details` - Product Details Scraper
+### `details` — Product Details Scraper
 
 Scrapes detailed information for a specific product.
 
 **Parameters:**
-
 - `name`: Product name
 - `detailsUrl`: URL to the product details page
 
-**Returns:**
-Product details object with:
-
+**Returns:** Product details object with:
 - `name`: Product name
 - `price`: Product price
 - `sku`: Stock Keeping Unit
@@ -177,63 +130,6 @@ Product details object with:
 - `availableColors`: Array of available colors
 - `variants`: Array of product variants with stock information
 
-## `Intuned.jsonc` Reference
-
-```jsonc
-{
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API
-    "enabled": true
-  },
-
-  // Auth session settings
-  "authSessions": {
-    // Auth sessions are required to access the protected dashboard
-    "enabled": true,
-    // "API" type requires implementing auth-sessions/create.ts
-    "type": "API"
-  },
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  },
-
-  // Default job configuration
-  "metadata": {
-    "defaultJobInput": {
-      "configuration": {
-        // Number of concurrent API calls within the job
-        "maxConcurrentRequests": 2,
-        // Retry configuration
-        "retry": {
-          "maximumAttempts": 3
-        }
-      },
-      "payload": [
-        {
-          "apiName": "list",
-          "parameters": {}
-        }
-      ]
-    },
-    // Test credentials for auth session creation
-    "testAuthSessionInput": {
-      "username": "admin@example.com",
-      "password": "password"
-    }
-  }
-}
-```
-
 ## Using `@intuned/browser` SDK
 
 This project uses the Intuned browser SDK for enhanced reliability:
@@ -244,6 +140,9 @@ This project uses the Intuned browser SDK for enhanced reliability:
 
 For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
-## Learn More
+## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

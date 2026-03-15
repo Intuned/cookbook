@@ -1,7 +1,6 @@
-# captcha-solving-auth Intuned project
+# Captcha Solving Auth (TypeScript)
 
-E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example.
-It uses `wait_for_captcha_solve()` in the create api (`auth-sessions/create.py`) to automatically solve captchas during login.
+E-commerce scraper automation demonstrating Cloudflare captcha solving with authenticated sessions.
 
 ## Run on Intuned
 
@@ -9,158 +8,92 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/captcha-solving-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Getting Started
+## APIs
 
-To get started developing browser automation projects with Intuned, check out our [concepts and terminology](https://docs.intunedhq.com/docs/getting-started/conceptual-guides/core-concepts#runs%3A-executing-your-automations).
+| API | Description |
+| --- | ----------- |
+| `list` | List products from the authenticated dashboard |
+| `details` | Get detailed information for a specific product |
 
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# List products
-# npm
-npm run intuned run api list .parameters/api/list/default.json
+intuned dev run api list .parameters/api/list/default.json --auth-session test-auth-session
+intuned dev run api details .parameters/api/details/default.json --auth-session test-auth-session
+```
 
-# yarn
-yarn intuned run api list .parameters/api/list/default.json
+### Auth Sessions
 
-# Get product details
-# npm
-npm run intuned run api details .parameters/api/details/default.json
+```bash
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
-# yarn
-yarn intuned run api details .parameters/api/details/default.json
+# Validate
+intuned dev run authsession validate test-auth-session
+
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
-
+intuned dev deploy
 ```
 
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── apis/                     # Your API endpoints
-│   └── ...
-├── auth-sessions/            # Auth session related APIs
-│   ├── check.ts           # API to check if the auth session is still valid
-│   └── create.ts          # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/  # Auth session instances created and used by the CLI
-│   └── ...
-└── Intuned.jsonc              # Intuned project configuration file
+├── api/
+│   ├── list.ts                       # List products from the authenticated dashboard
+│   └── details.ts                    # Get product details
+├── auth-sessions/
+│   ├── check.ts                      # Validates if the auth session is still active
+│   └── create.ts                     # Creates/recreates the auth session with captcha solving
+├── auth-sessions-instances/
+│   └── test-auth-session/            # Example local auth session
+│       ├── auth-session.json
+│       └── metadata.json
+├── intuned-resources/
+│   ├── jobs/
+│   │   ├── list.job.jsonc            # Job definition for list API
+│   │   └── details.job.jsonc         # Job definition for details API
+│   └── auth-sessions/
+│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+├── .parameters/api/                  # Test parameters
+├── Intuned.jsonc                      # Project config
+├── package.json                       # Node.js dependencies
+└── README.md
 ```
 
-## `Intuned.jsonc` Reference
+## Related
 
-```jsonc
-{
-  // Your Intuned workspace ID.
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project.
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
-
-## Learn More
-
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

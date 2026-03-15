@@ -2,9 +2,11 @@
 
 This example demonstrates how to integrate [Browser Use](https://github.com/browser-use/browser-use) with Intuned to create AI-powered browser automation.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-use)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/browser-use" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## What This Example Does
 
@@ -48,61 +50,41 @@ The API template example uses the following parameters:
 
 ## Getting Started
 
-**Important:** This example uses [Browser Use](https://github.com/browser-use/browser-use), an AI-powered browser automation tool that requires Intuned's AI gateway. The AI gateway requires the project to be saved before running.
+<!-- IDE-IGNORE-START -->
+## Getting Started
 
-### Setup
-
-To run this example locally, you need to set up your Intuned workspace:
-
-1. **Create a workspace** - Follow the [workspace management guide](https://docs.intunedhq.com/docs/03-how-to/manage/manage-workspace) to create your Intuned workspace
-
-2. **Get your API key** - Generate an API key from the [API keys page](https://docs.intunedhq.com/docs/03-how-to/manage/manage-api-keys#how-to-manage-api-keys) in your Intuned dashboard
-
-3. **Configure workspace ID** - Add your workspace ID and Project Name to `Intuned.jsonc`:
-
-   ```jsonc
-   {
-     "workspaceId": "your-workspace-id",
-     "projectName": "your-project-name"
-     // ... rest of config
-   }
-   ```
-
-4. **Set environment variable** - Add your API key as an environment variable:
-
-   ```bash
-   export INTUNED_API_KEY=your-api-key
-   ```
-
-### Install Dependencies
+### Install dependencies
 
 ```bash
 uv sync
 ```
 
-### Initialize Project
-
-Run the save command to upload your project and set up the required `.env` file:
+If the `intuned` CLI is not installed, install it globally:
 
 ```bash
-uv run intuned provision
+npm install -g @intuned/cli
 ```
 
-This configures your local environment and prepares the AI gateway for Browser Use.
+After installing dependencies, `intuned` command should be available in your environment.
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Run the API Locally
+### Run an API
 
 ```bash
-uv run intuned run api purchase-item .parameters/api/purchase-item/default.json
+intuned dev run api purchase-item .parameters/api/purchase-item/default.json
 ```
 
-### Deploy to Intuned
+### Save project
 
 ```bash
-uv run intuned deploy
+intuned dev provision
 ```
+
+### Deploy
+
+```bash
+intuned dev deploy
+```
+<!-- IDE-IGNORE-END -->
 
 ## Project Structure
 
@@ -112,6 +94,9 @@ uv run intuned deploy
 │   └── purchase-item.py          # Main API handler
 ├── hooks/
 │   └── setup_context.py      # Browser Use integration setup
+├── intuned-resources/
+│   └── jobs/
+│       └── purchase-item.job.jsonc  # Job for purchase-item API
 ├── .parameters/api/
 │   └── purchase-item/
 │       └── default.json          # Test parameters
@@ -119,10 +104,10 @@ uv run intuned deploy
 └── pyproject.toml            # Dependencies
 ```
 
-## Learn More
+## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - **Browser Use Documentation**: <https://github.com/browser-use/browser-use>
-- **Intuned Runtime SDK**: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/overview>
 - **Setup Hooks**: <https://docs.intunedhq.com/docs/01-learn/recipes/setup-hooks>
-- **Intuned Concepts**: <https://docs.intunedhq.com/docs/00-getting-started/introduction>
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

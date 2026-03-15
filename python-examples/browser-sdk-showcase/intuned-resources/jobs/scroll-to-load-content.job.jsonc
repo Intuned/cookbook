@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "scroll-to-load-content",
+      "parameters": {
+        "extend_timeout_on_scroll": true,
+        "max_scrolls": 10
+      }
+    }
+  ]
+}

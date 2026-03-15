@@ -1,6 +1,6 @@
-# setup-hooks Intuned project
+# Setup Hooks (TypeScript)
 
-Example demonstrating how to use setup hooks in Intuned to prepare data and configuration before your API executes
+Demonstrates how to use setup hooks to prepare data and configuration before API execution.
 
 ## Run on Intuned
 
@@ -8,75 +8,71 @@ Open this project in Intuned by clicking the button below.
 
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/setup-hooks" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-## Development
+## APIs
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+| API | Description |
+| --- | ----------- |
+| `demo-hook` | Demonstrates how setup hook data is passed to and used within an API handler |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api demo-hook .parameters/api/demo-hook/default.json
-
-# yarn
-yarn intuned run api demo-hook .parameters/api/demo-hook/default.json
+intuned dev run api demo-hook .parameters/api/demo-hook/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-### Deploy project
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
-## Project Structure
-
-The project structure is as follows:
+## Project structure
 
 ```text
 /
-├── api/                      # Your API endpoints
+├── api/
 │   └── demo-hook.ts          # Demo API showing hook data usage
-├── hooks/                    # Setup hooks executed before API runs
-│   └── setupContext.ts       # Main setup hook
-├── utils/                    # Utility functions and schemas
+├── hooks/
+│   └── setupContext.ts       # Main setup hook executed before API runs
+├── utils/
 │   └── typesAndSchemas.ts    # Zod schemas and TypeScript types
-├── .parameters/              # Parameter files for testing APIs
-│   └── api/                  # API parameters folder
-│       └── demo-hook/        # Parameters for demo API
-│           └── default.json  # Default parameters
-└── Intuned.jsonc             # Intuned project configuration file
+├── intuned-resources/
+│   └── jobs/
+│       └── demo-hook.job.jsonc  # Job definition for demo-hook API
+├── .parameters/api/          # Test parameters
+├── Intuned.jsonc             # Project config
+├── package.json              # Node.js dependencies
+└── README.md
 ```
 
-## Learn More
+## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

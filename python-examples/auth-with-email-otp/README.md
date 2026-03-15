@@ -16,8 +16,6 @@ Authentication example using email-based OTP verification with Resend.
 
 <!-- IDE-IGNORE-START -->
 
-## Getting Started
-
 ### Prerequisites
 
 This project uses [Resend](https://resend.com) for email-based OTP retrieval. You'll need a Resend account with the **Receiving Emails** inbox set up.
@@ -53,6 +51,8 @@ npm install -g @intuned/cli
 ```
 
 After installing dependencies, `intuned` command should be available in your environment.
+
+> **Note:** This example requires a [Resend](https://resend.com) account and API key. Set the `RESEND_API_KEY` environment variable before running.
 
 ### Run an API
 
@@ -137,5 +137,4 @@ intuned dev deploy
 - [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Intuned In-Depth](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

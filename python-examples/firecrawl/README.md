@@ -4,11 +4,11 @@
 
 Build web scraping automations using Firecrawl's familiar API interface, but running on the powerful open-source crawl4ai backend with [Intuned](https://intunedhq.com)'s browser automation infrastructure.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/firecrawl" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## 🚀 Why This Project?
 
@@ -186,119 +186,71 @@ Search the web and get full content from results using Tavily.
 
 ---
 
+<!-- IDE-IGNORE-START -->
 ## 🛠️ How to Run
 
-### Local Testing with Intuned CLI
+### Install dependencies
 
 ```bash
-# Install dependencies
-cd python-examples/firecrawl
 uv sync
+```
 
-# Run any endpoint locally
-uv run intuned run api scrape .parameters/api/scrape/default.json
-uv run intuned run api map .parameters/api/map/default.json
-uv run intuned run api crawl .parameters/api/crawl/default.json
-uv run intuned run api search .parameters/api/search/default.json
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
+### Run an API
+
+```bash
+intuned dev run api scrape .parameters/api/scrape/default.json
+intuned dev run api map .parameters/api/map/default.json
+intuned dev run api crawl .parameters/api/crawl/default.json
+intuned dev run api search .parameters/api/search/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
-### Deploy to Intuned
+### Deploy
 
 ```bash
-# Deploy to production
-uv run intuned deploy
+intuned dev deploy
 ```
-
-See [Intuned Documentation](https://docs.intunedhq.com) for deployment details.
+<!-- IDE-IGNORE-END -->
 
 ---
+
+## Project Structure
+
+```text
+/
+├── api/
+│   ├── scrape.py             # Single-page scraping
+│   ├── map.py                # Extract all links from a page
+│   ├── crawl.py              # Deep crawl multiple pages
+│   └── search.py             # Web search with full content
+├── intuned-resources/
+│   └── jobs/
+│       ├── scrape.job.jsonc
+│       ├── map.job.jsonc
+│       ├── crawl.job.jsonc
+│       └── search.job.jsonc
+├── .parameters/api/          # Parameter files for testing
+├── Intuned.jsonc
+└── pyproject.toml
+```
 
 ## 🎓 Learn More
 
-### Documentation Links
-
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - **Firecrawl API Reference:** [docs.firecrawl.dev](https://docs.firecrawl.dev/api-reference/introduction)
 - **crawl4ai Documentation:** [docs.crawl4ai.com](https://docs.crawl4ai.com)
-- **Intuned Platform:** [docs.intunedhq.com](https://docs.intunedhq.com)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
-
----
-
-## `Intuned.jsonc` Reference
-
-```jsonc
-{
-  // Your Intuned workspace ID.
-  // Optional - If not provided here, it must be supplied via the `--workspace-id` flag during deployment.
-  "workspaceId": "your_workspace_id",
-
-  // The name of your Intuned project.
-  // Optional - If not provided here, it must be supplied via the command line when deploying.
-  "projectName": "your_project_name",
-
-  // Replication settings
-  "replication": {
-    // The maximum number of concurrent executions allowed via Intuned API. This does not affect jobs.
-    // A number of machines equal to this will be allocated to handle API requests.
-    // Not applicable if api access is disabled.
-    "maxConcurrentRequests": 1,
-
-    // The machine size to use for this project. This is applicable for both API requests and jobs.
-    // "standard": Standard machine size (6 shared vCPUs, 2GB RAM)
-    // "large": Large machine size (8 shared vCPUs, 4GB RAM)
-    // "xlarge": Extra large machine size (1 performance vCPU, 8GB RAM)
-    "size": "standard"
-  }
-
-  // Auth session settings
-  "authSessions": {
-    // Whether auth sessions are enabled for this project.
-    // If enabled, "auth-sessions/check.ts" API must be implemented to validate the auth session.
-    "enabled": true,
-
-    // Whether to save Playwright traces for auth session runs.
-    "saveTraces": false,
-
-    // The type of auth session to use.
-    // "API" type requires implementing "auth-sessions/create.ts" API to create/recreate the auth session programmatically.
-    // "MANUAL" type uses a recorder to manually create the auth session.
-    "type": "API",
-
-
-    // Recorder start URL for the recorder to navigate to when creating the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "startUrl": "https://example.com/login",
-
-    // Recorder finish URL for the recorder. Once this URL is reached, the recorder stops and saves the auth session.
-    // Required if "type" is "MANUAL". Not used if "type" is "API".
-    "finishUrl": "https://example.com/dashboard",
-
-    // Recorder browser mode
-    // "fullscreen": Launches the browser in fullscreen mode.
-    // "kiosk": Launches the browser in kiosk mode (no address bar, no navigation controls).
-    // Only applicable for "MANUAL" type.
-    "browserMode": "fullscreen"
-  }
-
-  // API access settings
-  "apiAccess": {
-    // Whether to enable consumption through Intuned API. If this is false, the project can only be consumed through jobs.
-    // This is required for projects that use auth sessions.
-    "enabled": true
-  },
-
-  // Whether to run the deployed API in a headful browser. Running in headful can help with some anti-bot detections. However, it requires more resources and may work slower or crash if the machine size is "standard".
-  "headful": false,
-
-  // The region where your Intuned project is hosted.
-  // For a list of available regions, contact support or refer to the documentation.
-  // Optional - Default: "us"
-  "region": "us"
-}
-```
