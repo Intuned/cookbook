@@ -42,8 +42,8 @@ async def create(page: Page, params: dict | None = None, **_kwargs):
     await otp_input.wait_for(state="visible", timeout=10_000)
 
     # Step 6: Retrieve the OTP code from email
-    # Uses Resend API to fetch recent emails and extract OTP
-    otp_code = await get_recent_otp()
+    # Uses Resend API to fetch recent emails and extract OTP for this specific recipient
+    otp_code = await get_recent_otp(recipient=str(username))
 
     if not otp_code:
         raise RuntimeError("Failed to extract OTP from email")

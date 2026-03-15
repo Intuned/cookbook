@@ -1,35 +1,40 @@
-# Auth with Email OTP
+# auth-with-email-otp (Python)
 
-Authentication automation with email-based OTP verification using Resend for email inbox access.
+Authentication example using email-based OTP verification with Resend.
 
 <!-- IDE-IGNORE-START -->
-## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/auth-with-email-otp)
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/auth-with-email-otp" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `list-contracts` | Lists contracts for the authenticated user from the sandbox site |
 
 ## Getting Started
 
-To get started developing browser automation projects with Intuned, check out the
-
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
-
-## Development
-
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
-
 ### Prerequisites
 
-**Important:** This example uses [Resend](https://resend.com) for email-based OTP verification. You'll need:
+This project uses [Resend](https://resend.com) for email-based OTP retrieval. You'll need a Resend account with the **Receiving Emails** inbox set up.
 
-1. **Resend Account** - Sign up at [resend.com](https://resend.com) to get an API key
-2. **Resend API Key** - Generate an API key from your Resend dashboard
-3. **Set Environment Variable**:
+#### Set up a Resend Receiving Email inbox
 
-   ```bash
-   export RESEND_API_KEY=your-resend-api-key
-   ```
+1. In the Resend dashboard, go to **Receiving Emails** in the left sidebar
+2. Click **Add Inbox** — Resend will auto-assign a subdomain and give you a wildcard address like `*@ostokcen.resend.app`
+3. Note your inbox address shown in the dashboard
+
+> **Wildcard inbox**: Any email sent to `anything@yoursubdomain.resend.app` lands in the same inbox. So `otp1@yoursubdomain.resend.app`, `otp2@yoursubdomain.resend.app`, etc. all work and are useful for testing multiple sessions.
+
+#### Get a Resend API key
+
+1. In the Resend dashboard, go to **API Keys**
+2. Click **Create API key** with full access (or at least "Receiving access")
+3. Set the environment variable:
+
+```bash
+export RESEND_API_KEY=your-resend-api-key
+```
 
 ### Install dependencies
 
@@ -37,54 +42,61 @@ To get started developing browser automation projects with Intuned, check out th
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# List contracts with an auth session
-uv run intuned run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+intuned dev run api list-contracts .parameters/api/list-contracts/default.json
+```
+
+#### Run an API with an Auth Session
+
+```bash
+intuned dev run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+```
+
+### Auth Sessions
+
+Before running the API, create an auth session. Edit `.parameters/auth-sessions/create/default.json` to set your Resend inbox email as the username:
+
+```json
+{
+  "username": "otp@yoursubdomain.resend.app",
+  "password": "your_password"
+}
+```
+
+> **Important — each email can only register once**: The sandbox site is a signup flow, so each email address can only be used one time. To create another auth session, use a different local part — e.g. `otp2@yoursubdomain.resend.app`. Since the Resend inbox is a wildcard, all variations land in the same inbox and the OTP will still be retrieved automatically.
+
+```bash
+# Create
+intuned dev run authsession create .parameters/auth-sessions/create/default.json
+
+# Validate
+intuned dev run authsession validate test-auth-session
+
+# Update
+intuned dev run authsession update test-auth-session
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-## Auth Sessions
-
-This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
-
-### Create a new auth session
+### Deploy
 
 ```bash
-uv run intuned run authsession create .parameters/auth-sessions/create/default.json
+intuned dev deploy
 ```
-
-### Update an existing auth session
-
-```bash
-uv run intuned run authsession update test-auth-session
-```
-
-### Validate an auth session
-
-```bash
-uv run intuned run authsession validate test-auth-session
-```
-
-### Deploy project
-
-```bash
-uv run intuned deploy
-```
-
-### `intuned-browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
 
 <!-- IDE-IGNORE-END -->
 
@@ -92,42 +104,35 @@ This project uses Intuned browser SDK. For more information, check out the [Intu
 
 ```text
 /
-├── api/                          # API endpoints
-│   └── list-contracts.py         # List contracts for authenticated user
-├── auth-sessions/                # Auth session related APIs
-│   ├── check.py                  # API to check if the auth session is still valid
-│   └── create.py                 # API to create/recreate the auth session programmatically
-├── auth-sessions-instances/      # Auth session instances created and used by the CLI
-│   └── test-auth-session/        # Example test auth session
-│       ├── auth-session.json     # Browser state (cookies, localStorage)
-│       └── metadata.json         # Auth session metadata
-├── utils/                        # Utility modules
-│   ├── resend.py                 # Resend API integration for email OTP
-│   └── types_and_schemas.py      # Type definitions and schemas
-├── .parameters/                  # Test parameters for APIs
-│   ├── api/                      # API parameters folder
-│   │   └── list-contracts/
-│   │       └── default.json
-│   └── auth-sessions/            # Auth session parameters
-│       ├── check/
-│       │   └── default.json
-│       └── create/
-│           └── default.json
-├── Intuned.jsonc                 # Intuned project configuration file
-└── pyproject.toml                # Python project dependencies
+├── api/
+│   └── list-contracts.py              # Lists contracts for the authenticated user
+├── auth-sessions/
+│   ├── check.py                       # Validates if the auth session is still active
+│   └── create.py                      # Signs up and verifies OTP to create the auth session
+├── auth-sessions-instances/
+│   └── test-auth-session/             # Example local auth session
+│       ├── auth-session.json          # Saved browser state (cookies, localStorage)
+│       └── metadata.json             # Auth session metadata
+├── utils/
+│   ├── resend.py                      # Resend API integration for email OTP retrieval
+│   └── types_and_schemas.py          # Pydantic type definitions and validation schemas
+├── .parameters/
+│   ├── api/list-contracts/            # Parameters for the list-contracts API
+│   └── auth-sessions/                 # Parameters for auth session operations
+├── Intuned.jsonc                      # Intuned project configuration
+└── pyproject.toml                     # Python project dependencies
 ```
 
 ## Environment Variables
 
-This project requires the following environment variables:
-
 | Variable | Description |
-| ---------- | ------------- |
-| `RESEND_API_KEY` | Your Resend API key from [resend.com](https://resend.com) - Required for OTP email retrieval |
+| --- | --- |
+| `RESEND_API_KEY` | Your Resend API key — required for reading OTP emails from the Resend inbox |
 
-## Learn More
+## Related
 
-- [Auth Sessions Documentation](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Auth Sessions](https://docs.intunedhq.com/docs/02-features/auth-sessions)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned In-Depth](https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
