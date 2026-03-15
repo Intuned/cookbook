@@ -33,7 +33,7 @@ class Agent:
             dimensions = computer.get_dimensions()
             self.tools += [
                 {
-                    "type": "computer-preview",
+                    "type": "computer_use_preview",
                     "display_width": dimensions[0],
                     "display_height": dimensions[1],
                     "environment": computer.get_environment(),

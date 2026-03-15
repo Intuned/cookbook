@@ -1,8 +1,8 @@
-import { BrowserContext, Page } from "playwright";
+import type { BrowserContext, Page } from "playwright";
 import { getAiGatewayConfig } from "@intuned/runtime";
 import { Agent } from "../lib/openai/agent";
 import { PlaywrightComputer } from "../lib/openai/computer";
-import type { ResponseOutputMessage, ResponseItem } from 'openai/resources/responses/responses.js';
+import type { ResponseOutputMessage } from 'openai/resources/responses/responses.js';
 
 interface Params {
   query: string;  // The task you want the AI to perform
@@ -130,7 +130,6 @@ export default async function handler(
       messageCount: logs.length,
     };
   } catch (error) {
-    const elapsed = parseFloat(((Date.now() - start) / 1000).toFixed(2));
     console.error('Error in OpenAI computer use:', error);
     throw error;
   }

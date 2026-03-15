@@ -1,13 +1,13 @@
 import OpenAI from 'openai';
-import {
-  type ResponseItem,
-  type ResponseInputItem,
-  type ResponseOutputMessage,
-  type ResponseFunctionToolCallItem,
-  type ResponseFunctionToolCallOutputItem,
-  type ResponseComputerToolCall,
-  type ResponseComputerToolCallOutputItem,
-  type ComputerTool,
+import type {
+  ResponseItem,
+  ResponseInputItem,
+  ResponseOutputMessage,
+  ResponseFunctionToolCallItem,
+  ResponseFunctionToolCallOutputItem,
+  ResponseComputerToolCall,
+  ResponseComputerToolCallOutputItem,
+  ComputerTool,
 } from 'openai/resources/responses/responses.js';
 
 import * as utils from './utils';

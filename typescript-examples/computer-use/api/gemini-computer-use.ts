@@ -1,4 +1,3 @@
-import z from "zod";
 import { Stagehand } from "@browserbasehq/stagehand";
 import type { Page, BrowserContext } from "playwright";
 import { attemptStore } from "@intuned/runtime";
@@ -8,6 +7,12 @@ interface Params {
 }
 
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
+  if (!cdpUrl) {
+    throw new Error("CDP URL is not available. Make sure the browser is running and the setupContext hook is configured.");
+  }
+  if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
+    return cdpUrl;
+  }
   const versionUrl = cdpUrl.endsWith("/")
     ? `${cdpUrl}json/version`
     : `${cdpUrl}/json/version`;
@@ -18,7 +23,7 @@ async function getWebSocketUrl(cdpUrl: string): Promise<string> {
 
 export default async function handler(
   params: Params,
-  page: Page,
+  _page: Page,
   _context: BrowserContext,
 ) {
   const { query } = params;

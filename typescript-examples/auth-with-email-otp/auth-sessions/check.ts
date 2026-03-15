@@ -1,9 +1,9 @@
-import { BrowserContext, Page } from "playwright";
+import type { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 
 export default async function check(
   page: Page,
-  context: BrowserContext
+  _context: BrowserContext
 ): Promise<boolean> {
   // Step 1: Navigate to a protected page (dashboard)
   await goToUrl({

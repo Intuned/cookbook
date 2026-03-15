@@ -1,5 +1,4 @@
-import z from "zod";
-import { BrowserContext, Page } from "playwright";
+import type { BrowserContext, Page } from "playwright";
 import { getAiGatewayConfig } from "@intuned/runtime";
 import { samplingLoop } from "../lib/anthropic/sampling-loop";
 

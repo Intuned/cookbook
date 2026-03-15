@@ -37,7 +37,7 @@ def is_email_recent(created_at: str, max_age_seconds: int = 30) -> bool:
         return False
 
 
-async def get_latest_email() -> dict:
+async def get_latest_email(recipient: str | None = None) -> dict:
     try:
         # Resend Python SDK is synchronous, but we wrap in async for consistency
         emails = resend.Emails.Receiving.list()
@@ -45,7 +45,23 @@ async def get_latest_email() -> dict:
         if not emails or not emails.get("data") or len(emails["data"]) == 0:
             raise Exception("No emails found")
 
-        return emails["data"][0]
+        data = emails["data"]
+
+        if recipient:
+            # Filter emails by recipient address
+            def matches_recipient(email: dict) -> bool:
+                to_field = email.get("to")
+                if isinstance(to_field, list):
+                    return any(recipient.lower() in addr.lower() for addr in to_field)
+                if isinstance(to_field, str):
+                    return recipient.lower() in to_field.lower()
+                return False
+
+            data = [e for e in data if matches_recipient(e)]
+            if not data:
+                raise Exception(f"No emails found for recipient {recipient}")
+
+        return data[0]
 
     except Exception as e:
         raise Exception(f"Failed to get latest email: {str(e)}")
@@ -65,6 +81,7 @@ async def get_email_details(email_id: str) -> dict:
 
 
 async def get_recent_otp(
+    recipient: str | None = None,
     max_age_seconds: int = 30,
     timeout_seconds: int = 30,
     polling_interval_ms: int = 2000,
@@ -78,8 +95,8 @@ async def get_recent_otp(
         try:
             print(f"Attempt {attempt_number}: Checking for OTP...")
 
-            # Get the latest email
-            latest_email = await get_latest_email()
+            # Get the latest email, filtered by recipient if provided
+            latest_email = await get_latest_email(recipient=recipient)
 
             # Check if it's recent enough
             if latest_email and not is_email_recent(

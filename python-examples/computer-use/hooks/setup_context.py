@@ -15,11 +15,8 @@ async def setup_context(*, api_name: str, api_parameters: str, cdp_url: str):
         async def cleanup():
             await stagehand.close()
 
-        return stagehand.context, stagehand.page, cleanup
-
     elif api_name == "api/browser-use":
         from browser_use import Browser
 
         browser = Browser(cdp_url=cdp_url)
         attempt_store.set("browser", browser)
-        return

@@ -16,7 +16,7 @@ export class ActionValidator {
       throw new ToolError(`coordinate is required for ${action}`);
     }
     if (coordinate) {
-      this.validateAndGetCoordinates(coordinate);
+      ActionValidator.validateAndGetCoordinates(coordinate);
     }
   }
 
@@ -47,21 +47,21 @@ export class ActionValidator {
 
     // Validate text parameter
     if (keyboardActions.has(action)) {
-      this.validateText(text, true, action);
+      ActionValidator.validateText(text, true, action);
     } else {
-      this.validateText(text, false, action);
+      ActionValidator.validateText(text, false, action);
     }
 
     // Validate coordinate parameter
     if (mouseActions.has(action)) {
-      this.validateCoordinate(coordinate, true, action);
+      ActionValidator.validateCoordinate(coordinate, true, action);
     } else {
-      this.validateCoordinate(coordinate, false, action);
+      ActionValidator.validateCoordinate(coordinate, false, action);
     }
 
     // Validate duration parameter
     if (action === Action.HOLD_KEY || action === Action.WAIT) {
-      this.validateDuration(duration);
+      ActionValidator.validateDuration(duration);
     }
   }
 }
