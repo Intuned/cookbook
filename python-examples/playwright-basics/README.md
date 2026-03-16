@@ -2,8 +2,6 @@
 
 A comprehensive Python template covering core Playwright automation patterns. Each API demonstrates a specific concept, numbered for progressive learning.
 
-**Documentation:** [Playwright for automation](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-
 ## Run on Intuned
 
 Open this project in Intuned by clicking the button below.
@@ -28,6 +26,7 @@ Open this project in Intuned by clicking the button below.
 | `12-download-file` | Download files with Intuned SDK |
 | `13-upload-file` | Upload files to S3 |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -36,60 +35,44 @@ Open this project in Intuned by clicking the button below.
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
+
 ### Run an API
 
 ```bash
-# Basic navigation
-uv run intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
-
-# Wait strategies
-uv run intuned run api 02-wait-strategies .parameters/api/02-wait-strategies/default.json
-
-# Locators and selectors
-uv run intuned run api 03-locators-and-selectors .parameters/api/03-locators-and-selectors/default.json
-
-# Scrape single value
-uv run intuned run api 04-scrape-single-value .parameters/api/04-scrape-single-value/default.json
-
-# Scrape list
-uv run intuned run api 05-scrape-list .parameters/api/05-scrape-list/default.json
-
-# Click and navigate
-uv run intuned run api 06-click-and-navigate .parameters/api/06-click-and-navigate/default.json
-
-# Fill form
-uv run intuned run api 07-fill-form .parameters/api/07-fill-form/default.json
-
-# Handle new tabs
-uv run intuned run api 08-handle-new-tabs .parameters/api/08-handle-new-tabs/default.json
-
-# Work with frames
-uv run intuned run api 09-work-with-frames .parameters/api/09-work-with-frames/default.json
-
-# Page evaluate
-uv run intuned run api 10-page-evaluate .parameters/api/10-page-evaluate/default.json
-
-# API requests
-uv run intuned run api 11-api-requests .parameters/api/11-api-requests/default.json
-
-# Download file
-uv run intuned run api 12-download-file .parameters/api/12-download-file/default.json
-
-# Upload file (requires S3 credentials)
-uv run intuned run api 13-upload-file .parameters/api/13-upload-file/default.json
+intuned dev run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+intuned dev run api 02-wait-strategies .parameters/api/02-wait-strategies/default.json
+intuned dev run api 03-locators-and-selectors .parameters/api/03-locators-and-selectors/default.json
+intuned dev run api 04-scrape-single-value .parameters/api/04-scrape-single-value/default.json
+intuned dev run api 05-scrape-list .parameters/api/05-scrape-list/default.json
+intuned dev run api 06-click-and-navigate .parameters/api/06-click-and-navigate/default.json
+intuned dev run api 07-fill-form .parameters/api/07-fill-form/default.json
+intuned dev run api 08-handle-new-tabs .parameters/api/08-handle-new-tabs/default.json
+intuned dev run api 09-work-with-frames .parameters/api/09-work-with-frames/default.json
+intuned dev run api 10-page-evaluate .parameters/api/10-page-evaluate/default.json
+intuned dev run api 11-api-requests .parameters/api/11-api-requests/default.json
+intuned dev run api 12-download-file .parameters/api/12-download-file/default.json
+intuned dev run api 13-upload-file .parameters/api/13-upload-file/default.json
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
 ### Deploy
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 
@@ -109,6 +92,8 @@ uv run intuned deploy
 │   ├── 11-api-requests.py          # HTTP requests
 │   ├── 12-download-file.py         # File downloads
 │   └── 13-upload-file.py           # S3 uploads
+├── intuned-resources/
+│   └── jobs/                       # Job definitions for each API
 ├── .parameters/api/                # Test parameters
 ├── Intuned.jsonc                   # Project config
 ├── pyproject.toml                  # Python dependencies
@@ -117,6 +102,7 @@ uv run intuned deploy
 
 ## Related
 
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Playwright deep dive](https://docs.intunedhq.com/docs/01-learn/deep-dives/playwright)
-- [Intuned SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)

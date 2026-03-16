@@ -1,0 +1,19 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "crawl",
+      "parameters": {
+        "url": "https://sandbox.intuned.dev/pdfs",
+        "max_depth": 1,
+        "include_external": true,
+        "include_attachments": true
+      }
+    }
+  ]
+}

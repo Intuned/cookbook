@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "api-interceptor",
+      "parameters": {
+        "url": "https://sandbox.intuned.dev/consultations/list",
+        "api_pattern": "/rest/v1/consultations",
+        "max_pages": 3
+      }
+    }
+  ]
+}

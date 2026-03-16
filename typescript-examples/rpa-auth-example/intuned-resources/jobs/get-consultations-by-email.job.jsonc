@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "get-consultations-by-email",
+      "parameters": {
+        "email": "john@example.com"
+      }
+    }
+  ],
+  "auth_session": { "id": "test-auth-session" }
+}

@@ -1,0 +1,17 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "details",
+      "parameters": {
+        "name": "Mach Street Sweatshirt",
+        "detailsUrl": "https://scrapingcourse.com/ecommerce/product/mach-street-sweatshirt"
+      }
+    }
+  ]
+}

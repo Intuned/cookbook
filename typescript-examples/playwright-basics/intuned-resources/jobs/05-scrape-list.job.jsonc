@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "05-scrape-list",
+      "parameters": {
+        "maxItems": 10
+      }
+    }
+  ]
+}

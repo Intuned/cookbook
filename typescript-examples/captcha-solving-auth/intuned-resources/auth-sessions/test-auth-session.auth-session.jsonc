@@ -1,0 +1,6 @@
+{
+  "parameters": {
+    "email": "admin@example.com",
+    "password": "password"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "search",
+      "parameters": {
+        "query": "python",
+        "limit": 10,
+        "categories": [
+          {
+            "type": "research"
+          },
+          {
+            "type": "github"
+          }
+        ],
+        "api_key": "tvly-api-key"
+      }
+    }
+  ]
+}

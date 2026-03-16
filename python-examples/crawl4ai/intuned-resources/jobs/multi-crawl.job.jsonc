@@ -1,0 +1,22 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "multi-crawl",
+      "parameters": {
+        "urls": [
+          "https://example.com",
+          "https://crawl4ai.com",
+          "https://playwright.dev"
+        ],
+        "dispatcher": "semaphore",
+        "max_concurrent": 3
+      }
+    }
+  ]
+}

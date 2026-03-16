@@ -1,103 +1,86 @@
-# e-commerce-shopify Intuned project
+# E-Commerce Shopify (TypeScript)
 
-Shopify store scraper to list all products and fetch detailed product information from any Shopify store using the JSON API.
-
-## Key Features
-
-- **Shopify JSON API Integration**: Uses Shopify's public JSON API endpoints for efficient data extraction
-- **Pagination Support**: Automatically handles pagination to scrape all products from large stores
-- **Zero Browser Overhead**: API-based scraping without browser automation overhead
-- **Detailed Product Data**: Extracts comprehensive product information including variants, images, and pricing
-
-<!-- IDE-IGNORE-START -->
+Shopify store product scraper.
 
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-shopify)
+Open this project in Intuned by clicking the button below.
 
-## Development
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-shopify" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `shopify-list` | Lists all products from a Shopify store using pagination. Extracts product handles, titles, and basic information via Shopify's JSON API |
+| `shopify-details` | Fetches comprehensive product details including variants, images, pricing, and availability for a specific product |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api shopify-list .parameters/api/shopify-list/default.json
-npm run intuned run api shopify-details .parameters/api/shopify-details/default.json
-
-# yarn
-yarn intuned run api shopify-list .parameters/api/shopify-list/default.json
-yarn intuned run api shopify-details .parameters/api/shopify-details/default.json
+intuned dev run api shopify-list .parameters/api/shopify-list/default.json
+intuned dev run api shopify-details .parameters/api/shopify-details/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Deploy project
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── .parameters/              # Test parameters for APIs
-│   └── api/
-│       ├── shopify-list/
-│       │   └── default.json
-│       └── shopify-details/
-│           └── default.json
-├── api/                      # API endpoints
+├── api/
 │   ├── shopify-list.ts      # List all products from Shopify store
 │   └── shopify-details.ts   # Get detailed product information
-├── Intuned.jsonc            # Intuned project configuration
-└── package.json             # Node.js project dependencies
+├── intuned-resources/
+│   └── jobs/
+│       ├── shopify-list.job.jsonc    # Job for product list
+│       └── shopify-details.job.jsonc # Job for product details
+├── .parameters/api/         # Test parameters
+├── Intuned.jsonc            # Project config
+├── package.json             # Node.js dependencies
+└── README.md
 ```
 
-## APIs
+## Key features
 
-| API               | Description                                                                                                                              |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `shopify-list`    | Lists all products from a Shopify store using pagination. Extracts product handles, titles, and basic information via Shopify's JSON API |
-| `shopify-details` | Fetches comprehensive product details including variants, images, pricing, and availability for a specific product                       |
+- **Shopify JSON API integration**: Uses Shopify's public JSON API endpoints for efficient data extraction
+- **Pagination support**: Automatically handles pagination to scrape all products from large stores
+- **Zero browser overhead**: API-based scraping without browser automation overhead
+- **Detailed product data**: Extracts comprehensive product information including variants, images, and pricing
 
-## Learn More
+## Related
 
-- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Shopify API Documentation](https://shopify.dev/docs/api)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)

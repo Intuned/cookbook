@@ -1,0 +1,22 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "crawl",
+      "parameters": {
+        "url": "https://example.com",
+        "limit": 3,
+        "scrapeOptions": {
+          "formats": [
+            "markdown"
+          ]
+        }
+      }
+    }
+  ]
+}

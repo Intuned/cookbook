@@ -1,111 +1,92 @@
-# e-commerce-nested Intuned project
+# E-Commerce Nested (TypeScript)
 
-E-commerce store scraper template for sites with category-based navigation. Scrapes categories, product listings, and detailed product information.
-
-## Key Features
-
-- **Category-Based Navigation**: Automatically discovers and scrapes all product categories from store menus
-- **Three-Step Workflow**: Categories → Product Lists → Product Details using `extendPayload` chaining
-- **Dynamic API Chaining**: Each API automatically triggers the next step in the scraping workflow
-- **Comprehensive Product Data**: Extracts titles, prices, sizes, descriptions, shipping, and returns information
-
-<!-- IDE-IGNORE-START -->
+E-commerce category and product scraper.
 
 ## Run on Intuned
 
-[![Run on Intuned](https://cdn1.intuned.io/button.svg)](https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-nested)
+Open this project in Intuned by clicking the button below.
 
-## Development
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/e-commerce-nested" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
-> **_NOTE:_** All commands support `--help` flag to get more information about the command and its arguments and options.
+## APIs
+
+| API | Description |
+| --- | ----------- |
+| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extendPayload` |
+| `list` | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload` |
+| `details` | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy |
+
+<!-- IDE-IGNORE-START -->
+## Getting started
 
 ### Install dependencies
 
 ```bash
-# npm
 npm install
-
-# yarn
+# or
 yarn
 ```
 
-> **_NOTE:_** If you are using `npm`, make sure to pass `--` when using options with the `intuned` command.
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
+After installing dependencies, `intuned` command should be available in your environment.
 
 ### Run an API
 
 ```bash
-# npm
-npm run intuned run api category .parameters/api/category/default.json
-npm run intuned run api list .parameters/api/list/default.json
-npm run intuned run api details .parameters/api/details/default.json
-
-# yarn
-yarn intuned run api category .parameters/api/category/default.json
-yarn intuned run api list .parameters/api/list/default.json
-yarn intuned run api details .parameters/api/details/default.json
+intuned dev run api category .parameters/api/category/default.json
+intuned dev run api list .parameters/api/list/default.json
+intuned dev run api details .parameters/api/details/default.json
 ```
 
 ### Save project
 
 ```bash
-# npm
-npm run intuned provision
-
-# yarn
-yarn intuned provision
+intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
-
-### Deploy project
+### Deploy
 
 ```bash
-# npm
-npm run intuned deploy
-
-# yarn
-yarn intuned deploy
+intuned dev deploy
 ```
-
-### `@intuned/browser`: Intuned Browser SDK
-
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
-
 <!-- IDE-IGNORE-END -->
 
-## Project Structure
+## Project structure
 
 ```text
 /
-├── .parameters/                      # Test parameters for APIs
-│   └── api/
-│       ├── category/
-│       │   └── default.json
-│       ├── list/
-│       │   └── default.json
-│       └── details/
-│           └── default.json
-├── api/                              # API endpoints
-│   ├── category.ts       # Scrape category links from menu
-│   ├── list.ts           # List products from category page
-│   └── details.ts        # Extract detailed product info
-├── utils/                            # Utility modules
+├── api/
+│   ├── category.ts                  # Scrape category links from menu
+│   ├── list.ts                      # List products from category page
+│   └── details.ts                   # Extract detailed product info
+├── utils/
 │   └── typesAndSchemas.ts           # Type definitions and Zod schemas
-├── Intuned.jsonc                    # Intuned project configuration
-└── package.json                     # Node.js project dependencies
+├── intuned-resources/
+│   └── jobs/
+│       ├── category.job.jsonc       # Job for category scraping
+│       ├── list.job.jsonc           # Job for product list
+│       └── details.job.jsonc        # Job for product details
+├── .parameters/api/                 # Test parameters
+├── Intuned.jsonc                    # Project config
+├── package.json                     # Node.js dependencies
+└── README.md
 ```
 
-## APIs
+## Key features
 
-| API        | Description                                                                                                                                              |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `category` | Entry point that scrapes all category links from the store's main navigation menu. Automatically triggers `list` for each category using `extendPayload` |
-| `list`     | Scrapes product listings from a specific category page. Automatically triggers `details` for each product using `extendPayload`                          |
-| `details`  | Extracts comprehensive product information including title, price, available sizes, description, shipping details, and returns policy                    |
+- **Category-based navigation**: Automatically discovers and scrapes all product categories from store menus
+- **Three-step workflow**: Categories → Product Lists → Product Details using `extendPayload` chaining
+- **Dynamic API chaining**: Each API automatically triggers the next step in the scraping workflow
+- **Comprehensive product data**: Extracts titles, prices, sizes, descriptions, shipping, and returns information
 
-## Learn More
+## Related
 
-- [Intuned Documentation](https://docs.intunedhq.com)
+- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
 - [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
 - [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
 - [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
