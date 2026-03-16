@@ -239,7 +239,6 @@ intuned dev deploy
 ├── intuned-resources/
 │   └── jobs/
 │       ├── scrape.job.jsonc
-│       ├── map.job.jsonc
 │       ├── crawl.job.jsonc
 │       └── search.job.jsonc
 ├── .parameters/api/          # Parameter files for testing

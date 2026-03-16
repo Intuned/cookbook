@@ -130,24 +130,10 @@ intuned dev deploy
 │   ├── wait-for-dom-settled.ts                      # Wait for DOM to stabilize
 │   └── wait-for-network-settled.ts                  # Wait for network requests to settle
 ├── intuned-resources/                               # Intuned platform resources
-│   └── jobs/                                        # Job configurations for each API
-│       ├── ai/
-│       │   ├── extract-structured-data.job.jsonc
-│       │   └── is-page-loaded.job.jsonc
-│       ├── click-until-exhausted.job.jsonc
+│   └── jobs/                                        # Sample job configurations
 │       ├── download-file.job.jsonc
 │       ├── extract-markdown.job.jsonc
-│       ├── filter-empty-values.job.jsonc
-│       ├── go-to-url.job.jsonc
-│       ├── process-date.job.jsonc
-│       ├── resolve-url.job.jsonc
-│       ├── sanitize-html.job.jsonc
-│       ├── save-file-to-s3.job.jsonc
-│       ├── scroll-to-load-content.job.jsonc
-│       ├── upload-file-to-s3.job.jsonc
-│       ├── validate-data-using-schema.job.jsonc
-│       ├── wait-for-dom-settled.job.jsonc
-│       └── wait-for-network-settled.job.jsonc
+│       └── go-to-url.job.jsonc
 ├── .parameters/                                     # Test parameters for APIs
 │   └── api/                                         # API parameters folder
 │       ├── ai/                                      # AI helpers parameters

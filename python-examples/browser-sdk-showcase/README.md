@@ -128,7 +128,10 @@ intuned dev deploy
 │   ├── wait-for-dom-settled.py                 # Wait for DOM mutations to stabilize
 │   └── wait-for-network-settled.py             # Wait for network requests to settle
 ├── intuned-resources/
-│   └── jobs/                                   # Job definitions for each API
+│   └── jobs/                                   # Sample job configurations
+│       ├── download-file.job.jsonc
+│       ├── extract-markdown.job.jsonc
+│       └── go-to-url.job.jsonc
 ├── .parameters/api/                            # Test parameters
 ├── Intuned.jsonc                               # Project config
 ├── pyproject.toml                              # Python dependencies

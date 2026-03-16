@@ -92,13 +92,8 @@ intuned dev deploy
 │   └── jobs/
 │       ├── simple-crawl.job.jsonc
 │       ├── deep-crawl.job.jsonc
-│       ├── multi-crawl.job.jsonc
-│       ├── content-selection/
-│       │   ├── css-based.job.jsonc
-│       │   └── llm-based.job.jsonc
-│       └── adaptive-crawl/
-│           ├── statistical.job.jsonc
-│           └── embedding.job.jsonc
+│       └── content-selection/
+│           └── css-based.job.jsonc
 ├── .parameters/api/                  # Parameter files for testing
 ├── Intuned.jsonc
 └── pyproject.toml

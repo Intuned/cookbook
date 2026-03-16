@@ -175,7 +175,6 @@ intuned dev deploy
 │   └── jobs/
 │       ├── anthropic-computer-use.job.jsonc  # Job for Anthropic computer use
 │       ├── openai-computer-use.job.jsonc     # Job for OpenAI computer use
-│       ├── gemini-computer-use.job.jsonc     # Job for Gemini computer use
 │       └── stagehand.job.jsonc               # Job for Stagehand
 ├── package.json                    # Dependencies
 ├── tsconfig.json                   # TypeScript configuration
