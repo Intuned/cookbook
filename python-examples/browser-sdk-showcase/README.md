@@ -29,6 +29,7 @@ Open this project in Intuned by clicking the button below.
 | `ai/extract-structured-data` | Extract structured data from page content using AI |
 | `ai/is-page-loaded` | Use AI to determine if a page has finished loading |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -102,6 +103,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 
