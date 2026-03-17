@@ -2,11 +2,11 @@
 
 Credentials-based booking automation to book a consultation with a consultant and list consultations using Auth Sessions.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/rpa-auth-example" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -15,6 +15,7 @@ Open this project in Intuned by clicking the button below.
 | `book-consultations` | Book a consultation with the provided details |
 | `get-consultations-by-email` | Get all consultations for a given email address |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -64,6 +65,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 
