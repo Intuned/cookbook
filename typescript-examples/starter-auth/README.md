@@ -2,11 +2,11 @@
 
 Empty Intuned Auth Session template — a starting point for building authenticated browser automations.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/starter-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -14,6 +14,7 @@ Open this project in Intuned by clicking the button below.
 | --- | ----------- |
 | `sample` | Sample API endpoint for authenticated automation |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -62,6 +63,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 

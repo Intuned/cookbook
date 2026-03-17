@@ -2,11 +2,11 @@
 
 Basic captcha solving with support for reCAPTCHA, Cloudflare, and custom captchas.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/captcha-solving-basic" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -14,6 +14,7 @@ Open this project in Intuned by clicking the button below.
 | --- | ----------- |
 | `captcha-solver` | Solves reCAPTCHA v2, Cloudflare Turnstile, GeeTest, and custom captchas |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -47,6 +48,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 

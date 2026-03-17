@@ -2,11 +2,11 @@
 
 Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP) with Intuned.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/cdp-connection" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -14,6 +14,7 @@ Open this project in Intuned by clicking the button below.
 | ---------------- | ----------------------------------------------------------------- |
 | `connect-to-cdp` | Connect to browser via CDP, fetch browser info, navigate to a URL |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -49,6 +50,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 

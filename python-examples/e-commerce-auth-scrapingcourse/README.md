@@ -2,11 +2,11 @@
 
 Authenticated e-commerce scraping automation that extracts product information from a protected dashboard using Auth Sessions.
 
+<!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-Open this project in Intuned by clicking the button below.
-
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/e-commerce-auth-scrapingcourse" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<!-- IDE-IGNORE-END -->
 
 ## APIs
 
@@ -15,6 +15,7 @@ Open this project in Intuned by clicking the button below.
 | `list` | List products from the authenticated dashboard |
 | `details` | Get detailed information for a specific product |
 
+<!-- IDE-IGNORE-START -->
 ## Getting started
 
 ### Install dependencies
@@ -62,6 +63,7 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+<!-- IDE-IGNORE-END -->
 
 ## Project structure
 
