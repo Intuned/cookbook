@@ -87,9 +87,9 @@ async def automation(
         while current_page < max_pages:
             # Check if next button exists and is visible
             # Replace "#next-page-btn" with the appropriate selector for your store
-            next_button = await page.query_selector("#next-page-btn")
+            next_button = page.locator("#next-page-btn")
 
-            if not next_button:
+            if await next_button.count() == 0:
                 print("Next button not found, stopping pagination")
                 break
 
