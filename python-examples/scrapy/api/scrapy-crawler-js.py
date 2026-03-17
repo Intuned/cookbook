@@ -24,13 +24,11 @@ class QuotesSpider(scrapy.Spider):
 
 
 async def is_next_page_available(page: Page) -> bool:
-    next_link = await page.query_selector("li.next a")
-    return next_link is not None
+    return await page.locator("li.next a").count() > 0
 
 
 async def go_to_next_page(page: Page) -> None:
-    next_link = await page.query_selector("li.next a")
-    await next_link.click()
+    await page.locator("li.next a").click()
     await page.wait_for_load_state("networkidle")
 
 

@@ -75,32 +75,28 @@ async def extract_price_info(page: Page) -> dict:
 
     # Check for sale price (old price exists)
     # Replace selector with appropriate one for your store
-    old_price_element = await page.query_selector("div.prices span.old")
+    old_price_locator = page.locator("div.prices span.old")
 
-    if old_price_element:
-        price = (await old_price_element.inner_text()).strip()
+    if await old_price_locator.count() > 0:
+        price = (await old_price_locator.first.inner_text()).strip()
         price = price.replace(",", ".")
 
         # Get current/sale price - replace selector
-        sale_element = await page.query_selector(
-            "div.prices span.value"
-        ) or await page.query_selector("div.prices span.current")
-        sale_price = (await sale_element.inner_text()).strip() if sale_element else None
+        sale_locator = page.locator("div.prices span.value, div.prices span.current")
+        sale_price = (await sale_locator.first.inner_text()).strip() if await sale_locator.count() > 0 else None
         sale_price = sale_price.replace(",", ".") if sale_price else None
 
         # Get sale offer text - replace selector
-        sale_offer_element = await page.query_selector("div.prices span.promotion")
+        sale_offer_locator = page.locator("div.prices span.promotion")
         sale_offer = (
-            (await sale_offer_element.inner_text()).strip()
-            if sale_offer_element
+            (await sale_offer_locator.first.inner_text()).strip()
+            if await sale_offer_locator.count() > 0
             else None
         )
     else:
         # No sale, regular price only - replace selector
-        price_element = await page.query_selector(
-            "div.prices span.value"
-        ) or await page.query_selector("div.prices span.current")
-        price = (await price_element.inner_text()).strip() if price_element else None
+        price_locator = page.locator("div.prices span.value, div.prices span.current")
+        price = (await price_locator.first.inner_text()).strip() if await price_locator.count() > 0 else None
         price = price.replace(",", ".") if price else None
 
     return {
@@ -119,13 +115,13 @@ async def extract_sizes(page: Page) -> list[Size]:
 
     # Replace selector with appropriate one for your store
     size_container_selector = "div.size-container > ul > li"
-    check_sizes_element = await page.query_selector(size_container_selector)
+    size_locator = page.locator(size_container_selector)
 
-    if check_sizes_element:
-        size_elements = await page.query_selector_all(size_container_selector)
+    if await size_locator.count() > 0:
+        size_elements = await size_locator.all()
 
         for size_element in size_elements:
-            size_text = await size_element.inner_text() if size_element else None
+            size_text = await size_element.inner_text()
             check_available = await size_element.get_attribute("class")
 
             # Check if size is available (not sold out)
@@ -152,9 +148,9 @@ async def extract_description(page: Page) -> str | None:
     Replace selector with appropriate one for your store.
     """
     # Replace selector with appropriate one for your store
-    description_element = await page.query_selector("ul.content-list")
-    if description_element:
-        return await description_element.inner_text()
+    description_locator = page.locator("ul.content-list")
+    if await description_locator.count() > 0:
+        return await description_locator.first.inner_text()
     return None
 
 
@@ -270,9 +266,9 @@ async def automation(
     await page.wait_for_selector("h1.product-name")
 
     # Extract title - replace selector
-    title_element = await page.query_selector("h1.product-name")
+    title_locator = page.locator("h1.product-name")
     title = (
-        await title_element.inner_text() if title_element else params.get("name", "")
+        await title_locator.first.inner_text() if await title_locator.count() > 0 else params.name
     )
 
     # Extract price information

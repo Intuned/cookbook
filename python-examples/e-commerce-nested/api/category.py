@@ -30,7 +30,7 @@ async def extract_categories(page: Page, store_url: str) -> list[Category]:
 
     # Replace selector with appropriate one for your store's menu
     menu_selector = ".has-submenu a.main-menu__link"
-    links = await page.query_selector_all(menu_selector)
+    links = await page.locator(menu_selector).all()
 
     for link in links:
         href = await link.get_attribute("href")

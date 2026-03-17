@@ -23,11 +23,9 @@ async def handle_modal(page: Page) -> None:
     Replace the selector with the appropriate one for your store.
     """
     try:
-        modal_btn = await page.query_selector(
-            "#countrySwitcherModal .btn.btn-primary.dark-theme.full"
-        )
-        if modal_btn:
-            await modal_btn.click()
+        modal_btn = page.locator("#countrySwitcherModal .btn.btn-primary.dark-theme.full")
+        if await modal_btn.count() > 0:
+            await modal_btn.first.click()
     except Exception:
         pass
 
@@ -59,18 +57,18 @@ async def extract_products(page: Page, category_url: str) -> list[Product]:
     products: list[Product] = []
 
     # Replace ".product-tile__link" with the appropriate selector for your store
-    product_links = await page.query_selector_all(".product-tile__link")
+    product_links = await page.locator(".product-tile__link").all()
 
     for link in product_links:
         href = await link.get_attribute("href")
 
         # Extract title - replace with appropriate selector
-        title_element = await link.query_selector(".product-tile__name")
-        name = await title_element.inner_text() if title_element else ""
+        title_locator = link.locator(".product-tile__name")
+        name = await title_locator.inner_text() if await title_locator.count() > 0 else ""
 
         # Extract price - replace with appropriate selector
-        price_element = await link.query_selector(".product-tile__price .current")
-        price = await price_element.inner_text() if price_element else ""
+        price_locator = link.locator(".product-tile__price .current")
+        price = await price_locator.inner_text() if await price_locator.count() > 0 else ""
 
         if href:
             details_url = urljoin(category_url, href)
