@@ -48,8 +48,6 @@ The API template example uses the following parameters:
 }
 ```
 
-## Getting Started
-
 <!-- IDE-IGNORE-START -->
 ## Getting Started
 
