@@ -54,8 +54,7 @@ intuned dev deploy
 │   └── types_and_schemas.py  # Pydantic models for type validation
 ├── intuned-resources/
 │   └── jobs/
-│       ├── list.job.jsonc    # Job for product list
-│       └── details.job.jsonc # Job for product details
+│       └── list.job.jsonc    # Top-level job example for the product list flow
 ├── .parameters/api/          # Parameter files for testing
 ├── Intuned.jsonc             # Intuned project configuration file
 └── pyproject.toml            # Python project dependencies

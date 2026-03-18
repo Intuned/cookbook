@@ -65,8 +65,7 @@ intuned dev deploy
 │   └── typesAndSchemas.ts    # Zod schemas and TypeScript interfaces
 ├── intuned-resources/
 │   └── jobs/
-│       ├── list.job.jsonc    # Job for product list
-│       └── details.job.jsonc # Job for product details
+│       └── list.job.jsonc    # Top-level job example for the product list flow
 ├── .parameters/api/          # Test parameters
 ├── Intuned.jsonc             # Project config
 ├── package.json              # Node.js dependencies

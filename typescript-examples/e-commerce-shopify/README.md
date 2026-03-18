@@ -63,8 +63,7 @@ intuned dev deploy
 │   └── shopify-details.ts   # Get detailed product information
 ├── intuned-resources/
 │   └── jobs/
-│       ├── shopify-list.job.jsonc    # Job for product list
-│       └── shopify-details.job.jsonc # Job for product details
+│       └── shopify-list.job.jsonc    # Top-level job example for the product list flow
 ├── .parameters/api/         # Test parameters
 ├── Intuned.jsonc            # Project config
 ├── package.json             # Node.js dependencies

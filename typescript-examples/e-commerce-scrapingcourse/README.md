@@ -65,7 +65,7 @@ intuned dev deploy
 │   └── typesAndSchemas.ts   # Type definitions and Zod schemas
 ├── intuned-resources/
 │   └── jobs/
-│       ├── list.job.jsonc   # Job for product list
+│       ├── list.job.jsonc    # Job for product list
 │       └── details.job.jsonc # Job for product details
 ├── .parameters/api/         # Test parameters
 ├── Intuned.jsonc            # Project config

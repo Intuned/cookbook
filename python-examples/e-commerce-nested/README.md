@@ -68,9 +68,7 @@ intuned dev deploy
 │   └── types_and_schemas.py          # Type definitions and Pydantic models
 ├── intuned-resources/
 │   └── jobs/
-│       ├── category.job.jsonc        # Job definition for category API
-│       ├── list.job.jsonc            # Job definition for list API
-│       └── details.job.jsonc         # Job definition for details API
+│       └── category.job.jsonc        # Top-level job example for the category -> list -> details flow
 ├── .parameters/api/                  # Test parameters
 ├── Intuned.jsonc                     # Project config
 ├── pyproject.toml                    # Python dependencies
