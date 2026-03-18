@@ -85,8 +85,7 @@ intuned dev deploy
 │   └── typeAndSchemas.ts             # TypeScript types and Zod schemas
 ├── intuned-resources/
 │   ├── jobs/
-│   │   ├── list.job.jsonc            # Job definition for list API
-│   │   └── details.job.jsonc         # Job definition for details API
+│   │   └── list.job.jsonc            # Top-level job example for the list -> details flow
 │   └── auth-sessions/
 │       └── test-auth-session.auth-session.jsonc  # Auth session credentials
 ├── .parameters/api/                  # Test parameters

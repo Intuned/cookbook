@@ -81,8 +81,7 @@ intuned dev deploy
 │       ├── rpa/
 │       │   └── fill-form.job.jsonc      # Job for RPA form filling
 │       ├── scraper/
-│       │   ├── list.job.jsonc           # Job for product list scraping
-│       │   └── details.job.jsonc        # Job for product details
+│       │   └── list.job.jsonc           # Top-level job example for product list scraping
 │       └── crawler/
 │           └── crawl.job.jsonc          # Job for job board crawling
 ├── .parameters/api/              # Test parameters
