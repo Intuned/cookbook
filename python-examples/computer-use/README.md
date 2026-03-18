@@ -68,8 +68,6 @@ Uses Stagehand with Gemini's computer use capabilities, combining CUA (Computer 
 
 Uses the Browser Use library which provides DOM-based automation with built-in tools for common browser tasks, operating via CDP for direct browser control.
 
-## Getting Started
-
 <!-- IDE-IGNORE-START -->
 ## Getting Started
 
