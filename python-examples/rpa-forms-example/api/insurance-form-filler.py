@@ -40,7 +40,6 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
     session_id = session.data.session_id
     print(f"✅ Session started: {session_id}")
     print("\nInitialized 🤘 Stagehand")
-    await page.set_viewport_size({"width": 1280, "height": 800})
 
     async def perform_action(page: Page, instruction: str) -> None:
         for _ in range(3):

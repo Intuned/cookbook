@@ -49,11 +49,7 @@ async def automation(
     context: BrowserContext | None = None,
     **_kwargs,
 ) -> dict:
-    # Set the browser viewport size to 1080x720 pixels
-    # This ensures consistent rendering across different devices and screen sizes
-    # Some websites may display different layouts or elements based on viewport size
-    await page.set_viewport_size({"width": 1080, "height": 720})
-
+   
     # Step 1: Validate input parameters using schema
     # This ensures all required fields are present and properly formatted
     if params is None:

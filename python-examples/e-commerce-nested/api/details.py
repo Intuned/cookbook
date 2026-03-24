@@ -133,7 +133,6 @@ async def automation(
         "details_url": "https://www.example.com/product/item-1"
     }
     """
-    await page.set_viewport_size({"width": 1280, "height": 800})
     params = EcommereceDetailsParams(**params)
     if not params.details_url:
         raise ValueError("Params with details_url are required for this automation")

@@ -57,8 +57,6 @@ async def automation(page: Page, params: Params, **_kwargs):
     print(f"✅ Session started: {session_id}")
     print("\nInitialized 🤘 Stagehand")
 
-    await page.set_viewport_size({"width": 1280, "height": 800})
-
     category = params.get("category")
     all_books: list[BookDetails] = []
 

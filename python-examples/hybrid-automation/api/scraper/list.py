@@ -114,7 +114,6 @@ async def automation(
     then extracts product metadata (name, price, details_url) and uses
     extend_payload to trigger individual scrapes for each product's details.
     """
-    await page.set_viewport_size({"width": 1280, "height": 800})
     params = EcommereceListParams(**params)
     if not params.category_url:
         raise ValueError("category_url is required in params")
