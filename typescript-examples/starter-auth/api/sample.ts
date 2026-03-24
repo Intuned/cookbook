@@ -12,11 +12,6 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
-  await page.setViewportSize({
-    width: 1080,
-    height: 720,
-  });
-
   const sandboxedUrl = "https://sandbox.intuned.dev/consultations-auth/book";
 
   await goToUrl({

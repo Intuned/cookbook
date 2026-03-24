@@ -90,7 +90,6 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ) {
-  await page.setViewportSize({ width: 1280, height: 800 });
 
   const { category_name, category_url } = listParamsSchema.parse(params);
 

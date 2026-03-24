@@ -196,7 +196,6 @@ export default async function handler(
   page: Page,
   context: BrowserContext
 ): Promise<ProductDetails> {
-  await page.setViewportSize({ width: 1280, height: 800 });
 
   const { name: paramName, details_url } = detailsParamsSchema.parse(params);
 

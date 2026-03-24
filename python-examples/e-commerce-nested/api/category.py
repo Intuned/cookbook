@@ -69,7 +69,6 @@ async def automation(
     This function collects category metadata (name, url) from the main menu
     and then uses extend_payload to trigger individual scrapes for each category's products.
     """
-    await page.set_viewport_size({"width": 1280, "height": 800})
     params = EcommereceCategoryParams(**params)
     if not params.store_url:
         raise ValueError("store_url is required in params")

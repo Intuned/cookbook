@@ -115,8 +115,6 @@ async function handler(
   page: Page,
   context: BrowserContext
 ): Promise<{ category: string; products: Product[] }> {
-  await page.setViewportSize({ width: 1280, height: 800 });
-
   if (!params || !params.category_url) {
     throw new Error("category_url is required in params");
   }
