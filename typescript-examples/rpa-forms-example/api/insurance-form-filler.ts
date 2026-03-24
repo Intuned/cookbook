@@ -71,7 +71,6 @@ export default async function handler(
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");
   // Validate parameters
-  await page.setViewportSize({ width: 1280, height: 800 });
   const validatedParams = listParametersSchema.parse(params);
 
   const { metadata, applicant, address, vehicle } = validatedParams;

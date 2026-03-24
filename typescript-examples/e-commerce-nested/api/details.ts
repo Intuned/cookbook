@@ -162,7 +162,7 @@ async function handler(
   page: Page,
   context: BrowserContext
 ): Promise<ProductDetails> {
-  await page.setViewportSize({ width: 1280, height: 800 });
+ 
 
   if (!params || !params.details_url) {
     throw new Error("Params with details_url are required for this automation");
