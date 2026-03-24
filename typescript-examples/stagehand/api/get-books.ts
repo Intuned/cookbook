@@ -24,6 +24,17 @@ type BooksResponse = z.infer<typeof bookDetailsSchema>;
 
 const MAX_PAGES = 10;
 
+function raiseClearAiError(e: unknown): never {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+    throw new Error(
+      `❌ AI credits exceeded or rate limit reached. Please check your Intuned account credit balance. (${msg})`
+    );
+  }
+  if (e instanceof Error) throw e;
+  throw new Error(String(e));
+}
+
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
   if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
     return cdpUrl;
@@ -116,6 +127,11 @@ export default async function handler(
           );
           console.log(`Navigated to page ${pageNum + 1}`);
         } catch (e) {
+          // Re-raise AI credit errors immediately; break for "no more pages" errors
+          const msg = e instanceof Error ? e.message : String(e);
+          if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+            raiseClearAiError(e);
+          }
           console.log(`No more pages or navigation failed: ${e}`);
           break;
         }

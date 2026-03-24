@@ -24,6 +24,27 @@ class BooksResponse(BaseModel):
 
 MAX_PAGES = 10
 
+AI_CREDIT_KEYWORDS = [
+    "credit",
+    "quota",
+    "rate limit",
+    "rate_limit",
+    "insufficient",
+    "payment",
+    "402",
+]
+
+
+def _raise_clear_ai_error(e: Exception) -> None:
+    """Re-raise with a clear message if the error is related to AI credits or quota."""
+    error_str = str(e).lower()
+    if any(kw in error_str for kw in AI_CREDIT_KEYWORDS):
+        raise RuntimeError(
+            "❌ AI credits exceeded or rate limit reached. "
+            "Please check your Intuned account credit balance."
+        ) from e
+    raise e
+
 
 async def automation(page: Page, params: Params, **_kwargs):
     base_url, api_key = get_ai_gateway_config()
@@ -145,6 +166,10 @@ async def automation(page: Page, params: Params, **_kwargs):
                     )
                     print(f"Navigated to page {page_num + 1}")
                 except Exception as e:
+                    # Re-raise AI credit errors immediately; break for "no more pages" errors
+                    error_str = str(e).lower()
+                    if any(kw in error_str for kw in AI_CREDIT_KEYWORDS):
+                        _raise_clear_ai_error(e)
                     print(f"No more pages or navigation failed: {e}")
                     break
     finally:

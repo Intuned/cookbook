@@ -37,9 +37,29 @@ If you are getting blocked on google, try another search engine.""",
     )
 
     # Execute the autonomous task with the Computer Use Agent
-    result = await agent.execute(
-        instruction=params["query"], max_steps=30, auto_screenshot=True
-    )
+    try:
+        result = await agent.execute(
+            instruction=params["query"], max_steps=30, auto_screenshot=True
+        )
+    except Exception as e:
+        error_str = str(e).lower()
+        if any(
+            kw in error_str
+            for kw in [
+                "credit",
+                "quota",
+                "rate limit",
+                "rate_limit",
+                "insufficient",
+                "payment",
+                "402",
+            ]
+        ):
+            raise RuntimeError(
+                "❌ AI credits exceeded or rate limit reached. "
+                "Please check your API key quota or Intuned account credit balance."
+            ) from e
+        raise
 
     print("Task completed!")
     print(f"Result: {result}")

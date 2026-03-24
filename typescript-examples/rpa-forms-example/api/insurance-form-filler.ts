@@ -10,6 +10,17 @@ class InvalidActionError extends Error {
   }
 }
 
+function raiseClearAiError(e: unknown): never {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+    throw new Error(
+      `❌ AI credits exceeded or rate limit reached. Please check your Intuned account credit balance. (${msg})`
+    );
+  }
+  if (e instanceof Error) throw e;
+  throw new Error(String(e));
+}
+
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
   if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
     return cdpUrl;
@@ -28,14 +39,18 @@ async function performAction(
   instruction: string
 ): Promise<void> {
   for (let i = 0; i < 3; i++) {
-    const action = await stagehand.observe(instruction);
-    if (action && action.length > 0) {
-      await stagehand.act(action[0]);
-      await page.waitForLoadState("domcontentloaded");
-      await page.waitForTimeout(2000);
-      return;
-    } else {
-      await page.waitForTimeout(2000);
+    try {
+      const action = await stagehand.observe(instruction);
+      if (action && action.length > 0) {
+        await stagehand.act(action[0]);
+        await page.waitForLoadState("domcontentloaded");
+        await page.waitForTimeout(2000);
+        return;
+      } else {
+        await page.waitForTimeout(2000);
+      }
+    } catch (e) {
+      raiseClearAiError(e); // re-raises with clear message for credit errors, re-throws original otherwise
     }
   }
   throw new InvalidActionError(
