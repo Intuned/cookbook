@@ -7,6 +7,17 @@ interface Params {
   query: string;  // The task you want the AI to perform
 }
 
+function raiseClearAiError(e: unknown): never {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+    throw new Error(
+      `❌ AI credits exceeded or rate limit reached. Please check your Intuned account credit balance. (${msg})`
+    );
+  }
+  if (e instanceof Error) throw e;
+  throw new Error(String(e));
+}
+
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
   if (!cdpUrl) {
     throw new Error("CDP URL is not available. Make sure the browser is running and the setupContext hook is configured.");
@@ -80,15 +91,20 @@ export default async function handler(
     });
 
     // Agent runs on current page
-    const result = await agent.execute({
-      instruction: query,
-      maxSteps: 50,
-    });
-
-    return {
-      result: result.success ? 'Task completed successfully' : 'Task failed',
-      success: result.success,
-    };
+    try {
+      const execResult = await agent.execute({
+        instruction: query,
+        maxSteps: 50,
+      });
+      return {
+        result: execResult.success
+          ? "Task completed successfully"
+          : "Task failed",
+        success: execResult.success,
+      };
+    } catch (e) {
+      raiseClearAiError(e);
+    }
   } finally {
     // Cleanup Stagehand
     console.log("\nClosing 🤘 Stagehand...");

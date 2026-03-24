@@ -32,6 +32,17 @@ const successCheckSchema = z.object({
   message: z.string().describe("The success or error message displayed"),
 });
 
+function raiseClearAiError(e: unknown): never {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+    throw new Error(
+      `❌ AI credits exceeded or rate limit reached. Please check your Intuned account credit balance. (${msg})`
+    );
+  }
+  if (e instanceof Error) throw e;
+  throw new Error(String(e));
+}
+
 async function getWebSocketUrl(cdpUrl: string): Promise<string> {
   if (cdpUrl.includes("ws://") || cdpUrl.includes("wss://")) {
     return cdpUrl;
@@ -93,8 +104,12 @@ export default async function handler(
       console.log("✓ Filled name with Playwright");
     } catch (e) {
       console.log(`Playwright failed for name, using Stagehand act: ${e}`);
-      await stagehand.act(`Type "${name}" in the name input field`);
-      console.log("✓ Filled name with Stagehand act");
+      try {
+        await stagehand.act(`Type "${name}" in the name input field`);
+        console.log("✓ Filled name with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 2: Fill email field
@@ -103,8 +118,12 @@ export default async function handler(
       console.log("✓ Filled email with Playwright");
     } catch (e) {
       console.log(`Playwright failed for email, using Stagehand act: ${e}`);
-      await stagehand.act(`Type "${email}" in the email input field`);
-      console.log("✓ Filled email with Stagehand act");
+      try {
+        await stagehand.act(`Type "${email}" in the email input field`);
+        console.log("✓ Filled email with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 3: Fill phone field
@@ -113,8 +132,12 @@ export default async function handler(
       console.log("✓ Filled phone with Playwright");
     } catch (e) {
       console.log(`Playwright failed for phone, using Stagehand act: ${e}`);
-      await stagehand.act(`Type "${phone}" in the phone input field`);
-      console.log("✓ Filled phone with Stagehand act");
+      try {
+        await stagehand.act(`Type "${phone}" in the phone input field`);
+        console.log("✓ Filled phone with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 4: Fill date field
@@ -123,8 +146,12 @@ export default async function handler(
       console.log("✓ Filled date with Playwright");
     } catch (e) {
       console.log(`Playwright failed for date, using Stagehand act: ${e}`);
-      await stagehand.act(`Type "${date}" in the date input field`);
-      console.log("✓ Filled date with Stagehand act");
+      try {
+        await stagehand.act(`Type "${date}" in the date input field`);
+        console.log("✓ Filled date with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 5: Fill time field
@@ -133,8 +160,12 @@ export default async function handler(
       console.log("✓ Filled time with Playwright");
     } catch (e) {
       console.log(`Playwright failed for time, using Stagehand act: ${e}`);
-      await stagehand.act(`Type "${time}" in the time input field`);
-      console.log("✓ Filled time with Stagehand act");
+      try {
+        await stagehand.act(`Type "${time}" in the time input field`);
+        console.log("✓ Filled time with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 6: Select the consultation topic from dropdown
@@ -145,8 +176,12 @@ export default async function handler(
       console.log(
         `Playwright failed for topic selection, using Stagehand act: ${e}`
       );
-      await stagehand.act(`Select "${topic}" from the topic dropdown`);
-      console.log("✓ Selected topic with Stagehand act");
+      try {
+        await stagehand.act(`Select "${topic}" from the topic dropdown`);
+        console.log("✓ Selected topic with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 7: Submit the booking form
@@ -155,10 +190,14 @@ export default async function handler(
       console.log("✓ Submitted form with Playwright");
     } catch (e) {
       console.log(`Playwright failed for submit, using Stagehand act: ${e}`);
-      await stagehand.act(
-        "Click the submit button to submit the booking form"
-      );
-      console.log("✓ Submitted form with Stagehand act");
+      try {
+        await stagehand.act(
+          "Click the submit button to submit the booking form"
+        );
+        console.log("✓ Submitted form with Stagehand act");
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
 
     // Step 8: Wait for and verify the success modal
@@ -174,12 +213,16 @@ export default async function handler(
       console.log(
         `Playwright failed for verification, using Stagehand extract: ${e}`
       );
-      const result = await stagehand.extract(
-        "Check if the booking was successful. Look for a success modal or confirmation message.",
-        successCheckSchema
-      );
-      isSuccess = result?.success || false;
-      console.log(`✓ Verified with Stagehand extract: ${JSON.stringify(result)}`);
+      try {
+        const result = await stagehand.extract(
+          "Check if the booking was successful. Look for a success modal or confirmation message.",
+          successCheckSchema
+        );
+        isSuccess = result?.success || false;
+        console.log(`✓ Verified with Stagehand extract: ${JSON.stringify(result)}`);
+      } catch (stagehandError) {
+        raiseClearAiError(stagehandError);
+      }
     }
   } finally {
     // Cleanup Stagehand

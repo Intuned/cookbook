@@ -10,6 +10,28 @@ class InvalidActionError(Exception):
     pass
 
 
+AI_CREDIT_KEYWORDS = [
+    "credit",
+    "quota",
+    "rate limit",
+    "rate_limit",
+    "insufficient",
+    "payment",
+    "402",
+]
+
+
+def _raise_clear_ai_error(e: Exception) -> None:
+    """Re-raise with a clear message if the error is related to AI credits or quota."""
+    error_str = str(e).lower()
+    if any(kw in error_str for kw in AI_CREDIT_KEYWORDS):
+        raise RuntimeError(
+            "❌ AI credits exceeded or rate limit reached. "
+            "Please check your Intuned account credit balance."
+        ) from e
+    raise e
+
+
 async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: ...):
     base_url, api_key = get_ai_gateway_config()
     cdp_url = attempt_store.get("cdp_url")
@@ -43,22 +65,27 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
 
     async def perform_action(page: Page, instruction: str) -> None:
         for _ in range(3):
-            observed = await client.sessions.observe(
-                id=session_id,
-                instruction=instruction,
-                options={"model": model_config},
-            )
-            if observed.data.result:
-                await client.sessions.act(
+            try:
+                observed = await client.sessions.observe(
                     id=session_id,
-                    input=instruction,
+                    instruction=instruction,
                     options={"model": model_config},
                 )
-                await page.wait_for_load_state("domcontentloaded")
-                await page.wait_for_timeout(2000)
-                return
-            else:
-                await page.wait_for_timeout(2000)
+                if observed.data.result:
+                    await client.sessions.act(
+                        id=session_id,
+                        input=instruction,
+                        options={"model": model_config},
+                    )
+                    await page.wait_for_load_state("domcontentloaded")
+                    await page.wait_for_timeout(2000)
+                    return
+                else:
+                    await page.wait_for_timeout(2000)
+            except Exception as e:
+                _raise_clear_ai_error(
+                    e
+                )  # clear message for credit errors, re-raises original otherwise
         raise InvalidActionError(
             f"Could not find action for instruction: {instruction}"
         )

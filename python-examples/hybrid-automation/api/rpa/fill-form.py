@@ -8,6 +8,28 @@ from stagehand.types.model_config_param import ModelConfigParam
 from stagehand.types.session_start_params import Browser, BrowserLaunchOptions
 
 
+def _raise_clear_ai_error(e: Exception) -> None:
+    """Re-raise with a clear message if the error is related to AI credits or quota."""
+    error_str = str(e).lower()
+    if any(
+        kw in error_str
+        for kw in [
+            "credit",
+            "quota",
+            "rate limit",
+            "rate_limit",
+            "insufficient",
+            "payment",
+            "402",
+        ]
+    ):
+        raise RuntimeError(
+            "❌ AI credits exceeded or rate limit reached. "
+            "Please check your Intuned account credit balance."
+        ) from e
+    raise e
+
+
 class BookConsultationSchema(BaseModel):
     name: str
     email: str
@@ -98,12 +120,15 @@ async def automation(
             print("✓ Filled name with Playwright")
         except Exception as e:
             print(f"Playwright failed for name, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Type "{name}" in the name input field',
-                options={"model": model_config},
-            )
-            print("✓ Filled name with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Type "{name}" in the name input field',
+                    options={"model": model_config},
+                )
+                print("✓ Filled name with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 2: Fill email field
         try:
@@ -111,12 +136,15 @@ async def automation(
             print("✓ Filled email with Playwright")
         except Exception as e:
             print(f"Playwright failed for email, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Type "{email}" in the email input field',
-                options={"model": model_config},
-            )
-            print("✓ Filled email with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Type "{email}" in the email input field',
+                    options={"model": model_config},
+                )
+                print("✓ Filled email with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 3: Fill phone field
         try:
@@ -124,12 +152,15 @@ async def automation(
             print("✓ Filled phone with Playwright")
         except Exception as e:
             print(f"Playwright failed for phone, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Type "{phone}" in the phone input field',
-                options={"model": model_config},
-            )
-            print("✓ Filled phone with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Type "{phone}" in the phone input field',
+                    options={"model": model_config},
+                )
+                print("✓ Filled phone with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 4: Fill date field
         try:
@@ -137,12 +168,15 @@ async def automation(
             print("✓ Filled date with Playwright")
         except Exception as e:
             print(f"Playwright failed for date, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Type "{date}" in the date input field',
-                options={"model": model_config},
-            )
-            print("✓ Filled date with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Type "{date}" in the date input field',
+                    options={"model": model_config},
+                )
+                print("✓ Filled date with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 5: Fill time field
         try:
@@ -150,12 +184,15 @@ async def automation(
             print("✓ Filled time with Playwright")
         except Exception as e:
             print(f"Playwright failed for time, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Type "{time}" in the time input field',
-                options={"model": model_config},
-            )
-            print("✓ Filled time with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Type "{time}" in the time input field',
+                    options={"model": model_config},
+                )
+                print("✓ Filled time with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 6: Select the consultation topic from dropdown
         try:
@@ -163,12 +200,15 @@ async def automation(
             print("✓ Selected topic with Playwright")
         except Exception as e:
             print(f"Playwright failed for topic selection, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input=f'Select "{topic}" from the topic dropdown',
-                options={"model": model_config},
-            )
-            print("✓ Selected topic with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input=f'Select "{topic}" from the topic dropdown',
+                    options={"model": model_config},
+                )
+                print("✓ Selected topic with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 7: Submit the booking form
         try:
@@ -176,12 +216,15 @@ async def automation(
             print("✓ Submitted form with Playwright")
         except Exception as e:
             print(f"Playwright failed for submit, using Stagehand act: {e}")
-            await client.sessions.act(
-                id=session_id,
-                input="Click the submit button to submit the booking form",
-                options={"model": model_config},
-            )
-            print("✓ Submitted form with Stagehand act")
+            try:
+                await client.sessions.act(
+                    id=session_id,
+                    input="Click the submit button to submit the booking form",
+                    options={"model": model_config},
+                )
+                print("✓ Submitted form with Stagehand act")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
         # Step 8: Wait for and verify the success modal
         try:
@@ -191,32 +234,35 @@ async def automation(
             print("✓ Verified success with Playwright")
         except Exception as e:
             print(f"Playwright failed for verification, using Stagehand extract: {e}")
-            result = await client.sessions.extract(
-                id=session_id,
-                instruction="Check if the booking was successful. Look for a success modal or confirmation message.",
-                options={"model": model_config},
-                schema={
-                    "type": "object",
-                    "properties": {
-                        "success": {
-                            "type": "boolean",
-                            "description": "Whether the booking was successful",
+            try:
+                result = await client.sessions.extract(
+                    id=session_id,
+                    instruction="Check if the booking was successful. Look for a success modal or confirmation message.",
+                    options={"model": model_config},
+                    schema={
+                        "type": "object",
+                        "properties": {
+                            "success": {
+                                "type": "boolean",
+                                "description": "Whether the booking was successful",
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "The success or error message displayed",
+                            },
                         },
-                        "message": {
-                            "type": "string",
-                            "description": "The success or error message displayed",
-                        },
+                        "required": ["success", "message"],
                     },
-                    "required": ["success", "message"],
-                },
-            )
-            result_data = (
-                SuccessCheck.model_validate(result.data.result)
-                if result.data.result
-                else None
-            )
-            is_success = result_data.success if result_data else False
-            print(f"✓ Verified with Stagehand extract: {result_data}")
+                )
+                result_data = (
+                    SuccessCheck.model_validate(result.data.result)
+                    if result.data.result
+                    else None
+                )
+                is_success = result_data.success if result_data else False
+                print(f"✓ Verified with Stagehand extract: {result_data}")
+            except Exception as stagehand_error:
+                _raise_clear_ai_error(stagehand_error)
 
     finally:
         # Cleanup Stagehand
