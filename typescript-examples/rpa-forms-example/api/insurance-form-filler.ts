@@ -92,6 +92,9 @@ export default async function handler(
   // Navigate to site
   await page.goto(metadata.site);
 
+  // --- Accept cookies ---
+  await performAction(stagehand, page, "Click the Accept cookies button if present");
+
   // --- Object type selection ---
   await performAction(
     stagehand,
