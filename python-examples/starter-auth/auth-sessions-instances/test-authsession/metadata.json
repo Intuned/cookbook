@@ -5,6 +5,6 @@
     "username": "demo@email.com",
     "password": "DemoUser2024!"
   },
-  "authSessionId": "test-auth-session",
+  "authSessionId": "test-authsession",
   "authSessionType": "API"
 }

@@ -34,7 +34,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json --auth-session test-auth-session
+intuned dev run api sample .parameters/api/sample/default.json --auth-session test-authsession
 ```
 
 ### Auth Sessions
@@ -44,10 +44,10 @@ intuned dev run api sample .parameters/api/sample/default.json --auth-session te
 intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
 # Validate
-intuned dev run authsession validate test-auth-session
+intuned dev run authsession validate test-authsession
 
 # Update
-intuned dev run authsession update test-auth-session
+intuned dev run authsession update test-authsession
 ```
 
 ### Save project
@@ -73,14 +73,14 @@ intuned dev deploy
 │   ├── check.py                      # Validates if the auth session is still active
 │   └── create.py                     # Creates/recreates the auth session
 ├── auth-sessions-instances/
-│   └── test-auth-session/            # Example local auth session
+│   └── test-authsession/            # Example local auth session
 │       ├── auth-session.json
 │       └── metadata.json
 ├── intuned-resources/
 │   ├── jobs/
 │   │   └── sample.job.jsonc          # Job definition (payload, auth session)
 │   └── auth-sessions/
-│       └── test-auth-session.auth-session.jsonc  # Auth session credentials
+│       └── test-authsession.auth-session.jsonc  # Auth session credentials
 ├── .parameters/api/                  # Test parameters
 ├── Intuned.jsonc                      # Project config
 ├── pyproject.toml                     # Python dependencies

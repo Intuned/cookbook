@@ -61,10 +61,10 @@ htmlcov/
 # Intuned
 .intuned/
 scripts/.deploy-config
-# Ignore all folders in auth-sessions-instances except test-auth-session
+# Ignore all folders in auth-sessions-instances except test-authsession
 **/auth-sessions-instances/*
-!**/auth-sessions-instances/test-auth-session/
-!**/auth-sessions-instances/test-auth-session/**
+!**/auth-sessions-instances/test-authsession/
+!**/auth-sessions-instances/test-authsession/**
 
 notes.md
 

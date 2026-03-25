@@ -373,7 +373,7 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 - Projects with Auth Sessions enabled must include `auth-sessions-instances/` directory
 - Each auth session instance is stored in a subdirectory named with the auth session ID
 - Each instance directory contains: `auth-session.json` and `metadata.json`
-- Example: `auth-sessions-instances/test-auth-session/auth-session.json` and `metadata.json`
+- Example: `auth-sessions-instances/test-authsession/auth-session.json` and `metadata.json`
 - These files are used during local development; when deployed, AuthSession data is stored on Intuned's infrastructure
 
 ## Documentation Links
