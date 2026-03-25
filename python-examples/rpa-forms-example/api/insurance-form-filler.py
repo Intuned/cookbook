@@ -97,6 +97,12 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
     try:
         await client.sessions.navigate(id=session_id, url=site)
 
+        # --- Accept cookies ---
+        await perform_action(
+            page,
+            "Click the Accept cookies button if present",
+        )
+
         # --- Object type selection ---
         await perform_action(
             page,
