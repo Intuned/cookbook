@@ -1,5 +1,53 @@
 A collection of examples for building browser automations with [Intuned](https://intunedhq.com).
 
+## Quick Start
+
+### 1. Install the CLI
+
+```bash
+npm install -g @intuned/cli
+```
+
+### 2. Create a project from a template
+
+```bash
+npx create-intuned-project@latest
+```
+
+The interactive wizard will ask for:
+
+- **Language** — TypeScript or Python
+- **Template** — choose from the examples listed in the tables below (e.g. `starter`, `rpa-example`)
+- **Project name** — a name for your new project
+
+### 3. Configure your API key
+
+Create a `.env` file in your project root with your Intuned API key:
+
+```
+INTUNED_API_KEY=<your-api-key>
+```
+
+You can find your API key in the [Intuned dashboard](https://app.intuned.io).
+
+### 4. Install dependencies and run an API
+
+**TypeScript:**
+
+```bash
+yarn install
+intuned dev run api <api-name> .parameters/api/<api-name>/default.json
+```
+
+**Python:**
+
+```bash
+uv sync
+intuned dev run api <api-name> .parameters/api/<api-name>/default.json
+```
+
+> See the [CLI reference](https://intuned-7-cli-v2.mintlify.app/docs/02-features/local-development-cli) for all available options.
+
 ## TypeScript Examples
 
 | Example | Description |

@@ -10,7 +10,11 @@ This is a cookbook repository with TypeScript and Python examples for the Intune
 
 ## Testing APIs with the Intuned CLI
 
-The Intuned CLI lets you run and test APIs locally before deploying. The commands differ slightly between TypeScript and Python.
+The Intuned CLI lets you run and test APIs locally before deploying. Install it globally first:
+
+```bash
+npm install -g @intuned/cli
+```
 
 ### TypeScript
 
@@ -22,11 +26,11 @@ cd typescript-examples/your-project
 yarn install
 
 # Run an API with parameters from a JSON file
-yarn intuned run api <api-name> <path-to-params.json>
+intuned dev run api <api-name> <path-to-params.json>
 
 # Examples
-yarn intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
-yarn intuned run api scrape-products .parameters/api/scrape-products/default.json
+intuned dev run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+intuned dev run api scrape-products .parameters/api/scrape-products/default.json
 ```
 
 ### Python
@@ -39,11 +43,11 @@ cd python-examples/your-project
 uv sync
 
 # Run an API with parameters from a JSON file
-uv run intuned run api <api-name> <path-to-params.json>
+intuned dev run api <api-name> <path-to-params.json>
 
 # Examples
-uv run intuned run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
-uv run intuned run api scrape-products .parameters/api/scrape-products/default.json
+intuned dev run api 01-basic-navigation .parameters/api/01-basic-navigation/default.json
+intuned dev run api scrape-products .parameters/api/scrape-products/default.json
 ```
 
 ### With Auth Sessions
@@ -51,11 +55,7 @@ uv run intuned run api scrape-products .parameters/api/scrape-products/default.j
 If the project has auth sessions enabled, you need to provide an auth session ID:
 
 ```bash
-# TypeScript
-yarn intuned run api <api-name> <params.json> --auth-session <auth-session-id>
-
-# Python
-uv run intuned run api <api-name> <params.json> --auth-session <auth-session-id>
+intuned dev run api <api-name> <params.json> --auth-session <auth-session-id>
 ```
 
 ### Parameter Files
@@ -78,27 +78,19 @@ Parameters are stored in `.parameters/api/{api-name}/default.json`. Each API sho
 **Headless mode** — Run without a visible browser window. Faster execution, recommended when you don't need to watch the automation:
 
 ```bash
-# TypeScript
-yarn intuned run api scrape-products .parameters/api/scrape-products/default.json --headless
-
-# Python
-uv run intuned run api scrape-products .parameters/api/scrape-products/default.json --headless
+intuned dev run api scrape-products .parameters/api/scrape-products/default.json --headless
 ```
 
 **Keep browser open** — Keeps the browser open after execution finishes. Useful for debugging or when you want to inspect the final state and ask questions:
 
 ```bash
-# TypeScript
-yarn intuned run api fill-form .parameters/api/fill-form/default.json --keep-browser-open
-
-# Python
-uv run intuned run api fill-form .parameters/api/fill-form/default.json --keep-browser-open
+intuned dev run api fill-form .parameters/api/fill-form/default.json --keep-browser-open
 ```
 
 **Enable tracing** — Saves a Playwright trace for debugging failed runs:
 
 ```bash
-yarn intuned run api my-api .parameters/api/my-api/default.json --trace
+intuned dev run api my-api .parameters/api/my-api/default.json --trace
 # Trace saved to ./traces/<timestamp>
 ```
 
@@ -108,14 +100,12 @@ yarn intuned run api my-api .parameters/api/my-api/default.json --trace
 - `--proxy <url>` — Use a proxy for browser connections
 - `-o, --output-file <path>` — Save results to a JSON file
 
-For full CLI reference, see: https://docs.intunedhq.com/docs/05-references/cli#run-api
+For full CLI reference, see: https://intuned-7-cli-v2.mintlify.app/docs/02-features/local-development-cli
 
 ### CLI Help
 
 ```bash
-# Get help on any command
-yarn intuned run api --help   # TypeScript
-uv run intuned run api --help # Python
+intuned dev run api --help
 ```
 
 ## File Conventions

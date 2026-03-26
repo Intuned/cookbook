@@ -2,6 +2,26 @@
 
 Intuned sample projects in TypeScript.
 
+## Quick Start
+
+Install the CLI, then create a project from any template below:
+
+```bash
+npm install -g @intuned/cli
+npx create-intuned-project@latest
+```
+
+Install dependencies and run an API locally:
+
+```bash
+yarn install
+intuned dev run api <api-name> .parameters/api/<api-name>/default.json
+```
+
+> See the [CLI reference](https://intuned-7-cli-v2.mintlify.app/docs/02-features/local-development-cli) for all available options.
+
+## Examples
+
 | Example | Description |
 |--------|-------------|
 | [starter](./starter/) | Starter template for new projects |
