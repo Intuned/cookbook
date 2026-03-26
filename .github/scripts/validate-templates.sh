@@ -315,11 +315,11 @@ validate_template() {
         fi
 
         # Check auth-sessions-instances directory
-        if [[ ! -d "$dir/auth-sessions-instances/test-auth-session" ]]; then
-            error "[$full_path] auth-sessions-instances/test-auth-session/ directory is missing"
-            error "[$full_path] Run: cd $dir && intuned run authsession create .parameters/auth-sessions/create/default.json --id test-auth-session"
+        if [[ ! -d "$dir/auth-sessions-instances/test-authsession" ]]; then
+            error "[$full_path] auth-sessions-instances/test-authsession/ directory is missing"
+            error "[$full_path] Run: cd $dir && intuned run authsession create .parameters/auth-sessions/create/default.json --id test-authsession"
         else
-            success "[$full_path] auth-sessions-instances/test-auth-session/ exists"
+            success "[$full_path] auth-sessions-instances/test-authsession/ exists"
         fi
 
         # Check .parameters/auth-sessions

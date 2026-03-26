@@ -34,9 +34,9 @@ yarn
 ### Run an API
 
 ```bash
-intuned dev run api claims .parameters/api/claims/default.json --auth-session test-auth-session
-intuned dev run api families .parameters/api/families/default.json --auth-session test-auth-session
-intuned dev run api insurees .parameters/api/insurees/default.json --auth-session test-auth-session
+intuned dev run api claims .parameters/api/claims/default.json --auth-session test-authsession
+intuned dev run api families .parameters/api/families/default.json --auth-session test-authsession
+intuned dev run api insurees .parameters/api/insurees/default.json --auth-session test-authsession
 ```
 
 ### Auth Sessions
@@ -48,10 +48,10 @@ This project uses Intuned Auth Sessions. To learn more, check out the [Auth Sess
 intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
 # Validate
-intuned dev run authsession validate test-auth-session
+intuned dev run authsession validate test-authsession
 
 # Update
-intuned dev run authsession update test-auth-session
+intuned dev run authsession update test-authsession
 ```
 
 ### Save project

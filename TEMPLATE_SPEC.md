@@ -14,7 +14,7 @@ typescript-examples/{template-name}/
 │   ├── check.ts                  # Validates if auth session is still valid
 │   └── create.ts                 # Creates/recreates auth session programmatically
 ├── auth-sessions-instances/      # Only if authSessions.enabled = true
-│   └── test-auth-session/        # Example auth session for testing
+│   └── test-authsession/        # Example auth session for testing
 │       ├── auth-session.json     # Browser state (cookies, localStorage)
 │       └── metadata.json         # Auth session metadata
 ├── .parameters/                  # Test parameters for APIs
@@ -44,7 +44,7 @@ python-examples/{template-name}/
 │   ├── check.py                  # Validates if auth session is still valid
 │   └── create.py                 # Creates/recreates auth session programmatically
 ├── auth-sessions-instances/      # Only if authSessions.enabled = true
-│   └── test-auth-session/        # Example auth session for testing
+│   └── test-authsession/        # Example auth session for testing
 │       ├── auth-session.json     # Browser state (cookies, localStorage)
 │       └── metadata.json         # Auth session metadata
 ├── .parameters/                  # Test parameters for APIs
@@ -450,7 +450,7 @@ api_key = config.api_key
 ### Auth Sessions (if enabled)
 - [ ] `auth-sessions/check.ts` or `check.py` exists
 - [ ] `auth-sessions/create.ts` or `create.py` exists
-- [ ] `auth-sessions-instances/test-auth-session/` exists with valid session
+- [ ] `auth-sessions-instances/test-authsession/` exists with valid session
 
 ### README
 - [ ] Follows the getting started template

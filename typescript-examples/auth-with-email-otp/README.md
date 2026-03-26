@@ -57,7 +57,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 ```bash
-intuned dev run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-auth-session
+intuned dev run api list-contracts .parameters/api/list-contracts/default.json --auth-session test-authsession
 ```
 
 ### Auth Sessions
@@ -77,10 +77,10 @@ Edit `.parameters/auth-sessions/create/default.json` to set your Resend inbox em
 intuned dev run authsession create .parameters/auth-sessions/create/default.json
 
 # Validate
-intuned dev run authsession validate test-auth-session
+intuned dev run authsession validate test-authsession
 
 # Update
-intuned dev run authsession update test-auth-session
+intuned dev run authsession update test-authsession
 ```
 
 ### Save project
@@ -105,7 +105,7 @@ intuned dev deploy
 │   ├── check.ts                                       # Validates if the auth session is still active
 │   └── create.ts                                      # Signs up and verifies OTP to create the auth session
 ├── auth-sessions-instances/
-│   └── test-auth-session/                             # Example local auth session
+│   └── test-authsession/                             # Example local auth session
 │       ├── auth-session.json                          # Saved browser state (cookies, localStorage)
 │       └── metadata.json                              # Auth session metadata
 ├── utils/
@@ -115,7 +115,7 @@ intuned dev deploy
 │   ├── jobs/
 │   │   └── list-contracts.job.jsonc                   # Job configuration for list-contracts
 │   └── auth-sessions/
-│       └── test-auth-session.auth-session.jsonc       # Auth session resource configuration
+│       └── test-authsession.auth-session.jsonc       # Auth session resource configuration
 ├── .parameters/
 │   ├── api/list-contracts/                            # Parameters for the list-contracts API
 │   └── auth-sessions/                                 # Parameters for auth session operations

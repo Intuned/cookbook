@@ -13,5 +13,5 @@
       }
     }
   ],
-  "auth_session": { "id": "test-auth-session" }
+  "auth_session": { "id": "test-authsession" }
 }
