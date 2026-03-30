@@ -16,6 +16,12 @@ To get started developing browser automation projects with Intuned, check out th
 uv sync
 ```
 
+If the `intuned` CLI is not installed, install it globally:
+
+```bash
+npm install -g @intuned/cli
+```
+
 After installing dependencies, `intuned` command should be available in your environment.
 
 <!-- You should replace the api-name and path of the json parameter to run with inside .parameters folder -->
@@ -24,7 +30,7 @@ After installing dependencies, `intuned` command should be available in your env
 ### Run an API
 
 ```bash
-uv run intuned run api <api-name> <parameters>
+intuned dev run api <api-name> <parameters>
 ```
 
 <!-- Only if auth is enabled in Intuned.jsonc -->
@@ -33,13 +39,13 @@ uv run intuned run api <api-name> <parameters>
 When AuthSessions are enabled, APIs require an AuthSession ID to run:
 
 ```bash
-uv run intuned run api <api-name> <parameters> --auth-session <auth-session-id>
+intuned dev run api <api-name> <parameters> --auth-session <auth-session-id>
 ```
 
 ### Save project
 
 ```bash
-uv run intuned provision
+intuned dev provision
 ```
 
 Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
@@ -53,25 +59,25 @@ This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessi
 ### Create a new auth session
 
 ```bash
-uv run intuned run authsession create <parameters>
+intuned dev run authsession create <parameters>
 ```
 
 ### Update an existing auth session
 
 ```bash
-uv run intuned run authsession update <auth-session-id>
+intuned dev run authsession update <auth-session-id>
 ```
 
 ### Validate an auth session
 
 ```bash
-uv run intuned run authsession validate <auth-session-id>
+intuned dev run authsession validate <auth-session-id>
 ```
 
 ### Deploy project
 
 ```bash
-uv run intuned deploy
+intuned dev deploy
 ```
 
 ### `intuned-browser`: Intuned Browser SDK

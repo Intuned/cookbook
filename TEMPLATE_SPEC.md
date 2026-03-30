@@ -336,10 +336,10 @@ Each template README must follow the getting started template located at:
 1. **Always use `.parameters` paths** - Never use inline JSON like `'{}'`
    ```bash
    # Good
-   uv run intuned run api sample .parameters/api/sample/default.json
+   intuned dev run api sample .parameters/api/sample/default.json
 
    # Bad
-   uv run intuned run api sample '{}'
+   intuned dev run api sample '{}'
    ```
 
 2. **Include example for each API** in the Run an API section
