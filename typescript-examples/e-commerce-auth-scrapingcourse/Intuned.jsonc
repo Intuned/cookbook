@@ -19,24 +19,6 @@
     "defaultRunPlaygroundInput": {
       "apiName": "list",
       "parameters": {}
-    },
-    "defaultJobInput": {
-      "configuration": {
-        "maxConcurrentRequests": 2,
-        "retry": {
-          "maximumAttempts": 3
-        }
-      },
-      "payload": [
-        {
-          "apiName": "list",
-          "parameters": {}
-        }
-      ]
-    },
-    "testAuthSessionInput": {
-      "username": "admin@example.com",
-      "password": "password"
     }
   }
 }

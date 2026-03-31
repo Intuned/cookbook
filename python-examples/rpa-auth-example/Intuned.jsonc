@@ -28,10 +28,6 @@
         "time": "10:00 AM",
         "topic": "other"
       }
-    },
-    "testAuthSessionInput": {
-      "username": "demo@email.com",
-      "password": "DemoUser2024!"
     }
   }
 }
