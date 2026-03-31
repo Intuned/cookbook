@@ -18,10 +18,6 @@
       "description": "Authentication example using email-based OTP verification with Resend",
       "tags": ["auth-sessions", "2fa"]
     },
-    "testAuthSessionInput": {
-      "username": "your_resend_inbox_email@resend.app",
-      "password": "your_password"
-    },
     "defaultRunPlaygroundInput": {
       "apiName": "list-contracts",
       "parameters": {

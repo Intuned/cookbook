@@ -21,10 +21,6 @@
     "defaultRunPlaygroundInput": {
       "apiName": "sample",
       "parameters": {}
-    },
-    "testAuthSessionInput": {
-      "username": "demo@email.com",
-      "password": "DemoUser2024!"
     }
   }
 }

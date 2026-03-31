@@ -269,6 +269,40 @@ validate_template() {
     fi
 
     # -------------------------------------------
+    # 3d. Check for deprecated metadata fields
+    # -------------------------------------------
+    local has_default_job_input
+    has_default_job_input=$(echo "$config" | jq '.metadata | has("defaultJobInput")' 2>/dev/null || echo "false")
+    if [[ "$has_default_job_input" == "true" ]]; then
+        error "[$full_path] metadata.defaultJobInput is deprecated - move job defaults to intuned-resources/jobs/*.job.jsonc"
+    else
+        success "[$full_path] metadata.defaultJobInput is not used"
+    fi
+
+    local has_test_auth_input
+    has_test_auth_input=$(echo "$config" | jq '.metadata | has("testAuthSessionInput")' 2>/dev/null || echo "false")
+    if [[ "$has_test_auth_input" == "true" ]]; then
+        error "[$full_path] metadata.testAuthSessionInput is deprecated - move auth session defaults to intuned-resources/auth-sessions/*.auth-session.jsonc"
+    else
+        success "[$full_path] metadata.testAuthSessionInput is not used"
+    fi
+
+    # -------------------------------------------
+    # 3e. Check intuned-resources/jobs
+    # -------------------------------------------
+    if [[ ! -d "$dir/intuned-resources/jobs" ]]; then
+        error "[$full_path] Missing intuned-resources/jobs/ directory"
+    else
+        local job_resource_count
+        job_resource_count=$(find "$dir/intuned-resources/jobs" -type f -name "*.job.jsonc" 2>/dev/null | wc -l | tr -d ' ')
+        if [[ "$job_resource_count" -eq 0 ]]; then
+            error "[$full_path] intuned-resources/jobs/ exists but contains no .job.jsonc files"
+        else
+            success "[$full_path] intuned-resources/jobs/ contains $job_resource_count job resource file(s)"
+        fi
+    fi
+
+    # -------------------------------------------
     # 4. Check authSessions configuration
     # -------------------------------------------
     local auth_enabled
@@ -288,15 +322,6 @@ validate_template() {
 
     if [[ "$auth_enabled" == "true" ]]; then
         info "[$full_path] Auth sessions are enabled"
-
-        # Check testAuthSessionInput exists
-        local test_auth_input
-        test_auth_input=$(echo "$config" | jq '.metadata.testAuthSessionInput // empty' 2>/dev/null || echo "")
-        if [[ -z "$test_auth_input" || "$test_auth_input" == "{}" || "$test_auth_input" == "null" ]]; then
-            warning "[$full_path] authSessions.enabled=true but metadata.testAuthSessionInput is not set"
-        else
-            success "[$full_path] metadata.testAuthSessionInput is set"
-        fi
 
         # Check auth-sessions/check exists
         if [[ ! -f "$dir/auth-sessions/check.$ext" ]]; then
@@ -333,6 +358,15 @@ validate_template() {
             error "[$full_path] Missing .parameters/auth-sessions/create/default.json"
         else
             success "[$full_path] .parameters/auth-sessions/create/default.json exists"
+        fi
+
+        # Check intuned-resources/auth-sessions
+        if [[ ! -d "$dir/intuned-resources/auth-sessions" ]]; then
+            error "[$full_path] authSessions.enabled=true but intuned-resources/auth-sessions/ is missing"
+        elif [[ ! -f "$dir/intuned-resources/auth-sessions/test-authsession.auth-session.jsonc" ]]; then
+            error "[$full_path] authSessions.enabled=true but intuned-resources/auth-sessions/test-authsession.auth-session.jsonc is missing"
+        else
+            success "[$full_path] intuned-resources/auth-sessions/test-authsession.auth-session.jsonc exists"
         fi
     fi
 

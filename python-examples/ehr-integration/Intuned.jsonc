@@ -24,10 +24,6 @@
     "defaultRunPlaygroundInput": {
       "apiName": "claims",
       "parameters": {}
-    },
-    "testAuthSessionInput": {
-      "username": "Admin",
-      "password": "admin123"
     }
   }
 }
