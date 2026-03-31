@@ -1,6 +1,7 @@
 {
   "name": "network-interception",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Network interception to capture paginated API data",
   "main": "index.js",
   "tags": [],

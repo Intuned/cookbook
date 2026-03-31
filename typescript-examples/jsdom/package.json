@@ -1,6 +1,7 @@
 {
   "name": "jsdom",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "JSDOM example to scrape products from a website",
   "main": "index.js",
   "tags": [],

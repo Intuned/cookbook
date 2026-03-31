@@ -1,6 +1,7 @@
 {
   "name": "auth-with-secret-otp",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Multi-step authentication with OTP (One-Time Password) verification. Demonstrates automated login flows with username/password and TOTP codes for accessing protected resources.",
   "main": "index.js",
   "tags": [

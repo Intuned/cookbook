@@ -1,6 +1,7 @@
 {
   "name": "stagehand",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Using Stagehand in Intuned",
   "tags": [
     "Stagehand",

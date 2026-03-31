@@ -1,6 +1,7 @@
 {
   "name": "e-commerce-shopify",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "E-commerce automation to scrape products from Shopify",
   "main": "index.js",
   "tags": [],

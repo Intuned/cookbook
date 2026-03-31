@@ -1,6 +1,7 @@
 {
   "name": "ecommerce-with-auth",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Credentials based e-commerce automation that extracts product details from a list of products",
   "tags": [
     "intuned-browser-sdk",
