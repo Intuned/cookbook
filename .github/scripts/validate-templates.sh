@@ -303,6 +303,28 @@ validate_template() {
     fi
 
     # -------------------------------------------
+    # 3f. Check packageManager field in package.json (TypeScript only)
+    # -------------------------------------------
+    if [[ "$lang" == "typescript" ]] && [[ -f "$dir/package.json" ]]; then
+        local pkg_manager
+        pkg_manager=$(jq -r '.packageManager // empty' "$dir/package.json" 2>/dev/null || echo "")
+        if [[ -z "$pkg_manager" ]]; then
+            error "[$full_path] package.json is missing the 'packageManager' field"
+            error "[$full_path] Fix: set packageManager to 'yarn@1.22.22'"
+        else
+            if [[ "$pkg_manager" != "yarn@1.22.22" ]]; then
+                error "[$full_path] package.json must use packageManager 'yarn@1.22.22' (found: $pkg_manager)"
+            else
+                success "[$full_path] package.json has packageManager: $pkg_manager"
+            fi
+        fi
+
+        if [[ -f "$dir/package-lock.json" ]]; then
+            error "[$full_path] package-lock.json found - TypeScript templates should use yarn only"
+        fi
+    fi
+
+    # -------------------------------------------
     # 4. Check authSessions configuration
     # -------------------------------------------
     local auth_enabled

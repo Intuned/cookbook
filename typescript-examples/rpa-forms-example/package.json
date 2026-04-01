@@ -1,6 +1,7 @@
 {
   "name": "insurance-form-filler",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Insurance form filler using Stagehand in Intuned",
   "tags": [
     "Stagehand",

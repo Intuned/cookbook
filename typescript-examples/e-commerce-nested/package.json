@@ -1,6 +1,7 @@
 {
   "name": "e-commerce-nested",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "E-commerce automation to scrape products from an e-commerce store starting from the category page",
   "main": "index.js",
   "tags": [],

@@ -1,6 +1,7 @@
 {
   "name": "hybrid-automation",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Hybrid automation combining Playwright with Stagehand AI fallback",
   "tags": [
     "Stagehand",

@@ -10,6 +10,11 @@ This document describes how to create new TypeScript or Python templates for the
 typescript-examples/{template-name}/
 ├── api/                          # API endpoints
 │   └── {api-name}.ts             # Each API is a separate file
+├── intuned-resources/            # Intuned platform resources
+│   ├── jobs/                     # Job resource definitions
+│   │   └── {job-name}.job.jsonc
+│   └── auth-sessions/            # Only if authSessions.enabled = true
+│       └── test-authsession.auth-session.jsonc
 ├── auth-sessions/                # Only if authSessions.enabled = true
 │   ├── check.ts                  # Validates if auth session is still valid
 │   └── create.ts                 # Creates/recreates auth session programmatically
@@ -40,6 +45,11 @@ typescript-examples/{template-name}/
 python-examples/{template-name}/
 ├── api/                          # API endpoints
 │   └── {api-name}.py             # Each API is a separate file
+├── intuned-resources/            # Intuned platform resources
+│   ├── jobs/                     # Job resource definitions
+│   │   └── {job-name}.job.jsonc
+│   └── auth-sessions/            # Only if authSessions.enabled = true
+│       └── test-authsession.auth-session.jsonc
 ├── auth-sessions/                # Only if authSessions.enabled = true
 │   ├── check.py                  # Validates if auth session is still valid
 │   └── create.py                 # Creates/recreates auth session programmatically
@@ -92,14 +102,9 @@ Every template must have an `Intuned.jsonc` file.
       "description": "Template description"       // Required: brief description
     },
     "tags": ["scraping", "ai"],                   // Recommended: array of tags for categorization
-    "defaultJobInput": {},                        // Optional: default input for job runs
     "defaultRunPlaygroundInput": {                // Optional: default playground input
       "apiName": "api-name",
       "parameters": {}
-    },
-    "testAuthSessionInput": {                     // Required if authSessions.enabled = true
-      "username": "demo@email.com",
-      "password": "password"
     }
   }
 }
@@ -126,9 +131,47 @@ Every template MUST have a `metadata` section with at minimum:
 
 **Optional metadata fields:**
 - `tags`: Array of strings for categorization (recommended)
-- `defaultJobInput`: Default input parameters for job runs
 - `defaultRunPlaygroundInput`: Default input for playground runs (with `apiName` and `parameters`)
-- `testAuthSessionInput`: Input for testing auth sessions (required if `authSessions.enabled = true`)
+
+### Intuned Resources
+
+Templates must store reusable job and auth-session defaults in `intuned-resources/` instead of `metadata.defaultJobInput` or `metadata.testAuthSessionInput`.
+
+**Job resources**
+
+Every template must include at least one job resource under `intuned-resources/jobs/`.
+
+```jsonc
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "api-name",
+      "parameters": {}
+    }
+  ]
+}
+```
+
+**Auth session resources**
+
+Templates with `authSessions.enabled = true` must include `intuned-resources/auth-sessions/test-authsession.auth-session.jsonc`.
+
+```jsonc
+{
+  "parameters": {
+    "username": "demo@email.com",
+    "password": "password"
+  }
+}
+```
+
+Use `metadata.defaultRunPlaygroundInput` for playground defaults only.
 
 ---
 
@@ -354,11 +397,14 @@ Each template README must follow the getting started template located at:
 
 ### TypeScript (package.json)
 
+Use `corepack use yarn@1.22.22` when you need to generate the `packageManager` field.
+
 ```json
 {
   "name": "template-name",
   "version": "1.0.0",
   "description": "Template description",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "intuned": "intuned"
   },
@@ -436,7 +482,13 @@ api_key = config.api_key
 - [ ] `metadata.template.description` is set
 - [ ] `metadata.tags` is set (recommended)
 - [ ] `apiAccess.enabled` is explicitly set
-- [ ] `testAuthSessionInput` is set if auth sessions are enabled
+- [ ] No `metadata.defaultJobInput` field
+- [ ] No `metadata.testAuthSessionInput` field
+
+### Intuned Resources
+- [ ] `intuned-resources/jobs/` exists
+- [ ] At least one `intuned-resources/jobs/*.job.jsonc` file exists
+- [ ] `intuned-resources/auth-sessions/test-authsession.auth-session.jsonc` exists if auth sessions are enabled
 
 ### API Files
 - [ ] All API filenames use kebab-case (e.g., `get-user.ts`, not `getUser.ts`)

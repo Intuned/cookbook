@@ -1,6 +1,7 @@
 {
   "name": "captcha-solving-basic",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.22",
   "description": "Automation project to demonstrate our captcha solving capabilities",
   "tags": [
     "captcha-solving"
