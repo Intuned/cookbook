@@ -1,27 +1,27 @@
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "network-interception",
       "description": "Network request interception for API data extraction",
-      "tags": ["scraping"]
+      "tags": ["scraping"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "api-interceptor",
       "parameters": {
         "url": "https://sandbox.intuned.dev/consultations/list",
         "api_pattern": "/rest/v1/consultations",
-        "max_pages": 3
-      }
-    }
-  }
+        "max_pages": 3,
+      },
+    },
+  },
 }

@@ -2,26 +2,26 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "playwright-basics",
       "description": "Comprehensive Playwright automation patterns - navigation, locators, scraping, forms, tabs, frames, and more",
-      "tags": ["scraping", "rpa"]
+      "tags": ["scraping", "rpa"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "01-basic-navigation",
       "parameters": {
-        "url": "https://books.toscrape.com/"
-      }
-    }
-  }
+        "url": "https://books.toscrape.com/",
+      },
+    },
+  },
 }

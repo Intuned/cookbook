@@ -2,30 +2,37 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": false
+    "enabled": true,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "large"
+    "size": "large",
   },
   "proxy": {
-    "enabled": false
+    "enabled": false,
   },
   "metadata": {
     "template": {
       "name": "firecrawl",
       "description": "Simple web crawling and scraping using Firecrawl",
-      "tags": ["crawling", "scraping", "crawl4ai"]
+      "tags": ["crawling", "scraping", "crawl4ai"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "scrape",
       "parameters": {
         "url": "https://en.wikipedia.org/wiki/Web_scraping",
-        "formats": ["markdown", "html", "rawHtml", "links", "images", "screenshot"]
-      }
-    }
-  }
+        "formats": [
+          "markdown",
+          "html",
+          "rawHtml",
+          "links",
+          "images",
+          "screenshot",
+        ],
+      },
+    },
+  },
 }
