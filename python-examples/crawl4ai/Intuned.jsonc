@@ -2,29 +2,29 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": false
+    "enabled": true,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "large"
+    "size": "large",
   },
   "proxy": {
-    "enabled": false
+    "enabled": false,
   },
   "metadata": {
     "template": {
       "name": "crawl4ai",
       "description": "Web crawling using Crawl4AI library with deep and multi-URL crawling",
-      "tags": ["crawling", "crawl4ai"]
+      "tags": ["crawling", "crawl4ai"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "simple-crawl",
       "parameters": {
-        "url": "https://playwright.dev/docs/intro"
-      }
-    }
-  }
+        "url": "https://playwright.dev/docs/intro",
+      },
+    },
+  },
 }

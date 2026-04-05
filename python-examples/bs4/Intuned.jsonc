@@ -2,27 +2,27 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "bs4",
       "description": "Web scraping example using BeautifulSoup4 for HTML parsing",
-      "tags": ["scraping"]
+      "tags": ["scraping"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "list",
       "parameters": {
         "url": "https://www.scrapingcourse.com/ecommerce/",
-        "max_pages": 2
-      }      
-    }
-  }
+        "max_pages": 2,
+      },
+    },
+  },
 }

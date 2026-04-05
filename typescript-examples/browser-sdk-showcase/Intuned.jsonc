@@ -4,27 +4,27 @@
   // "workspaceId": "your-workspace-id", // Add your workspace ID here for local development (required for AI helpers)
   // "projectName": "your-project-name", // Add your project name here for local development (required for AI helpers)
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "browser-sdk-showcase",
       "description": "Showcase of Intuned Browser SDK helper functions for common automation tasks",
-      "tags": ["browser-sdk"]
+      "tags": ["browser-sdk"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "go-to-url",
       "parameters": {
         "timeout": 15000,
-        "retries": 3
-      }
-    }
-  }
+        "retries": 3,
+      },
+    },
+  },
 }

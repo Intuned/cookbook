@@ -102,8 +102,9 @@ validate_template() {
     # Parse Intuned.jsonc (strip comments for jq)
     # Use a more precise pattern that only removes line comments starting with // at line start or after whitespace
     # but preserves // inside strings (like URLs)
+    # Also strips trailing commas before closing braces/brackets (valid JSONC but not JSON)
     local config
-    config=$(grep -v '^\s*//' "$dir/Intuned.jsonc" | sed 's|/\*.*\*/||g')
+    config=$(grep -v '^\s*//' "$dir/Intuned.jsonc" | sed 's|/\*.*\*/||g' | perl -0777 -pe 's/,(\s*[\r\n]\s*[}\]])/\1/g')
 
     # -------------------------------------------
     # 1a. Validate JSON syntax first

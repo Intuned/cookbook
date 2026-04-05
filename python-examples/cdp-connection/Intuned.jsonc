@@ -3,26 +3,26 @@
 {
   // "projectName": "your-project-name", // Add your project name here for local development
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "cdp-connection",
       "description": "Basic example demonstrating how to connect to a browser using Chrome DevTools Protocol (CDP)",
-      "tags": ["browser-sdk"]
+      "tags": ["browser-sdk"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "connect-to-cdp",
       "parameters": {
-        "url": "https://books.toscrape.com/index.html"
-      }
-    }
-  }
+        "url": "https://books.toscrape.com/index.html",
+      },
+    },
+  },
 }

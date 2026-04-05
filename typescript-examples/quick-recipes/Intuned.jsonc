@@ -2,24 +2,24 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "quick-recipes",
       "description": "Collection of quick automation recipes for common browser tasks",
-      "tags": ["browser-sdk", "scraping","rpa", "stagehand"]
+      "tags": ["browser-sdk", "scraping", "rpa", "stagehand"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "download-file",
-      "parameters": {}
-    }
-  }
+      "parameters": {},
+    },
+  },
 }

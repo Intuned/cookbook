@@ -2,26 +2,26 @@
 // https://docs.intunedhq.com/docs/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false,
   },
   "authSessions": {
-    "enabled": false
+    "enabled": false,
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
   },
   "metadata": {
     "template": {
       "name": "setup-hooks",
       "description": "Demonstrates how to use setup hooks to prepare data and configuration before API execution",
-      "tags": ["browser-sdk"]
+      "tags": ["browser-sdk"],
     },
     "defaultRunPlaygroundInput": {
       "apiName": "demo-hook",
       "parameters": {
-        "message": "Hello from Setup Hooks!"
-      }
-    }
-  }
+        "message": "Hello from Setup Hooks!",
+      },
+    },
+  },
 }
