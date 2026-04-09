@@ -18,7 +18,7 @@ yarn install
 intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 ```
 
-> See the [CLI reference](https://intuned-7-cli-v2.mintlify.app/docs/02-features/local-development-cli) for all available options.
+> See the [CLI reference](https://intunedhq.com/docs/main/02-features/local-development-cli) for all available options.
 
 ## Examples
 
