@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/filterEmptyValues
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/filterEmptyValues
 import { BrowserContext, Page } from "playwright";
 import { filterEmptyValues } from "@intuned/browser";
 

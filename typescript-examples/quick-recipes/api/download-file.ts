@@ -17,7 +17,7 @@ export default async function handler(
   const downloadLocator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']");
 
   // Trigger download and wait for the file
-  // https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/downloadFile
+  // https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/downloadFile
   const downloadedFile = await downloadFile({
     page,
     trigger: downloadLocator,

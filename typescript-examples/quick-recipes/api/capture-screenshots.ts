@@ -18,7 +18,7 @@ export default async function handler(
   const screenshotInBytes = await page.screenshot();
 
   // Upload the screenshot to S3
-  // https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/uploadFileToS3
+  // https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/uploadFileToS3
   const uploadedFile = await uploadFileToS3({
     file: screenshotInBytes,
     fileNameOverride: "screenshot.png",

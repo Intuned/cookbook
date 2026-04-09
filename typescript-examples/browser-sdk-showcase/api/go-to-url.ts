@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/goToUrl
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/goToUrl
 import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 

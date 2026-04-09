@@ -15,12 +15,12 @@ This project showcases two key Intuned runtime features:
 ### `extend_payload`
 
 Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
-Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-payload>
+Reference: <https://intunedhq.com/docs/main/05-references/runtime-sdk-python/extend-payload>
 
 ### `persistent_store`
 
 A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
-Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/persistent-store>
+Reference: <https://intunedhq.com/docs/main/05-references/runtime-sdk-python/persistent-store>
 
 ## Flow
 
@@ -216,8 +216,8 @@ The `persistent_store` uses these key patterns:
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Intuned Jobs Documentation](https://docs.intunedhq.com/docs-old/platform/consume/jobs)
-- [Nested Scheduling / extend_payload](https://docs.intunedhq.com/docs-old/platform/consume/nested-scheduling)
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
+- [Intuned Jobs Documentation](https://intunedhq.com/docs/main/02-features/jobs-batched-executions)
+- [Nested Scheduling / extend_payload](https://intunedhq.com/docs/main/05-references/runtime-sdk-python/extend-payload)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

@@ -110,9 +110,9 @@ The hybrid pattern: use Intuned Browser SDK first (fast path), fall back to AI t
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Flexible Automations](https://docs.intunedhq.com/docs/02-features/flexible-automation)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Extract Structured Data](https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Flexible Automations](https://intunedhq.com/docs/main/02-features/flexible-automation)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
+- [Extract Structured Data](https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData)
 - [Stagehand act/extract/observe](https://docs.stagehand.dev/v2/basics/act)
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/ai/functions/extractStructuredData
 import { BrowserContext, Page } from "playwright";
 import { goToUrl } from "@intuned/browser";
 import { extractStructuredData } from "@intuned/browser/ai";

@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/go_to_url
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/go_to_url
 from typing import TypedDict
 
 from intuned_browser import go_to_url

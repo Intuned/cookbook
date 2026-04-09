@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/resolve_url
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/resolve_url
 from typing import TypedDict
 
 from intuned_browser import resolve_url

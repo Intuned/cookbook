@@ -79,7 +79,7 @@ python-examples/{template-name}/
 
 Every template must have an `Intuned.jsonc` file.
 
-**Documentation:** For the full Intuned.jsonc schema and options, see: https://docs.intunedhq.com/docs/01-learn/deep-dives/intuned-indepth
+**Documentation:** For the full Intuned.jsonc schema and options, see: https://intunedhq.com/docs/main/01-learn/deep-dives/intuned-indepth
 
 ### Required Structure
 

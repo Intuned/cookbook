@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/scrollToLoadContent
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/scrollToLoadContent
 import { BrowserContext, Page } from "playwright";
 import { scrollToLoadContent, goToUrl } from "@intuned/browser";
 import { extendTimeout } from "@intuned/runtime";
@@ -20,7 +20,7 @@ export default async function handler(
 
   // Scroll through entire page content
   // This will handle infinite scrolls by scrolling the page continuously, and when max_scrolls is reached, it will stop and the data items will be loaded.
-  // Read about extend_timeout: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-timeout
+  // Read about extend_timeout: https://intunedhq.com/docs/main/05-references/runtime-sdk-python/extend-timeout
   await scrollToLoadContent({
     source: page,
     onScrollProgress: extendTimeoutOnScroll ? extendTimeout : () => {},

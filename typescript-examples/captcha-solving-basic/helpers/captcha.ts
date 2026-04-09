@@ -11,7 +11,7 @@ import { Page } from "playwright";
  *   await page.goto(url);
  *   await waitForCaptchaSolve(page, { timeoutInMs: 30_000, settleDurationMs: 10_000 });
  *
- * @see https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/captcha-helpers#withwaitforcaptchasolve
+ * @see https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/captcha-helpers#withwaitforcaptchasolve
  */
 export async function goToWithCaptchaSolve(
   page: Page,

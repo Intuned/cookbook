@@ -2,9 +2,9 @@
 
 To get started developing browser automation projects with Intuned, check out the
 
-- Intuned docs [here](https://docs.intunedhq.com/docs/00-getting-started/introduction)
-- CLI docs [here](https://docs.intunedhq.com/docs/05-references/cli)
-- Intuned.jsonc docs [here](https://docs.intunedhq.com/docs/05-references/intuned-json#intuned-json)
+- Intuned docs [here](https://intunedhq.com/docs/main/00-getting-started/introduction)
+- CLI docs [here](https://intunedhq.com/docs/main/05-references/cli)
+- Intuned.jsonc docs [here](https://intunedhq.com/docs/main/05-references/intuned-json#intuned-json)
 
 ## Development
 
@@ -48,12 +48,12 @@ intuned dev run api <api-name> <parameters> --auth-session <auth-session-id>
 intuned dev provision
 ```
 
-Reference for saving project [here](https://docs.intunedhq.com/docs/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
+Reference for saving project [here](https://intunedhq.com/docs/main/02-features/local-development-cli#use-runtime-sdk-and-browser-sdk-helpers)
 
 <!-- Only if auth is enabled in Intuned.jsonc -->
 ## Auth Sessions
 
-This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://docs.intunedhq.com/docs/02-features/auth-sessions).
+This project uses Intuned Auth Sessions. To learn more, check out the [AuthSessions](https://intunedhq.com/docs/main/02-features/auth-sessions).
 
 <!-- You should replace <parameters> with path of the json parameter to run with inside .parameters folder for auth it's under .parameters/auth-sessions/create/default.json -->
 ### Create a new auth session
@@ -82,7 +82,7 @@ intuned dev deploy
 
 ### `intuned-browser`: Intuned Browser SDK
 
-This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://docs.intunedhq.com/automation-sdks/overview).
+This project uses Intuned browser SDK. For more information, check out the [Intuned Browser SDK documentation](https://intunedhq.com/docs/automation-sdks/overview).
 
 <!-- This should always match the project structure the readme is in -->
 ## Project Structure

@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/scroll_to_load_content
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/scroll_to_load_content
 from typing import TypedDict
 
 from intuned_browser import go_to_url, scroll_to_load_content
@@ -17,7 +17,7 @@ async def automation(page: Page, params: Params, **_kwargs):
     await go_to_url(page, "https://sandbox.intuned.dev/infinite-scroll")
     # Scroll through entire page content
     # This will handle infinite scrolls by scrolling the page continuously, and when max_scrolls is reached, it will stop and the data items will be loaded.
-    # Read about extend_timeout: https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/extend-timeout
+    # Read about extend_timeout: https://intunedhq.com/docs/main/05-references/runtime-sdk-python/extend-timeout
     await scroll_to_load_content(
         source=page,
         on_scroll_progress=extend_timeout if extend_timeout_on_scroll else lambda: None,

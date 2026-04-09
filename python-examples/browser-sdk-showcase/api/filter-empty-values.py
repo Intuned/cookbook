@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/filter_empty_values
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/filter_empty_values
 from typing import TypedDict
 
 from intuned_browser import filter_empty_values

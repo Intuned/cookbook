@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/downloadFile
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/downloadFile
 import { BrowserContext, Page } from "playwright";
 import { downloadFile } from "@intuned/browser";
 

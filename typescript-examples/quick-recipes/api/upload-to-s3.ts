@@ -17,7 +17,7 @@ export default async function handler(
   const downloadLocator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']");
 
   // Download and upload to S3 in one step
-  // https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/saveFileToS3
+  // https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/saveFileToS3
   const uploadedFile = await saveFileToS3({
     page,
     trigger: downloadLocator,

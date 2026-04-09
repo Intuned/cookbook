@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/waitForDomSettled
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/waitForDomSettled
 import { BrowserContext, Page } from "playwright";
 import { waitForDomSettled } from "@intuned/browser";
 

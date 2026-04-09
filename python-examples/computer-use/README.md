@@ -155,13 +155,13 @@ intuned dev deploy
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
 - **OpenAI Operator API**: <https://platform.openai.com/docs/>
 - **Stagehand Documentation**: <https://docs.stagehand.dev/>
 - **Browser Use Documentation**: <https://github.com/browser-use/browser-use>
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)
 
 ## Acknowledgments
 

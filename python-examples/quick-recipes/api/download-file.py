@@ -16,7 +16,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     download_locator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']")
 
     # Trigger download and wait for the file
-    # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/download_file
+    # https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/download_file
     downloaded_file = await download_file(
         page=page,
         trigger=download_locator,

@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/process_date
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/process_date
 from typing import TypedDict
 
 from intuned_browser import process_date

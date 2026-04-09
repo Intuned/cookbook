@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/uploadFileToS3
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/uploadFileToS3
 import { BrowserContext, Page } from "playwright";
 import { uploadFileToS3, downloadFile } from "@intuned/browser";
 
