@@ -79,8 +79,8 @@ intuned dev deploy
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - [Shopify API Documentation](https://shopify.dev/docs/api)
-- [Web Scraping Recipe](https://docs.intunedhq.com/docs/01-learn/recipes/)
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Web Scraping Recipe](https://intunedhq.com/docs/main/01-learn/recipes/)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

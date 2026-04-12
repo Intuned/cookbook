@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/ai/functions/isPageLoaded
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/ai/functions/isPageLoaded
 import { BrowserContext, Page } from "playwright";
 import { isPageLoaded } from "@intuned/browser/ai";
 

@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/extractMarkdown
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/extractMarkdown
 import { BrowserContext, Page } from "playwright";
 import { extractMarkdown } from "@intuned/browser";
 

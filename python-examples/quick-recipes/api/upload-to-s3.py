@@ -16,7 +16,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     download_locator = page.locator("xpath=//tbody/tr[1]//*[name()='svg']")
 
     # Download and upload to S3 in one step
-    # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/save_file_to_s3
+    # https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/save_file_to_s3
     uploaded_file = await save_file_to_s3(
         page=page,
         trigger=download_locator,

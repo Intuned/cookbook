@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/saveFileToS3
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/saveFileToS3
 import { BrowserContext, Page } from "playwright";
 import { saveFileToS3, goToUrl } from "@intuned/browser";
 

@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/validateDataUsingSchema
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/validateDataUsingSchema
 import { BrowserContext, Page } from "playwright";
 import { validateDataUsingSchema } from "@intuned/browser";
 

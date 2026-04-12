@@ -16,7 +16,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     screenshot_in_bytes = await page.screenshot()
 
     # Upload the screenshot to S3
-    # https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
+    # https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
 
     uploaded_file = await upload_file_to_s3(
         file=screenshot_in_bytes,

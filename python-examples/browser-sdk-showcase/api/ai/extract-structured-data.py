@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data
 from typing import TypedDict
 
 from intuned_browser import go_to_url
@@ -26,7 +26,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Extract from the Page directly using Pydantic model.
     # You can also extract from a specific locator or by passing TextContentItem.
-    # Check https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data for more details.
+    # Check https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/ai/functions/extract_structured_data for more details.
     product = await extract_structured_data(
         source=page,
         strategy="HTML",

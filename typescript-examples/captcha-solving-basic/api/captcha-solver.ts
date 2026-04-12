@@ -11,7 +11,7 @@ export async function cloudflareChallenge(
    * Solve Cloudflare challenge captcha with callable pattern.
    *
    * Demonstrates manually awaiting waitForCaptchaSolve after navigation for fine-grained control.
-   * @see https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/captcha-helpers#waitforcaptchasolve
+   * @see https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/captcha-helpers#waitforcaptchasolve
    *
    * Configuration (Intuned.json):
    *   captchaSolver.enabled: true

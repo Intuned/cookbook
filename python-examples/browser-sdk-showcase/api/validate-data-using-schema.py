@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/validate_data_using_schema
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/validate_data_using_schema
 from typing import TypedDict
 
 from intuned_browser import validate_data_using_schema

@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/resolveUrl
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/resolveUrl
 import { BrowserContext, Page } from "playwright";
 import { resolveUrl } from "@intuned/browser";
 

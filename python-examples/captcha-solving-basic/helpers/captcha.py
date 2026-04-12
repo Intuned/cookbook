@@ -8,7 +8,7 @@ async def go_to_with_captcha_solve(page: Page, url: str):
 
     Uses wait_for_captcha_solve as a decorator - it wraps the navigation
     and automatically waits for any captcha to resolve after the page loads.
-    Check our [CAPTCHA Helpers reference](https://docs.intunedhq.com/docs/05-references/runtime-sdk-python/captcha-helpers#wait-for-captcha-solve) for more info
+    Check our [CAPTCHA Helpers reference](https://intunedhq.com/docs/main/05-references/runtime-sdk-python/captcha-helpers#wait-for-captcha-solve) for more info
 
     For manual control, use wait_for_captcha_solve as an awaitable instead:
         await page.goto(url)

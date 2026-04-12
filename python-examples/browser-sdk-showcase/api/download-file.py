@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/download_file
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/download_file
 from typing import TypedDict
 
 from intuned_browser import download_file

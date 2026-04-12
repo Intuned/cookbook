@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/upload_file_to_s3
 from typing import TypedDict
 
 from intuned_browser import download_file, upload_file_to_s3

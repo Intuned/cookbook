@@ -15,12 +15,12 @@ This project showcases two key Intuned runtime features:
 ### `extendPayload`
 
 Dynamically spawn new payloads within a job. This enables a **fan-out pattern** where one API call triggers many others, all within the same job run.
-Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload>
+Reference: <https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/extend-payload>
 
 ### `persistentStore`
 
 A shared key-value store that persists across all payloads in a job. Used here for **URL deduplication** — preventing the same page from being crawled multiple times.
-Reference: <https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store>
+Reference: <https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/persistent-store>
 
 ## Flow
 
@@ -215,8 +215,8 @@ The `persistentStore` uses these key patterns:
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [extendPayload Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/extend-payload)
-- [persistentStore Helper](https://docs.intunedhq.com/docs/05-references/runtime-sdk-typescript/persistent-store)
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
+- [extendPayload Helper](https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/extend-payload)
+- [persistentStore Helper](https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/persistent-store)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

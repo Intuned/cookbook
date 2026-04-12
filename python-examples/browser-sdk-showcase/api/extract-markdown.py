@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/extract_markdown
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/extract_markdown
 from typing import TypedDict
 
 from intuned_browser import extract_markdown

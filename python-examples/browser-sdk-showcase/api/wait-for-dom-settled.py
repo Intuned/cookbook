@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/wait_for_dom_settled
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/wait_for_dom_settled
 from typing import TypedDict
 
 from intuned_browser import wait_for_dom_settled

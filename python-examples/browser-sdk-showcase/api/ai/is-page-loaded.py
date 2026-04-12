@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/ai/functions/is_page_loaded
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/ai/functions/is_page_loaded
 from typing import TypedDict
 
 from intuned_browser.ai import is_page_loaded

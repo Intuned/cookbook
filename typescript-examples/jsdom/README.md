@@ -74,6 +74,6 @@ intuned dev deploy
 
 ## Related
 
-- [Intuned CLI](https://docs.intunedhq.com/docs/05-references/cli/overview)
-- [Intuned Browser SDK](https://docs.intunedhq.com/automation-sdks/overview)
-- [Intuned llm.txt](https://docs.intunedhq.com/llms.txt)
+- [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
+- [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
+- [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

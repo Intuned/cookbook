@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/sanitizeHtml
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/sanitizeHtml
 import { BrowserContext, Page } from "playwright";
 import { sanitizeHtml } from "@intuned/browser";
 

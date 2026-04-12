@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/withNetworkSettledWait
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/withNetworkSettledWait
 import { withNetworkSettledWait } from "@intuned/browser";
 import { BrowserContext, Page } from "playwright";
 

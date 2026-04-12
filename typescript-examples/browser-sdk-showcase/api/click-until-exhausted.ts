@@ -1,4 +1,4 @@
-// https://docs.intunedhq.com/automation-sdks/intuned-sdk/typescript/helpers/functions/clickUntilExhausted
+// https://intunedhq.com/docs/automation-sdks/intuned-sdk/typescript/helpers/functions/clickUntilExhausted
 import { BrowserContext, Page } from "playwright";
 import { clickUntilExhausted } from "@intuned/browser";
 

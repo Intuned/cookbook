@@ -1,4 +1,4 @@
-# https://docs.intunedhq.com/automation-sdks/intuned-sdk/python/helpers/functions/sanitize_html
+# https://intunedhq.com/docs/automation-sdks/intuned-sdk/python/helpers/functions/sanitize_html
 from typing import TypedDict
 
 from intuned_browser import sanitize_html
