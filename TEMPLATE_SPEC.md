@@ -124,12 +124,14 @@ Every template MUST have a `metadata` section with at minimum:
 ```
 
 **Template name format rules:**
+
 - Must be **lowercase letters only**
 - Use **hyphens (`-`)** instead of spaces
 - Examples: `browser-use`, `e-commerce-auth`, `quick-recipes`
 - **NOT:** `Browser Use`, `E-Commerce Auth`, `Quick Recipes`
 
 **Optional metadata fields:**
+
 - `tags`: Array of strings for categorization (recommended)
 - `defaultRunPlaygroundInput`: Default input for playground runs (with `apiName` and `parameters`)
 
@@ -146,15 +148,15 @@ Every template must include at least one job resource under `intuned-resources/j
   "configuration": {
     "maxConcurrentRequests": 2,
     "retry": {
-      "maximumAttempts": 3
-    }
+      "maximumAttempts": 3,
+    },
   },
   "payload": [
     {
       "apiName": "api-name",
-      "parameters": {}
-    }
-  ]
+      "parameters": {},
+    },
+  ],
 }
 ```
 
@@ -166,8 +168,8 @@ Templates with `authSessions.enabled = true` must include `intuned-resources/aut
 {
   "parameters": {
     "username": "demo@email.com",
-    "password": "password"
-  }
+    "password": "password",
+  },
 }
 ```
 
@@ -180,6 +182,7 @@ Use `metadata.defaultRunPlaygroundInput` for playground defaults only.
 ### API Naming Convention
 
 **API filenames must use kebab-case** (lowercase with hyphens):
+
 - ✅ Valid: `get-user.ts`, `submit-form.py`, `extract-data.ts`
 - ❌ Invalid: `getUser.ts`, `get_user.py`, `extractData.ts`
 - Nested APIs follow the same convention: `api/orders/get-order.ts`
@@ -187,6 +190,7 @@ Use `metadata.defaultRunPlaygroundInput` for playground defaults only.
 ### Renaming APIs
 
 When renaming an API file, you **MUST** update all related files:
+
 1. **Rename the API file**: `api/{old-name}.ts` → `api/{new-name}.ts`
 2. **Rename the parameters folder**: `.parameters/api/{old-name}/` → `.parameters/api/{new-name}/`
 3. **Update the README**: Update any references to the old API name in the project's README.md (run commands, descriptions, etc.)
@@ -203,7 +207,7 @@ interface Params {
 export default async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
 ) {
   // Your automation code here
   return {};
@@ -236,12 +240,13 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 Validates if the auth session is still valid. Must return `boolean`.
 
 **TypeScript:**
+
 ```typescript
 import { BrowserContext, Page } from "playwright";
 
 export default async function check(
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
 ): Promise<boolean> {
   // Navigate to a protected page and check if still logged in
   return true; // or false
@@ -249,6 +254,7 @@ export default async function check(
 ```
 
 **Python:**
+
 ```python
 from playwright.async_api import Page
 
@@ -262,6 +268,7 @@ async def check(page: Page, **_kwargs) -> bool:
 Creates or recreates an auth session programmatically.
 
 **TypeScript:**
+
 ```typescript
 import { Page, BrowserContext } from "playwright";
 
@@ -273,7 +280,7 @@ export interface CreateAuthSessionParams {
 export default async function create(
   params: CreateAuthSessionParams,
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
 ): Promise<void> {
   // Perform login steps
   return true; // success
@@ -281,6 +288,7 @@ export default async function create(
 ```
 
 **Python:**
+
 ```python
 from playwright.async_api import Page
 from typing import TypedDict
@@ -316,13 +324,14 @@ Each API must have a corresponding folder in `.parameters/api/` with a `default.
 
 For nested API files, the `.parameters/` folder structure must match the `api/` folder structure:
 
-| API File | Parameters File |
-|----------|-----------------|
-| `api/sample.ts` | `.parameters/api/sample/default.json` |
+| API File                             | Parameters File                                            |
+| ------------------------------------ | ---------------------------------------------------------- |
+| `api/sample.ts`                      | `.parameters/api/sample/default.json`                      |
 | `api/content-selection/css-based.py` | `.parameters/api/content-selection/css-based/default.json` |
-| `api/ai/extract-structured-data.ts` | `.parameters/api/ai/extract-structured-data/default.json` |
+| `api/ai/extract-structured-data.ts`  | `.parameters/api/ai/extract-structured-data/default.json`  |
 
 **Example nested structure:**
+
 ```
 api/
 ├── simple-crawl.py
@@ -349,16 +358,19 @@ api/
 ```
 
 **Example `.parameters/api/sample/default.json`:**
+
 ```json
 {}
 ```
 
 **Example `.parameters/auth-sessions/check/default.json`:**
+
 ```json
 {}
 ```
 
 **Example `.parameters/auth-sessions/create/default.json`:**
+
 ```json
 {
   "username": "demo@email.com",
@@ -371,12 +383,14 @@ api/
 ## README.md
 
 Each template README must follow the getting started template located at:
+
 - TypeScript: `typescript-examples/project_getting_started_template.md`
 - Python: `python-examples/project_getting_started_template.md`
 
 ### Key Requirements
 
 1. **Always use `.parameters` paths** - Never use inline JSON like `'{}'`
+
    ```bash
    # Good
    intuned dev run api sample .parameters/api/sample/default.json
@@ -409,7 +423,7 @@ Use `corepack use yarn@1.22.22` when you need to generate the `packageManager` f
     "intuned": "intuned"
   },
   "dependencies": {
-    "@intuned/browser": "0.1.6",
+    "@intuned/browser": "0.1.13",
     "@intuned/runtime": "1.3.12",
     "@types/node": "^20.10.3",
     "playwright": "~1.56.0"
@@ -435,7 +449,7 @@ keywords = ["Python", "intuned-browser-sdk"]
 dependencies = [
     "playwright==1.56",
     "intuned-runtime==1.3.12",
-    "intuned-browser==0.1.9",
+    "intuned-browser==0.1.16",
 ]
 
 [tool.uv]
@@ -459,12 +473,14 @@ INTUNED_API_KEY=your_api_key_here
 If your template uses AI (LLM calls), use the Intuned AI Gateway instead of requiring users to provide API keys:
 
 **TypeScript:**
+
 ```typescript
-import { getAiGatewayConfig } from '@intuned/runtime';
+import { getAiGatewayConfig } from "@intuned/runtime";
 const { baseUrl, apiKey } = await getAiGatewayConfig();
 ```
 
 **Python:**
+
 ```python
 from intuned_runtime import intuned_runtime
 config = await get_ai_gateway_config()
@@ -477,6 +493,7 @@ api_key = config.api_key
 ## Checklist for New Templates
 
 ### Intuned.jsonc
+
 - [ ] No `workspaceId` field (should not be committed)
 - [ ] `metadata.template.name` is set (lowercase with hyphens, no spaces)
 - [ ] `metadata.template.description` is set
@@ -486,25 +503,30 @@ api_key = config.api_key
 - [ ] No `metadata.testAuthSessionInput` field
 
 ### Intuned Resources
+
 - [ ] `intuned-resources/jobs/` exists
 - [ ] At least one `intuned-resources/jobs/*.job.jsonc` file exists
 - [ ] `intuned-resources/auth-sessions/test-authsession.auth-session.jsonc` exists if auth sessions are enabled
 
 ### API Files
+
 - [ ] All API filenames use kebab-case (e.g., `get-user.ts`, not `getUser.ts`)
 
 ### .parameters Folder
+
 - [ ] `.parameters/api/` folder exists
 - [ ] `.parameters/api/{api-name}/default.json` exists for each API (including nested APIs matching the `api/` folder structure)
 - [ ] `.parameters/auth-sessions/check/default.json` exists if auth sessions are enabled
 - [ ] `.parameters/auth-sessions/create/default.json` exists if auth sessions are enabled
 
 ### Auth Sessions (if enabled)
+
 - [ ] `auth-sessions/check.ts` or `check.py` exists
 - [ ] `auth-sessions/create.ts` or `create.py` exists
 - [ ] `auth-sessions-instances/test-authsession/` exists with valid session
 
 ### README
+
 - [ ] Follows the getting started template
 - [ ] Uses `.parameters/api/` paths, not inline JSON
 - [ ] Project structure matches actual files
