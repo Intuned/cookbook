@@ -26,7 +26,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Resolve relative URL from an anchor tag
     await page.goto("https://intunedhq.com")
     url_from_anchor = await resolve_url(
-        url=page.locator("a:has-text('Schedule a demo')")
+        url=page.locator("a").first
     )
     print("Result of resolving relative URL from an anchor tag:")
     print(url_from_anchor)

@@ -9,7 +9,7 @@ interface Params {
 export default async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
 ) {
   // Resolve a relative URL to an absolute URL
   const urlWithBase = await resolveUrl({
@@ -31,7 +31,7 @@ export default async function handler(
   // Resolve relative URL from an anchor tag
   await page.goto("https://intunedhq.com");
   const urlFromAnchor = await resolveUrl({
-    url: page.locator("a:has-text('Schedule a demo')"),
+    url: page.locator("a").first(),
   });
   console.log("Result of resolving relative URL from an anchor tag:");
   console.log(urlFromAnchor);
@@ -42,4 +42,3 @@ export default async function handler(
     url_from_anchor: urlFromAnchor,
   };
 }
-
