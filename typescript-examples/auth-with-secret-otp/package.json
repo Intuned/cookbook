@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@intuned/browser": "0.1.13",
+    "@intuned/browser": "0.1.14",
     "@intuned/runtime": "1.3.24",
     "@types/node": "^20.10.3",
     "otplib": "^12.0.1",
