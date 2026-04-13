@@ -36,11 +36,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Get the signed URL for the uploaded file
     signed_url = await uploaded_file.get_signed_url()
-    file_path = uploaded_file.get_file_path()
-
     return {
         "message": "File uploaded successfully",
         "downloadedFileName": downloaded_file.suggested_filename,
-        "uploadedFilePath": file_path,
         "signedUrl": signed_url,
     }
