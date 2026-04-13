@@ -1,36 +1,10 @@
 from pydantic import BaseModel, Field
 
 
-class Insuree(BaseModel):
-    chfId: str = Field(..., description="The CHF ID of the insuree")
-    lastName: str = Field(..., description="The last name of the insuree")
-    otherNames: str = Field(..., description="The other names of the insuree")
-    dob: str = Field(..., description="The date of birth of the insuree")
-
-
-class InsureeNode(BaseModel):
-    node: Insuree
-
-
-class InsureeEdges(BaseModel):
-    edges: list[InsureeNode]
-
-
-class InsureeData(BaseModel):
-    insurees: InsureeEdges
-
-
-class InsureeResponse(BaseModel):
-    data: InsureeData
-
-
 class NetworkInterceptorParams(BaseModel):
-    url: str = Field(..., description="The URL to navigate to")
-    api_url: str = Field(..., description="The URL to the API")
-    query: str | None = Field(default=None, description="The query to execute")
-    username: str = Field(..., description="The username to use for authentication")
-    password: str = Field(..., description="The password to use for authentication")
-    login_url: str | None = Field(default=None, description="The URL to the login page")
+    username: str = Field(..., description="Email used to log in to sandbox.intuned.dev")
+    password: str = Field(..., description="Password used to log in to sandbox.intuned.dev")
+    limit: int = Field(default=5, description="Maximum number of consultations to fetch")
 
 
 class ApiInterceptorParams(BaseModel):
