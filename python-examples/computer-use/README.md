@@ -162,7 +162,3 @@ intuned dev deploy
 - **Stagehand Documentation**: <https://docs.stagehand.dev/>
 - **Browser Use Documentation**: <https://github.com/browser-use/browser-use>
 - [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)
-
-## Acknowledgments
-
-The Anthropic and OpenAI implementations were built using templates from [create-kernel-app](https://github.com/onkernel/create-kernel-app).
