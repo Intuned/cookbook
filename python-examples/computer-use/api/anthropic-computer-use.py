@@ -20,9 +20,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Hardcoded model
     model = "claude-haiku-4-5"
 
-    # Set viewport size to match the computer tool's display dimensions
-    await page.set_viewport_size({"width": 1280, "height": 720})
-
     final_messages = await sampling_loop(
         model=model,
         messages=[

@@ -25,12 +25,6 @@ export default async function handler(
   const thinkingBudget = 1024;
   const maxTokens = 4096;
 
-  // Set viewport size to match the computer tool's display dimensions
-  await page.setViewportSize({
-    width: 1280,
-    height: 720,
-  });
-
   try {
     // Run the sampling loop
     const finalMessages = await samplingLoop({

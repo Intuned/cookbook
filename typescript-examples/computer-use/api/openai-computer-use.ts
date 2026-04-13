@@ -25,12 +25,6 @@ export default async function handler(
   // Hardcoded model
   const model = 'computer-use-preview';
 
-  // Set viewport size to match the computer tool's display dimensions
-  await page.setViewportSize({
-    width: 1280,
-    height: 720,
-  });
-
   const start = Date.now();
 
   console.log('\n🤖 Starting OpenAI Computer Use Agent...');

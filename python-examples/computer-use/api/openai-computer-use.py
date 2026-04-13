@@ -24,9 +24,6 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     print("\n🤖 Starting OpenAI Computer Use Agent...")
     print(f"📋 Task: {params['query']}\n")
 
-    # Set viewport size to match the computer tool's display dimensions
-    await page.set_viewport_size({"width": 1280, "height": 720})
-
     # Create computer instance using the provided page
     computer = PlaywrightComputer(page)
 

@@ -49,7 +49,6 @@ export default async function handler(
     env: "LOCAL",
     localBrowserLaunchOptions: {
       cdpUrl: webSocketUrl,
-      viewport: { width: 1280, height: 800 },
       downloadsPath: "./tmp",
     },
     logger: console.log,
