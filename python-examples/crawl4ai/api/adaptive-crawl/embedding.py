@@ -6,13 +6,12 @@ Uses Intuned AI Gateway for LLM-based query expansion.
 Based on: https://docs.crawl4ai.com/core/adaptive-crawling/
 """
 
-import os
 from typing import TypedDict
 
 from intuned_runtime import get_ai_gateway_config
 from playwright.async_api import BrowserContext, Page
 
-from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler
+from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler, LLMConfig
 
 
 class Params(TypedDict, total=False):
@@ -39,16 +38,21 @@ async def automation(
     # Get AI gateway config
     base_url, api_key = get_ai_gateway_config()
 
-    # Set OpenAI environment variables for crawl4ai
-    os.environ["OPENAI_API_KEY"] = api_key
-    os.environ["OPENAI_API_BASE"] = base_url
-
     max_pages = params.get("max_pages", 20)
     top_k = params.get("top_k", 5)
 
     config = AdaptiveConfig(
         strategy="embedding",
-        embedding_model="sentence-transformers/all-MiniLM-L6-v2",
+        embedding_llm_config=LLMConfig(
+            provider="openai/text-embedding-3-small",
+            api_token=api_key,
+            base_url=base_url,
+        ),
+        query_llm_config=LLMConfig(
+            provider="openai/gpt-4o-mini",
+            api_token=api_key,
+            base_url=base_url,
+        ),
         n_query_variations=10,
         embedding_min_confidence_threshold=0.1,
         max_pages=max_pages,
