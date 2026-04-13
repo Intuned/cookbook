@@ -6,6 +6,7 @@ Supports BFS, DFS, and Best-First crawling strategies with filtering and scoring
 Based on: https://docs.crawl4ai.com/core/deep-crawling/
 """
 
+import logging
 from typing import Literal, TypedDict
 
 from playwright.async_api import BrowserContext, Page
@@ -58,6 +59,9 @@ async def automation(
     blocked_domains = params.get("blocked_domains", [])
     url_patterns = params.get("url_patterns", [])
 
+    # Suppress noisy crawl4ai error logs (browser context closes mid-crawl on large sites)
+    logging.getLogger("crawl4ai").setLevel(logging.CRITICAL)
+
     # Build filter chain
     filters = []
     if allowed_domains or blocked_domains:
@@ -103,12 +107,12 @@ async def automation(
             url_scorer=url_scorer,
         )
 
-    browser_config = BrowserConfig(verbose=True)
+    browser_config = BrowserConfig(verbose=False)
     run_config = CrawlerRunConfig(
         deep_crawl_strategy=strategy,
         scraping_strategy=LXMLWebScrapingStrategy(),
         stream=True,
-        verbose=True,
+        verbose=False,
     )
 
     # Execute deep crawl with streaming
