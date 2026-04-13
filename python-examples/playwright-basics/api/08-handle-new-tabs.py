@@ -11,14 +11,16 @@ from typing import TypedDict
 
 from playwright.async_api import Page
 
+from intuned_browser import go_to_url, wait_for_dom_settled
+
 
 class Params(TypedDict):
     pass
 
 
 async def automation(page: Page, params: Params | None = None, **_kwargs):
-    await page.goto("https://books.toscrape.com/")
-    await page.wait_for_load_state("networkidle")
+    await go_to_url(page, url="https://books.toscrape.com/")
+    await wait_for_dom_settled(source=page)
 
     # Get the first book link
     first_book_link = page.locator(".product_pod h3 a").first
@@ -26,21 +28,22 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 
     # Method 1: Navigate in the same page
     await first_book_link.click()
-    await page.wait_for_load_state("networkidle")
+    await wait_for_dom_settled(source=page)
     book_price = await page.locator(".price_color").first.text_content()
 
-    # Go back to the list
-    await page.go_back()
-    await page.wait_for_load_state("networkidle")
+    # Go back to the list using direct navigation (more reliable than page.go_back())
+    await go_to_url(page, url="https://books.toscrape.com/")
+    await wait_for_dom_settled(source=page)
 
     # Method 2: Open in a new page (simulating target="_blank")
     # Create a new page manually from context
     context = page.context
     new_page = await context.new_page()
-    await new_page.goto(
-        "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    await go_to_url(
+        new_page,
+        url="https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
     )
-    await new_page.wait_for_load_state("networkidle")
+    await wait_for_dom_settled(source=new_page)
 
     new_page_title = await new_page.locator(".product_main h1").text_content()
     new_page_price = await new_page.locator(".price_color").first.text_content()

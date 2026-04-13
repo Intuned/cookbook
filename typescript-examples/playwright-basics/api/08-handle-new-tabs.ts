@@ -1,4 +1,5 @@
 import { BrowserContext, Page } from "playwright";
+import { goToUrl, waitForDomSettled } from "@intuned/browser";
 
 /**
  * Handle New Tabs and Popups
@@ -9,34 +10,35 @@ import { BrowserContext, Page } from "playwright";
  * - Working with multiple pages
  */
 
-interface Params {}
+interface Params { }
 
 export default async function handler(
   params: Params,
   page: Page,
   context: BrowserContext
 ) {
-  await page.goto("https://books.toscrape.com/");
-  await page.waitForLoadState("networkidle");
+  await goToUrl({ page, url: "https://books.toscrape.com/" });
+  await waitForDomSettled({ source: page });
 
   // Get the first book link
   const firstBookLink = page.locator(".product_pod h3 a").first();
   const bookTitle = await firstBookLink.getAttribute("title");
+  console.log(await firstBookLink.getAttribute("href"))
 
   // Method 1: Navigate in the same page
   await firstBookLink.click();
-  await page.waitForLoadState("networkidle");
+  await waitForDomSettled({ source: page });
   const bookPrice = await page.locator(".price_color").first().textContent();
 
   // Go back to the list
-  await page.goBack();
-  await page.waitForLoadState("networkidle");
+  await goToUrl({ page, url: "https://books.toscrape.com/" });
+  await waitForDomSettled({ source: page });
 
   // Method 2: Open in a new page (simulating target="_blank")
   // Create a new page manually
   const newPage = await context.newPage();
-  await newPage.goto("https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html");
-  await newPage.waitForLoadState("networkidle");
+  await goToUrl({ page: newPage, url: "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html" });
+  await waitForDomSettled({ source: newPage });
 
   const newPageTitle = await newPage.locator(".product_main h1").textContent();
   const newPagePrice = await newPage.locator(".price_color").first().textContent();
