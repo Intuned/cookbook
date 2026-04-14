@@ -37,7 +37,6 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [e-commerce-nested](./e-commerce-nested/) | E-commerce category and product scraper |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-shopify](./e-commerce-shopify/) | Shopify store product scraper |
-| [ehr-integration](./ehr-integration/) | Data Extraction from Openimis Website |
 | [hybrid-automation](./hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [jsdom](./jsdom/) | Web scraping with JSDOM for HTML parsing |
 | [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |

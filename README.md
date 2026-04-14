@@ -65,7 +65,6 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [e-commerce-nested](./typescript-examples/e-commerce-nested/) | E-commerce category and product scraper |
 | [e-commerce-scrapingcourse](./typescript-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-shopify](./typescript-examples/e-commerce-shopify/) | Shopify store product scraper |
-| [ehr-integration](./typescript-examples/ehr-integration/) | Data Extraction from Openimis Website |
 | [hybrid-automation](./typescript-examples/hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extractStructuredData |
 | [jsdom](./typescript-examples/jsdom/) | Web scraping with JSDOM for HTML parsing |
 | [native-crawler](./typescript-examples/native-crawler/) | Native web crawler for sitemaps and recursive link following |
@@ -98,7 +97,6 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [e-commerce-nested](./python-examples/e-commerce-nested/) | E-commerce category and product scraper |
 | [e-commerce-scrapingcourse](./python-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
 | [e-commerce-shopify](./python-examples/e-commerce-shopify/) | Shopify store product scraper |
-| [ehr-integration](./python-examples/ehr-integration/) | Data Extraction from Openimis Website |
 | [firecrawl](./python-examples/firecrawl/) | Web scraping with Firecrawl library |
 | [hybrid-automation](./python-examples/hybrid-automation/) | Hybrid automation combining Intuned Browser SDK with AI-powered tools like Stagehand and extract_structured_data |
 | [native-crawler](./python-examples/native-crawler/) | Native web crawler for sitemaps and recursive link following |
