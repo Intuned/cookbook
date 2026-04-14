@@ -16,9 +16,9 @@ This project demonstrates four different approaches to AI-powered browser automa
 
 Uses Claude's native computer use API with X/Y coordinate-based interactions and extended thinking capabilities.
 
-### 2. OpenAI Operator API
+### 2. OpenAI Computer Use
 
-Uses OpenAI's computer-use-preview model (Operator API) for autonomous browser control with X/Y coordinate-based interactions.
+Uses OpenAI's Responses API computer-use flow for autonomous browser control with X/Y coordinate-based interactions.
 
 ### 3. Gemini Computer Use
 
@@ -42,9 +42,9 @@ Claude-powered automation using native computer use tools.
 }
 ```
 
-### OpenAI Operator API (`api/openai-computer-use.ts`)
+### OpenAI Computer Use (`api/openai-computer-use.ts`)
 
-OpenAI's Operator model for autonomous browser control.
+OpenAI's computer-use model path for autonomous browser control.
 
 **Parameters**:
 
@@ -125,7 +125,7 @@ export GEMINI_API_KEY=your_api_key_here
 # Anthropic Computer Use
 intuned dev run api anthropic-computer-use .parameters/api/anthropic-computer-use/default.json
 
-# OpenAI Operator API
+# OpenAI Computer Use
 intuned dev run api openai-computer-use .parameters/api/openai-computer-use/default.json
 
 # Gemini Computer Use
@@ -154,7 +154,7 @@ intuned dev deploy
 /
 ├── api/
 │   ├── anthropic-computer-use.ts   # Anthropic Claude computer use
-│   ├── openai-computer-use.ts      # OpenAI Operator API
+│   ├── openai-computer-use.ts      # OpenAI computer use
 │   ├── gemini-computer-use.ts      # Gemini with Stagehand
 │   └── stagehand.ts                # Stagehand without CUA
 ├── hooks/
@@ -187,7 +187,7 @@ intuned dev deploy
 - [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
 - [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - **Anthropic Computer Use**: <https://docs.anthropic.com/en/docs/computer-use>
-- **OpenAI Operator API**: <https://platform.openai.com/docs/>
+- **OpenAI Computer Use**: <https://developers.openai.com/api/docs/guides/tools-computer-use>
 - **Stagehand Documentation**: <https://docs.stagehand.dev/>
 - [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)
 

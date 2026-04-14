@@ -35,6 +35,44 @@ interface Point {
   y: number;
 }
 
+interface ClickArgs {
+  x: number;
+  y: number;
+  button?: 'left' | 'right' | 'back' | 'forward' | 'wheel';
+}
+
+interface ScrollArgs {
+  x: number;
+  y: number;
+  scroll_x: number;
+  scroll_y: number;
+}
+
+interface TypeArgs {
+  text: string;
+}
+
+interface KeypressArgs {
+  keys: string[];
+}
+
+interface WaitArgs {
+  ms?: number;
+}
+
+interface MoveArgs {
+  x: number;
+  y: number;
+}
+
+interface DragArgs {
+  path: Point[];
+}
+
+interface GotoArgs {
+  url: string;
+}
+
 export class PlaywrightComputer {
   protected _page: Page;
 
@@ -55,15 +93,12 @@ export class PlaywrightComputer {
   };
 
   screenshot = async (): Promise<string> => {
-    const buf = await this._page.screenshot();
+    console.log('📸 Taking screenshot...');
+    const buf = await this._page.screenshot({ fullPage: false });
     return buf.toString('base64');
   };
 
-  click = async (
-    button: 'left' | 'right' | 'back' | 'forward' | 'wheel',
-    x: number,
-    y: number,
-  ): Promise<void> => {
+  click = async ({ x, y, button = 'left' }: ClickArgs): Promise<void> => {
     console.log(`Click: ${button} at (${x}, ${y})`);
     switch (button) {
       case 'back':
@@ -78,50 +113,47 @@ export class PlaywrightComputer {
       default: {
         const btn = button === 'right' ? 'right' : 'left';
         await this._page.mouse.click(x, y, { button: btn });
-        // Wait for any navigation or page changes
-        await this._page.waitForTimeout(1500);
         return;
       }
     }
   };
 
-  doubleClick = async (x: number, y: number): Promise<void> => {
+  double_click = async ({ x, y }: MoveArgs): Promise<void> => {
     console.log(`Double click at (${x}, ${y})`);
     await this._page.mouse.dblclick(x, y);
-    await this._page.waitForTimeout(1500);
   };
 
-  scroll = async (x: number, y: number, scrollX: number, scrollY: number): Promise<void> => {
-    console.log(`Scroll at (${x}, ${y}) by (${scrollX}, ${scrollY})`);
+  scroll = async ({ x, y, scroll_x, scroll_y }: ScrollArgs): Promise<void> => {
+    console.log(`Scroll at (${x}, ${y}) by (${scroll_x}, ${scroll_y})`);
     await this._page.mouse.move(x, y);
     await this._page.evaluate(
       (params: { dx: number; dy: number }) => window.scrollBy(params.dx, params.dy),
-      { dx: scrollX, dy: scrollY },
+      { dx: scroll_x, dy: scroll_y },
     );
   };
 
-  type = async (text: string): Promise<void> => {
+  type = async ({ text }: TypeArgs): Promise<void> => {
     console.log(`Typing: ${text}`);
     await this._page.keyboard.type(text);
   };
 
-  keypress = async (keys: string[]): Promise<void> => {
+  keypress = async ({ keys }: KeypressArgs): Promise<void> => {
     console.log(`Keypress: ${keys.join('+')}`);
     const mapped = keys.map((k) => KEY_MAP[k.toLowerCase()] ?? k);
     for (const k of mapped) await this._page.keyboard.down(k);
     for (const k of [...mapped].reverse()) await this._page.keyboard.up(k);
   };
 
-  wait = async (ms = 1000): Promise<void> => {
+  wait = async ({ ms = 1000 }: WaitArgs = {}): Promise<void> => {
     console.log(`Waiting ${ms}ms`);
     await new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  move = async (x: number, y: number): Promise<void> => {
+  move = async ({ x, y }: MoveArgs): Promise<void> => {
     await this._page.mouse.move(x, y);
   };
 
-  drag = async (path: Point[]): Promise<void> => {
+  drag = async ({ path }: DragArgs): Promise<void> => {
     const first = path[0];
     if (!first) return;
     console.log(`Dragging from (${first.x}, ${first.y}) through ${path.length} points`);
@@ -131,7 +163,7 @@ export class PlaywrightComputer {
     await this._page.mouse.up();
   };
 
-  goto = async (url: string): Promise<void> => {
+  goto = async ({ url }: GotoArgs): Promise<void> => {
     console.log(`Navigating to: ${url}`);
     try {
       await goToUrl({ page: this._page, url });
@@ -145,9 +177,8 @@ export class PlaywrightComputer {
   back = async (): Promise<void> => {
     console.log('Navigating back');
     try {
-      await this._page.goBack({ waitUntil: 'networkidle', timeout: 30000 });
-      await this._page.waitForTimeout(2000);
-    } catch (error) {
+      await this._page.goBack();
+    } catch {
       console.log('Cannot go back - no previous page in history');
     }
   };
@@ -155,11 +186,9 @@ export class PlaywrightComputer {
   forward = async (): Promise<void> => {
     console.log('Navigating forward');
     try {
-      await this._page.goForward({ waitUntil: 'networkidle', timeout: 30000 });
-      await this._page.waitForTimeout(2000);
-    } catch (error) {
+      await this._page.goForward();
+    } catch {
       console.log('Cannot go forward - no forward page in history');
     }
   };
 }
-

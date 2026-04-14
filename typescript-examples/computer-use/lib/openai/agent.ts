@@ -3,21 +3,26 @@ import type {
   ResponseItem,
   ResponseInputItem,
   ResponseOutputMessage,
+  ResponseOutputText,
   ResponseFunctionToolCallItem,
   ResponseFunctionToolCallOutputItem,
   ResponseComputerToolCall,
   ResponseComputerToolCallOutputItem,
-  ComputerTool,
+  Tool,
 } from 'openai/resources/responses/responses.js';
 
 import * as utils from './utils';
-import toolset from './toolset';
 import type { PlaywrightComputer } from './computer';
+
+type ComputerAction = {
+  type: string;
+  [key: string]: unknown;
+};
 
 export class Agent {
   private model: string;
   private computer: PlaywrightComputer;
-  private tools: ComputerTool[];
+  private tools: Tool[];
   private print_steps = true;
   private debug = false;
   private show_images = false;
@@ -27,24 +32,18 @@ export class Agent {
   constructor(opts: {
     model?: string;
     computer: PlaywrightComputer;
-    tools?: ComputerTool[];
+    tools?: Tool[];
     acknowledge_safety_check_callback?: (msg: string) => boolean;
     apiKey: string;
     baseURL?: string;
   }) {
-    this.model = opts.model ?? 'computer-use-preview';
+    this.model = opts.model ?? 'gpt-5.4';
     this.computer = opts.computer;
     this.openai = new OpenAI({ apiKey: opts.apiKey, baseURL: opts.baseURL });
-    this.tools = [...toolset.shared, ...(opts.tools ?? [])] as ComputerTool[];
+    this.tools = [...(opts.tools ?? [])];
     this.ackCb = opts.acknowledge_safety_check_callback ?? ((): boolean => true);
 
-    const [w, h] = this.computer.getDimensions();
-    this.tools.push({
-      type: 'computer_use_preview',
-      display_width: w,
-      display_height: h,
-      environment: this.computer.getEnvironment(),
-    });
+    this.tools.push({ type: 'computer' } as unknown as Tool);
   }
 
   private debugPrint(...args: unknown[]): void {
@@ -65,8 +64,15 @@ export class Agent {
     if (item.type === 'message' && this.print_steps) {
       const msg = item as ResponseOutputMessage;
       const c = msg.content;
-      if (Array.isArray(c) && c[0] && 'text' in c[0] && typeof c[0].text === 'string')
-        console.log(c[0].text);
+      const textBlocks = Array.isArray(c)
+        ? c
+            .filter(
+              (block): block is ResponseOutputText =>
+                block.type === 'output_text' && typeof block.text === 'string',
+            )
+            .map((block) => block.text)
+        : [];
+      if (textBlocks.length > 0) console.log(textBlocks.join('\n'));
     }
 
     if (item.type === 'function_call') {
@@ -76,7 +82,7 @@ export class Agent {
       
       const fn = (this.computer as unknown as Record<string, unknown>)[fc.name];
       if (typeof fn === 'function') {
-        await (fn as (...a: unknown[]) => unknown)(...Object.values(argsObj));
+        await (fn as (args: Record<string, unknown>) => unknown)(argsObj);
       }
       
       return [
@@ -90,28 +96,35 @@ export class Agent {
 
     if (item.type === 'computer_call') {
       const cc = item as ResponseComputerToolCall;
-      const { type: actionType, ...actionArgs } = cc.action;
-      if (this.print_steps) console.log(`${actionType}(${JSON.stringify(actionArgs)})`);
-      
-      const fn = (this.computer as unknown as Record<string, unknown>)[actionType as string];
-      if (typeof fn === 'function') {
-        await (fn as (...a: unknown[]) => unknown)(...Object.values(actionArgs));
-        const screenshot = await this.computer.screenshot();
-        const pending = cc.pending_safety_checks ?? [];
-        for (const { message } of pending) {
-          if (!this.ackCb(message)) throw new Error(`Safety check failed: ${message}`);
+      const actions = ((cc as unknown as { actions?: ComputerAction[] }).actions ??
+        [cc.action]) as ComputerAction[];
+      for (const action of actions) {
+        const { type: actionType, ...actionArgs } = action;
+        if (this.print_steps) console.log(`${actionType}(${JSON.stringify(actionArgs)})`);
+
+        const fn = (this.computer as unknown as Record<string, unknown>)[actionType];
+        if (typeof fn === 'function') {
+          await (fn as (args: Record<string, unknown>) => unknown)(actionArgs);
         }
-        const out: Omit<ResponseComputerToolCallOutputItem, 'id'> = {
-          type: 'computer_call_output',
-          call_id: cc.call_id,
-          acknowledged_safety_checks: pending,
-          output: {
-            type: 'computer_screenshot',
-            image_url: `data:image/webp;base64,${screenshot}`,
-          },
-        };
-        return [out as ResponseItem];
       }
+
+      const screenshot = await this.computer.screenshot();
+      const pending = cc.pending_safety_checks ?? [];
+      for (const { message } of pending) {
+        if (message && !this.ackCb(message)) {
+          throw new Error(`Safety check failed: ${message}`);
+        }
+      }
+
+      const out: Omit<ResponseComputerToolCallOutputItem, 'id'> = {
+        type: 'computer_call_output',
+        call_id: cc.call_id,
+        output: {
+          type: 'computer_screenshot',
+          image_url: `data:image/png;base64,${screenshot}`,
+        },
+      };
+      return [out as ResponseItem];
     }
 
     return [];
@@ -127,60 +140,33 @@ export class Agent {
     this.debug = opts.debug ?? false;
     this.show_images = opts.show_images ?? false;
     const newItems: ResponseItem[] = [];
+    let currentInput: ResponseInputItem[] = [...opts.messages];
+    let previousResponseId: string | null = null;
 
     while (
       newItems.length === 0 ||
       (newItems[newItems.length - 1] as ResponseItem & { role?: string }).role !== 'assistant'
     ) {
-      // Add current URL to system message if in browser environment
-      const inputMessages = [...opts.messages];
-
-      if (this.computer?.getEnvironment() === 'browser') {
-        const current_url = this.computer.getCurrentUrl();
-        // Find system message
-        const sysIndex = inputMessages.findIndex((msg) => 'role' in msg && msg.role === 'system');
-
-        if (sysIndex >= 0) {
-          const msg = inputMessages[sysIndex];
-          const urlInfo = `\n- Current URL: ${current_url}`;
-
-          if (msg && 'content' in msg) {
-            if (typeof msg.content === 'string') {
-              const updatedMsg = {
-                ...msg,
-                content: msg.content + urlInfo,
-              };
-              inputMessages[sysIndex] = updatedMsg as typeof msg;
-            } else if (Array.isArray(msg.content) && msg.content.length > 0) {
-              const updatedContent = [...msg.content];
-
-              if (updatedContent[0] && 'text' in updatedContent[0]) {
-                updatedContent[0] = {
-                  ...updatedContent[0],
-                  text: updatedContent[0].text + urlInfo,
-                };
-              }
-
-              const updatedMsg = {
-                ...msg,
-                content: updatedContent,
-              };
-              inputMessages[sysIndex] = updatedMsg as typeof msg;
-            }
-          }
-        }
-      }
-
-      this.debugPrint(...inputMessages, ...newItems);
+      this.debugPrint(
+        ...currentInput,
+        ...(previousResponseId ? [{ previous_response_id: previousResponseId }] : []),
+      );
       const response = await utils.createResponse(this.openai, {
         model: this.model,
-        input: [...inputMessages, ...newItems],
-        tools: this.tools,
-        truncation: 'auto',
-      });
+        input: currentInput,
+        previous_response_id: previousResponseId,
+        tools: this.tools as OpenAI.Responses.Tool[],
+      } as OpenAI.Responses.ResponseCreateParams);
       if (!response.output) throw new Error('No output from model');
+      previousResponseId =
+        typeof (response as { id?: unknown }).id === 'string'
+          ? ((response as { id: string }).id)
+          : null;
+      currentInput = [];
       for (const msg of response.output as ResponseItem[]) {
-        newItems.push(msg, ...(await this.handleItem(msg)));
+        const handledItems = await this.handleItem(msg);
+        newItems.push(msg, ...handledItems);
+        currentInput.push(...(handledItems as ResponseInputItem[]));
       }
     }
 
@@ -190,4 +176,3 @@ export class Agent {
       : newItems;
   }
 }
-

@@ -32,11 +32,6 @@ export default async function handler(
     throw new Error('Query is required');
   }
 
-  // Get API key from environment
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY environment variable is required');
-  }
 
   const model = 'google/gemini-2.5-computer-use-preview-10-2025';
 
