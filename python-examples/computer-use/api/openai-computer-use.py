@@ -18,8 +18,8 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     # Get AI gateway config
     base_url, api_key = get_ai_gateway_config()
 
-    # Hardcoded model
-    model = "computer-use-preview"
+    # Use the current GA computer-use path for Responses API.
+    model = "gpt-5.4"
 
     print("\n🤖 Starting OpenAI Computer Use Agent...")
     print(f"📋 Task: {params['query']}\n")
@@ -43,10 +43,12 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     input_items = [
         {
             "role": "system",
-            "content": f"""<SYSTEM_CAPABILITY>
+            "content": [
+                {
+                    "type": "input_text",
+                    "text": f"""<SYSTEM_CAPABILITY>
 - Current date and time: {datetime.datetime.utcnow().isoformat()} ({datetime.datetime.utcnow().strftime('%A')})
 - You have a web browser already open and ready to use
-- Use the 'goto' tool to navigate to websites
 </SYSTEM_CAPABILITY>
 
 <IMPORTANT_INSTRUCTIONS>
@@ -58,8 +60,13 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
 - Report what you DID, not what you CAN do or what you FOUND.
 - Complete the entire task before responding with your final answer.
 </IMPORTANT_INSTRUCTIONS>""",
+                }
+            ],
         },
-        {"role": "user", "content": params["query"]},
+        {
+            "role": "user",
+            "content": [{"type": "input_text", "text": params["query"]}],
+        },
     ]
 
     # Run the agent

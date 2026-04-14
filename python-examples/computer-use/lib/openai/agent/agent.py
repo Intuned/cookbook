@@ -12,61 +12,25 @@ class Agent:
 
     def __init__(
         self,
-        model="computer-use-preview-2025-03-11",
+        model="gpt-5.4",
         api_key: str = None,
         base_url: str = None,
         computer: Computer = None,
-        tools: list[dict] = [],
+        tools: list[dict] | None = None,
         acknowledge_safety_check_callback: Callable = lambda message: True,
     ):
         self.model = model
         self.api_key = api_key
         self.base_url = base_url
         self.computer = computer
-        self.tools = tools
+        self.tools = list(tools or [])
         self.print_steps = True
         self.debug = False
         self.show_images = False
         self.acknowledge_safety_check_callback = acknowledge_safety_check_callback
 
         if computer:
-            dimensions = computer.get_dimensions()
-            self.tools += [
-                {
-                    "type": "computer_use_preview",
-                    "display_width": dimensions[0],
-                    "display_height": dimensions[1],
-                    "environment": computer.get_environment(),
-                },
-                {
-                    "type": "function",
-                    "name": "back",
-                    "description": "Go back to the previous page.",
-                    "parameters": {},
-                },
-                {
-                    "type": "function",
-                    "name": "goto",
-                    "description": "Go to a specific URL.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "url": {
-                                "type": "string",
-                                "description": "Fully qualified URL to navigate to.",
-                            },
-                        },
-                        "additionalProperties": False,
-                        "required": ["url"],
-                    },
-                },
-                {
-                    "type": "function",
-                    "name": "forward",
-                    "description": "Go forward to the next page.",
-                    "parameters": {},
-                },
-            ]
+            self.tools.append({"type": "computer"})
 
     def debug_print(self, *args):
         if self.debug:
@@ -76,7 +40,13 @@ class Agent:
         """Handle each item; may cause a computer action + screenshot."""
         if item["type"] == "message":
             if self.print_steps:
-                print(item["content"][0]["text"])
+                text_blocks = [
+                    block["text"]
+                    for block in item.get("content", [])
+                    if isinstance(block, dict) and "text" in block
+                ]
+                if text_blocks:
+                    print("\n".join(text_blocks))
 
         if item["type"] == "function_call":
             name, args = item["name"], json.loads(item["arguments"])
@@ -95,14 +65,17 @@ class Agent:
             ]
 
         if item["type"] == "computer_call":
-            action = item["action"]
-            action_type = action["type"]
-            action_args = {k: v for k, v in action.items() if k != "type"}
-            if self.print_steps:
-                print(f"{action_type}({action_args})")
+            actions = item.get("actions") or (
+                [item["action"]] if "action" in item else []
+            )
+            for action in actions:
+                action_type = action["type"]
+                action_args = {k: v for k, v in action.items() if k != "type"}
+                if self.print_steps:
+                    print(f"{action_type}({action_args})")
 
-            method = getattr(self.computer, action_type)
-            await method(**action_args)
+                method = getattr(self.computer, action_type)
+                await method(**action_args)
 
             screenshot_base64 = await self.computer.screenshot()
 
@@ -118,17 +91,12 @@ class Agent:
             call_output = {
                 "type": "computer_call_output",
                 "call_id": item["call_id"],
-                "acknowledged_safety_checks": pending_checks,
                 "output": {
-                    "type": "input_image",
+                    "type": "computer_screenshot",
                     "image_url": f"data:image/png;base64,{screenshot_base64}",
+                    "detail": "original",
                 },
             }
-
-            # additional URL safety checks for browser environments
-            if self.computer.get_environment() == "browser":
-                current_url = await self.computer.get_current_url()
-                call_output["output"]["current_url"] = current_url
 
             return [call_output]
         return []
@@ -140,27 +108,40 @@ class Agent:
         self.debug = debug
         self.show_images = show_images
         new_items = []
+        current_input = input_items
+        previous_response_id = None
 
         # keep looping until we get a final response
         while new_items[-1].get("role") != "assistant" if new_items else True:
-            self.debug_print([sanitize_message(msg) for msg in input_items + new_items])
+            self.debug_print(
+                [sanitize_message(msg) for msg in current_input]
+                + (
+                    [{"previous_response_id": previous_response_id}]
+                    if previous_response_id
+                    else []
+                )
+            )
 
             response = create_response(
                 api_key=self.api_key,
                 base_url=self.base_url,
                 model=self.model,
-                input=input_items + new_items,
+                input=current_input,
+                previous_response_id=previous_response_id,
                 tools=self.tools,
-                truncation="auto",
             )
             self.debug_print(response)
+            previous_response_id = response.get("id")
 
             if "output" not in response and self.debug:
                 print(response)
                 raise ValueError("No output from model")
             else:
+                current_input = []
                 new_items += response["output"]
                 for item in response["output"]:
-                    new_items += await self.handle_item(item)
+                    handled_items = await self.handle_item(item)
+                    new_items += handled_items
+                    current_input += handled_items
 
         return new_items
