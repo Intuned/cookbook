@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "captcha-solving-auth-example"
+name = "captcha-in-login-example"
 version = "0.0.1"
 description = "E-commerce scraper automation to demonstrate our captcha solving and stealth mode capabilities for cloudflare with a real example"
 authors = [{ name = "Intuned", email = "service@intunedhq.com" }]

@@ -57,7 +57,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [auth-with-email-otp](./typescript-examples/auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./typescript-examples/auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [browser-sdk-showcase](./typescript-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
-| [captcha-solving-auth](./typescript-examples/captcha-solving-auth/) | E-commerce scraper with captcha solving and auth sessions |
+| [captcha-in-login](./typescript-examples/captcha-in-login/) | E-commerce scraper with captcha solving and auth sessions |
 | [captcha-solving-basic](./typescript-examples/captcha-solving-basic/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
 | [cdp-connection](./typescript-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [computer-use](./typescript-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |
@@ -88,7 +88,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [browser-sdk-showcase](./python-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
 | [browser-use](./python-examples/browser-use/) | AI browser automation with Browser-Use |
 | [bs4](./python-examples/bs4/) | Web scraping with BeautifulSoup for HTML parsing |
-| [captcha-solving-auth](./python-examples/captcha-solving-auth/) | E-commerce scraper with captcha solving and auth sessions |
+| [captcha-in-login](./python-examples/captcha-in-login/) | E-commerce scraper with captcha solving and auth sessions |
 | [captcha-solving-basic](./python-examples/captcha-solving-basic/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
 | [cdp-connection](./python-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |

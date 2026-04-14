@@ -30,7 +30,7 @@
   },
   "metadata": {
     "template": {
-      "name": "captcha-solving-auth",
+      "name": "captcha-in-login",
       "description": "E-commerce scraper with captcha solving and auth sessions",
       "tags": ["captcha", "auth-sessions"]
     },

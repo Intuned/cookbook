@@ -29,7 +29,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [browser-sdk-showcase](./browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
-| [captcha-solving-auth](./captcha-solving-auth/) | E-commerce scraper with captcha solving and auth sessions |
+| [captcha-in-login](./captcha-in-login/) | E-commerce scraper with captcha solving and auth sessions |
 | [captcha-solving-basic](./captcha-solving-basic/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
 | [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, and Gemini |

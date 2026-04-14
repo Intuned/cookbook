@@ -1,5 +1,5 @@
 {
-  "name": "captcha-solving-auth",
+  "name": "captcha-in-login",
   "version": "1.0.0",
   "packageManager": "yarn@1.22.22",
   "description": "E-commerce scraper automation to demonstrate our captcha solving capabilities for cloudflare with a real example",

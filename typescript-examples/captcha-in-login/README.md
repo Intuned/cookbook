@@ -1,11 +1,11 @@
-# Captcha Solving Auth (Python)
+# Captcha In Login (TypeScript)
 
-E-commerce scraper automation demonstrating Cloudflare captcha solving and stealth mode with authenticated sessions.
+E-commerce scraper automation demonstrating Cloudflare captcha solving with authenticated sessions.
 
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/captcha-solving-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/captcha-solving-auth" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 <!-- IDE-IGNORE-END -->
 
 ## APIs
@@ -21,7 +21,9 @@ E-commerce scraper automation demonstrating Cloudflare captcha solving and steal
 ### Install dependencies
 
 ```bash
-uv sync
+npm install
+# or
+yarn
 ```
 
 If the `intuned` CLI is not installed, install it globally:
@@ -70,11 +72,11 @@ intuned dev deploy
 ```text
 /
 ├── api/
-│   ├── list.py                       # List products from the authenticated dashboard
-│   └── details.py                    # Get product details
+│   ├── list.ts                       # List products from the authenticated dashboard
+│   └── details.ts                    # Get product details
 ├── auth-sessions/
-│   ├── check.py                      # Validates if the auth session is still active
-│   └── create.py                     # Creates/recreates the auth session with captcha solving
+│   ├── check.ts                      # Validates if the auth session is still active
+│   └── create.ts                     # Creates/recreates the auth session with captcha solving
 ├── auth-sessions-instances/
 │   └── test-authsession/            # Example local auth session
 │       ├── auth-session.json
@@ -86,7 +88,7 @@ intuned dev deploy
 │       └── test-authsession.auth-session.jsonc  # Auth session credentials
 ├── .parameters/api/                  # Test parameters
 ├── Intuned.jsonc                      # Project config
-├── pyproject.toml                     # Python dependencies
+├── package.json                       # Node.js dependencies
 └── README.md
 ```
 
@@ -94,6 +96,6 @@ intuned dev deploy
 
 - [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
 - [Auth Sessions](https://intunedhq.com/docs/main/02-features/auth-sessions)
-- [Captcha Helpers](https://intunedhq.com/docs/main/05-references/runtime-sdk-python/captcha-helpers)
+- [Captcha Helpers](https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/captcha-helpers)
 - [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)
