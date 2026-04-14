@@ -42,7 +42,6 @@ export default async function handler(
   return {
     message: "File uploaded successfully",
     downloadedFileName: downloadedFile.suggestedFilename,
-    uploadedFilePath: uploadedFile.getFilePath(),
     signedUrl: await uploadedFile.getSignedUrl(),
   };
 }
