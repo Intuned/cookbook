@@ -11,7 +11,7 @@ from typing import TypedDict
 from intuned_runtime import get_ai_gateway_config
 from playwright.async_api import BrowserContext, Page
 
-from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler
+from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler, LLMConfig
 
 
 class Params(TypedDict, total=False):
