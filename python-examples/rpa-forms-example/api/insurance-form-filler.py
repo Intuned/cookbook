@@ -115,7 +115,7 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
             f"Fill in the zip code {params.address.zip_code} in the zip code field",
         )
 
-        await perform_action(page, "Click the Get a quote button")
+        await perform_action(page, "Click the Start a quote button")
         await page.wait_for_selector("#mainContent")
         # --- Name ---
         await perform_action(
