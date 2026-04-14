@@ -35,6 +35,10 @@ CUA_KEY_TO_PLAYWRIGHT_KEY = {
 }
 
 
+def _map_keys(keys: list[str] | None) -> list[str]:
+    return [CUA_KEY_TO_PLAYWRIGHT_KEY.get(k.lower(), k) for k in (keys or [])]
+
+
 class PlaywrightComputer:
     """
     Async Playwright-based computer implementation that uses a provided Page object.
@@ -53,13 +57,20 @@ class PlaywrightComputer:
         return self._page.url
 
     # --- Common "Computer" actions ---
-    async def screenshot(self) -> str:
+    async def screenshot(self, **_kwargs) -> str:
         """Capture only the viewport (not full_page)."""
         print("📸 Taking screenshot...")
         png_bytes = await self._page.screenshot(full_page=False)
         return base64.b64encode(png_bytes).decode("utf-8")
 
-    async def click(self, x: int, y: int, button: str = "left") -> None:
+    async def click(
+        self,
+        x: int,
+        y: int,
+        button: str = "left",
+        keys: list[str] | None = None,
+        **_kwargs,
+    ) -> None:
         if button == "back":
             await self.back()
         elif button == "forward":
@@ -68,37 +79,45 @@ class PlaywrightComputer:
             await self._page.mouse.wheel(x, y)
         else:
             print(f"🖱️  Click at ({x}, {y})")
-            button_mapping = {"left": "left", "right": "right"}
-            button_type = button_mapping.get(button, "left")
+            button_type: Literal["left", "right"] = (
+                "right" if button == "right" else "left"
+            )
+            mapped_keys = _map_keys(keys)
+            for key in mapped_keys:
+                await self._page.keyboard.down(key)
             await self._page.mouse.click(x, y, button=button_type)
+            for key in reversed(mapped_keys):
+                await self._page.keyboard.up(key)
 
-    async def double_click(self, x: int, y: int) -> None:
+    async def double_click(self, x: int, y: int, **_kwargs) -> None:
         await self._page.mouse.dblclick(x, y)
 
-    async def scroll(self, x: int, y: int, scroll_x: int, scroll_y: int) -> None:
+    async def scroll(
+        self, x: int, y: int, scroll_x: int, scroll_y: int, **_kwargs
+    ) -> None:
         direction = "⬇️ down" if scroll_y > 0 else "⬆️ up" if scroll_y < 0 else "↔️"
         print(f"📜 Scroll {direction} ({scroll_x}, {scroll_y})")
         await self._page.mouse.move(x, y)
         await self._page.evaluate(f"window.scrollBy({scroll_x}, {scroll_y})")
 
-    async def type(self, text: str) -> None:
+    async def type(self, text: str, **_kwargs) -> None:
         print(f"⌨️  Typing: {text}")
         await self._page.keyboard.type(text)
 
-    async def wait(self, ms: int = 1000) -> None:
+    async def wait(self, ms: int = 1000, **_kwargs) -> None:
         await asyncio.sleep(ms / 1000)
 
-    async def move(self, x: int, y: int) -> None:
+    async def move(self, x: int, y: int, **_kwargs) -> None:
         await self._page.mouse.move(x, y)
 
-    async def keypress(self, keys: list[str]) -> None:
-        mapped_keys = [CUA_KEY_TO_PLAYWRIGHT_KEY.get(key.lower(), key) for key in keys]
+    async def keypress(self, keys: list[str], **_kwargs) -> None:
+        mapped_keys = _map_keys(keys)
         for key in mapped_keys:
             await self._page.keyboard.down(key)
         for key in reversed(mapped_keys):
             await self._page.keyboard.up(key)
 
-    async def drag(self, path: list[dict[str, int]]) -> None:
+    async def drag(self, path: list[dict[str, int]], **_kwargs) -> None:
         if not path:
             return
         await self._page.mouse.move(path[0]["x"], path[0]["y"])
@@ -108,7 +127,7 @@ class PlaywrightComputer:
         await self._page.mouse.up()
 
     # --- Extra browser-oriented actions ---
-    async def goto(self, url: str) -> None:
+    async def goto(self, url: str, **_kwargs) -> None:
         print(f"🌐 Navigating to: {url}")
         try:
             await go_to_url(page=self._page, url=url)
@@ -116,8 +135,8 @@ class PlaywrightComputer:
         except Exception as e:
             print(f"❌ Error navigating to {url}: {e}")
 
-    async def back(self) -> None:
+    async def back(self, **_kwargs) -> None:
         await self._page.go_back()
 
-    async def forward(self) -> None:
+    async def forward(self, **_kwargs) -> None:
         await self._page.go_forward()

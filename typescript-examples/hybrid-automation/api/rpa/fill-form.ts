@@ -69,7 +69,6 @@ export default async function handler(
     env: "LOCAL",
     localBrowserLaunchOptions: {
       cdpUrl: webSocketUrl,
-      viewport: { width: 1280, height: 800 },
       downloadsPath: "./tmp",
     },
     logger: console.log,
@@ -81,9 +80,6 @@ export default async function handler(
   });
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");
-
-  // Set viewport
-  await page.setViewportSize({ width: 1280, height: 800 });
 
   // Validate input parameters
   const { name, email, phone, date, time, topic } =

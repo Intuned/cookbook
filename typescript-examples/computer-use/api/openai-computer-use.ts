@@ -8,6 +8,17 @@ interface Params {
   query: string;  // The task you want the AI to perform
 }
 
+function raiseClearAiError(e: unknown): never {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/credits?|quota|rate.?limit|insufficient|payment.?required|402/i.test(msg)) {
+    throw new Error(
+      `❌ AI credits exceeded or rate limit reached. Please check your Intuned account credit balance. (${msg})`
+    );
+  }
+  if (e instanceof Error) throw e;
+  throw new Error(String(e));
+}
+
 export default async function handler(
   params: Params,
   page: Page,
@@ -21,15 +32,14 @@ export default async function handler(
 
   // Get AI gateway config
   const { apiKey, baseUrl } = await getAiGatewayConfig();
+  if (!baseUrl || !apiKey) {
+    throw new Error(
+      "AI gateway config is missing. Run 'intuned dev provision' first to configure the project and AI gateway for local runs."
+    );
+  }
 
-  // Hardcoded model
-  const model = 'computer-use-preview';
-
-  // Set viewport size to match the computer tool's display dimensions
-  await page.setViewportSize({
-    width: 1280,
-    height: 720,
-  });
+  // Use the current GA computer-use path for Responses API.
+  const model = 'gpt-5.4';
 
   const start = Date.now();
 
@@ -39,7 +49,7 @@ export default async function handler(
   try {
     // Create the computer instance with the Playwright page
     const computer = new PlaywrightComputer(page);
-    
+
     // Create the agent
     const agent = new Agent({
       model,
@@ -58,13 +68,15 @@ export default async function handler(
       messages: [
         {
           role: 'system',
-          content: `<SYSTEM_CAPABILITY>
+          content: [
+            {
+              type: 'input_text',
+              text: `<SYSTEM_CAPABILITY>
 - Current date and time: ${new Date().toISOString()} (${new Date().toLocaleDateString(
-            'en-US',
-            { weekday: 'long' },
-          )})
+                'en-US',
+                { weekday: 'long' },
+              )})
 - You have a web browser already open and ready to use
-- Use the 'goto' tool to navigate to websites
 - The browser viewport is 1280x720 pixels
 </SYSTEM_CAPABILITY>
 
@@ -77,9 +89,10 @@ export default async function handler(
 - Report what you DID, not what you CAN do or what you FOUND.
 - Complete the entire task before responding with your final answer.
 </IMPORTANT_INSTRUCTIONS>`,
+            },
+          ],
         },
         {
-          type: 'message',
           role: 'user',
           content: [{ type: 'input_text', text: query }],
         },
@@ -100,7 +113,8 @@ export default async function handler(
         typeof (item as ResponseOutputMessage).role === 'string' &&
         Array.isArray((item as ResponseOutputMessage).content),
     );
-    const assistant = messages.find((m) => m.role === 'assistant');
+    const assistantMessages = messages.filter((m) => m.role === 'assistant');
+    const assistant = assistantMessages[assistantMessages.length - 1];
     const lastContentIndex = assistant?.content?.length ? assistant.content.length - 1 : -1;
     const lastContent = lastContentIndex >= 0 ? assistant?.content?.[lastContentIndex] : null;
     const answer = lastContent && 'text' in lastContent ? lastContent.text : null;
@@ -130,7 +144,6 @@ export default async function handler(
       messageCount: logs.length,
     };
   } catch (error) {
-    console.error('Error in OpenAI computer use:', error);
-    throw error;
+    raiseClearAiError(error);
   }
 }

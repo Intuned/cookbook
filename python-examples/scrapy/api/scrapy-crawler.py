@@ -1,3 +1,4 @@
+import asyncio
 import scrapy
 import platform
 from collector.item_collector import ItemCollector
@@ -116,5 +117,5 @@ async def automation(
         raise ValueError("url is required")
     max_pages = params.max_pages or 10
     await go_to_url(page=page, url=params.url)
-    items = run_scrapy(url=params.url, max_pages=max_pages)
+    items = await asyncio.to_thread(run_scrapy, url=params.url, max_pages=max_pages)
     return items

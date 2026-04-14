@@ -4,171 +4,148 @@ import { attemptStore } from "@intuned/runtime";
 import { z } from "zod";
 import {
   paramsSchema,
-  insureeResponseSchema,
-  InsureeResponse,
+  consultationSchema,
 } from "../utils/typesAndSchemas";
 
 type Params = z.infer<typeof paramsSchema>;
+type Consultation = z.infer<typeof consultationSchema>;
+
+const SUPABASE_URL = "https://pfaqkmnqacbiimndjwyp.supabase.co";
+
 async function login(
   page: Page,
-  username: string,
-  password: string,
-  loginUrl: string
+  email: string,
+  password: string
 ): Promise<void> {
-  /**
-   * Logs in to the website using the provided username and password.
-   */
-  try {
-    console.log(`Navigating to login page: ${loginUrl}`);
-    await goToUrl({ page, url: loginUrl });
-    // Replace selectors below with your site's login form selectors
-    console.log(`Filling login form for user: ${username}`);
-    await page.locator("input[type='text']").type(username, { delay: 100 });
-    await page.waitForTimeout(100);
-    await page.locator("input[type='password']").type(password, { delay: 100 });
-    await page.waitForTimeout(100);
-    await page.locator("button[type='submit']").click();
-    await page.waitForTimeout(3000);
-    console.log("Login completed");
-  } catch (e) {
-    console.log(`Login failed: ${e}`);
-    throw new Error(`Failed to login: ${e}`);
-  }
+  const loginUrl = "https://sandbox.intuned.dev/login";
+  console.log(`Navigating to login page: ${loginUrl}`);
+  await goToUrl({ page, url: loginUrl });
+  await page.locator("input[type='email']").fill(email);
+  await page.locator("input[type='password']").fill(password);
+  await page.locator("button[type='submit']").click();
+  console.log("Login form submitted");
+  await page.waitForTimeout(3000);
 }
 
 async function interceptRequest(request: Request): Promise<void> {
-  // Replace "graphql" with the URL pattern that contains CSRF tokens on your site
-  if (
-    request.url().includes("graphql") &&
-    attemptStore.get("csrf_token") === null
-  ) {
-    // Replace "x-csrftoken" with your site's CSRF header name
-    // Common names: "x-csrf-token", "x-xsrf-token", "csrf-token"
-    const token = request.headers()["x-csrftoken"];
-    if (token) {
-      attemptStore.set("csrf_token", token);
-      console.log(
-        `CSRF token captured: ${attemptStore
-          .get("csrf_token")
-          ?.slice(0, 20)}...`
-      );
+  if (!request.url().includes(SUPABASE_URL)) return;
+
+  if (attemptStore.get("bearer_token") === null) {
+    const authHeader = request.headers()["authorization"] ?? "";
+    const userIdHeader = request.headers()["x-user-id"] ?? "";
+
+    if (authHeader.startsWith("Bearer ")) {
+      const token = authHeader.slice("Bearer ".length);
+      attemptStore.set("bearer_token", token);
+      console.log(`Bearer token captured: ${token.slice(0, 20)}...`);
+    }
+
+    // Extract user_id from the consultations URL pattern if present
+    if (
+      request.url().includes("/consultations") &&
+      request.url().includes("user_id=eq.")
+    ) {
+      const uid = request.url().split("user_id=eq.")[1].split("&")[0];
+      attemptStore.set("user_id", uid);
+      console.log(`User ID captured: ${uid}`);
+    } else if (userIdHeader) {
+      attemptStore.set("user_id", userIdHeader);
+    }
+  }
+
+  if (attemptStore.get("anon_key") === null) {
+    const anonKey = request.headers()["apikey"];
+    if (anonKey) {
+      attemptStore.set("anon_key", anonKey);
+      console.log(`Anon key captured: ${anonKey.slice(0, 20)}...`);
     }
   }
 }
 
-async function fetchWithCsrf(
-  page: Page,
-  url: string,
-  method: string = "POST",
-  body?: Record<string, unknown>,
-  headers?: Record<string, string>
-): Promise<unknown> {
-  // Customize the headers below to match your API requirements
-  // Using a real function avoids Playwright treating the string as a plain expression.
-  const fetchScript = async (options: {
-    url: string;
-    method: string;
-    body?: Record<string, unknown>;
-    csrfToken: string | null;
-    extraHeaders: Record<string, string>;
-  }) => {
-    const { url, method, body, csrfToken, extraHeaders } = options;
-
-    const headers = {
-      accept: "*/*",
-      "content-type": "application/json",
-      "x-csrftoken": csrfToken || "",
-      "x-requested-with": "webapp",
-      ...extraHeaders,
-    };
-
-    const fetchOptions: RequestInit = {
-      method: method,
-      headers: headers,
-      credentials: "include",
-      mode: "cors",
-    };
-
-    if (body) {
-      fetchOptions.body = JSON.stringify(body);
-    }
-
-    const response = await fetch(url, fetchOptions);
-
-    if (!response.ok) {
-      throw new Error(
-        `Request failed: ${response.status} ${response.statusText}`
-      );
-    }
-
-    return await response.json();
-  };
-
-  return await page.evaluate(fetchScript, {
-    url,
-    method,
-    body,
-    csrfToken: attemptStore.get("csrf_token"),
-    extraHeaders: headers || {},
-  });
-}
-
 /**
- * Intercepts the request to the API and returns the data.
+ * Logs in to sandbox.intuned.dev, intercepts Supabase requests to capture
+ * the Bearer token and anon key, then fetches consultations via the REST API.
  *
  * Example params:
  * {
- *   "url": "https://demo.openimis.org/front/insuree/insurees",
- *   "api_url": "https://demo.openimis.org/api/graphql",
- *   "query": "{ insurees(first: 10) { edges { node { chfId lastName otherNames dob } } } }",
- *   "username": "Admin",
- *   "password": "admin123"
+ *   "username": "demo@email.com",
+ *   "password": "DemoUser2024!",
+ *   "limit": 5
  * }
  */
 async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext
-): Promise<InsureeResponse> {
-  const url = params.url; // URL to navigate after login (where CSRF is captured)
-  const apiUrl = params.api_url; // API endpoint to call with CSRF token
-  const query = params.query; // GraphQL query or request body
-  const username = params.username; // username to use for authentication
-  const password = params.password; // password to use for authentication
-  const loginUrl = params.login_url || url; // URL to the login page, if not provided, use the main URL
-  attemptStore.set("csrf_token", null);
+  _context: BrowserContext
+): Promise<Consultation[]> {
+  attemptStore.set("bearer_token", null);
+  attemptStore.set("anon_key", null);
+  attemptStore.set("user_id", null);
 
-  console.log("Starting network interception automation");
-  await login(page, username, password, loginUrl);
+  await login(page, params.username, params.password);
 
   page.on("request", interceptRequest);
 
   try {
-    console.log(`Navigating to: ${url}`);
-    // Navigate and wait until the network is settled (initial page load)
+    console.log("Navigating to consultations page to capture API credentials...");
     await withNetworkSettledWait(
       async (page) => {
-        await goToUrl({ page, url });
+        await goToUrl({ page, url: "https://sandbox.intuned.dev/consultations-auth/list" });
       },
-      {
-        page,
-        timeoutInMs: 20000,
-      }
+      { page, timeoutInMs: 20000 }
     );
-    await page.waitForTimeout(5000);
-    if (!attemptStore.get("csrf_token")) {
-      throw new Error("No CSRF token found");
+
+    // Poll until both token and anon key are captured (up to 10 seconds)
+    for (let i = 0; i < 20; i++) {
+      if (attemptStore.get("bearer_token") && attemptStore.get("anon_key")) break;
+      await page.waitForTimeout(500);
     }
 
-    if (!query) {
-      throw new Error("No query provided, please provide a query to execute");
+    const bearerToken = attemptStore.get("bearer_token") as string | null;
+    const anonKey = attemptStore.get("anon_key") as string | null;
+    const userId = attemptStore.get("user_id") as string | null;
+
+    if (!bearerToken) {
+      throw new Error("Failed to capture Bearer token — check credentials");
+    }
+    if (!anonKey) {
+      throw new Error("Failed to capture Supabase anon key from network");
     }
 
-    console.log(`Making API request to: ${apiUrl}`);
-    const data = await fetchWithCsrf(page, apiUrl, "POST", { query });
+    const apiUrl =
+      `${SUPABASE_URL}/rest/v1/consultations` +
+      `?select=*` +
+      `&user_id=eq.${userId}` +
+      `&order=created_at.desc` +
+      `&offset=0` +
+      `&limit=${params.limit}`;
 
-    console.log(`API request to ${apiUrl} completed successfully`);
-    return insureeResponseSchema.parse(data);
+    console.log(`Fetching consultations from Supabase: ${apiUrl}`);
+
+    const result = await page.evaluate(
+      async (options: { url: string; bearerToken: string; anonKey: string }) => {
+        const response = await fetch(options.url, {
+          headers: {
+            accept: "*/*",
+            "accept-profile": "public",
+            apikey: options.anonKey,
+            authorization: `Bearer ${options.bearerToken}`,
+            prefer: "count=exact",
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+      },
+      { url: apiUrl, bearerToken, anonKey }
+    );
+
+    const consultations = (result as unknown[]).map((item) =>
+      consultationSchema.parse(item)
+    );
+    console.log(`Fetched ${consultations.length} consultations`);
+    return consultations;
   } finally {
     page.removeListener("request", interceptRequest);
     console.log("Request interceptor removed");

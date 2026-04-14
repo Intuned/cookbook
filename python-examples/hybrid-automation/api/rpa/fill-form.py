@@ -89,8 +89,6 @@ async def automation(
     print(f"✅ Session started: {session_id}")
     print("\nInitialized 🤘 Stagehand")
 
-    await page.set_viewport_size({"width": 1280, "height": 800})
-
     # Validate input parameters using schema
     if params is None:
         raise ValueError("Params are required")

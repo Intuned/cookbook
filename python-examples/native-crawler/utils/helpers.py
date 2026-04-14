@@ -1,6 +1,6 @@
 import uuid
 
-from runtime.context import IntunedContext
+from intuned_runtime import IntunedContext
 
 
 def sanitize_key(key: str) -> str:

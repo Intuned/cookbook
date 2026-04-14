@@ -27,6 +27,7 @@ export default async function handler(
     source: page,
     dataSchema: ProductsSchema,
     prompt: "Extract all products from the table",
+    model: "gpt-5-mini"
   });
 
   console.log(`Extracted ${result.products.length} products`);

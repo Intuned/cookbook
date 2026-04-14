@@ -96,5 +96,6 @@ intuned dev deploy
 
 - [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
 - [Auth Sessions](https://intunedhq.com/docs/main/02-features/auth-sessions)
+- [Captcha Helpers](https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/captcha-helpers)
 - [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)

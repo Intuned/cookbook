@@ -43,16 +43,16 @@ async def automation(
 
     config = AdaptiveConfig(
         strategy="embedding",
-        embedding_llm_config=LLMConfig(
-            provider="openai/text-embedding-3-small",
-            api_token=api_key,
-            base_url=base_url,
-        ),
-        query_llm_config=LLMConfig(
-            provider="openai/gpt-4o-mini",
-            api_token=api_key,
-            base_url=base_url,
-        ),
+        embedding_llm_config={
+            "provider": "text-embedding-3-small",
+            "api_key": api_key,
+            "base_url": base_url,
+        },
+        query_llm_config={
+            "provider": "openai/gpt-5-mini",
+            "api_token": api_key,
+            "base_url": base_url,
+        },
         n_query_variations=10,
         embedding_min_confidence_threshold=0.1,
         max_pages=max_pages,
