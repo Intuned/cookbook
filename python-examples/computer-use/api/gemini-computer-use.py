@@ -16,6 +16,11 @@ async def automation(page: StagehandPage, params: Params, *args: ..., **kwargs: 
 
     stagehand = cast(Stagehand, attempt_store.get("stagehand"))
 
+    if not os.getenv("GEMINI_API_KEY") or not os.getenv("GOOGLE_API_KEY"):
+        raise ValueError(
+            "GEMINI_API_KEY or GOOGLE_API_KEY is required. Set GEMINI_API_KEY or GOOGLE_API_KEY environment variable."
+        )
+
     print("Starting Computer Use Agent...")
     print(f"Task: {params['query']}")
 
