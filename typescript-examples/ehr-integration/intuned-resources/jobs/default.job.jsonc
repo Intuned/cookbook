@@ -9,6 +9,14 @@
     {
       "apiName": "claims",
       "parameters": {}
+    },
+    {
+      "apiName": "families",
+      "parameters": {}
+    },
+    {
+      "apiName": "insurees",
+      "parameters": {}
     }
   ]
 }
