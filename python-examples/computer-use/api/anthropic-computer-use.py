@@ -18,7 +18,7 @@ async def automation(page: Page, params: Params | None = None, **_kwargs):
     base_url, api_key = get_ai_gateway_config()
 
     # Hardcoded model
-    model = "claude-haiku-4-5"
+    model = "claude-sonnet-4-5"
 
     final_messages = await sampling_loop(
         model=model,

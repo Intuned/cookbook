@@ -32,6 +32,9 @@ export default async function handler(
     throw new Error('Query is required');
   }
 
+  if (!process.env.GEMINI_API_KEY || !process.env.GOOGLE_API_KEY) {
+    throw new Error('GEMINI_API_KEY or GOOGLE_API_KEY environment variable is required');
+  }
 
   const model = 'google/gemini-2.5-computer-use-preview-10-2025';
 
@@ -54,7 +57,7 @@ export default async function handler(
 
   try {
     const agent = stagehand.agent({
-      cua: true, // Enable Computer Use API
+      mode: "cua", // Enable Computer Use API
       model: {
         modelName: model,
       },
