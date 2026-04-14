@@ -42,7 +42,7 @@ async function performAction(
     try {
       const action = await stagehand.observe(instruction);
       if (action && action.length > 0) {
-        await stagehand.act(action[0]);
+        await stagehand.act(instruction);
         await page.waitForLoadState("domcontentloaded");
         await page.waitForTimeout(2000);
         return;
@@ -200,7 +200,7 @@ export default async function handler(
   await performAction(
     stagehand,
     page,
-    `choose the ${applicant.marital_status} option from the marital status dropdown`
+    `select "${applicant.marital_status}" from the marital status dropdown`
   );
   if (applicant.accident_prevention_course) {
     await performAction(stagehand, page, "Click the Yes radio button.");

@@ -190,7 +190,7 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
         )
         await perform_action(
             page,
-            f"choose the {params.applicant.marital_status} option from the marital status dropdown",
+            f'select "{params.applicant.marital_status}" from the marital status dropdown',
         )
         if params.applicant.accident_prevention_course:
             await perform_action(page, "Click the Yes radio button.")
