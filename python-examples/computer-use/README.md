@@ -18,7 +18,7 @@ Uses Claude's native computer use API with X/Y coordinate-based interactions and
 
 ### 2. OpenAI Computer Use
 
-Uses OpenAI's Responses API computer-use flow for autonomous browser control with X/Y coordinate-based interactions.
+Uses OpenAI's `gpt-5.4` Responses API computer-use flow for autonomous browser control with X/Y coordinate-based interactions.
 
 ### 3. Gemini Computer Use
 
@@ -38,7 +38,7 @@ Claude-powered automation using native computer use tools.
 
 ### OpenAI Computer Use (`api/openai-computer-use.py`)
 
-OpenAI's computer-use model path for autonomous browser control.
+OpenAI's `gpt-5.4` computer-use model path for autonomous browser control.
 
 **Parameters**: See `.parameters/api/openai-computer-use/default.json`
 
