@@ -8,7 +8,7 @@
       "last_name": "Smith",
       "date_of_birth": "09/18/1988",
       "gender": "male",
-      "marital_status": "married",
+      "marital_status": "single",
       "accident_prevention_course": false,
       "email": "michael.smith@example.com",
       "phone_number": "555-987-6543",
@@ -17,7 +17,7 @@
       "preferred_name": "Mike",
       "home_multi_policy_discount": true,
       "currently_has_auto_insurance": true,
-      "coverage_effective_date": "02/15/2026"
+      "coverage_effective_date": "02/15/2027"
     },
     "address": {
       "street_line1": "245 Market St",

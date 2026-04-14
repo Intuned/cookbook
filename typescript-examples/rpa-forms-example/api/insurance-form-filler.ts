@@ -42,7 +42,7 @@ async function performAction(
     try {
       const action = await stagehand.observe(instruction);
       if (action && action.length > 0) {
-        await stagehand.act(action[0]);
+        await stagehand.act(instruction);
         await page.waitForLoadState("domcontentloaded");
         await page.waitForTimeout(2000);
         return;
@@ -73,9 +73,7 @@ export default async function handler(
     env: "LOCAL",
     localBrowserLaunchOptions: {
       cdpUrl: webSocketUrl,
-      downloadsPath: "./tmp",
     },
-    logger: console.log,
     model: {
       modelName: "openai/gpt-5-mini",
       apiKey: apiKey,
@@ -88,6 +86,7 @@ export default async function handler(
   const validatedParams = listParametersSchema.parse(params);
 
   const { metadata, applicant, address, vehicle } = validatedParams;
+  try {
   // Navigate to site
   await page.goto(metadata.site);
 
@@ -98,7 +97,7 @@ export default async function handler(
   await performAction(
     stagehand,
     page,
-    `Choose the ${metadata.insurance_type} option from the insurance type dropdown if not chosen`
+    `Choose the ${metadata.insurance_type} option from the insurance type dropdown`
   );
 
   // --- ZIP entry ---
@@ -108,7 +107,7 @@ export default async function handler(
     `Fill in the zip code ${address.zip_code} in the zip code field`
   );
 
-  await performAction(stagehand, page, "Click the Get a quote button");
+  await performAction(stagehand, page, "Click the Start a quote button");
   await page.waitForSelector("#mainContent");
 
   // --- Name ---
@@ -157,7 +156,7 @@ export default async function handler(
   await performAction(
     stagehand,
     page,
-    `Choose the ${vehicle.vehicle_type} option from the dropdown if not chosen`
+    `Choose the ${vehicle.vehicle_type} option from the dropdown`
   );
   await performAction(
     stagehand,
@@ -201,7 +200,7 @@ export default async function handler(
   await performAction(
     stagehand,
     page,
-    `choose the ${applicant.marital_status} option from the marital status dropdown`
+    `select "${applicant.marital_status}" from the marital status dropdown`
   );
   if (applicant.accident_prevention_course) {
     await performAction(stagehand, page, "Click the Yes radio button.");
@@ -298,5 +297,11 @@ export default async function handler(
     return result;
   } else {
     throw new InvalidActionError("Could not find confirmation message");
+  }
+  } finally {
+    // Cleanup Stagehand
+    console.log("\nClosing 🤘 Stagehand...");
+    await stagehand.close();
+    console.log("Stagehand closed");
   }
 }
