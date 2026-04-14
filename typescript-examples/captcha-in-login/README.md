@@ -2,6 +2,8 @@
 
 E-commerce scraper automation demonstrating Cloudflare captcha solving with authenticated sessions.
 
+> **Note:** In order to work properly, a proxy must be configured for captcha solving. Use the `--proxy <url>` flag when running APIs.
+
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
@@ -97,5 +99,6 @@ intuned dev deploy
 - [Intuned CLI](https://intunedhq.com/docs/main/05-references/cli/overview)
 - [Auth Sessions](https://intunedhq.com/docs/main/02-features/auth-sessions)
 - [Captcha Helpers](https://intunedhq.com/docs/main/05-references/runtime-sdk-typescript/captcha-helpers)
+- [Stealth Mode, Captcha Solving, and Proxies](https://intunedhq.com/docs/main/02-features/stealth-mode-captcha-solving-proxies#stealth-mode-captcha-solving-and-proxies)
 - [Intuned Browser SDK](https://intunedhq.com/docs/automation-sdks/overview)
 - [Intuned llm.txt](https://intunedhq.com/docs/llms.txt)
