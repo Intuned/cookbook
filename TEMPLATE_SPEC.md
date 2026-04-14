@@ -148,15 +148,15 @@ Every template must include at least one job resource under `intuned-resources/j
   "configuration": {
     "maxConcurrentRequests": 2,
     "retry": {
-      "maximumAttempts": 3,
-    },
+      "maximumAttempts": 3
+    }
   },
   "payload": [
     {
       "apiName": "api-name",
-      "parameters": {},
-    },
-  ],
+      "parameters": {}
+    }
+  ]
 }
 ```
 
@@ -168,8 +168,8 @@ Templates with `authSessions.enabled = true` must include `intuned-resources/aut
 {
   "parameters": {
     "username": "demo@email.com",
-    "password": "password",
-  },
+    "password": "password"
+  }
 }
 ```
 
@@ -449,7 +449,7 @@ keywords = ["Python", "intuned-browser-sdk"]
 dependencies = [
     "playwright==1.56",
     "intuned-runtime==1.3.12",
-    "intuned-browser==0.1.16",
+    "intuned-browser==0.1.17",
 ]
 
 [tool.uv]
