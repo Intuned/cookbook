@@ -1,1 +1,10 @@
-{"createdAt": "2025-01-01T00:00:00.000Z", "updatedAt": "2025-01-01T00:00:00.000Z", "authSessionId": "test-authsession", "authSessionType": "API", "authSessionInput": {"username": "otp@icrisoothu.resend.app"}}
+{
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "updatedAt": "2025-01-01T00:00:00.000Z",
+    "authSessionId": "test-authsession",
+    "authSessionType": "API",
+    "authSessionInput": {
+        "username": "otp@ostokcen.resend.app",
+        "password": "password"
+    }
+}

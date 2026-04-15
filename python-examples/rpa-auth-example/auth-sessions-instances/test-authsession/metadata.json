@@ -1,1 +1,10 @@
-{"createdAt":"2025-12-10T13:28:12.340Z","updatedAt":"2025-12-10T13:28:12.340Z","authSessionId":"test-authsession","authSessionType":"API","authSessionInput":{"username":"demo@email.com","password":"DemoUser2024!"}}
+{
+  "createdAt": "2025-12-10T13:28:12.340Z",
+  "updatedAt": "2026-04-15T13:36:05.300Z",
+  "authSessionInput": {
+    "username": "demo@email.com",
+    "password": "DemoUser2024!"
+  },
+  "authSessionId": "test-authsession",
+  "authSessionType": "API"
+}

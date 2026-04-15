@@ -160,12 +160,15 @@ Search the web and get full content from results using Tavily.
   "categories": [{ "type": "github" }],
   "tbs": "past_week",
   "country": "US",
-  "api_key": "tvly-xxxxx",
+  "api_key": "tvly-api-key",
   "scrapeOptions": {
     "formats": ["markdown"]
   }
 }
 ```
+
+Replace `tvly-api-key` in `.parameters/api/search/default.json` or any other
+search params file with your real Tavily API key before running `search`.
 
 **Use Cases:**
 
@@ -182,7 +185,7 @@ Search the web and get full content from results using Tavily.
 - Full content extraction (markdown)
 - Country-specific results
 
-> **Note:** Requires a Tavily API key (free tier available at [tavily.com](https://tavily.com))
+> **Note:** Requires a Tavily API key (free tier available at [tavily.com](https://tavily.com)). Set it in your search params JSON by replacing the `tvly-api-key` placeholder.
 
 ---
 
