@@ -2,7 +2,7 @@
 
 E-commerce scraper automation demonstrating Cloudflare captcha solving with authenticated sessions.
 
-> **Note:** In order to work properly, a proxy must be configured for captcha solving. Use the `--proxy <url>` flag when running APIs.
+> **Note:** This template only works on the Intuned platform. A proxy must be configured in order to run it.
 
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
