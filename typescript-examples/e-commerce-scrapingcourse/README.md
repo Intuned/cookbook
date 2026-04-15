@@ -34,23 +34,20 @@ npm install -g @intuned/cli
 
 After installing dependencies, `intuned` command should be available in your environment.
 
+### Prepare the project
+
+Before running any API, provision and deploy the project first.
+
+```bash
+intuned dev provision
+intuned dev deploy
+```
+
 ### Run an API
 
 ```bash
 intuned dev run api list .parameters/api/list/default.json
 intuned dev run api details .parameters/api/details/default.json
-```
-
-### Save project
-
-```bash
-intuned dev provision
-```
-
-### Deploy
-
-```bash
-intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
