@@ -29,27 +29,20 @@ If the `intuned` CLI is not installed, install it globally:
 npm install -g @intuned/cli
 ```
 
-After installing dependencies, `intuned` command should be available in your environment.
+### Prepare the project
 
-**Important:** This example uses Stagehand with Intuned's AI gateway. Run `intuned dev provision` once before running any APIs so the AI gateway is configured for local runs.
+Before running any API, provision and deploy the project first.
+
+```bash
+intuned dev provision
+intuned dev deploy
+```
 
 ### Run an API
 
 ```bash
 intuned dev run api get-books .parameters/api/get-books/travel-category.json
 intuned dev run api get-books .parameters/api/get-books/no-category-all-books.json
-```
-
-### Save project
-
-```bash
-intuned dev provision
-```
-
-### Deploy
-
-```bash
-intuned dev deploy
 ```
 <!-- IDE-IGNORE-END -->
 
