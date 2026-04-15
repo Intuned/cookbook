@@ -29,13 +29,6 @@ npm install -g @intuned/cli
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Run an API
-
-```bash
-intuned dev run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
-intuned dev run api insurance-form-filler .parameters/api/insurance-form-filler/honda.json
-```
-
 ### Save project
 
 ```bash
@@ -46,6 +39,14 @@ intuned dev provision
 
 ```bash
 intuned dev deploy
+
+### Run an API
+
+```bash
+intuned dev run api insurance-form-filler .parameters/api/insurance-form-filler/default.json
+intuned dev run api insurance-form-filler .parameters/api/insurance-form-filler/honda.json
+```
+
 ```
 <!-- IDE-IGNORE-END -->
 

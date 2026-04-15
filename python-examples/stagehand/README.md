@@ -29,13 +29,6 @@ npm install -g @intuned/cli
 
 After installing dependencies, `intuned` command should be available in your environment.
 
-### Run an API
-
-```bash
-intuned dev run api get-books .parameters/api/get-books/travel-category.json
-intuned dev run api get-books .parameters/api/get-books/no-category-all-books.json
-```
-
 ### Save project
 
 ```bash
@@ -47,6 +40,14 @@ intuned dev provision
 ```bash
 intuned dev deploy
 ```
+
+### Run an API
+
+```bash
+intuned dev run api get-books .parameters/api/get-books/travel-category.json
+intuned dev run api get-books .parameters/api/get-books/no-category-all-books.json
+```
+
 <!-- IDE-IGNORE-END -->
 
 ## Project Structure
