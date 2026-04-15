@@ -5,7 +5,8 @@ Firecrawl-compatible /search endpoint using Tavily API.
 https://docs.firecrawl.dev/api-reference/endpoint/search
 
 To use this endpoint please register to tavily.com (they provide free credits for testing).
-And enter your API key in tavily_api_key parameter.
+Then replace the `tvly-api-key` placeholder in your `.parameters/api/search/*.json`
+file with your real Tavily API key.
 """
 
 from typing import Any, Literal, TypedDict
@@ -68,10 +69,14 @@ async def automation(
         return {"success": False, "error": "query parameter is required"}
 
     api_key = params.get("api_key")
-    if not api_key:
+    if not api_key or api_key == "tvly-api-key":
         return {
             "success": False,
-            "error": "api_key parameter is required (Tavily API key)",
+            "error": (
+                "Missing Tavily API key. Set `api_key` in your params JSON "
+                "(for example `.parameters/api/search/default.json`) and "
+                "replace the `tvly-api-key` placeholder with your real Tavily API key."
+            ),
         }
 
     limit = params.get("limit", 5)
