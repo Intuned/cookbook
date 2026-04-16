@@ -1,5 +1,8 @@
 {
   "firstName": "John",
   "lastName": "Doe",
-  "email": "john.doe@example.com"
+  "addressLine1": "123 Main St",
+  "city": "Springfield",
+  "state": "IL",
+  "zipCode": "62701"
 }
