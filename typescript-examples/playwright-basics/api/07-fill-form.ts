@@ -3,95 +3,96 @@ import { BrowserContext, Page } from "playwright";
 /**
  * Fill Form
  *
- * Demonstrates form interactions:
- * - Text input fields
- * - Dropdown selects
- * - Checkboxes and radio buttons
+ * Demonstrates multi-step form interactions on a 3-step checkout form:
+ * - Step 1: Shipping address (text inputs, dropdown, checkbox)
+ * - Step 2: Payment details (text inputs, checkbox)
+ * - Step 3: Review and complete order
  */
 
 interface Params {
   firstName: string;
   lastName: string;
-  email: string;
+  addressLine1: string;
+  city: string;
+  state: string;
+  zipCode: string;
 }
 
 export default async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext
+  _context: BrowserContext
 ) {
-  // Using the-internet for reliable form demonstration
-  await page.goto("https://the-internet.herokuapp.com/login");
+  const firstName = params.firstName ?? "John";
+  const lastName = params.lastName ?? "Doe";
+  const addressLine1 = params.addressLine1 ?? "123 Main St";
+  const city = params.city ?? "Springfield";
+  const state = params.state ?? "IL";
+  const zipCode = params.zipCode ?? "62701";
+
+  await page.goto("https://sandbox.intuned.dev/steps-form/ShippingAddress");
   await page.waitForLoadState("load");
 
-  // Fill text inputs using different locator strategies
-  // By ID
-  await page.locator("#username").fill(params.firstName);
+  // Step 1: Shipping Address — type slowly to simulate human input
+  await page.getByLabel("First Name").pressSequentially(firstName, { delay: 80 });
+  await page.getByLabel("Last Name").pressSequentially(lastName, { delay: 80 });
+  await page.getByLabel("Address Line1").pressSequentially(addressLine1, { delay: 80 });
+  await page.getByLabel("Address Line2").pressSequentially("Apt 4B", { delay: 80 });
+  await page.getByLabel("City").pressSequentially(city, { delay: 80 });
+  await page.getByLabel("State").pressSequentially(state, { delay: 80 });
+  await page.getByLabel("Zip Code").pressSequentially(zipCode, { delay: 80 });
 
-  // By name attribute
-  await page.locator('input[name="password"]').fill("SuperSecretPassword!");
+  // Select country from dropdown
+  await page.getByLabel("Country").selectOption({ label: "United States" });
 
-  // Get values before any action
-  const usernameValue = await page.locator("#username").inputValue();
+  // Check "Use for future purchase"
+  const useForFuture = page.getByLabel("Use for future purchase.");
+  if (!(await useForFuture.isChecked())) {
+    await useForFuture.check();
+  }
 
-  // Click button using text
-  await page.getByRole("button", { name: "Login" }).click();
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.waitForLoadState("load");
 
-  // Wait for result
+  // Step 2: Payment Details — type slowly to simulate human input
+  await page.getByLabel("Name On Card").pressSequentially(`${firstName} ${lastName}`, { delay: 80 });
+  await page.getByLabel("Card Number").pressSequentially("4111111111111111", { delay: 80 });
+  await page.getByLabel("Expiry Date").pressSequentially("12/28", { delay: 80 });
+  await page.getByLabel("Cvv").pressSequentially("123", { delay: 80 });
+
+  // Check "Remember Credit Card Details"
+  const rememberCard = page.getByLabel("Remember Credit Card Details");
+  if (!(await rememberCard.isChecked())) {
+    await rememberCard.check();
+  }
+
+  await page.getByRole("button", { name: "Next" }).click();
+  await page.waitForLoadState("load");
+
+  // Step 3: Review order and complete
+  const completeOrderBtn = page.getByRole("button", { name: "Complete Order" });
+  await completeOrderBtn.waitFor({ state: "visible" });
+  await completeOrderBtn.click();
   await page.waitForLoadState("networkidle");
-
-  // Check if we got an error message (expected since credentials are fake)
-  const flashMessage = await page.locator("#flash").textContent();
-
-  // Navigate to dropdown page for select demonstration
-  await page.goto("https://the-internet.herokuapp.com/dropdown");
-  await page.waitForLoadState("load");
-
-  // Select dropdown option by value
-  const dropdown = page.locator("#dropdown");
-  await dropdown.selectOption("1");
-  const selectedValue = await dropdown.inputValue();
-
-  // Select by label text
-  await dropdown.selectOption({ label: "Option 2" });
-  const selectedLabel = await dropdown.inputValue();
-
-  // Navigate to checkboxes page
-  await page.goto("https://the-internet.herokuapp.com/checkboxes");
-  await page.waitForLoadState("load");
-
-  // Work with checkboxes
-  const checkboxes = page.locator('input[type="checkbox"]');
-
-  // Check first checkbox if not checked
-  const firstCheckbox = checkboxes.nth(0);
-  if (!(await firstCheckbox.isChecked())) {
-    await firstCheckbox.check();
-  }
-
-  // Uncheck second checkbox if checked
-  const secondCheckbox = checkboxes.nth(1);
-  if (await secondCheckbox.isChecked()) {
-    await secondCheckbox.uncheck();
-  }
-
-  const checkbox1Checked = await firstCheckbox.isChecked();
-  const checkbox2Checked = await secondCheckbox.isChecked();
+  await page.waitForTimeout(3000);
 
   return {
-    message: "Form interactions completed",
+    message: "Multi-step form completed successfully",
     results: {
-      loginAttempt: {
-        username: usernameValue,
-        result: flashMessage?.trim(),
+      shippingAddress: {
+        firstName,
+        lastName,
+        addressLine1,
+        addressLine2: "Apt 4B",
+        city,
+        state,
+        zipCode,
+        country: "United States",
       },
-      dropdown: {
-        selectedByValue: selectedValue,
-        selectedByLabel: selectedLabel,
-      },
-      checkboxes: {
-        first: checkbox1Checked,
-        second: checkbox2Checked,
+      paymentDetails: {
+        nameOnCard: `${firstName} ${lastName}`,
+        cardNumber: "**** **** **** 1111",
+        expiryDate: "12/28",
       },
     },
   };
