@@ -17,7 +17,7 @@ dependencies = [
     "playwright==1.56",
     "intuned-runtime==1.3.25",
     "intuned-browser==0.1.17",
-    "pydantic[email]==2.10.6",
+    "pydantic[email]==2.13.3",
     "pyotp==2.9.0",
 ]
 
