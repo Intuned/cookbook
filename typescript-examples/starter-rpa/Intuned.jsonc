@@ -2,7 +2,7 @@
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": false
+    "enabled": true
   },
   "authSessions": {
     "enabled": false
