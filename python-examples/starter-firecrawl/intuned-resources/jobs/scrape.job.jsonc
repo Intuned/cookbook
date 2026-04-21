@@ -1,0 +1,16 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "scrape",
+      "parameters": {
+        "url": "https://en.wikipedia.org/wiki/Web_scraping"
+      }
+    }
+  ]
+}

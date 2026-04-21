@@ -54,6 +54,12 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |---------|-------------|
 | [starter](./typescript-examples/starter/) | Starter template for new projects |
 | [starter-auth](./typescript-examples/starter-auth/) | Starter template with Auth Sessions enabled |
+| [starter-crawler](./typescript-examples/starter-crawler/) | Minimal native crawler starter |
+| [starter-jsdom](./typescript-examples/starter-jsdom/) | Minimal JSDOM HTML parsing starter |
+| [starter-network-interception](./typescript-examples/starter-network-interception/) | Minimal network interception starter |
+| [starter-rpa](./typescript-examples/starter-rpa/) | Minimal RPA starter for browser automation |
+| [starter-shopify](./typescript-examples/starter-shopify/) | Minimal Shopify product scraper starter |
+| [starter-stagehand](./typescript-examples/starter-stagehand/) | Minimal Stagehand AI browser automation starter |
 | [auth-with-email-otp](./typescript-examples/auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./typescript-examples/auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [browser-sdk-showcase](./typescript-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |
@@ -83,6 +89,15 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |---------|-------------|
 | [starter](./python-examples/starter/) | Starter template for new projects |
 | [starter-auth](./python-examples/starter-auth/) | Starter template with Auth Sessions enabled |
+| [starter-browser-use](./python-examples/starter-browser-use/) | Minimal Browser-Use agent starter |
+| [starter-bs4](./python-examples/starter-bs4/) | Minimal BeautifulSoup scraping starter |
+| [starter-crawl4ai](./python-examples/starter-crawl4ai/) | Minimal Crawl4AI starter |
+| [starter-crawler](./python-examples/starter-crawler/) | Minimal native crawler starter |
+| [starter-firecrawl](./python-examples/starter-firecrawl/) | Minimal Firecrawl-style starter using crawl4ai |
+| [starter-rpa](./python-examples/starter-rpa/) | Minimal RPA starter for browser automation |
+| [starter-scrapy](./python-examples/starter-scrapy/) | Minimal Scrapy starter |
+| [starter-shopify](./python-examples/starter-shopify/) | Minimal Shopify product scraper starter |
+| [starter-stagehand](./python-examples/starter-stagehand/) | Minimal Stagehand AI browser automation starter |
 | [auth-with-email-otp](./python-examples/auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./python-examples/auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [browser-sdk-showcase](./python-examples/browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |

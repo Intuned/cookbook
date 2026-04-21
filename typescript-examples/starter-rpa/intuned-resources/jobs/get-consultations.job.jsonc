@@ -1,0 +1,14 @@
+{
+  "configuration": {
+    "maxConcurrentRequests": 2,
+    "retry": {
+      "maximumAttempts": 3
+    }
+  },
+  "payload": [
+    {
+      "apiName": "get-consultations",
+      "parameters": {}
+    }
+  ]
+}

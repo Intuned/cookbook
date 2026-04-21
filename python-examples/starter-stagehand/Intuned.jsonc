@@ -1,0 +1,28 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "starter-stagehand",
+      "description": "Minimal Stagehand AI browser automation starter",
+      "tags": ["starter", "stagehand", "scraping"]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "extract",
+      "parameters": {
+        "url": "https://books.toscrape.com",
+        "instruction": "Extract the first 5 books on the page. For each return title and price as detail."
+      }
+    }
+  }
+}

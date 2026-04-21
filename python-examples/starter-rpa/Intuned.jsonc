@@ -1,0 +1,35 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "starter-rpa",
+      "description": "Minimal RPA starter for browser automation",
+      "tags": [
+        "starter",
+        "rpa"
+      ]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "book-consultation",
+      "parameters": {
+        "name": "Foo Bar",
+        "email": "foo@bar.com",
+        "phone": "1234567890",
+        "date": "2026-11-19",
+        "time": "10:00",
+        "topic": "other"
+      }
+    }
+  }
+}

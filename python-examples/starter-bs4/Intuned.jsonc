@@ -1,0 +1,30 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "starter-bs4",
+      "description": "Minimal BeautifulSoup scraping starter",
+      "tags": [
+        "starter",
+        "scraping"
+      ]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "list",
+      "parameters": {
+        "url": "https://www.scrapingcourse.com/ecommerce/"
+      }
+    }
+  }
+}

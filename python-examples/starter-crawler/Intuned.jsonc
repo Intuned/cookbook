@@ -1,0 +1,31 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "starter-crawler",
+      "description": "Minimal native crawler starter",
+      "tags": [
+        "starter",
+        "crawling"
+      ]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "crawl",
+      "parameters": {
+        "url": "https://books.toscrape.com",
+        "max_links": 20
+      }
+    }
+  }
+}
