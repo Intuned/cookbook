@@ -9,8 +9,8 @@
     {
       "apiName": "shopify-list",
       "parameters": {
-        "store_url": "https://goodfair1.myshopify.com/",
-        "maxPages": 10
+        "store_url": "https://artisaire.com/",
+        "maxPages": 2
       }
     }
   ]
