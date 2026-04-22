@@ -21,7 +21,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "scrape-products",
+      "apiName": "sample",
       "parameters": {
         "url": "https://www.scrapingcourse.com/ecommerce/"
       }

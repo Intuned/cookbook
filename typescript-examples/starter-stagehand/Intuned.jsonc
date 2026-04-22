@@ -22,7 +22,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "get-books",
+      "apiName": "sample",
       "parameters": {
         "category": "Travel"
       }

@@ -10,7 +10,7 @@ Minimal starter showing how to parse page HTML with [JSDOM](https://github.com/j
 
 | API | Description |
 | --- | ----------- |
-| `scrape-products` | Navigates to a product listing page and parses its HTML with JSDOM |
+| `sample` | Navigates to a product listing page and parses its HTML with JSDOM |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api scrape-products .parameters/api/scrape-products/default.json
+intuned dev run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-jsdom/
 ├── api/
-│   └── scrape-products.ts                 # Scrapes products using JSDOM
+│   └── sample.ts                          # Scrapes products using JSDOM
 ├── intuned-resources/
 │   └── jobs/
-│       └── scrape-products.job.jsonc
+│       └── sample.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── scrape-products/
+│       └── sample/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json

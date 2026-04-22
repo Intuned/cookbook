@@ -22,7 +22,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "shopify-list",
+      "apiName": "sample",
       "parameters": {
         "store_url": "https://allbirds.com",
         "maxPages": 2

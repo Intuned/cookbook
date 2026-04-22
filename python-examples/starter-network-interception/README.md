@@ -1,16 +1,16 @@
-# starter-shopify (TypeScript)
+# starter-network-interception (Python)
 
-Minimal starter showing how to scrape products from any Shopify storefront using the public `products.json` endpoint.
+Minimal starter showing how to capture API responses from a page by listening to network traffic.
 
 <!-- IDE-IGNORE-START -->
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/starter-shopify" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/starter-network-interception" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 <!-- IDE-IGNORE-END -->
 
 ## APIs
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Paginates the public `/products.json` endpoint of a Shopify store and returns product metadata |
+| `sample` | Navigates to a URL and captures all JSON responses whose URL matches the given pattern |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -18,9 +18,7 @@ Minimal starter showing how to scrape products from any Shopify storefront using
 ### Install dependencies
 
 ```bash
-npm install
-# or
-yarn
+uv sync
 ```
 
 If the `intuned` CLI is not installed, install it globally:
@@ -51,9 +49,9 @@ intuned dev deploy
 ## Project Structure
 
 ```
-starter-shopify/
+starter-network-interception/
 ├── api/
-│   └── sample.ts                          # Lists products from a Shopify store
+│   └── sample.py                          # Captures API responses matching a URL pattern
 ├── intuned-resources/
 │   └── jobs/
 │       └── sample.job.jsonc
@@ -62,7 +60,7 @@ starter-shopify/
 │       └── sample/
 │           └── default.json
 ├── Intuned.jsonc
-├── package.json
+├── pyproject.toml
 └── README.md
 ```
 

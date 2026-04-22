@@ -26,11 +26,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | -------- | ------------- |
 | [starter](./starter/) | Starter template for new projects |
 | [starter-auth](./starter-auth/) | Starter template with Auth Sessions enabled |
-| [starter-browser-use](./starter-browser-use/) | Minimal Browser-Use agent starter |
-| [starter-bs4](./starter-bs4/) | Minimal BeautifulSoup scraping starter |
-| [starter-crawl4ai](./starter-crawl4ai/) | Minimal Crawl4AI starter |
-| [starter-crawler](./starter-crawler/) | Minimal native crawler starter |
-| [starter-firecrawl](./starter-firecrawl/) | Minimal Firecrawl-style starter using crawl4ai |
+| [starter-network-interception](./starter-network-interception/) | Minimal network interception starter |
 | [starter-rpa](./starter-rpa/) | Minimal RPA starter for browser automation |
 | [starter-scrapy](./starter-scrapy/) | Minimal Scrapy starter |
 | [starter-shopify](./starter-shopify/) | Minimal Shopify product scraper starter |

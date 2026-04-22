@@ -54,7 +54,6 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |---------|-------------|
 | [starter](./typescript-examples/starter/) | Starter template for new projects |
 | [starter-auth](./typescript-examples/starter-auth/) | Starter template with Auth Sessions enabled |
-| [starter-crawler](./typescript-examples/starter-crawler/) | Minimal native crawler starter |
 | [starter-jsdom](./typescript-examples/starter-jsdom/) | Minimal JSDOM HTML parsing starter |
 | [starter-network-interception](./typescript-examples/starter-network-interception/) | Minimal network interception starter |
 | [starter-rpa](./typescript-examples/starter-rpa/) | Minimal RPA starter for browser automation |
@@ -89,11 +88,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |---------|-------------|
 | [starter](./python-examples/starter/) | Starter template for new projects |
 | [starter-auth](./python-examples/starter-auth/) | Starter template with Auth Sessions enabled |
-| [starter-browser-use](./python-examples/starter-browser-use/) | Minimal Browser-Use agent starter |
-| [starter-bs4](./python-examples/starter-bs4/) | Minimal BeautifulSoup scraping starter |
-| [starter-crawl4ai](./python-examples/starter-crawl4ai/) | Minimal Crawl4AI starter |
-| [starter-crawler](./python-examples/starter-crawler/) | Minimal native crawler starter |
-| [starter-firecrawl](./python-examples/starter-firecrawl/) | Minimal Firecrawl-style starter using crawl4ai |
+| [starter-network-interception](./python-examples/starter-network-interception/) | Minimal network interception starter |
 | [starter-rpa](./python-examples/starter-rpa/) | Minimal RPA starter for browser automation |
 | [starter-scrapy](./python-examples/starter-scrapy/) | Minimal Scrapy starter |
 | [starter-shopify](./python-examples/starter-shopify/) | Minimal Shopify product scraper starter |

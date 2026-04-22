@@ -2,7 +2,7 @@
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
   "apiAccess": {
-    "enabled": true
+    "enabled": false
   },
   "authSessions": {
     "enabled": false
@@ -13,22 +13,18 @@
   },
   "metadata": {
     "template": {
-      "name": "starter-rpa",
-      "description": "Minimal RPA starter for browser automation",
+      "name": "starter-network-interception",
+      "description": "Minimal network interception starter",
       "tags": [
         "starter",
-        "rpa"
+        "scraping"
       ]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample",
       "parameters": {
-        "name": "Foo Bar",
-        "email": "foo@bar.com",
-        "phone": "1234567890",
-        "date": "2026-11-19",
-        "time": "10:00",
-        "topic": "other"
+        "url": "https://sandbox.intuned.dev/consultations/list",
+        "api_pattern": "/rest/v1/consultations"
       }
     }
   }

@@ -21,7 +21,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "book-consultation",
+      "apiName": "sample",
       "parameters": {
         "name": "Foo Bar",
         "email": "foo@bar.com",

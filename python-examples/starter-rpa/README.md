@@ -10,7 +10,7 @@ Minimal RPA starter. Fills and submits a consultation booking form on [sandbox.i
 
 | API | Description |
 | --- | ----------- |
-| `book-consultation` | Fill a multi-field form and confirm submission |
+| `sample` | Fill a multi-field form and confirm submission |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -30,7 +30,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api book-consultation .parameters/api/book-consultation/default.json
+intuned dev run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
@@ -51,13 +51,13 @@ intuned dev deploy
 ```
 starter-rpa/
 ├── api/
-│   └── book-consultation.py                # Minimal form fill + submit
+│   └── sample.py                           # Minimal form fill + submit
 ├── intuned-resources/
 │   └── jobs/
-│       └── book-consultation.job.jsonc
+│       └── sample.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── book-consultation/
+│       └── sample/
 │           └── default.json
 ├── Intuned.jsonc
 ├── pyproject.toml

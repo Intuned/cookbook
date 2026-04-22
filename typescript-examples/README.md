@@ -26,7 +26,6 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |--------|-------------|
 | [starter](./starter/) | Starter template for new projects |
 | [starter-auth](./starter-auth/) | Starter template with Auth Sessions enabled |
-| [starter-crawler](./starter-crawler/) | Minimal native crawler starter |
 | [starter-jsdom](./starter-jsdom/) | Minimal JSDOM HTML parsing starter |
 | [starter-network-interception](./starter-network-interception/) | Minimal network interception starter |
 | [starter-rpa](./starter-rpa/) | Minimal RPA starter for browser automation |

@@ -10,7 +10,7 @@ Minimal starter showing how to do RPA-style browser automation with Intuned: nav
 
 | API | Description |
 | --- | ----------- |
-| `book-consultation` | Fills out the sandbox consultation booking form and submits it |
+| `sample` | Fills out the sandbox consultation booking form and submits it |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api book-consultation .parameters/api/book-consultation/default.json
+intuned dev run api sample .parameters/api/sample/default.json
 ```
 
 ### Save project
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-rpa/
 ├── api/
-│   └── book-consultation.ts               # Books a consultation on the Intuned sandbox
+│   └── sample.ts                          # Books a consultation on the Intuned sandbox
 ├── intuned-resources/
 │   └── jobs/
-│       └── book-consultation.job.jsonc
+│       └── sample.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── book-consultation/
+│       └── sample/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json

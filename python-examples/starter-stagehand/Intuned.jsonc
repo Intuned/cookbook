@@ -18,7 +18,7 @@
       "tags": ["starter", "stagehand", "scraping"]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "extract",
+      "apiName": "sample",
       "parameters": {
         "url": "https://books.toscrape.com",
         "instruction": "Extract the first 5 books on the page. For each return title and price as detail."
