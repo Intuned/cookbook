@@ -26,6 +26,11 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | -------- | ------------- |
 | [starter](./starter/) | Starter template for new projects |
 | [starter-auth](./starter-auth/) | Starter template with Auth Sessions enabled |
+| [starter-network-interception](./starter-network-interception/) | Minimal network interception starter |
+| [starter-rpa](./starter-rpa/) | Minimal RPA starter for browser automation |
+| [starter-scrapy](./starter-scrapy/) | Minimal Scrapy starter |
+| [starter-shopify](./starter-shopify/) | Minimal Shopify product scraper starter |
+| [starter-stagehand](./starter-stagehand/) | Minimal Stagehand AI browser automation starter |
 | [auth-with-email-otp](./auth-with-email-otp/) | Multi-step authentication with Email-based OTP using Resend API |
 | [auth-with-secret-otp](./auth-with-secret-otp/) | Multi-step authentication with TOTP (Time-based OTP) using secret keys |
 | [browser-sdk-showcase](./browser-sdk-showcase/) | Comprehensive showcase of Browser SDK helper functions |

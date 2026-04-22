@@ -1,0 +1,31 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": false
+  },
+  "authSessions": {
+    "enabled": false
+  },
+  "replication": {
+    "maxConcurrentRequests": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "template": {
+      "name": "starter-stagehand",
+      "description": "Minimal Stagehand AI browser automation starter",
+      "tags": [
+        "starter",
+        "stagehand",
+        "scraping"
+      ]
+    },
+    "defaultRunPlaygroundInput": {
+      "apiName": "sample-get-books",
+      "parameters": {
+        "category": "Travel"
+      }
+    }
+  }
+}
