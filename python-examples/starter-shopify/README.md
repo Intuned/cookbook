@@ -10,7 +10,7 @@ Minimal starter that scrapes a single product from any Shopify store using the p
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Fetch a single Shopify product's details as JSON |
+| `sample-scrape-product` | Fetch a single Shopify product's details as JSON |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -30,7 +30,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-scrape-product .parameters/api/sample-scrape-product/default.json
 ```
 
 ### Save project
@@ -51,13 +51,13 @@ intuned dev deploy
 ```
 starter-shopify/
 ├── api/
-│   └── sample.py
+│   └── sample-scrape-product.py
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-scrape-product.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-scrape-product/
 │           └── default.json
 ├── Intuned.jsonc
 ├── pyproject.toml

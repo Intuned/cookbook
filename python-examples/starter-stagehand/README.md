@@ -10,7 +10,7 @@ Minimal starter showing how to drive a page with [Stagehand](https://github.com/
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Navigate to a URL and extract structured data with a natural-language instruction |
+| `sample-extract` | Navigate to a URL and extract structured data with a natural-language instruction |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -30,7 +30,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-extract .parameters/api/sample-extract/default.json
 ```
 
 Requires the project to be linked to an Intuned workspace so the AI gateway credentials resolve.
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-stagehand/
 ├── api/
-│   └── sample.py
+│   └── sample-extract.py
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-extract.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-extract/
 │           └── default.json
 ├── Intuned.jsonc
 ├── pyproject.toml

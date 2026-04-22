@@ -10,7 +10,7 @@ Minimal Scrapy starter. Scrapes a single page of quotes using Scrapy inside an I
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Run a Scrapy spider against a URL and collect items |
+| `sample-scrapy-crawler` | Run a Scrapy spider against a URL and collect items |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -30,7 +30,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-scrapy-crawler .parameters/api/sample-scrapy-crawler/default.json
 ```
 
 ### Save project
@@ -51,13 +51,13 @@ intuned dev deploy
 ```
 starter-scrapy/
 ├── api/
-│   └── sample.py                           # Minimal Scrapy spider
+│   └── sample-scrapy-crawler.py                           # Minimal Scrapy spider
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-scrapy-crawler.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-scrapy-crawler/
 │           └── default.json
 ├── Intuned.jsonc
 ├── pyproject.toml

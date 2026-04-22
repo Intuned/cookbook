@@ -7,7 +7,7 @@
   },
   "payload": [
     {
-      "apiName": "sample",
+      "apiName": "sample-book-consultation",
       "parameters": {
         "name": "Foo Bar",
         "email": "foo@bar.com",

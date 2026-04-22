@@ -7,10 +7,10 @@
   },
   "payload": [
     {
-      "apiName": "sample",
+      "apiName": "sample-shopify-list",
       "parameters": {
-        "url": "https://sandbox.intuned.dev/consultations/list",
-        "apiPattern": "/rest/v1/consultations"
+        "store_url": "https://allbirds.com",
+        "maxPages": 2
       }
     }
   ]

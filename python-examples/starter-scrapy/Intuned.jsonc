@@ -21,7 +21,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
+      "apiName": "sample-scrapy-crawler",
       "parameters": {
         "url": "https://quotes.toscrape.com/"
       }

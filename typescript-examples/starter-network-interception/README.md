@@ -10,7 +10,7 @@ Minimal starter showing how to capture API responses from a page by listening to
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Navigates to a URL and captures all JSON responses whose URL matches the given pattern |
+| `sample-capture-api` | Navigates to a URL and captures all JSON responses whose URL matches the given pattern |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-capture-api .parameters/api/sample-capture-api/default.json
 ```
 
 ### Save project
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-network-interception/
 ├── api/
-│   └── sample.ts                          # Captures API responses matching a URL pattern
+│   └── sample-capture-api.ts                          # Captures API responses matching a URL pattern
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-capture-api.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-capture-api/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json

@@ -10,7 +10,7 @@ Minimal starter showing how to drive a browser with [Stagehand](https://github.c
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Navigates to books.toscrape.com, optionally clicks a category, and uses `stagehand.extract` to pull book titles + prices |
+| `sample-get-books` | Navigates to books.toscrape.com, optionally clicks a category, and uses `stagehand.extract` to pull book titles + prices |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-get-books .parameters/api/sample-get-books/default.json
 ```
 
 > Note: Running locally requires the Intuned AI gateway to be available. For a fully-working run, deploy to an Intuned workspace.
@@ -55,13 +55,13 @@ intuned dev deploy
 ```
 starter-stagehand/
 ├── api/
-│   └── sample.ts                          # Uses Stagehand to extract books from a page
+│   └── sample-get-books.ts                          # Uses Stagehand to extract books from a page
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-get-books.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-get-books/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json

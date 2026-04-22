@@ -7,9 +7,9 @@
   },
   "payload": [
     {
-      "apiName": "sample",
+      "apiName": "sample-scrape-products",
       "parameters": {
-        "product_url": "https://www.allbirds.com/products/womens-wool-runners-bough"
+        "url": "https://www.scrapingcourse.com/ecommerce/"
       }
     }
   ]

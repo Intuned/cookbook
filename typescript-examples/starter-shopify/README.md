@@ -10,7 +10,7 @@ Minimal starter showing how to scrape products from any Shopify storefront using
 
 | API | Description |
 | --- | ----------- |
-| `sample` | Paginates the public `/products.json` endpoint of a Shopify store and returns product metadata |
+| `sample-shopify-list` | Paginates the public `/products.json` endpoint of a Shopify store and returns product metadata |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api sample .parameters/api/sample/default.json
+intuned dev run api sample-shopify-list .parameters/api/sample-shopify-list/default.json
 ```
 
 ### Save project
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-shopify/
 ├── api/
-│   └── sample.ts                          # Lists products from a Shopify store
+│   └── sample-shopify-list.ts                          # Lists products from a Shopify store
 ├── intuned-resources/
 │   └── jobs/
-│       └── sample.job.jsonc
+│       └── sample-shopify-list.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── sample/
+│       └── sample-shopify-list/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json

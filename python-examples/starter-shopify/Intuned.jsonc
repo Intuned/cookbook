@@ -18,7 +18,7 @@
       "tags": ["starter", "scraping", "e-commerce"]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
+      "apiName": "sample-scrape-product",
       "parameters": {
         "product_url": "https://www.allbirds.com/products/womens-wool-runners-bough"
       }

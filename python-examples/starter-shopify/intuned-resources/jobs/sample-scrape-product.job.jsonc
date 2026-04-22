@@ -7,10 +7,9 @@
   },
   "payload": [
     {
-      "apiName": "sample",
+      "apiName": "sample-scrape-product",
       "parameters": {
-        "url": "https://sandbox.intuned.dev/consultations/list",
-        "api_pattern": "/rest/v1/consultations"
+        "product_url": "https://www.allbirds.com/products/womens-wool-runners-bough"
       }
     }
   ]

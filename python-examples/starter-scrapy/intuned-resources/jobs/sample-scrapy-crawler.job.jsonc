@@ -7,9 +7,9 @@
   },
   "payload": [
     {
-      "apiName": "sample",
+      "apiName": "sample-scrapy-crawler",
       "parameters": {
-        "url": "https://www.scrapingcourse.com/ecommerce/"
+        "url": "https://quotes.toscrape.com/"
       }
     }
   ]

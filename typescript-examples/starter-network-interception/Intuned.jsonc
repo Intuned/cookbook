@@ -21,7 +21,7 @@
       ]
     },
     "defaultRunPlaygroundInput": {
-      "apiName": "sample",
+      "apiName": "sample-capture-api",
       "parameters": {
         "url": "https://sandbox.intuned.dev/consultations/list",
         "apiPattern": "/rest/v1/consultations"
