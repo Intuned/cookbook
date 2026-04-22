@@ -1,6 +1,6 @@
 # starter-rpa (TypeScript)
 
-Minimal starter showing how to do RPA-style browser automation with Intuned: navigate to a page, wait for an element, and extract data.
+Minimal starter showing how to do RPA-style browser automation with Intuned: navigate to a form, fill it in, submit, and verify success.
 
 <!-- IDE-IGNORE-START -->
 <a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/typescript-examples/starter-rpa" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
@@ -10,7 +10,7 @@ Minimal starter showing how to do RPA-style browser automation with Intuned: nav
 
 | API | Description |
 | --- | ----------- |
-| `get-consultations` | Navigates to the sandbox consultations list and extracts all consultations |
+| `book-consultation` | Fills out the sandbox consultation booking form and submits it |
 
 <!-- IDE-IGNORE-START -->
 ## Getting Started
@@ -32,7 +32,7 @@ npm install -g @intuned/cli
 ### Run an API
 
 ```bash
-intuned dev run api get-consultations .parameters/api/get-consultations/default.json
+intuned dev run api book-consultation .parameters/api/book-consultation/default.json
 ```
 
 ### Save project
@@ -53,13 +53,13 @@ intuned dev deploy
 ```
 starter-rpa/
 ├── api/
-│   └── get-consultations.ts               # Extracts consultations from the Intuned sandbox
+│   └── book-consultation.ts               # Books a consultation on the Intuned sandbox
 ├── intuned-resources/
 │   └── jobs/
-│       └── get-consultations.job.jsonc
+│       └── book-consultation.job.jsonc
 ├── .parameters/
 │   └── api/
-│       └── get-consultations/
+│       └── book-consultation/
 │           └── default.json
 ├── Intuned.jsonc
 ├── package.json
