@@ -26,7 +26,7 @@ async def automation(page: Page, params: Params, **_kwargs):
         browser=browser,
         task=task,
         llm=ChatOpenAI(
-            model="gpt-5-mini",
+            model="gpt-5.4-mini",
             temperature=0,
             base_url=base_url,
             api_key=api_key,

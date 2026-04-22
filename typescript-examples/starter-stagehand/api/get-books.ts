@@ -35,7 +35,7 @@ export default async function handler(
   const webSocketUrl = await getWebSocketUrl(cdpUrl);
 
   const openai = createOpenAI({ apiKey, baseURL: baseUrl });
-  const llmClient = new AISdkClient({ model: openai("gpt-5-mini") });
+  const llmClient = new AISdkClient({ model: openai("gpt-5.4-mini") });
 
   const stagehand = new Stagehand({
     env: "LOCAL",
