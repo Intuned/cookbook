@@ -19,7 +19,7 @@ keywords = [
 ]
 dependencies = [
     "playwright==1.56",
-    "intuned-runtime==1.3.26",
+    "intuned-runtime==1.3.27",
     "browser-use==0.11.2",
     "intuned-browser==0.1.17",
 ]
