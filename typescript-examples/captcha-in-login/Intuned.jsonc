@@ -4,8 +4,7 @@
   },
   "authSessions": {
     "enabled": true,
-    "type": "API",
-    "saveTraces": true
+    "type": "API"
   },
   "replication": {
     "maxConcurrentRequests": 1,
