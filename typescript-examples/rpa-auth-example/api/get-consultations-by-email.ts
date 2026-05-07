@@ -109,7 +109,16 @@ export default async function handler(
   context: BrowserContext
 ): Promise<Consultation[]> {
   // Validate params using Zod schema
-  const validatedParams = getConsultationsByEmailSchema.parse(params);
+  const parseResult = getConsultationsByEmailSchema.safeParse(params);
+  if (!parseResult.success) {
+    const issues = parseResult.error.errors
+      .map(err => `  - ${err.path.join(" -> ") || "params"}: ${err.message}`)
+      .join("\n");
+    throw new Error(
+      `This API requires the following parameters to run. Please fill in all required fields before running:\n${issues}`
+    );
+  }
+  const { email } = parseResult.data;
 
   // Step 1: Navigate to the consultations list page
   await goToUrl({
@@ -123,7 +132,7 @@ export default async function handler(
   await consultationsList.waitFor({ state: "visible" });
 
   // Step 3: Search by email
-  await searchByEmail(page, validatedParams.email);
+  await searchByEmail(page, email);
 
   // Step 4: Find all consultation items on the page
   // Each consultation item has the class "consultation-item"

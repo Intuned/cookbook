@@ -63,10 +63,16 @@ export default async function handler(
  
   // Step 1: Validate input parameters using schema
   // This ensures all required fields are present and properly formatted
-  const validatedParams = bookConsultationSchema.parse(params);
-
-  // Extract validated parameters
-  const { name, email, phone, date, time, topic } = validatedParams;
+  const parseResult = bookConsultationSchema.safeParse(params);
+  if (!parseResult.success) {
+    const issues = parseResult.error.errors
+      .map(err => `  - ${err.path.join(" -> ") || "params"}: ${err.message}`)
+      .join("\n");
+    throw new Error(
+      `This API requires the following parameters to run. Please fill in all required fields before running:\n${issues}`
+    );
+  }
+  const { name, email, phone, date, time, topic } = parseResult.data;
 
   // Step 2: Navigate to the consultation booking page
   const sandboxedUrl = "https://sandbox.intuned.dev/consultations-auth/book";

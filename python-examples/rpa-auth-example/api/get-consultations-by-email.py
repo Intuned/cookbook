@@ -1,5 +1,6 @@
 from intuned_browser import go_to_url
 from playwright.async_api import BrowserContext, Page
+from pydantic import ValidationError
 from utils.types_and_schemas import Consultation, GetConsultationsByEmailSchema
 
 
@@ -88,10 +89,22 @@ async def automation(
     **_kwargs,
 ) -> list[Consultation]:
     if params is None:
-        raise ValueError("Params are required for this automation")
+        raise ValueError(
+            "This API requires parameters to run. "
+            "Please add and fill in the required fields before running."
+        )
 
-    # Validate params using pydantic model
-    validated_params = GetConsultationsByEmailSchema(**params)
+    try:
+        validated_params = GetConsultationsByEmailSchema(**params)
+    except ValidationError as e:
+        issues = "\n".join(
+            f"  - {' -> '.join(str(loc) for loc in err['loc'])}: {err['msg']}"
+            for err in e.errors()
+        )
+        raise ValueError(
+            f"This API requires the following parameters to run. "
+            f"Please fill in all required fields before running:\n{issues}"
+        ) from None
 
     # Step 1: Navigate to the consultations list page
     # wait_for_load_state: "networkidle" ensures all consultations are loaded
