@@ -1,5 +1,6 @@
 from playwright.async_api import Page
 from intuned_runtime import attempt_store, get_ai_gateway_config
+from pydantic import ValidationError
 from utils.types_and_schemas import ListParameters
 from stagehand import AsyncStagehand
 from stagehand.types.model_config_param import ModelConfigParam
@@ -90,7 +91,17 @@ async def automation(page: Page, params: ListParameters, *args: ..., **kwargs: .
             f"Could not find action for instruction: {instruction}"
         )
 
-    params = ListParameters.model_validate(params)
+    try:
+        params = ListParameters.model_validate(params)
+    except ValidationError as e:
+        issues = "\n".join(
+            f"  - {' -> '.join(str(loc) for loc in err['loc'])}: {err['msg']}"
+            for err in e.errors()
+        )
+        raise ValueError(
+            f"This API requires the following parameters to run. "
+            f"Please fill in all required fields before running:\n{issues}"
+        ) from None
 
     site = params.metadata.site
 

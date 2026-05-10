@@ -83,9 +83,16 @@ export default async function handler(
   await stagehand.init();
   console.log("\nInitialized 🤘 Stagehand");
   // Validate parameters
-  const validatedParams = listParametersSchema.parse(params);
-
-  const { metadata, applicant, address, vehicle } = validatedParams;
+  const parseResult = listParametersSchema.safeParse(params);
+  if (!parseResult.success) {
+    const issues = parseResult.error.errors
+      .map(err => `  - ${err.path.join(" -> ") || "params"}: ${err.message}`)
+      .join("\n");
+    throw new Error(
+      `This API requires the following parameters to run. Please fill in all required fields before running:\n${issues}`
+    );
+  }
+  const { metadata, applicant, address, vehicle } = parseResult.data;
   try {
   // Navigate to site
   await page.goto(metadata.site);

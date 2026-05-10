@@ -1,5 +1,6 @@
 from intuned_browser import go_to_url
 from playwright.async_api import BrowserContext, Page
+from pydantic import ValidationError
 from utils.types_and_schemas import BookConsultationSchema
 
 
@@ -53,9 +54,22 @@ async def automation(
     # Step 1: Validate input parameters using schema
     # This ensures all required fields are present and properly formatted
     if params is None:
-        raise ValueError("Params are required")
+        raise ValueError(
+            "This API requires parameters to run. "
+            "Please add and fill in the required fields before running."
+        )
 
-    validated_params = BookConsultationSchema(**params)
+    try:
+        validated_params = BookConsultationSchema(**params)
+    except ValidationError as e:
+        issues = "\n".join(
+            f"  - {' -> '.join(str(loc) for loc in err['loc'])}: {err['msg']}"
+            for err in e.errors()
+        )
+        raise ValueError(
+            f"This API requires the following parameters to run. "
+            f"Please fill in all required fields before running:\n{issues}"
+        ) from None
 
     # Extract validated parameters
     name = validated_params.name
