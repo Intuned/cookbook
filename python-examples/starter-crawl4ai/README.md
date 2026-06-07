@@ -7,7 +7,7 @@ This project serves as a reference for the [crawl4ai documentation](https://docs
 <!-- IDE-IGNORE-START -->
 ## Run on Intuned
 
-<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/crawl4ai" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
+<a href="https://app.intuned.io?repo=https://github.com/Intuned/cookbook/tree/main/python-examples/starter-crawl4ai" target="_blank" rel="noreferrer"><img src="https://cdn1.intuned.io/button.svg" alt="Run on Intuned"></a>
 
 ## Getting Started
 

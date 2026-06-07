@@ -40,7 +40,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [captcha-solving-basic](./captcha-solving-basic/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
 | [cdp-connection](./cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [computer-use](./computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
-| [crawl4ai](./crawl4ai/) | Web crawling using Crawl4AI library |
+| [starter-crawl4ai](./starter-crawl4ai/) | Web crawling using Crawl4AI library |
 | [e-commerce-auth-scrapingcourse](./e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerce-nested](./e-commerce-nested/) | E-commerce category and product scraper |
 | [e-commerce-scrapingcourse](./e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |

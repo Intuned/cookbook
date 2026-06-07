@@ -102,7 +102,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [captcha-solving-basic](./python-examples/captcha-solving-basic/) | Basic captcha solving with reCAPTCHA, Cloudflare, and custom captchas |
 | [cdp-connection](./python-examples/cdp-connection/) | Basic example demonstrating Chrome DevTools Protocol (CDP) connection |
 | [computer-use](./python-examples/computer-use/) | AI-powered browser automation with Anthropic, OpenAI, Gemini, and Browser Use |
-| [crawl4ai](./python-examples/crawl4ai/) | Web crawling using Crawl4AI library |
+| [crawl4ai](./python-examples/starter-crawl4ai/) | Web crawling using Crawl4AI library |
 | [e-commerce-auth-scrapingcourse](./python-examples/e-commerce-auth-scrapingcourse/) | Authenticated e-commerce scraper with Auth Sessions |
 | [e-commerce-nested](./python-examples/e-commerce-nested/) | E-commerce category and product scraper |
 | [e-commerce-scrapingcourse](./python-examples/e-commerce-scrapingcourse/) | E-commerce product scraper with pagination |
