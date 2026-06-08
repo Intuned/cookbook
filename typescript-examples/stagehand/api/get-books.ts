@@ -13,7 +13,6 @@ const bookDetailsSchema = z.object({
     z.object({
       title: z.string(),
       price: z.string(),
-      rating: z.string().optional(),
       availability: z.string().optional(),
     })
   ),
@@ -71,7 +70,7 @@ export default async function handler(
     }
   });
   await stagehand.init();
-  console.log("\nInitialized 🤘 Stagehand");
+  console.log("\nInitialized  Stagehand");
 
   await page.setViewportSize({ width: 1280, height: 800 });
 
@@ -100,7 +99,7 @@ export default async function handler(
 
       // Extract all book details from the current page
       const result = await stagehand.extract(
-        "Extract all books visible on the page with their complete details including title, price, rating, and availability",
+        "Extract all books visible on the page with their complete details including title, price and availability",
         bookDetailsSchema,
       );
       allBooks.push(...result.books ?? []);
@@ -138,7 +137,7 @@ export default async function handler(
     }
   } finally {
     // Cleanup Stagehand
-    console.log("\nClosing 🤘 Stagehand...");
+    console.log("\nClosing Stagehand...");
     await stagehand.close();
   }
 
