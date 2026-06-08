@@ -14,7 +14,6 @@ class Params(TypedDict):
 class BookDetails(BaseModel):
     title: str
     price: str
-    rating: str | None = None
     availability: str | None = None
 
 
@@ -76,7 +75,7 @@ async def automation(page: Page, params: Params, **_kwargs):
     )
     session_id = session.data.session_id
     print(f"✅ Session started: {session_id}")
-    print("\nInitialized 🤘 Stagehand")
+    print("\nInitialized  Stagehand")
 
     category = params.get("category")
     all_books: list[BookDetails] = []
@@ -113,7 +112,7 @@ async def automation(page: Page, params: Params, **_kwargs):
             # Extract all book details from the current page using simple JSON schema
             result = await client.sessions.extract(
                 id=session_id,
-                instruction="Extract all books on this page including title, price, rating and availability for each book",
+                instruction="Extract all books on this page including title, price and availability for each book",
                 options={"model": model_config},
                 schema={
                     "type": "object",
@@ -125,7 +124,6 @@ async def automation(page: Page, params: Params, **_kwargs):
                                 "properties": {
                                     "title": {"type": "string"},
                                     "price": {"type": "string"},
-                                    "rating": {"type": "string"},
                                     "availability": {"type": "string"},
                                 },
                                 "required": ["title", "price"],
@@ -172,7 +170,7 @@ async def automation(page: Page, params: Params, **_kwargs):
                     break
     finally:
         # Cleanup Stagehand
-        print("\nClosing 🤘 Stagehand...")
+        print("\nClosing Stagehand...")
         await client.sessions.end(session_id)
         print("✅ Session ended")
 
