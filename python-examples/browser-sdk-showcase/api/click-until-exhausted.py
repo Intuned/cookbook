@@ -19,7 +19,7 @@ async def automation(page: Page, params: Params, **_kwargs):
         page=page, button_locator=load_more_button, max_clicks=20
     )
     # Will keep clicking the button until the button disappears or is disabled or the max_clicks is reached.
-    elements = await page.locator("main main slot slot div").count()
+    elements = await page.locator("main main div div div").count()
     return {
         "number_of_elements": elements,
     }

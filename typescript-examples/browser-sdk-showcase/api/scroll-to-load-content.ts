@@ -28,7 +28,7 @@ export default async function handler(
   });
 
   // Will keep scrolling until the page has loaded all content or the max_scrolls is reached.
-  const elements = await page.locator("main slot slot slot div").count();
+  const elements = await page.locator("main div div div div").count();
   return {
     number_of_elements: elements,
   };
