@@ -105,7 +105,6 @@ async def automation(page: Page, params: Params, **_kwargs) -> list[Product]:
 
     # Loop through all pages until there are no more pages or limit is reached
     while current_page < page_limit:
-        current_page += 1
         print(f"Scraping page {current_page}...")
 
         # Extract all products from the current page

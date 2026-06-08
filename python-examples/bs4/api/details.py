@@ -4,7 +4,7 @@ from playwright.async_api import BrowserContext, Page
 from utils.types_and_schemas import DetailsParams, ProductDetails
 
 
-def extract_product_details(html: str) -> ProductDetails:
+def extract_product_details(html: str) -> dict:
     """
     Extracts detailed product information from the page HTML using BeautifulSoup.
     Replace selectors with appropriate ones for your target site.
