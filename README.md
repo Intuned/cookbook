@@ -88,6 +88,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 |---------|-------------|
 | [starter](./python-examples/starter/) | Starter template for new projects |
 | [starter-auth](./python-examples/starter-auth/) | Starter template with Auth Sessions enabled |
+| [starter-crawl4ai](./python-examples/starter-crawl4ai/) | Minimal Crawl4AI single-URL crawling starter |
 | [starter-network-interception](./python-examples/starter-network-interception/) | Minimal network interception starter |
 | [starter-rpa](./python-examples/starter-rpa/) | Minimal RPA starter for browser automation |
 | [starter-scrapy](./python-examples/starter-scrapy/) | Minimal Scrapy starter |
