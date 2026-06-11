@@ -2,9 +2,7 @@
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
   "projectName": "insurance-form-filler",
-  "apiAccess": {
-    "enabled": true
-  },
+
   "authSessions": {
     "enabled": false
   },
@@ -16,10 +14,7 @@
     "template": {
       "name": "rpa-forms-example",
       "description": "Insurance form filler using Stagehand in Intuned",
-      "tags": [
-        "stagehand",
-        "rpa"
-      ]
+      "tags": ["stagehand", "rpa"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "insurance-form-filler",

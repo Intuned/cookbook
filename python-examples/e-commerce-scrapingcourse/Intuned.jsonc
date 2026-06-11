@@ -1,7 +1,4 @@
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },

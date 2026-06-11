@@ -85,9 +85,6 @@ Every template must have an `Intuned.jsonc` file.
 
 ```jsonc
 {
-  "apiAccess": {
-    "enabled": true | false       // Enable API access via Intuned API
-  },
   "authSessions": {
     "enabled": true | false,      // Enable auth sessions
     "type": "API"                 // "API" or "MANUAL"
@@ -207,7 +204,7 @@ interface Params {
 export default async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext,
+  context: BrowserContext
 ) {
   // Your automation code here
   return {};
@@ -246,7 +243,7 @@ import { BrowserContext, Page } from "playwright";
 
 export default async function check(
   page: Page,
-  context: BrowserContext,
+  context: BrowserContext
 ): Promise<boolean> {
   // Navigate to a protected page and check if still logged in
   return true; // or false
@@ -280,7 +277,7 @@ export interface CreateAuthSessionParams {
 export default async function create(
   params: CreateAuthSessionParams,
   page: Page,
-  context: BrowserContext,
+  context: BrowserContext
 ): Promise<void> {
   // Perform login steps
   return true; // success
@@ -498,7 +495,6 @@ api_key = config.api_key
 - [ ] `metadata.template.name` is set (lowercase with hyphens, no spaces)
 - [ ] `metadata.template.description` is set
 - [ ] `metadata.tags` is set (recommended)
-- [ ] `apiAccess.enabled` is explicitly set
 - [ ] No `metadata.defaultJobInput` field
 - [ ] No `metadata.testAuthSessionInput` field
 

@@ -1,27 +1,24 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": false,
-  },
   "authSessions": {
-    "enabled": false,
+    "enabled": false
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard",
+    "size": "standard"
   },
   "metadata": {
     "template": {
       "name": "e-commerce-nested",
       "description": "E-commerce category and product scraper",
-      "tags": ["scraping", "e-commerce"],
+      "tags": ["scraping", "e-commerce"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "category",
       "parameters": {
-        "store_url": "https://www.veja-store.com/en_us/",
-      },
-    },
-  },
+        "store_url": "https://www.veja-store.com/en_us/"
+      }
+    }
+  }
 }

@@ -3,9 +3,7 @@
 {
   // "workspaceId": "your-workspace-id", // Add your workspace ID here for local development
   // "projectName": "your-project-name", // Add your project name here for local development
-  "apiAccess": {
-    "enabled": false
-  },
+
   "authSessions": {
     "enabled": false
   },

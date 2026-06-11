@@ -1,9 +1,6 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
@@ -27,7 +24,6 @@
         "time": "11:30",
         "topic": "api-integration"
       }
-      
     }
   }
 }

@@ -331,17 +331,6 @@ validate_template() {
     local auth_enabled
     auth_enabled=$(echo "$config" | jq -r '.authSessions.enabled // false' 2>/dev/null || echo "false")
 
-    # -------------------------------------------
-    # 5. Check apiAccess.enabled (only warn if auth is enabled)
-    # -------------------------------------------
-    local api_access
-    api_access=$(echo "$config" | jq '.apiAccess.enabled' 2>/dev/null || echo "null")
-
-    if [[ "$api_access" == "null" && "$auth_enabled" == "true" ]]; then
-        error "[$full_path] apiAccess.enabled is not explicitly set in Intuned.jsonc (required when auth is enabled)"
-    elif [[ "$api_access" != "null" ]]; then
-        success "[$full_path] apiAccess.enabled is set to: $api_access"
-    fi
 
     if [[ "$auth_enabled" == "true" ]]; then
         info "[$full_path] Auth sessions are enabled"

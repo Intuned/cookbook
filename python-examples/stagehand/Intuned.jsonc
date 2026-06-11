@@ -1,9 +1,6 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": true
-  },
   "authSessions": {
     "enabled": false
   },
@@ -15,10 +12,7 @@
     "template": {
       "name": "stagehand",
       "description": "AI-powered browser automation using Stagehand library",
-      "tags": [
-        "stagehand",
-        "scraping"
-      ]
+      "tags": ["stagehand", "scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "get-books",

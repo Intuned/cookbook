@@ -1,29 +1,26 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": false,
-  },
   "authSessions": {
-    "enabled": false,
+    "enabled": false
   },
   "replication": {
     "maxConcurrentRequests": 1,
-    "size": "standard",
+    "size": "standard"
   },
   "metadata": {
     "template": {
       "name": "network-interception",
       "description": "Network request interception for API data extraction",
-      "tags": ["scraping"],
+      "tags": ["scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "api-interceptor",
       "parameters": {
         "url": "https://example.com/products",
         "api_pattern": "/api/v1/products",
-        "max_pages": 5,
-      },
-    },
-  },
+        "max_pages": 5
+      }
+    }
+  }
 }

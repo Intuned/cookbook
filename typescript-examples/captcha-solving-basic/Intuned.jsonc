@@ -1,7 +1,4 @@
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
@@ -26,15 +23,9 @@
     },
     "customCaptcha": {
       "enabled": true,
-      "imageLocators": [
-        "#demoCaptcha_CaptchaImage"
-      ],
-      "inputLocators": [
-        "#captchaCode"
-      ],
-      "submitLocators": [
-        "#validateCaptchaButton"
-      ]
+      "imageLocators": ["#demoCaptcha_CaptchaImage"],
+      "inputLocators": ["#captchaCode"],
+      "submitLocators": ["#validateCaptchaButton"]
     },
     "settings": {
       "autoSolve": true,

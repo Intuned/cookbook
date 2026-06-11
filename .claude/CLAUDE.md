@@ -95,6 +95,7 @@ intuned dev run api my-api .parameters/api/my-api/default.json --trace
 ```
 
 **Other useful flags:**
+
 - `--retries <n>` — Retry failed executions (default: 1)
 - `--timeout <duration>` — Set execution timeout (default: 10 mins)
 - `--proxy <url>` — Use a proxy for browser connections
@@ -119,6 +120,7 @@ intuned dev run api --help
 ## Renaming APIs
 
 When renaming an API file, you MUST update all related files:
+
 1. **Rename the API file**: `api/{old-name}.ts` → `api/{new-name}.ts`
 2. **Rename the parameters folder**: `.parameters/api/{old-name}/` → `.parameters/api/{new-name}/`
 3. **Update the README**: Update any references to the old API name in the project's README.md (run commands, descriptions, etc.)
@@ -128,11 +130,13 @@ When renaming an API file, you MUST update all related files:
 For the full template specification, see **`TEMPLATE_SPEC.md`** in the repository root.
 
 Templates are validated by CI using `.github/scripts/validate-templates.sh`. Run it locally to check for issues:
+
 ```bash
 .github/scripts/validate-templates.sh
 ```
 
 The validation checks:
+
 - `Intuned.jsonc` exists (not `.json`)
 - No `workspaceId` field in `Intuned.jsonc` (should not be committed)
 - `metadata.template.name` and `metadata.template.description` are set
@@ -150,21 +154,17 @@ Each project's `Intuned.jsonc` must include a `metadata` section with the follow
 {
   // ... other config ...
   "metadata": {
-    "defaultJobInput": {},           // Optional: default input for job runs
+    "defaultJobInput": {}, // Optional: default input for job runs
     "defaultRunPlaygroundInput": {}, // Optional: default input for playground runs
-    "testAuthSessionInput": {},      // Optional: input for testing auth sessions
-    "tags": ["scraping", "ai"],      // Optional: array of tags for categorization
+    "testAuthSessionInput": {}, // Optional: input for testing auth sessions
+    "tags": ["scraping", "ai"], // Optional: array of tags for categorization
     "template": {
-      "name": "Template Name",       // Required: display name for the template
-      "description": "Description"   // Required: brief description of what the template does
+      "name": "Template Name", // Required: display name for the template
+      "description": "Description" // Required: brief description of what the template does
     }
   }
 }
 ```
-
-**apiAccess field:**
-- `apiAccess`: Controls whether the project has API access enabled
-- When creating a new template, always ask the user if `apiAccess` should be enabled or not
 
 ## AI Gateway Configuration
 
@@ -174,7 +174,7 @@ For projects that use AI (e.g., browser-use, SDK templates with LLM calls, Stage
 
 ```typescript
 // TypeScript
-import { getAiGatewayConfig } from '@intuned/runtime';
+import { getAiGatewayConfig } from "@intuned/runtime";
 const { baseUrl, apiKey } = await getAiGatewayConfig();
 ```
 
@@ -185,6 +185,7 @@ base_url, api_key = get_ai_gateway_config()
 ```
 
 **Key points:**
+
 - **Requires latest runtime**: Upgrade to the latest `@intuned/runtime` (TypeScript) or `intuned-runtime` (Python) to use this feature
 - Python: Returns a tuple `(base_url, api_key)` - use tuple unpacking
 - TypeScript: Returns an object with `baseUrl` and `apiKey` properties
@@ -213,7 +214,7 @@ const openai = createOpenAI({
 });
 
 const llmClient = new AISdkClient({
-  model: openai("gpt-4o"),  // or your preferred model
+  model: openai("gpt-4o"), // or your preferred model
 });
 
 // Initialize Stagehand
@@ -237,6 +238,7 @@ await page.goto("https://example.com");
 ```
 
 **TypeScript key points:**
+
 - Import `AISdkClient` from `@browserbasehq/stagehand` and `createOpenAI` from `@ai-sdk/openai`
 - Create the provider with `createOpenAI({ apiKey, baseURL })`
 - Pass `llmClient` to Stagehand (not `modelClientOptions`)
@@ -275,6 +277,7 @@ await page.goto("https://example.com")
 ```
 
 **Python key points:**
+
 - Use `attempt_store.get("cdp_url")` to get the CDP URL for connecting to the browser
 - Pass `api_key` to `model_api_key` parameter
 - Pass `base_url` to `model_client_options["baseURL"]`
@@ -283,16 +286,17 @@ await page.goto("https://example.com")
 - Always call `await stagehand.close()` in a finally block
 
 **Review checklist for Intuned.jsonc:**
+
 - [ ] `metadata.template.name` is set
 - [ ] `metadata.template.description` is set
 - [ ] `metadata.defaultJobInput` set if project has APIs with inputs
 - [ ] `metadata.defaultRunPlaygroundInput` set if needed
 - [ ] `metadata.testAuthSessionInput` set if project uses auth sessions
-- [ ] `apiAccess` is explicitly set (ask user for preference on new templates)
 
 ## Project README Template
 
 Each project README must include the "Getting Started" template from:
+
 - TypeScript: `typescript-examples/project_getting_started_template.md`
 - Python: `python-examples/project_getting_started_template.md`
 
@@ -307,6 +311,7 @@ Each project README must include the "Getting Started" template from:
 4. **Config file reference**: The template may show `intuned.json` - always change to `intuned.jsonc`.
 
 **Review checklist for project READMEs:**
+
 - [ ] Template sections are customized (not generic placeholders)
 - [ ] All APIs have run examples with correct parameter paths
 - [ ] Project structure matches actual files
@@ -318,6 +323,7 @@ Each project README must include the "Getting Started" template from:
 Each project must have a `.parameters/` folder containing test parameters for running APIs locally.
 
 **Structure:**
+
 ```
 .parameters/
 ├── api/                  # API parameters folder
@@ -331,6 +337,7 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 ```
 
 **Requirements:**
+
 - Create `.parameters/api/{api-name}/default.json` for each API in `api/` directory
 - Include `auth-sessions/check/default.json` and `auth-sessions/create/default.json` if project has `auth-sessions/` folder
 - JSON files contain the input parameters for testing the API
@@ -383,11 +390,13 @@ Each project must have a `.parameters/` folder containing test parameters for ru
 ## Keep READMEs in Sync
 
 When modifying examples:
+
 - Add/remove example: update main README (both TS and Python tables) + language-specific examples README
 - Modify example code: update example README if description/features change
 - Rename files/folders: update all README links and names
 
 Quick check:
+
 - Main README tables up to date
 - Examples READMEs accurate
 - Links match actual paths

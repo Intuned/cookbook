@@ -1,9 +1,6 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": true
-  },
   "authSessions": {
     "enabled": false
   },
@@ -22,7 +19,6 @@
       "parameters": {
         "query": "Go to https://books.toscrape.com, navigate to the Science Fiction category, and list the top 5 books with their prices"
       }
-      
     }
   }
 }

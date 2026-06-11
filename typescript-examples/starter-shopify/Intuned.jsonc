@@ -1,9 +1,6 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
@@ -15,11 +12,7 @@
     "template": {
       "name": "starter-shopify",
       "description": "Minimal Shopify product scraper starter",
-      "tags": [
-        "starter",
-        "e-commerce",
-        "scraping"
-      ]
+      "tags": ["starter", "e-commerce", "scraping"]
     },
     "defaultRunPlaygroundInput": {
       "apiName": "sample-shopify-list",

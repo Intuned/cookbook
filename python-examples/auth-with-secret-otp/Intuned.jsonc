@@ -1,7 +1,4 @@
 {
-  "apiAccess": {
-    "enabled": true
-  },
   "authSessions": {
     "enabled": true,
     "type": "API"
