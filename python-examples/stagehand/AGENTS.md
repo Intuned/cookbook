@@ -35,14 +35,43 @@ Intuned is a code-first browser automation platform. You write Python or TypeScr
 
 ---
 
+## Intuned CLI
+
+The CLI is the main way to interact with Intuned — use it to develop and test locally, deploy projects, and manage all platform resources.
+
+Always keep it up to date before running any commands:
+
+```bash
+npm install -g @intuned/cli   # Install or update to latest
+intuned --version             # Check current version
+```
+
+The CLI has two main groups:
+
+**`intuned dev`** — local development
+- `run` — run and test APIs locally
+- `deploy` / `provision` — deploy projects to the platform
+- `init` — initialize new projects from templates
+- `test-job` — run test jobs locally
+
+**`intuned platform`** — manage deployed resources
+- `runs` — trigger and monitor standalone runs
+- `jobs` / `jobruns` — manage jobs and their runs
+- `authsessions` — manage auth sessions on the platform
+- `env-vars` — manage project environment variables
+- `issues` — view and manage project issues
+
+→ [CLI Dev Reference](https://intunedhq.com/docs/main/05-references/cli/dev.md)
+→ [CLI Platform Reference](https://intunedhq.com/docs/main/05-references/cli/platform.md)
+
+---
+
 ## Running APIs Locally
 
 ```bash
 intuned dev run api <api-name> .parameters/api/<api-name>/default.json            # Run an API locally
 intuned dev run api <api-name> .parameters/api/<api-name>/default.json --auth-session <id>  # With a pre-authenticated session
 ```
-
-→ [CLI Dev Reference](https://intunedhq.com/docs/main/05-references/cli/dev.md)
 
 ---
 
@@ -51,9 +80,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json --auth-se
 A Run is a single on-demand execution of an API on the deployed platform. Use runs to trigger automations manually without setting up a job.
 
 ```bash
-intuned platform runs start <data>   # Start a new run
-intuned platform runs list           # List runs for the project
-intuned platform runs get <run-id>   # Get run details
+intuned platform runs --help   # See all available subcommands
 ```
 
 → [Runs docs](https://intunedhq.com/docs/main/02-features/runs-single-executions.md)
@@ -67,28 +94,11 @@ There are two types of jobs:
 - **Platform Jobs** — managed via the Intuned dashboard or CLI
 
 ```bash
-intuned platform jobs list                      # List all jobs in the project
-intuned platform jobs trigger <job-id>          # Manually trigger a job run
-intuned platform jobs pause <job-id>            # Pause a scheduled job
-intuned platform jobs resume <job-id>           # Resume a paused job
-intuned platform jobs get <job-id>              # Get job details and config
-intuned platform jobruns list <job-id>          # List all runs for a job
-intuned platform jobruns get <job-run-id>       # Get details of a specific job run
-intuned platform jobruns terminate <job-run-id> # Stop a running job run
+intuned platform jobs --help      # See all job subcommands
+intuned platform jobruns --help   # See all job run subcommands
 ```
 
 → [Jobs docs](https://intunedhq.com/docs/main/02-features/jobs-batched-executions.md)
-
----
-
-## Keep the CLI Up to Date
-
-Always ensure the Intuned CLI is on the latest version before running commands:
-
-```bash
-npm install -g @intuned/cli
-intuned --version
-```
 
 ---
 
