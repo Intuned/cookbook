@@ -426,7 +426,7 @@ Use `corepack use yarn@1.22.22` when you need to generate the `packageManager` f
     "@intuned/browser": "0.1.13",
     "@intuned/runtime": "1.3.12",
     "@types/node": "^20.10.3",
-    "playwright": "~1.56.0"
+    "playwright": "~1.61.1"
   }
 }
 ```
@@ -447,7 +447,7 @@ requires-python = ">=3.12,<3.13"
 readme = "README.md"
 keywords = ["Python", "intuned-browser-sdk"]
 dependencies = [
-    "playwright==1.56",
+    "playwright==1.61.1",
     "intuned-runtime==1.3.12",
     "intuned-browser==0.1.17",
 ]
