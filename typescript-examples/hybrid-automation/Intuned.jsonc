@@ -1,15 +1,13 @@
 // For more information, see our Intuned settings reference
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
   "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
+    "maxCount": 1,
+    "minCount": 0
   },
   "metadata": {
     "template": {
@@ -29,5 +27,6 @@
       }
       
     }
-  }
+  },
+  "version": "2.0"
 }

@@ -1,13 +1,11 @@
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
   "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
+    "maxCount": 1,
+    "minCount": 0
   },
   "proxy": {
     "enabled": false
@@ -54,5 +52,6 @@
       "apiName": "captcha-solver",
       "parameters": {}
     }
-  }
+  },
+  "version": "2.0"
 }
