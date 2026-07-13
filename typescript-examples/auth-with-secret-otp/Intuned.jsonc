@@ -1,14 +1,11 @@
 {
-  "apiAccess": {
-    "enabled": true
-  },
   "authSessions": {
     "enabled": true,
     "type": "API"
   },
   "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
+    "maxCount": 1
   },
   "metadata": {
     "template": {
@@ -23,5 +20,6 @@
       "apiName": "list-contracts",
       "parameters": {}
     }
-  }
+  },
+  "version": "2.0"
 }

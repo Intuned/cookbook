@@ -2,15 +2,12 @@
 // https://intunedhq.com/docs/main/05-references/intuned-json
 {
   "projectName": "insurance-form-filler",
-  "apiAccess": {
-    "enabled": true
-  },
   "authSessions": {
     "enabled": false
   },
   "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
+    "maxCount": 1
   },
   "metadata": {
     "template": {
@@ -63,5 +60,6 @@
         }
       }
     }
-  }
+  },
+  "version": "2.0"
 }

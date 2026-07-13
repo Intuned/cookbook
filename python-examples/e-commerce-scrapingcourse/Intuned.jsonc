@@ -1,13 +1,11 @@
 {
-  "apiAccess": {
-    "enabled": false
-  },
   "authSessions": {
     "enabled": false
   },
   "replication": {
-    "maxConcurrentRequests": 1,
-    "size": "standard"
+    "size": "standard",
+    "maxCount": 1,
+    "minCount": 0
   },
   "metadata": {
     "template": {
@@ -19,5 +17,6 @@
       "apiName": "list",
       "parameters": {}
     }
-  }
+  },
+  "version": "2.0"
 }
