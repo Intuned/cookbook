@@ -1,14 +1,12 @@
 {
-  "name": "book-consultations-with-auth",
+  "name": "open-emr-rpa",
   "version": "1.0.0",
   "packageManager": "yarn@1.22.22",
-  "description": "Credentials based booking automation to book a consultation with a consultant and list the consultations",
+  "description": "Check for availability and book appointments with OpenEMR",
   "main": "index.js",
   "tags": [
-    "intuned-browser-sdk",
-    "intuned-auth-sessions",
-    "intuned-auth-sessions-credentials",
-    "Authenticated"
+    "rpa",
+    "authsession"
   ],
   "scripts": {
     "intuned": "intuned"
