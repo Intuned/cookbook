@@ -1,0 +1,11 @@
+{
+  "date": "07/25/2026",
+  "start_time": "3:00 PM",
+  "patient": {
+    "first_name": "OliverTrial",
+    "last_name": "Charlotte",
+    "dob": "12/01/1989"
+  },
+  "mode": "cancel",
+  "dry_run": true
+}
