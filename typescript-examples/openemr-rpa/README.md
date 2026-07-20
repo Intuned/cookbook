@@ -94,13 +94,13 @@ tiers only run when deployed (or with a workspace BYOK key).
 Read-only. Lists free appointment slots per provider between two dates, using
 the site's own "Find Available" feature so results match what staff see.
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| start_date | string | yes | Range start, MM/DD/YYYY |
-| end_date | string | yes | Range end, MM/DD/YYYY — **at most 14 days** after start (inclusive) |
-| location | string | no | Facility name (e.g. "Great Clinic"); omit for all facilities |
-| provider | string | no | Provider name ("Last, First"); omit for all providers |
-| duration_minutes | number | no | Slot length, default 15 |
+| Parameter        | Type   | Required | Description                                                         |
+| ---------------- | ------ | -------- | ------------------------------------------------------------------- |
+| start_date       | string | yes      | Range start, MM/DD/YYYY                                             |
+| end_date         | string | yes      | Range end, MM/DD/YYYY — **at most 14 days** after start (inclusive) |
+| location         | string | no       | Facility name (e.g. "Great Clinic"); omit for all facilities        |
+| provider         | string | no       | Provider name ("Last, First"); omit for all providers               |
+| duration_minutes | number | no       | Slot length, default 15                                             |
 
 **`result` shape:**
 
@@ -113,52 +113,55 @@ the site's own "Find Available" feature so results match what staff see.
       "start_time": "9:00 AM",
       "end_time": "9:15 AM",
       "provider": "Lee, Donna",
-      "location": "Great Clinic"
-    }
+      "location": "Great Clinic",
+    },
   ],
-  "totalItems": 1
+  "totalItems": 1,
 }
 ```
 
 **Errors** (returned inline as `{ "error": { code, message, details } }`):
 
-| status | code | when |
-|---|---|---|
-| 400 | `INVALID_INPUT` | date not MM/DD/YYYY, not a real date, end before start, or range over 14 days (`details.max_span_days`) |
-| 404 | `LOCATION_NOT_FOUND` | named facility doesn't exist (`details.available` lists all) |
-| 404 | `PROVIDER_NOT_FOUND` | named provider doesn't exist (`details.available` lists all) |
+| status | code                 | when                                                                                                    |
+| ------ | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| 400    | `INVALID_INPUT`      | date not MM/DD/YYYY, not a real date, end before start, or range over 14 days (`details.max_span_days`) |
+| 404    | `LOCATION_NOT_FOUND` | named facility doesn't exist (`details.available` lists all)                                            |
+| 404    | `PROVIDER_NOT_FOUND` | named provider doesn't exist (`details.available` lists all)                                            |
 
 ---
 
 ## schedule-appointment
 
 Books an appointment: find-or-create the patient, fill the booking form, save,
-and verify the appointment on the patient's dashboard.
+and verify the appointment on the patient's dashboard. Can also book a
+**provider (non-patient) event** — see [Provider events](#provider-events) below.
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| dry_run | boolean | no (default **false**) | false = real booking. true = fill everything but STOP before Save and return the would-be submission. |
-| date | string | yes | MM/DD/YYYY (e.g. "07/20/2026") |
-| start_time | string | yes | e.g. "10:00 AM" |
-| patient | object | yes | `first_name`, `last_name`, `dob` (MM/DD/YYYY) — matched by name + DOB. OpenEMR displays names "Last, First". |
-| provider | string | no | Default: the form's default provider (the logged-in physician) |
-| location | string | no | Facility name, validated |
-| category | string | no | Visit category, default "Office Visit" |
-| duration_minutes | number | no | Default 15 |
-| comments | string | no | Free text |
-| create_patient_if_missing | boolean | no (default **true**) | When the patient must be created, `new_patient.sex` is required (`new_patient` also takes phone/email/address/…). `false` makes a missing patient a `PATIENT_NOT_FOUND`. |
-| allow_duplicate | boolean | no (default **false** = idempotent) | Before saving, checks the patient's dashboard for an appointment at the same date/time (and provider, when given). If one exists, returns `already_booked` with that `eid` and does NOT create a second. `true` bypasses the check. |
+| Parameter                 | Type    | Required                            | Description                                                                                                                                                                                                                                              |
+| ------------------------- | ------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| event_type                | string  | no (default **"patient"**)          | `"patient"` books a patient appointment. `"provider"` books a provider event on the Provider tab (In Office / Out Of Office / Vacation / Lunch / Reserved) — `patient` is then ignored. See [Provider events](#provider-events).                         |
+| dry_run                   | boolean | no (default **false**)              | false = real booking. true = fill everything but STOP before Save and return the would-be submission.                                                                                                                                                    |
+| date                      | string  | yes                                 | MM/DD/YYYY (e.g. "07/20/2026")                                                                                                                                                                                                                           |
+| start_time                | string  | yes                                 | e.g. "10:00 AM"                                                                                                                                                                                                                                          |
+| patient                   | object  | yes for patient events              | `first_name`, `last_name`, `dob` (MM/DD/YYYY) — matched by name + DOB. OpenEMR displays names "Last, First". Ignored for `event_type: "provider"`.                                                                                                       |
+| provider                  | string  | no                                  | Default: the form's default provider (the logged-in physician)                                                                                                                                                                                           |
+| location                  | string  | no                                  | Facility name, validated                                                                                                                                                                                                                                 |
+| category                  | string  | no                                  | Patient events: visit category, default "Office Visit". Provider events: event category (In Office / Lunch / …), default = the form's pre-selected one.                                                                                                  |
+| title                     | string  | no                                  | Provider events only — event title, defaults to the category label (e.g. "In Office").                                                                                                                                                                   |
+| duration_minutes          | number  | no                                  | Default 15                                                                                                                                                                                                                                               |
+| comments                  | string  | no                                  | Free text                                                                                                                                                                                                                                                |
+| create_patient_if_missing | boolean | no (default **true**)               | Patient events only. When the patient must be created, `new_patient.sex` is required (`new_patient` also takes phone/email/address/…). `false` makes a missing patient a `PATIENT_NOT_FOUND`.                                                            |
+| allow_duplicate           | boolean | no (default **false** = idempotent) | Patient events only. Before saving, checks the patient's dashboard for an appointment at the same date/time (and provider, when given). If one exists, returns `already_booked` with that `eid` and does NOT create a second. `true` bypasses the check. |
 
 **`result` shape:**
 
 ```jsonc
 {
-  "status": "booked",              // "booked" | "already_booked" | "dry_run"
+  "status": "booked", // "booked" | "already_booked" | "dry_run"
   "patient": {
     "pid": "190",
     "name": "Vale, Nora",
     "dob": "1990-04-11",
-    "created": false               // true when this run created the patient
+    "created": false, // true when this run created the patient
   },
   "appointment": {
     "date": "07/20/2026",
@@ -169,9 +172,9 @@ and verify the appointment on the patient's dashboard.
     "category": "Office Visit",
     "duration_minutes": 15,
     "comments": "",
-    "verified": true,              // "booked" runs — confirmed on the dashboard
-    "eid": "190"                   // "already_booked" runs — the existing event id
-  }
+    "verified": true, // "booked" runs — confirmed on the dashboard
+    "eid": "190", // "already_booked" runs — the existing event id
+  },
 }
 ```
 
@@ -180,17 +183,53 @@ Re-running an identical call is safe: the second run returns `already_booked`
 enforce double-booking itself — saving into a taken slot just overlaps silently
 — so `allow_duplicate` is the only guard.
 
+### Provider events
+
+With `event_type: "provider"` the API books a **non-patient** event on the
+calendar's Provider tab (`add_edit_event.php?prov=true`). It's the simpler path:
+no patient, no find-or-create, and no idempotency guard — it resolves the
+category/facility/provider, fills the tab, and saves. The provider-event
+categories (In Office / Out Of Office / Vacation / Lunch / Reserved) are read
+live from the form and differ from the patient visit categories.
+
+`verified: true` means the save posted (the server returned its close-window
+page, which it only does after writing the event row). The `result` has an
+`event` object instead of `patient` + `appointment`:
+
+```jsonc
+{
+  "status": "booked", // "booked" | "dry_run"
+  "event": {
+    "type": "provider",
+    "title": "Lunch",
+    "date": "07/20/2026",
+    "start_time": "12:00 PM",
+    "end_time": "12:30 PM",
+    "provider": "Lee, Donna",
+    "location": "Great Clinic",
+    "category": "Lunch",
+    "duration_minutes": 30,
+    "comments": "Lunch break",
+    "verified": true, // "booked" runs — the save posted
+  },
+}
+```
+
+Sample params: `provider-event.json` (dry-run In Office) and
+`provider-event-real.json` (real Lunch). Provider events can't be removed by
+`cancel-appointment` (that API is patient-keyed); rely on the demo's daily reset.
+
 **Error codes** (thrown as `ClientError`):
 
-| status | code | when |
-|---|---|---|
-| 400 | `INVALID_INPUT` | bad date/time format, DOB not in the past, bad duration, or a missing booking-form field |
-| 404 | `LOCATION_NOT_FOUND` | facility not on the booking form (`details.available`) |
-| 404 | `PROVIDER_NOT_FOUND` | provider not on the booking form (`details.available`) |
-| 404 | `CATEGORY_NOT_FOUND` | visit category not offered (`details.available`) |
-| 404 | `PATIENT_NOT_FOUND` | no name+DOB match and `create_patient_if_missing: false` |
-| 500 | `PATIENT_CREATE_FAILED` | patient creation didn't produce a searchable patient |
-| 500 | `SAVE_NOT_CONFIRMED` | Save didn't complete (button missing or form never posted) |
+| status | code                    | when                                                                                     |
+| ------ | ----------------------- | ---------------------------------------------------------------------------------------- |
+| 400    | `INVALID_INPUT`         | bad date/time format, DOB not in the past, bad duration, or a missing booking-form field |
+| 404    | `LOCATION_NOT_FOUND`    | facility not on the booking form (`details.available`)                                   |
+| 404    | `PROVIDER_NOT_FOUND`    | provider not on the booking form (`details.available`)                                   |
+| 404    | `CATEGORY_NOT_FOUND`    | visit category not offered (`details.available`)                                         |
+| 404    | `PATIENT_NOT_FOUND`     | no name+DOB match and `create_patient_if_missing: false`                                 |
+| 500    | `PATIENT_CREATE_FAILED` | patient creation didn't produce a searchable patient                                     |
+| 500    | `SAVE_NOT_CONFIRMED`    | Save didn't complete (button missing or form never posted)                               |
 
 ---
 
@@ -199,24 +238,24 @@ enforce double-booking itself — saving into a taken slot just overlaps silentl
 Cancels or hard-deletes an appointment. Finds it via the patient's dashboard,
 acts on it, then re-opens the event to verify.
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| dry_run | boolean | no (default **false**) | false = real mutation. true = locate + identify only, stop before acting. |
-| date | string | yes | MM/DD/YYYY |
-| start_time | string | yes | e.g. "10:00 AM" |
-| patient | object | yes | `first_name`, `last_name`, `dob` — matched by name + DOB |
-| provider | string | no | Disambiguate when several appointments share the slot |
-| mode | string | no | `"cancel"` (default) → status **x Canceled**, keeps history; `"delete"` → remove permanently |
+| Parameter  | Type    | Required               | Description                                                                                  |
+| ---------- | ------- | ---------------------- | -------------------------------------------------------------------------------------------- |
+| dry_run    | boolean | no (default **false**) | false = real mutation. true = locate + identify only, stop before acting.                    |
+| date       | string  | yes                    | MM/DD/YYYY                                                                                   |
+| start_time | string  | yes                    | e.g. "10:00 AM"                                                                              |
+| patient    | object  | yes                    | `first_name`, `last_name`, `dob` — matched by name + DOB                                     |
+| provider   | string  | no                     | Disambiguate when several appointments share the slot                                        |
+| mode       | string  | no                     | `"cancel"` (default) → status **x Canceled**, keeps history; `"delete"` → remove permanently |
 
 **`result` shape:**
 
 ```jsonc
 {
-  "status": "cancelled",           // "cancelled" | "deleted" | "dry_run" | "already_cancelled"
+  "status": "cancelled", // "cancelled" | "deleted" | "dry_run" | "already_cancelled"
   "patient": { "pid": "25", "name": "Winters, Maya" },
   "appointment": { "eid": "90", "previous_status": "- None" },
-  "matched_count": 1,              // how many appointments matched the slot
-  "verified": true                 // re-opened the event to confirm the change
+  "matched_count": 1, // how many appointments matched the slot
+  "verified": true, // re-opened the event to confirm the change
 }
 ```
 
@@ -225,12 +264,12 @@ acts on it, then re-opens the event to verify.
 
 **Error codes** (thrown as `ClientError`):
 
-| status | code | when |
-|---|---|---|
-| 400 | `INVALID_INPUT` | missing/badly-formatted date/time/patient |
-| 404 | `PATIENT_NOT_FOUND` | no name+DOB match |
-| 404 | `APPOINTMENT_NOT_FOUND` | no appointment at that date/time for the patient |
-| 500 | `ACTION_FAILED` | the cancel/delete didn't verify |
+| status | code                    | when                                             |
+| ------ | ----------------------- | ------------------------------------------------ |
+| 400    | `INVALID_INPUT`         | missing/badly-formatted date/time/patient        |
+| 404    | `PATIENT_NOT_FOUND`     | no name+DOB match                                |
+| 404    | `APPOINTMENT_NOT_FOUND` | no appointment at that date/time for the patient |
+| 500    | `ACTION_FAILED`         | the cancel/delete didn't verify                  |
 
 Note: the event dialog (`add_edit_event.php`) is built to run inside OpenEMR's
 tabs frameset. Opened standalone, its inline script never binds the Save/Delete
@@ -250,9 +289,9 @@ Proves the helper's behavior with a real browser + real AI agent: business
 outcomes pass through untouched, real failures trigger the AI, dry-run commit
 guards hold, verification stays deterministic, and the helper fails open.
 
-| Parameter | Type | Required | Description |
-|---|---|---|---|
-| which | string | no | A single test id ("T3"), a tier ("tier0".."tier3"), or "all" (default) |
+| Parameter | Type   | Required | Description                                                            |
+| --------- | ------ | -------- | ---------------------------------------------------------------------- |
+| which     | string | no       | A single test id ("T3"), a tier ("tier0".."tier3"), or "all" (default) |
 
 Tier 0 (T1, T2) invokes no AI; tiers 1–3 drive a Stagehand agent (real gateway
 tokens, so they only run deployed or with a BYOK key).

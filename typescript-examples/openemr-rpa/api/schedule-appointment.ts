@@ -24,6 +24,13 @@ import { initAiFallbackMeta, withAiFallback } from "../helpers/ai-fallback";
  * matches the requested date/time (and provider, when given), returns
  * `status: "already_booked"` with the existing event id instead of booking
  * again. `allow_duplicate: true` opts out of the guard.
+ *
+ * Provider events: pass `event_type: "provider"` to book a NON-patient provider
+ * event on the calendar's Provider tab (In Office / Out Of Office / Vacation /
+ * Lunch / Reserved). This path has no patient, no find-or-create, and no
+ * idempotency guard — it just fills the Provider tab and saves. The `patient`
+ * field is ignored for provider events. Everything else (date/time, provider,
+ * facility, duration, comments, dry_run) works the same.
  */
 interface PatientRef {
   first_name: string;
@@ -68,6 +75,18 @@ interface Params {
    * creating a second one. Pass true to bypass the check and always book.
    */
   allow_duplicate?: boolean;
+  /**
+   * "patient" (default) books a patient appointment on the Patient tab.
+   * "provider" books a non-patient provider event on the Provider tab
+   * (In Office / Out Of Office / Vacation / Lunch / Reserved); `patient` is then
+   * ignored and no patient is created.
+   */
+  event_type?: "patient" | "provider";
+  /**
+   * Provider-event title. Only used for provider events; defaults to the
+   * category label (e.g. "In Office").
+   */
+  title?: string;
   /** Default false — a real booking. Pass true to preview. */
   dry_run?: boolean;
 }
@@ -108,6 +127,9 @@ class ScheduleError extends ClientError {
 const BASE = "https://demo.openemr.io/openemr/interface";
 const BOOKING_URL = (yyyymmdd: string) =>
   `${BASE}/main/calendar/add_edit_event.php?date=${yyyymmdd}`;
+// Provider tab of the same event form (?prov=true) — a non-patient event.
+const PROVIDER_EVENT_URL = (yyyymmdd: string) =>
+  `${BASE}/main/calendar/add_edit_event.php?prov=true&date=${yyyymmdd}`;
 const PATIENT_SEARCH_URL = `${BASE}/main/calendar/find_patient_popup.php`;
 const NEW_PATIENT_URL = `${BASE}/new/new.php`;
 
@@ -149,6 +171,41 @@ const DATA_SCHEMA: any = {
     },
   },
   required: ["status", "patient", "appointment"],
+};
+
+/** Result schema for a provider (non-patient) event — no patient, an `event`. */
+const PROVIDER_DATA_SCHEMA: any = {
+  type: "object",
+  properties: {
+    status: { type: "string" },
+    event: {
+      type: "object",
+      properties: {
+        type: { type: "string" },
+        title: { type: "string" },
+        date: { type: "string" },
+        start_time: { type: "string" },
+        end_time: { type: "string" },
+        provider: { type: "string" },
+        location: { type: "string" },
+        category: { type: "string" },
+        duration_minutes: { type: "integer" },
+        comments: { type: "string" },
+      },
+      required: [
+        "type",
+        "title",
+        "date",
+        "start_time",
+        "end_time",
+        "provider",
+        "location",
+        "category",
+        "duration_minutes",
+      ],
+    },
+  },
+  required: ["status", "event"],
 };
 
 // ---------------------------------------------------------------------------
@@ -252,41 +309,25 @@ interface ValidatedParams {
   allowDuplicate: boolean;
   dryRun: boolean;
   patientDob: ParsedDate;
+  eventType: "patient" | "provider";
+  /** Provider-event title (provider events only). */
+  title?: string;
 }
 
 function validateParams(params: Params): ValidatedParams {
   if (!params || typeof params !== "object") {
     throw new ScheduleError("INVALID_INPUT", "params object is required");
   }
-  if (!params.patient || typeof params.patient !== "object") {
+  const eventType = params.event_type ?? "patient";
+  if (eventType !== "patient" && eventType !== "provider") {
     throw new ScheduleError(
       "INVALID_INPUT",
-      "patient {first_name, last_name, dob} is required",
-      {
-        field: "patient",
-      },
+      `event_type must be "patient" or "provider", got "${params.event_type}"`,
+      { field: "event_type", value: params.event_type },
     );
   }
-  for (const f of ["first_name", "last_name", "dob"] as const) {
-    if (!params.patient[f] || typeof params.patient[f] !== "string") {
-      throw new ScheduleError("INVALID_INPUT", `patient.${f} is required`, {
-        field: `patient.${f}`,
-      });
-    }
-  }
+
   const date = parseUsDate(params.date, "date");
-  const patientDob = parseUsDate(params.patient.dob, "patient.dob");
-  const now = new Date();
-  if (new Date(patientDob.iso + "T00:00:00Z").getTime() >= now.getTime()) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      "patient.dob must be a past date",
-      {
-        field: "patient.dob",
-        value: params.patient.dob,
-      },
-    );
-  }
   const time = parseTime12(params.start_time);
   const durationMinutes = params.duration_minutes ?? 15;
   if (
@@ -308,18 +349,59 @@ function validateParams(params: Params): ValidatedParams {
     hour24: Math.floor(endTotal / 60) % 24,
     minute: endTotal % 60,
   };
+
+  // Patient is required only for patient appointments. Provider events have no
+  // patient, so patientDob is unused there and defaults to the event date (a
+  // harmless placeholder — the provider path never reads it).
+  let patientDob: ParsedDate = date;
+  if (eventType === "patient") {
+    if (!params.patient || typeof params.patient !== "object") {
+      throw new ScheduleError(
+        "INVALID_INPUT",
+        "patient {first_name, last_name, dob} is required",
+        {
+          field: "patient",
+        },
+      );
+    }
+    for (const f of ["first_name", "last_name", "dob"] as const) {
+      if (!params.patient[f] || typeof params.patient[f] !== "string") {
+        throw new ScheduleError("INVALID_INPUT", `patient.${f} is required`, {
+          field: `patient.${f}`,
+        });
+      }
+    }
+    patientDob = parseUsDate(params.patient.dob, "patient.dob");
+    const now = new Date();
+    if (new Date(patientDob.iso + "T00:00:00Z").getTime() >= now.getTime()) {
+      throw new ScheduleError(
+        "INVALID_INPUT",
+        "patient.dob must be a past date",
+        {
+          field: "patient.dob",
+          value: params.patient.dob,
+        },
+      );
+    }
+  }
+
   return {
     raw: params,
     date,
     time,
     endTime,
-    category: params.category ?? "Office Visit",
+    // Patient visits default to "Office Visit"; provider events default to the
+    // form's own pre-selected category (resolved live, empty string here).
+    category:
+      params.category ?? (eventType === "patient" ? "Office Visit" : ""),
     durationMinutes,
     comments: params.comments ?? "",
     createIfMissing: params.create_patient_if_missing ?? true,
     allowDuplicate: params.allow_duplicate ?? false,
     dryRun: params.dry_run ?? false,
     patientDob,
+    eventType,
+    title: params.title,
   };
 }
 
@@ -1034,9 +1116,13 @@ async function fillBookingFormFields(
   // to demonstrate the AI fallback recovering a rotted selector. The short
   // timeout just makes the deterministic attempt fail fast before the AI takes
   // over. Real branch uses 'select[name="form_category"]'.
-  await page.selectOption('select[name="form_categoryZZZ"]', resolved.category.value, {
-    timeout: 3000,
-  });
+  await page.selectOption(
+    'select[name="form_categoryZZZ"]',
+    resolved.category.value,
+    {
+      timeout: 3000,
+    },
+  );
   await page.selectOption('select[name="facility"]', resolved.facility.value);
   // Keep the billing facility in sync when present.
   const billing = await page.$('select[name="billing_facility"]');
@@ -1106,21 +1192,45 @@ async function verifyBookingFormFilled(
   const hour = await read('[name="form_hour"]');
   const minute = await read('[name="form_minute"]');
 
-  const want = {
-    category: resolved.category.value,
-    provider: resolved.provider.value,
-    date: v.date.iso,
-    hour: String(v.time.hour24),
-    minute: String(v.time.minute).padStart(2, "0"),
-  };
-  const got = { category, provider, date, hour, minute };
-  const mismatches = (Object.keys(want) as (keyof typeof want)[]).filter(
-    (k) => String(got[k] ?? "") !== want[k],
-  );
+  // category/provider are <select> values and date is a string → compare as
+  // strings. hour/minute are numeric text inputs the form (or the AI) may
+  // zero-pad ("09" vs "9"), so compare them NUMERICALLY, not by exact string.
+  const strEq = (a: string | null, b: string): boolean => String(a ?? "") === b;
+  const numEq = (a: string | null, b: number): boolean =>
+    a != null && a.trim() !== "" && parseInt(a, 10) === b;
+
+  const checks = [
+    {
+      key: "category",
+      got: category,
+      want: resolved.category.value,
+      ok: strEq(category, resolved.category.value),
+    },
+    {
+      key: "provider",
+      got: provider,
+      want: resolved.provider.value,
+      ok: strEq(provider, resolved.provider.value),
+    },
+    { key: "date", got: date, want: v.date.iso, ok: strEq(date, v.date.iso) },
+    {
+      key: "hour",
+      got: hour,
+      want: String(v.time.hour24),
+      ok: numEq(hour, v.time.hour24),
+    },
+    {
+      key: "minute",
+      got: minute,
+      want: String(v.time.minute),
+      ok: numEq(minute, v.time.minute),
+    },
+  ];
+  const mismatches = checks.filter((c) => !c.ok);
   if (mismatches.length) {
     throw new Error(
       `verify: booking form fields not set — ${mismatches
-        .map((k) => `${k}="${got[k]}" (want "${want[k]}")`)
+        .map((c) => `${c.key}="${c.got}" (want "${c.want}")`)
         .join(", ")}`,
     );
   }
@@ -1278,6 +1388,298 @@ async function verifyAppointment(
 }
 
 // ---------------------------------------------------------------------------
+// Provider (non-patient) events — the calendar's Provider tab (?prov=true)
+// ---------------------------------------------------------------------------
+
+/**
+ * Installs the frameset shims the standalone event page needs BEFORE it loads,
+ * so the later direct form submit works: opened outside the OpenEMR tabs frame,
+ * top.restoreSession / dlgclose are missing (SubmitForm() would throw), and any
+ * holiday confirm() must auto-accept. Mirrors cancel-appointment's shims.
+ */
+async function injectProviderShims(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const w = window as any;
+    w.confirm = () => true;
+    if (typeof w.restoreSession !== "function") w.restoreSession = () => true;
+    if (typeof w.dlgclose !== "function") w.dlgclose = () => {};
+    if (typeof w.dlgopen !== "function") w.dlgopen = () => {};
+    if (typeof w.webroot_url === "undefined") w.webroot_url = "/openemr";
+  });
+}
+
+/**
+ * Opens the Provider-tab event form and resolves category / facility / provider
+ * to their option values. The category list here is the provider-event set
+ * (In Office / Out Of Office / Vacation / Lunch / Reserved) — distinct from the
+ * patient visit categories — so it is read live from this form, nothing
+ * hardcoded. When no category / location is given, the form's own pre-selected
+ * default is used.
+ */
+async function openProviderFormAndResolve(
+  page: Page,
+  v: ValidatedParams,
+): Promise<ResolvedForm> {
+  extendTimeout();
+  await injectProviderShims(page);
+  await goToUrl({ page, url: PROVIDER_EVENT_URL(v.date.compact) });
+  await page.waitForSelector('select[name="form_category"]', {
+    timeout: 30000,
+  });
+
+  const categoryOptions = await readSelectOptions(
+    page,
+    'select[name="form_category"]',
+  );
+  const facilityOptions = await readSelectOptions(
+    page,
+    'select[name="facility"]',
+  );
+  // Provider select is "form_provider" (single) or "form_provider[]" in
+  // multi-provider mode — support both, same as the patient form.
+  let providerOptions = await readSelectOptions(
+    page,
+    'select[name="form_provider"]',
+  );
+  if (providerOptions.length === 0) {
+    providerOptions = await readSelectOptions(
+      page,
+      'select[name="form_provider[]"]',
+    );
+  }
+
+  let category: SelectOption | null;
+  if (v.category) {
+    category = matchOption(categoryOptions, v.category);
+    if (!category) {
+      throw new ScheduleError(
+        "CATEGORY_NOT_FOUND",
+        `Provider event category "${v.category}" is not offered`,
+        {
+          requested: v.category,
+          available: categoryOptions.map((o) => o.label).filter(Boolean),
+        },
+      );
+    }
+  } else {
+    category =
+      categoryOptions.find((o) => o.selected && o.value) ??
+      categoryOptions.find((o) => o.value) ??
+      null;
+    if (!category) {
+      throw new ScheduleError(
+        "CATEGORY_NOT_FOUND",
+        "No provider event categories available on the form",
+      );
+    }
+  }
+
+  let facility: SelectOption | null;
+  if (v.raw.location) {
+    facility = matchOption(facilityOptions, v.raw.location);
+    if (!facility) {
+      throw new ScheduleError(
+        "LOCATION_NOT_FOUND",
+        `Facility "${v.raw.location}" not found`,
+        {
+          requested: v.raw.location,
+          available: facilityOptions.map((o) => o.label).filter(Boolean),
+        },
+      );
+    }
+  } else {
+    facility =
+      facilityOptions.find((o) => o.selected) ?? facilityOptions[0] ?? null;
+    if (!facility) {
+      throw new ScheduleError(
+        "LOCATION_NOT_FOUND",
+        "No facilities available on the form",
+      );
+    }
+  }
+
+  let provider: SelectOption | null;
+  if (v.raw.provider) {
+    provider = matchOption(providerOptions, v.raw.provider);
+    if (!provider) {
+      throw new ScheduleError(
+        "PROVIDER_NOT_FOUND",
+        `Provider "${v.raw.provider}" not found`,
+        {
+          requested: v.raw.provider,
+          available: providerOptions.map((o) => o.label).filter(Boolean),
+        },
+      );
+    }
+  } else {
+    provider =
+      providerOptions.find((o) => o.selected && o.value) ??
+      providerOptions.find((o) => o.value) ??
+      null;
+    if (!provider) {
+      throw new ScheduleError(
+        "PROVIDER_NOT_FOUND",
+        "No providers available on the form",
+      );
+    }
+  }
+
+  return { category, facility, provider };
+}
+
+/**
+ * Fills the Provider-tab event form. Category is set first (its set_category
+ * onchange rewrites Title + a default duration), then Title and Duration are
+ * overridden. There are no patient fields on this form.
+ */
+async function fillProviderEventForm(
+  page: Page,
+  v: ValidatedParams,
+  resolved: ResolvedForm,
+): Promise<void> {
+  extendTimeout();
+  // Category first (fires set_category → rewrites title/duration), then override.
+  await page.selectOption(
+    'select[name="form_category"]',
+    resolved.category.value,
+  );
+
+  const title = v.title ?? resolved.category.label;
+  await fillFirstMatching(page, ["form_title"], title);
+
+  await page.selectOption('select[name="facility"]', resolved.facility.value);
+  const billing = await page.$('select[name="billing_facility"]');
+  if (billing) {
+    await page
+      .selectOption('select[name="billing_facility"]', resolved.facility.value)
+      .catch(() => {});
+  }
+  const providerSelect = (await page.$('select[name="form_provider"]'))
+    ? 'select[name="form_provider"]'
+    : 'select[name="form_provider[]"]';
+  await page.selectOption(providerSelect, resolved.provider.value);
+
+  const okDate = await fillFirstMatching(page, ["form_date"], v.date.iso);
+  const okHour = await fillFirstMatching(
+    page,
+    ["form_hour"],
+    String(v.time.hour24),
+  );
+  const okMin = await fillFirstMatching(
+    page,
+    ["form_minute"],
+    String(v.time.minute).padStart(2, "0"),
+  );
+  const okDur = await fillFirstMatching(
+    page,
+    ["form_duration"],
+    String(v.durationMinutes),
+  );
+  if (!okDate || !okHour || !okMin || !okDur) {
+    // Missing fields = the form isn't what we expect (selector rot). Throw a
+    // plain Error (a real failure), not a caller-facing ClientError.
+    throw new Error(
+      `Provider event form fields missing (date=${okDate} hour=${okHour} minute=${okMin} duration=${okDur})`,
+    );
+  }
+  if (v.comments) await fillFirstMatching(page, ["form_comments"], v.comments);
+}
+
+/**
+ * Submits the Provider-tab event form. The standalone page never binds the Save
+ * button reliably (its SubmitForm() calls top.restoreSession() then f.submit(),
+ * which throws outside the tabs frame), so — like cancel-appointment — we set
+ * form_action=save and submit the real form element directly. Completion is the
+ * event form leaving the page: the server emits its close-window page only
+ * after the event row is written, so this is a server-confirmed save.
+ */
+async function saveProviderEvent(page: Page): Promise<void> {
+  extendTimeout();
+  const onDialog = async (d: Dialog) => {
+    await d.accept().catch(() => {});
+  };
+  page.on("dialog", onDialog);
+  try {
+    await Promise.all([
+      page
+        .waitForNavigation({ waitUntil: "domcontentloaded", timeout: 45000 })
+        .catch(() => null),
+      page.evaluate(() => {
+        const form = (
+          document.getElementById("form_action") as HTMLElement
+        )?.closest("form") as HTMLFormElement | null;
+        if (!form) throw new Error("provider event form not found");
+        const fa = form.querySelector(
+          "#form_action",
+        ) as HTMLInputElement | null;
+        if (fa) fa.value = "save";
+        // recurr_affect stays empty — this is a non-recurring event.
+        form.submit();
+      }),
+    ]);
+
+    // Saved once the event form is gone (server returned its close-window page).
+    let saved = false;
+    const deadline = Date.now() + 15000;
+    while (Date.now() < deadline) {
+      extendTimeout();
+      const stillOnForm = await page
+        .$("#form_save")
+        .then((el) => el !== null)
+        .catch(() => false);
+      if (!stillOnForm) {
+        saved = true;
+        break;
+      }
+      await page.waitForTimeout(500);
+    }
+    if (!saved) {
+      throw new ScheduleError(
+        "SAVE_NOT_CONFIRMED",
+        "Provider event save did not complete (form still present)",
+      );
+    }
+  } finally {
+    page.off("dialog", onDialog);
+  }
+}
+
+/** Books a provider (non-patient) event: resolve → fill → (dry_run|save). */
+async function runProviderEvent(
+  page: Page,
+  v: ValidatedParams,
+): Promise<Record<string, any>> {
+  const resolved = await openProviderFormAndResolve(page, v);
+
+  const event = {
+    type: "provider",
+    title: v.title ?? resolved.category.label,
+    date: v.raw.date,
+    start_time: formatTime12(v.time.hour24, v.time.minute),
+    end_time: formatTime12(v.endTime.hour24, v.endTime.minute),
+    provider: resolved.provider.label,
+    location: resolved.facility.label,
+    category: resolved.category.label,
+    duration_minutes: v.durationMinutes,
+    comments: v.comments,
+  };
+
+  await fillProviderEventForm(page, v, resolved);
+
+  if (v.dryRun) {
+    const result = { status: "dry_run", event };
+    validateDataUsingSchema({ data: result, schema: PROVIDER_DATA_SCHEMA });
+    return result;
+  }
+
+  await saveProviderEvent(page);
+
+  const result = { status: "booked", event: { ...event, verified: true } };
+  validateDataUsingSchema({ data: result, schema: PROVIDER_DATA_SCHEMA });
+  return result;
+}
+
+// ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
 
@@ -1302,6 +1704,12 @@ async function run(
   context: BrowserContext,
 ): Promise<Record<string, any>> {
   const v = validateParams(params);
+
+  // Provider (non-patient) events take a separate, simpler path: fill the
+  // Provider tab and save — no patient resolution or idempotency guard.
+  if (v.eventType === "provider") {
+    return runProviderEvent(page, v);
+  }
 
   // Resolve form option ids first (validates category/facility/provider early).
   const resolved = await openBookingFormAndResolve(page, v);
