@@ -1030,7 +1030,13 @@ async function fillBookingFormFields(
   resolved: ResolvedForm,
 ): Promise<void> {
   // Category first (fires set_category → default duration), then override.
-  await page.selectOption('select[name="form_category"]', resolved.category.value);
+  // NOTE (demo branch): this selector is intentionally broken ("form_categoryZZZ")
+  // to demonstrate the AI fallback recovering a rotted selector. The short
+  // timeout just makes the deterministic attempt fail fast before the AI takes
+  // over. Real branch uses 'select[name="form_category"]'.
+  await page.selectOption('select[name="form_categoryZZZ"]', resolved.category.value, {
+    timeout: 3000,
+  });
   await page.selectOption('select[name="facility"]', resolved.facility.value);
   // Keep the billing facility in sync when present.
   const billing = await page.$('select[name="billing_facility"]');
