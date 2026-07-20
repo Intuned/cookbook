@@ -13,6 +13,11 @@
     "size": "standard"
   },
   "metadata": {
+    "template": {
+      "name": "openemr-rpa",
+      "description": "Check OpenEMR availability, schedule, and cancel patient appointments with Auth Sessions",
+      "tags": ["rpa", "auth-sessions"]
+    },
     "defaultRunPlaygroundInput": {
       "apiName": "get-available-slots",
       "parameters": {

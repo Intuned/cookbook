@@ -1,32 +1,26 @@
 {
   "payload": [
     {
-      "apiName": "schedule-appointment",
+      "apiName": "cancel-appointment",
       "parameters": {
-        "date": "07/19/2026",
+        "date": "07/20/2026",
         "start_time": "10:00 AM",
-        "provider": "Lee, Donna",
-        "category": "Office Visit",
-        "duration_minutes": 15,
-        "comments": "Booked via Intuned job",
         "patient": {
           "first_name": "OliverTrial",
           "last_name": "Charlotte",
           "dob": "12/01/1989"
         },
-        "create_patient_if_missing": true,
+        "mode": "cancel",
         "dry_run": true
       }
     }
   ],
   "configuration": {
     "maxConcurrentRequests": 1,
-    "retry": {
-      "maximumAttempts": 2
-    }
+    "retry": { "maximumAttempts": 2 }
   },
   "auth_session": {
-    "id": "default",
+    "id": "test-authsession",
     "checkAttempts": 3,
     "createAttempts": 3
   }
