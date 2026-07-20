@@ -1,0 +1,27 @@
+{
+  "payload": [
+    {
+      "apiName": "cancel-appointment",
+      "parameters": {
+        "date": "07/20/2026",
+        "start_time": "10:00 AM",
+        "patient": {
+          "first_name": "OliverTrial",
+          "last_name": "Charlotte",
+          "dob": "12/01/1989"
+        },
+        "mode": "cancel",
+        "dry_run": true
+      }
+    }
+  ],
+  "configuration": {
+    "maxConcurrentRequests": 1,
+    "retry": { "maximumAttempts": 2 }
+  },
+  "auth_session": {
+    "id": "default",
+    "checkAttempts": 3,
+    "createAttempts": 3
+  }
+}
