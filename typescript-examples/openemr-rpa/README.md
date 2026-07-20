@@ -133,21 +133,24 @@ the site's own "Find Available" feature so results match what staff see.
 ## schedule-appointment
 
 Books an appointment: find-or-create the patient, fill the booking form, save,
-and verify the appointment on the patient's dashboard.
+and verify the appointment on the patient's dashboard. Can also book a
+**provider (non-patient) event** — see [Provider events](#provider-events) below.
 
 | Parameter | Type | Required | Description |
 |---|---|---|---|
+| event_type | string | no (default **"patient"**) | `"patient"` books a patient appointment. `"provider"` books a provider event on the Provider tab (In Office / Out Of Office / Vacation / Lunch / Reserved) — `patient` is then ignored. See [Provider events](#provider-events). |
 | dry_run | boolean | no (default **false**) | false = real booking. true = fill everything but STOP before Save and return the would-be submission. |
 | date | string | yes | MM/DD/YYYY (e.g. "07/20/2026") |
 | start_time | string | yes | e.g. "10:00 AM" |
-| patient | object | yes | `first_name`, `last_name`, `dob` (MM/DD/YYYY) — matched by name + DOB. OpenEMR displays names "Last, First". |
+| patient | object | yes for patient events | `first_name`, `last_name`, `dob` (MM/DD/YYYY) — matched by name + DOB. OpenEMR displays names "Last, First". Ignored for `event_type: "provider"`. |
 | provider | string | no | Default: the form's default provider (the logged-in physician) |
 | location | string | no | Facility name, validated |
-| category | string | no | Visit category, default "Office Visit" |
+| category | string | no | Patient events: visit category, default "Office Visit". Provider events: event category (In Office / Lunch / …), default = the form's pre-selected one. |
+| title | string | no | Provider events only — event title, defaults to the category label (e.g. "In Office"). |
 | duration_minutes | number | no | Default 15 |
 | comments | string | no | Free text |
-| create_patient_if_missing | boolean | no (default **true**) | When the patient must be created, `new_patient.sex` is required (`new_patient` also takes phone/email/address/…). `false` makes a missing patient a `PATIENT_NOT_FOUND`. |
-| allow_duplicate | boolean | no (default **false** = idempotent) | Before saving, checks the patient's dashboard for an appointment at the same date/time (and provider, when given). If one exists, returns `already_booked` with that `eid` and does NOT create a second. `true` bypasses the check. |
+| create_patient_if_missing | boolean | no (default **true**) | Patient events only. When the patient must be created, `new_patient.sex` is required (`new_patient` also takes phone/email/address/…). `false` makes a missing patient a `PATIENT_NOT_FOUND`. |
+| allow_duplicate | boolean | no (default **false** = idempotent) | Patient events only. Before saving, checks the patient's dashboard for an appointment at the same date/time (and provider, when given). If one exists, returns `already_booked` with that `eid` and does NOT create a second. `true` bypasses the check. |
 
 **`result` shape:**
 
@@ -179,6 +182,42 @@ Re-running an identical call is safe: the second run returns `already_booked`
 (carrying the existing `eid`) instead of double-booking. This demo does **not**
 enforce double-booking itself — saving into a taken slot just overlaps silently
 — so `allow_duplicate` is the only guard.
+
+### Provider events
+
+With `event_type: "provider"` the API books a **non-patient** event on the
+calendar's Provider tab (`add_edit_event.php?prov=true`). It's the simpler path:
+no patient, no find-or-create, and no idempotency guard — it resolves the
+category/facility/provider, fills the tab, and saves. The provider-event
+categories (In Office / Out Of Office / Vacation / Lunch / Reserved) are read
+live from the form and differ from the patient visit categories.
+
+`verified: true` means the save posted (the server returned its close-window
+page, which it only does after writing the event row). The `result` has an
+`event` object instead of `patient` + `appointment`:
+
+```jsonc
+{
+  "status": "booked",              // "booked" | "dry_run"
+  "event": {
+    "type": "provider",
+    "title": "Lunch",
+    "date": "07/20/2026",
+    "start_time": "12:00 PM",
+    "end_time": "12:30 PM",
+    "provider": "Lee, Donna",
+    "location": "Great Clinic",
+    "category": "Lunch",
+    "duration_minutes": 30,
+    "comments": "Lunch break",
+    "verified": true               // "booked" runs — the save posted
+  }
+}
+```
+
+Sample params: `provider-event.json` (dry-run In Office) and
+`provider-event-real.json` (real Lunch). Provider events can't be removed by
+`cancel-appointment` (that API is patient-keyed); rely on the demo's daily reset.
 
 **Error codes** (thrown as `ClientError`):
 

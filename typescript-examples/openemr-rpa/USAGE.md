@@ -121,6 +121,23 @@ intunedctl dev attempt api schedule-appointment .parameters/api/schedule-appoint
 ```
 > **Expected:** ⚠ REAL — creates patient "Maya Winters" and books 9:15 AM. Result `booked`, `patient.created: true`.
 
+#### Provider (non-patient) events
+
+Pass `"event_type": "provider"` to book a provider event on the calendar's
+**Provider** tab (In Office / Out Of Office / Vacation / Lunch / Reserved) — no
+patient, no find-or-create. The result has an `event` object instead of
+`patient` + `appointment`.
+
+```bash
+intunedctl dev attempt api schedule-appointment .parameters/api/schedule-appointment/provider-event.json --auth-session default
+```
+> **Expected:** dry run — previews an "In Office" block for provider "Smith, Billy" (8:00 AM, 480 min). Result `dry_run`, nothing saved.
+
+```bash
+intunedctl dev attempt api schedule-appointment .parameters/api/schedule-appointment/provider-event-real.json --auth-session default
+```
+> **Expected:** ⚠ REAL — saves a "Lunch" event for provider "Lee, Donna" at 12:00 PM (30 min). Result `booked`, `event.verified: true`.
+
 ---
 
 ### cancel-appointment  (cancels or deletes an appointment)
@@ -160,3 +177,6 @@ intunedctl dev attempt api cancel-appointment .parameters/api/cancel-appointment
 - If any run says the session is invalid, re-run Step 1 (the demo logs you out on its daily reset).
 - `schedule-appointment` is **idempotent**: booking the exact same patient + slot twice
   returns `already_booked` (with the existing appointment id) instead of double-booking.
+- **Provider events** (`event_type: "provider"`) have no idempotency guard and can't be
+  removed by `cancel-appointment` (that API is keyed on a patient); they clear on the
+  demo's daily reset.
