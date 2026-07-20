@@ -74,6 +74,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [jsdom](./typescript-examples/jsdom/) | Web scraping with JSDOM for HTML parsing |
 | [native-crawler](./typescript-examples/native-crawler/) | Native web crawler for sitemaps and recursive link following |
 | [network-interception](./typescript-examples/network-interception/) | Network interception for CSRF token capture and paginated API data |
+| [openemr-rpa](./typescript-examples/openemr-rpa/) | Check OpenEMR availability, schedule, and cancel patient appointments with Auth Sessions |
 | [playwright-basics](./typescript-examples/playwright-basics/) | Basic Playwright automation examples |
 | [quick-recipes](./typescript-examples/quick-recipes/) | Quick browser automation recipes |
 | [rpa-auth-example](./typescript-examples/rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |
