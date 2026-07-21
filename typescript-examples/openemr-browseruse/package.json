@@ -1,5 +1,5 @@
 {
-  "name": "effective-rpa-browseruse-ts",
+  "name": "openemr-browseruse",
   "version": "1.0.0",
   "packageManager": "yarn@1.22.22",
   "description": "OpenEMR appointment automation using browser-use (TypeScript port) with Intuned",
