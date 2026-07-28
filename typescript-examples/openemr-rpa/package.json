@@ -2,7 +2,7 @@
   "name": "open-emr-rpa",
   "version": "1.0.0",
   "packageManager": "yarn@1.22.22",
-  "description": "Check for availability and book appointments with OpenEMR",
+  "description": "Check for availability and book appointments with OpenEMR. Use AI Fallback to recover from errors.",
   "main": "index.js",
   "tags": [
     "rpa",
