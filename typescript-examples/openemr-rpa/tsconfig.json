@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ES2021",
+    "outDir": "./dist",
+    "sourceMap": false,
+    "declaration": true,
+    "esModuleInterop": true,
+    // Stagehand's bundled .d.ts (zod, ai-sdk) doesn't typecheck under this
+    // project's TS config — skip lib checking like the stagehand examples do.
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
