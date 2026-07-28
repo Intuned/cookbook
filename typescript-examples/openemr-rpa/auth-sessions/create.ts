@@ -1,8 +1,7 @@
 import { Page, BrowserContext } from "playwright";
 import { goToUrl } from "@intuned/browser";
 
-const LOGIN_URL =
-  "https://demo.openemr.io/openemr/interface/login/login.php?site=default";
+const LOGIN_URL = "https://openemr-intuned.fly.dev";
 
 export interface CreateAuthSessionParams {
   username: string;
@@ -26,24 +25,15 @@ export default async function create(
   // inert; if clicking does not navigate, submit the form directly.
   await page.locator("#login-button").click();
   try {
-    await page.waitForURL("**/interface/main/tabs/main.php*", {
-      timeout: 10_000,
-    });
+    await page.waitForURL("**/interface/main/tabs/main.php*", { timeout: 10_000 });
   } catch {
-    await page
-      .locator("#clearPass")
-      .evaluate((el) => (el as HTMLInputElement).form?.submit());
+    await page.locator("#clearPass").evaluate((el) => (el as HTMLInputElement).form?.submit());
     // A successful login lands on interface/main/tabs/main.php?token_main=...
     // With wrong credentials the site reloads login.php and this times out.
-    await page.waitForURL("**/interface/main/tabs/main.php*", {
-      timeout: 30_000,
-    });
+    await page.waitForURL("**/interface/main/tabs/main.php*", { timeout: 30_000 });
   }
 
   // Step 4: Verify login succeeded — the top navigation menu only renders
   // for an authenticated user.
-  await page
-    .locator("#mainMenu, nav.navbar")
-    .first()
-    .waitFor({ state: "visible", timeout: 30_000 });
+  await page.locator("#mainMenu, nav.navbar").first().waitFor({ state: "visible", timeout: 30_000 });
 }

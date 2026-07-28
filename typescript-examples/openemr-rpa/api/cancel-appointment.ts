@@ -66,7 +66,7 @@ class CancelError extends ClientError {
   }
 }
 
-const BASE = "https://demo.openemr.io/openemr/interface";
+const BASE = "https://openemr-intuned.fly.dev/interface";
 
 // ---------------------------------------------------------------------------
 // Parsing helpers
@@ -80,20 +80,14 @@ interface ParsedDate {
 function parseUsDate(value: string, field: string): ParsedDate {
   const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec((value ?? "").trim());
   if (!m) {
-    throw new CancelError("INVALID_INPUT", `${field} must be MM/DD/YYYY, got "${value}"`, {
-      field,
-      value,
-    });
+    throw new CancelError("INVALID_INPUT", `${field} must be MM/DD/YYYY, got "${value}"`, { field, value });
   }
   const month = parseInt(m[1], 10);
   const day = parseInt(m[2], 10);
   const year = parseInt(m[3], 10);
   const dt = new Date(Date.UTC(year, month - 1, day));
   if (dt.getUTCFullYear() !== year || dt.getUTCMonth() !== month - 1 || dt.getUTCDate() !== day) {
-    throw new CancelError("INVALID_INPUT", `${field} is not a real date: "${value}"`, {
-      field,
-      value,
-    });
+    throw new CancelError("INVALID_INPUT", `${field} is not a real date: "${value}"`, { field, value });
   }
   const mm = String(month).padStart(2, "0");
   const dd = String(day).padStart(2, "0");
@@ -113,10 +107,7 @@ function parseTime12ToMinutes(value: string): number {
   const minute = parseInt(m[2], 10);
   const pm = m[3].toUpperCase() === "PM";
   if (hour < 1 || hour > 12 || minute > 59) {
-    throw new CancelError("INVALID_INPUT", `start_time out of range: "${value}"`, {
-      field: "start_time",
-      value,
-    });
+    throw new CancelError("INVALID_INPUT", `start_time out of range: "${value}"`, { field: "start_time", value });
   }
   if (pm && hour !== 12) hour += 12;
   if (!pm && hour === 12) hour = 0;
@@ -145,13 +136,7 @@ function normalize(s: string): string {
  * the dashboard — compare as an unordered set of name parts.
  */
 function sameProvider(a: string, b: string): boolean {
-  const parts = (s: string) =>
-    normalize(s)
-      .replace(/,/g, " ")
-      .split(" ")
-      .filter(Boolean)
-      .sort()
-      .join(" ");
+  const parts = (s: string) => normalize(s).replace(/,/g, " ").split(" ").filter(Boolean).sort().join(" ");
   return parts(a) === parts(b);
 }
 
@@ -188,11 +173,9 @@ async function findPatient(page: Page, p: PatientRef, dobIso: string): Promise<F
       return { pid, name: `${last}, ${first}`, dob: dob.trim() };
     }
   }
-  throw new CancelError(
-    "PATIENT_NOT_FOUND",
-    `No patient matches ${p.first_name} ${p.last_name} (DOB ${dobIso})`,
-    { patient: p }
-  );
+  throw new CancelError("PATIENT_NOT_FOUND", `No patient matches ${p.first_name} ${p.last_name} (DOB ${dobIso})`, {
+    patient: p,
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -215,10 +198,7 @@ interface FoundAppointment {
  */
 async function listDashboardAppointments(page: Page, pid: string): Promise<FoundAppointment[]> {
   extendTimeout();
-  await goToUrl({
-    page,
-    url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(pid)}`,
-  });
+  await goToUrl({ page, url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(pid)}` });
   await page.waitForSelector("body", { timeout: 30000 });
   // The appointment cards load with the page; give late widgets a moment.
   await page.waitForTimeout(1500);
@@ -287,9 +267,7 @@ async function driveFormAction(page: Page, action: "save" | "delete"): Promise<v
   await Promise.all([
     page.waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 }).catch(() => null),
     page.evaluate((act) => {
-      const form = (document.getElementById("form_action") as HTMLElement)?.closest(
-        "form"
-      ) as HTMLFormElement | null;
+      const form = (document.getElementById("form_action") as HTMLElement)?.closest("form") as HTMLFormElement | null;
       if (!form) throw new Error("event form not found");
       const fa = form.querySelector("#form_action") as HTMLInputElement | null;
       if (fa) fa.value = act;
@@ -314,12 +292,9 @@ async function setStatusCancelled(page: Page): Promise<string> {
     }))
   );
   const cancelOpt =
-    options.find((o) => o.value === "x") ??
-    options.find((o) => /canceled/i.test(o.label) && !/<\s*24/.test(o.label));
+    options.find((o) => o.value === "x") ?? options.find((o) => /canceled/i.test(o.label) && !/<\s*24/.test(o.label));
   if (!cancelOpt) {
-    throw new CancelError("ACTION_FAILED", 'No "x Canceled" option in the status list', {
-      available: options,
-    });
+    throw new CancelError("ACTION_FAILED", 'No "x Canceled" option in the status list', { available: options });
   }
   await page.selectOption('select[name="form_apptstatus"]', cancelOpt.value);
   return cancelOpt.label;
@@ -338,17 +313,10 @@ export default async function handler(
   // `{ success: false, ... }` response (the run SUCCEEDS); a real failure
   // propagates and the run fails. dry_run + ai_fallback ride as envelope meta.
   const dryRun = params?.dry_run ?? false;
-  return withErrorEnvelope(
-    { dry_run: dryRun, ai_fallback: initAiFallbackMeta() },
-    () => run(params, page, context)
-  );
+  return withErrorEnvelope({ dry_run: dryRun, ai_fallback: initAiFallbackMeta() }, () => run(params, page, context));
 }
 
-async function run(
-  params: Params,
-  page: Page,
-  context: BrowserContext
-): Promise<Record<string, any>> {
+async function run(params: Params, page: Page, context: BrowserContext): Promise<Record<string, any>> {
   // ---- Validation --------------------------------------------------------
   if (!params?.patient?.first_name || !params.patient.last_name || !params.patient.dob) {
     throw new CancelError("INVALID_INPUT", "patient {first_name, last_name, dob} is required");
@@ -379,10 +347,7 @@ async function run(
       "APPOINTMENT_NOT_FOUND",
       `No appointment for ${patient.name} on ${params.date} at ${params.start_time}` +
         (params.provider ? ` with ${params.provider}` : ""),
-      {
-        patient: { pid: patient.pid, name: patient.name },
-        listed_appointments: appointments,
-      }
+      { patient: { pid: patient.pid, name: patient.name }, listed_appointments: appointments }
     );
   }
 
@@ -462,11 +427,7 @@ async function run(
     url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(patient.pid)}`,
   }).catch(() => {});
 
-  return {
-    status: mode === "cancel" ? "cancelled" : "deleted",
-    ...base,
-    verified,
-  };
+  return { status: mode === "cancel" ? "cancelled" : "deleted", ...base, verified };
 }
 
 /**
@@ -474,11 +435,7 @@ async function run(
  * when the eid no longer maps to an appointment (the form loads blank, with no
  * patient bound) — i.e. it was deleted.
  */
-async function reopenEvent(
-  page: Page,
-  eid: string,
-  dateIso: string
-): Promise<{ exists: boolean; status: string }> {
+async function reopenEvent(page: Page, eid: string, dateIso: string): Promise<{ exists: boolean; status: string }> {
   extendTimeout();
   await goToUrl({
     page,
@@ -487,8 +444,7 @@ async function reopenEvent(
   await page.waitForSelector("#form_action", { state: "attached", timeout: 30000 }).catch(() => {});
   return page.evaluate(() => {
     const pid = (document.querySelector('input[name="form_pid"]') as HTMLInputElement | null)?.value ?? "";
-    const status =
-      (document.querySelector('select[name="form_apptstatus"]') as HTMLSelectElement | null)?.value ?? "";
+    const status = (document.querySelector('select[name="form_apptstatus"]') as HTMLSelectElement | null)?.value ?? "";
     return { exists: pid.trim() !== "", status };
   });
 }

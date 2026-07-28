@@ -26,7 +26,7 @@ interface Params {
   duration_minutes?: number;
 }
 
-const BASE_URL = "https://demo.openemr.io/openemr";
+const BASE_URL = "https://openemr-intuned.fly.dev";
 const MAX_SPAN_DAYS = 14;
 const DEFAULT_DURATION_MINUTES = 15;
 const DEFAULT_CATEGORY = "Office Visit";
@@ -43,14 +43,7 @@ const DATA_SCHEMA: any = {
       provider: { type: "string" },
       location: { type: "string" },
     },
-    required: [
-      "date",
-      "day_of_week",
-      "start_time",
-      "end_time",
-      "provider",
-      "location",
-    ],
+    required: ["date", "day_of_week", "start_time", "end_time", "provider", "location"],
   },
 };
 
@@ -67,11 +60,7 @@ const ERROR_STATUS: Record<SlotsErrorCode, number> = {
  * (the run still SUCCEEDS). Returns `never`; existing `return errorEnvelope(...)`
  * call sites keep working unchanged.
  */
-function errorEnvelope(
-  code: SlotsErrorCode,
-  message: string,
-  details?: Record<string, any>
-): never {
+function errorEnvelope(code: SlotsErrorCode, message: string, details?: Record<string, any>): never {
   throw new ClientError(ERROR_STATUS[code], code, message, details);
 }
 
@@ -93,11 +82,7 @@ function parseMdyDate(value: string): Date | null {
   const day = parseInt(m[2], 10);
   const year = parseInt(m[3], 10);
   const date = new Date(year, month - 1, day);
-  if (
-    date.getFullYear() !== year ||
-    date.getMonth() !== month - 1 ||
-    date.getDate() !== day
-  ) {
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
     return null; // e.g. 02/30/2026
   }
   return date;
@@ -130,10 +115,7 @@ function dayOfWeekName(date: Date): string {
  * Read the option list (value + visible label) of a <select> on the current
  * page. Returns [] if the select is not present.
  */
-async function readSelectOptions(
-  page: Page,
-  selectName: string
-): Promise<SelectOption[]> {
+async function readSelectOptions(page: Page, selectName: string): Promise<SelectOption[]> {
   return page.$$eval(
     `select[name="${selectName}"] option`,
     (options) =>
@@ -213,9 +195,7 @@ async function fetchProviderSlots(
 
   const slots: { year: number; month: number; day: number; hour: number; minute: number }[] = [];
   for (const onclick of onclicks) {
-    const m = /setappt\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/.exec(
-      onclick
-    );
+    const m = /setappt\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/.exec(onclick);
     if (!m) continue;
     slots.push({
       year: parseInt(m[1], 10),
@@ -238,31 +218,18 @@ export default async function handler(
   return withErrorEnvelope({}, () => run(params, page, context));
 }
 
-async function run(
-  params: Params,
-  page: Page,
-  context: BrowserContext
-): Promise<Record<string, any>> {
+async function run(params: Params, page: Page, context: BrowserContext): Promise<Record<string, any>> {
   // ---- Input validation -------------------------------------------------
   if (!params.start_date || !params.end_date) {
-    return errorEnvelope(
-      "INVALID_INPUT",
-      "Both start_date and end_date are required (MM/DD/YYYY)."
-    );
+    return errorEnvelope("INVALID_INPUT", "Both start_date and end_date are required (MM/DD/YYYY).");
   }
   const startDate = parseMdyDate(params.start_date);
   if (!startDate) {
-    return errorEnvelope(
-      "INVALID_INPUT",
-      `start_date "${params.start_date}" is not a valid MM/DD/YYYY date.`
-    );
+    return errorEnvelope("INVALID_INPUT", `start_date "${params.start_date}" is not a valid MM/DD/YYYY date.`);
   }
   const endDate = parseMdyDate(params.end_date);
   if (!endDate) {
-    return errorEnvelope(
-      "INVALID_INPUT",
-      `end_date "${params.end_date}" is not a valid MM/DD/YYYY date.`
-    );
+    return errorEnvelope("INVALID_INPUT", `end_date "${params.end_date}" is not a valid MM/DD/YYYY date.`);
   }
   if (endDate.getTime() < startDate.getTime()) {
     return errorEnvelope(
@@ -270,21 +237,14 @@ async function run(
       `end_date (${params.end_date}) must be on or after start_date (${params.start_date}).`
     );
   }
-  const spanDays =
-    Math.round((endDate.getTime() - startDate.getTime()) / 86400000) + 1;
+  const spanDays = Math.round((endDate.getTime() - startDate.getTime()) / 86400000) + 1;
   if (spanDays > MAX_SPAN_DAYS) {
-    return errorEnvelope(
-      "INVALID_INPUT",
-      `Date range spans ${spanDays} days; the maximum is ${MAX_SPAN_DAYS} days.`,
-      { max_span_days: MAX_SPAN_DAYS }
-    );
+    return errorEnvelope("INVALID_INPUT", `Date range spans ${spanDays} days; the maximum is ${MAX_SPAN_DAYS} days.`, {
+      max_span_days: MAX_SPAN_DAYS,
+    });
   }
   const durationMinutes = params.duration_minutes ?? DEFAULT_DURATION_MINUTES;
-  if (
-    !Number.isInteger(durationMinutes) ||
-    durationMinutes < 5 ||
-    durationMinutes > 480
-  ) {
+  if (!Number.isInteger(durationMinutes) || durationMinutes < 5 || durationMinutes > 480) {
     return errorEnvelope(
       "INVALID_INPUT",
       `duration_minutes must be an integer between 5 and 480 (got ${params.duration_minutes}).`
@@ -292,10 +252,7 @@ async function run(
   }
 
   // ---- Read facility / provider / category lists from the booking form --
-  const { facilities, providers, categories } = await loadBookingFormOptions(
-    page,
-    startDate
-  );
+  const { facilities, providers, categories } = await loadBookingFormOptions(page, startDate);
   if (providers.length === 0 || facilities.length === 0) {
     throw new Error(
       "Could not read provider/facility lists from the booking form — the session may not be authenticated."
@@ -308,11 +265,9 @@ async function run(
     const wanted = normalizeName(params.location);
     const match = facilities.find((f) => normalizeName(f.label) === wanted);
     if (!match) {
-      return errorEnvelope(
-        "LOCATION_NOT_FOUND",
-        `Location "${params.location}" was not found.`,
-        { available_locations: facilities.map((f) => f.label) }
-      );
+      return errorEnvelope("LOCATION_NOT_FOUND", `Location "${params.location}" was not found.`, {
+        available_locations: facilities.map((f) => f.label),
+      });
     }
     facility = match;
   } else {
@@ -325,11 +280,9 @@ async function run(
     const wanted = normalizeName(params.provider);
     const match = providers.find((p) => normalizeName(p.label) === wanted);
     if (!match) {
-      return errorEnvelope(
-        "PROVIDER_NOT_FOUND",
-        `Provider "${params.provider}" was not found.`,
-        { available_providers: providers.map((p) => p.label) }
-      );
+      return errorEnvelope("PROVIDER_NOT_FOUND", `Provider "${params.provider}" was not found.`, {
+        available_providers: providers.map((p) => p.label),
+      });
     }
     targetProviders = [match];
   } else {
@@ -338,10 +291,7 @@ async function run(
 
   // Category id needed by the availability search; "Office Visit" is the
   // default, falling back to the first category option.
-  const category =
-    categories.find(
-      (c) => normalizeName(c.label) === normalizeName(DEFAULT_CATEGORY)
-    ) ?? categories[0];
+  const category = categories.find((c) => normalizeName(c.label) === normalizeName(DEFAULT_CATEGORY)) ?? categories[0];
   if (!category) {
     throw new Error("Could not read the category list from the booking form.");
   }

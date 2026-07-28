@@ -124,12 +124,10 @@ class ScheduleError extends ClientError {
 // Constants / schema
 // ---------------------------------------------------------------------------
 
-const BASE = "https://demo.openemr.io/openemr/interface";
-const BOOKING_URL = (yyyymmdd: string) =>
-  `${BASE}/main/calendar/add_edit_event.php?date=${yyyymmdd}`;
+const BASE = "https://openemr-intuned.fly.dev/interface";
+const BOOKING_URL = (yyyymmdd: string) => `${BASE}/main/calendar/add_edit_event.php?date=${yyyymmdd}`;
 // Provider tab of the same event form (?prov=true) — a non-patient event.
-const PROVIDER_EVENT_URL = (yyyymmdd: string) =>
-  `${BASE}/main/calendar/add_edit_event.php?prov=true&date=${yyyymmdd}`;
+const PROVIDER_EVENT_URL = (yyyymmdd: string) => `${BASE}/main/calendar/add_edit_event.php?prov=true&date=${yyyymmdd}`;
 const PATIENT_SEARCH_URL = `${BASE}/main/calendar/find_patient_popup.php`;
 const NEW_PATIENT_URL = `${BASE}/new/new.php`;
 
@@ -159,15 +157,7 @@ const DATA_SCHEMA: any = {
         duration_minutes: { type: "integer" },
         comments: { type: "string" },
       },
-      required: [
-        "date",
-        "start_time",
-        "end_time",
-        "provider",
-        "location",
-        "category",
-        "duration_minutes",
-      ],
+      required: ["date", "start_time", "end_time", "provider", "location", "category", "duration_minutes"],
     },
   },
   required: ["status", "patient", "appointment"],
@@ -223,39 +213,18 @@ interface ParsedDate {
 function parseUsDate(value: string, field: string): ParsedDate {
   const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec((value ?? "").trim());
   if (!m) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      `${field} must be in MM/DD/YYYY format, got "${value}"`,
-      { field, value },
-    );
+    throw new ScheduleError("INVALID_INPUT", `${field} must be in MM/DD/YYYY format, got "${value}"`, { field, value });
   }
   const month = parseInt(m[1], 10);
   const day = parseInt(m[2], 10);
   const year = parseInt(m[3], 10);
   const dt = new Date(Date.UTC(year, month - 1, day));
-  if (
-    dt.getUTCFullYear() !== year ||
-    dt.getUTCMonth() !== month - 1 ||
-    dt.getUTCDate() !== day
-  ) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      `${field} is not a valid calendar date: "${value}"`,
-      {
-        field,
-        value,
-      },
-    );
+  if (dt.getUTCFullYear() !== year || dt.getUTCMonth() !== month - 1 || dt.getUTCDate() !== day) {
+    throw new ScheduleError("INVALID_INPUT", `${field} is not a valid calendar date: "${value}"`, { field, value });
   }
   const mm = String(month).padStart(2, "0");
   const dd = String(day).padStart(2, "0");
-  return {
-    year,
-    month,
-    day,
-    iso: `${year}-${mm}-${dd}`,
-    compact: `${year}${mm}${dd}`,
-  };
+  return { year, month, day, iso: `${year}-${mm}-${dd}`, compact: `${year}${mm}${dd}` };
 }
 
 interface ParsedTime {
@@ -266,24 +235,16 @@ interface ParsedTime {
 function parseTime12(value: string): ParsedTime {
   const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i.exec((value ?? "").trim());
   if (!m) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      `start_time must look like "9:00 AM", got "${value}"`,
-      { field: "start_time", value },
-    );
+    throw new ScheduleError("INVALID_INPUT", `start_time must look like "9:00 AM", got "${value}"`, {
+      field: "start_time",
+      value,
+    });
   }
   let hour = parseInt(m[1], 10);
   const minute = parseInt(m[2], 10);
   const pm = m[3].toUpperCase() === "PM";
   if (hour < 1 || hour > 12 || minute > 59) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      `start_time is out of range: "${value}"`,
-      {
-        field: "start_time",
-        value,
-      },
-    );
+    throw new ScheduleError("INVALID_INPUT", `start_time is out of range: "${value}"`, { field: "start_time", value });
   }
   if (pm && hour !== 12) hour += 12;
   if (!pm && hour === 12) hour = 0;
@@ -320,35 +281,23 @@ function validateParams(params: Params): ValidatedParams {
   }
   const eventType = params.event_type ?? "patient";
   if (eventType !== "patient" && eventType !== "provider") {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      `event_type must be "patient" or "provider", got "${params.event_type}"`,
-      { field: "event_type", value: params.event_type },
-    );
+    throw new ScheduleError("INVALID_INPUT", `event_type must be "patient" or "provider", got "${params.event_type}"`, {
+      field: "event_type",
+      value: params.event_type,
+    });
   }
 
   const date = parseUsDate(params.date, "date");
   const time = parseTime12(params.start_time);
   const durationMinutes = params.duration_minutes ?? 15;
-  if (
-    !Number.isInteger(durationMinutes) ||
-    durationMinutes <= 0 ||
-    durationMinutes > 24 * 60
-  ) {
-    throw new ScheduleError(
-      "INVALID_INPUT",
-      "duration_minutes must be a positive integer",
-      {
-        field: "duration_minutes",
-        value: params.duration_minutes,
-      },
-    );
+  if (!Number.isInteger(durationMinutes) || durationMinutes <= 0 || durationMinutes > 24 * 60) {
+    throw new ScheduleError("INVALID_INPUT", "duration_minutes must be a positive integer", {
+      field: "duration_minutes",
+      value: params.duration_minutes,
+    });
   }
   const endTotal = time.hour24 * 60 + time.minute + durationMinutes;
-  const endTime: ParsedTime = {
-    hour24: Math.floor(endTotal / 60) % 24,
-    minute: endTotal % 60,
-  };
+  const endTime: ParsedTime = { hour24: Math.floor(endTotal / 60) % 24, minute: endTotal % 60 };
 
   // Patient is required only for patient appointments. Provider events have no
   // patient, so patientDob is unused there and defaults to the event date (a
@@ -356,32 +305,22 @@ function validateParams(params: Params): ValidatedParams {
   let patientDob: ParsedDate = date;
   if (eventType === "patient") {
     if (!params.patient || typeof params.patient !== "object") {
-      throw new ScheduleError(
-        "INVALID_INPUT",
-        "patient {first_name, last_name, dob} is required",
-        {
-          field: "patient",
-        },
-      );
+      throw new ScheduleError("INVALID_INPUT", "patient {first_name, last_name, dob} is required", {
+        field: "patient",
+      });
     }
     for (const f of ["first_name", "last_name", "dob"] as const) {
       if (!params.patient[f] || typeof params.patient[f] !== "string") {
-        throw new ScheduleError("INVALID_INPUT", `patient.${f} is required`, {
-          field: `patient.${f}`,
-        });
+        throw new ScheduleError("INVALID_INPUT", `patient.${f} is required`, { field: `patient.${f}` });
       }
     }
     patientDob = parseUsDate(params.patient.dob, "patient.dob");
     const now = new Date();
     if (new Date(patientDob.iso + "T00:00:00Z").getTime() >= now.getTime()) {
-      throw new ScheduleError(
-        "INVALID_INPUT",
-        "patient.dob must be a past date",
-        {
-          field: "patient.dob",
-          value: params.patient.dob,
-        },
-      );
+      throw new ScheduleError("INVALID_INPUT", "patient.dob must be a past date", {
+        field: "patient.dob",
+        value: params.patient.dob,
+      });
     }
   }
 
@@ -392,8 +331,7 @@ function validateParams(params: Params): ValidatedParams {
     endTime,
     // Patient visits default to "Office Visit"; provider events default to the
     // form's own pre-selected category (resolved live, empty string here).
-    category:
-      params.category ?? (eventType === "patient" ? "Office Visit" : ""),
+    category: params.category ?? (eventType === "patient" ? "Office Visit" : ""),
     durationMinutes,
     comments: params.comments ?? "",
     createIfMissing: params.create_patient_if_missing ?? true,
@@ -415,10 +353,7 @@ interface SelectOption {
   selected: boolean;
 }
 
-async function readSelectOptions(
-  page: Page,
-  selector: string,
-): Promise<SelectOption[]> {
+async function readSelectOptions(page: Page, selector: string): Promise<SelectOption[]> {
   const el = await page.$(selector);
   if (!el) return [];
   return el.$$eval("option", (opts) =>
@@ -426,19 +361,14 @@ async function readSelectOptions(
       value: (o as HTMLOptionElement).value,
       label: (o.textContent || "").trim(),
       selected: (o as HTMLOptionElement).selected,
-    })),
+    }))
   );
 }
 
-function matchOption(
-  options: SelectOption[],
-  wanted: string,
-): SelectOption | null {
+function matchOption(options: SelectOption[], wanted: string): SelectOption | null {
   const w = wanted.trim().toLowerCase();
   return (
-    options.find((o) => o.label.toLowerCase() === w) ??
-    options.find((o) => o.label.toLowerCase().includes(w)) ??
-    null
+    options.find((o) => o.label.toLowerCase() === w) ?? options.find((o) => o.label.toLowerCase().includes(w)) ?? null
   );
 }
 
@@ -452,70 +382,41 @@ interface ResolvedForm {
  * Opens the booking form and resolves category / facility / provider names to
  * their option values. Nothing is hardcoded — all ids come from the live form.
  */
-async function openBookingFormAndResolve(
-  page: Page,
-  v: ValidatedParams,
-): Promise<ResolvedForm> {
+async function openBookingFormAndResolve(page: Page, v: ValidatedParams): Promise<ResolvedForm> {
   extendTimeout();
   await goToUrl({ page, url: BOOKING_URL(v.date.compact) });
-  await page.waitForSelector('select[name="form_category"]', {
-    timeout: 30000,
-  });
+  await page.waitForSelector('select[name="form_category"]', { timeout: 30000 });
 
-  const categoryOptions = await readSelectOptions(
-    page,
-    'select[name="form_category"]',
-  );
-  const facilityOptions = await readSelectOptions(
-    page,
-    'select[name="facility"]',
-  );
+  const categoryOptions = await readSelectOptions(page, 'select[name="form_category"]');
+  const facilityOptions = await readSelectOptions(page, 'select[name="facility"]');
   // Provider select is "form_provider" normally, "form_provider[]" when the
   // site runs in multi-provider mode — support both.
-  let providerOptions = await readSelectOptions(
-    page,
-    'select[name="form_provider"]',
-  );
+  let providerOptions = await readSelectOptions(page, 'select[name="form_provider"]');
   if (providerOptions.length === 0) {
-    providerOptions = await readSelectOptions(
-      page,
-      'select[name="form_provider[]"]',
-    );
+    providerOptions = await readSelectOptions(page, 'select[name="form_provider[]"]');
   }
 
   const category = matchOption(categoryOptions, v.category);
   if (!category) {
-    throw new ScheduleError(
-      "CATEGORY_NOT_FOUND",
-      `Category "${v.category}" is not offered`,
-      {
-        requested: v.category,
-        available: categoryOptions.map((o) => o.label).filter(Boolean),
-      },
-    );
+    throw new ScheduleError("CATEGORY_NOT_FOUND", `Category "${v.category}" is not offered`, {
+      requested: v.category,
+      available: categoryOptions.map((o) => o.label).filter(Boolean),
+    });
   }
 
   let facility: SelectOption | null;
   if (v.raw.location) {
     facility = matchOption(facilityOptions, v.raw.location);
     if (!facility) {
-      throw new ScheduleError(
-        "LOCATION_NOT_FOUND",
-        `Facility "${v.raw.location}" not found`,
-        {
-          requested: v.raw.location,
-          available: facilityOptions.map((o) => o.label).filter(Boolean),
-        },
-      );
+      throw new ScheduleError("LOCATION_NOT_FOUND", `Facility "${v.raw.location}" not found`, {
+        requested: v.raw.location,
+        available: facilityOptions.map((o) => o.label).filter(Boolean),
+      });
     }
   } else {
-    facility =
-      facilityOptions.find((o) => o.selected) ?? facilityOptions[0] ?? null;
+    facility = facilityOptions.find((o) => o.selected) ?? facilityOptions[0] ?? null;
     if (!facility) {
-      throw new ScheduleError(
-        "LOCATION_NOT_FOUND",
-        "No facilities available on the booking form",
-      );
+      throw new ScheduleError("LOCATION_NOT_FOUND", "No facilities available on the booking form");
     }
   }
 
@@ -523,27 +424,17 @@ async function openBookingFormAndResolve(
   if (v.raw.provider) {
     provider = matchOption(providerOptions, v.raw.provider);
     if (!provider) {
-      throw new ScheduleError(
-        "PROVIDER_NOT_FOUND",
-        `Provider "${v.raw.provider}" not found`,
-        {
-          requested: v.raw.provider,
-          available: providerOptions.map((o) => o.label).filter(Boolean),
-        },
-      );
+      throw new ScheduleError("PROVIDER_NOT_FOUND", `Provider "${v.raw.provider}" not found`, {
+        requested: v.raw.provider,
+        available: providerOptions.map((o) => o.label).filter(Boolean),
+      });
     }
   } else {
     // Default: the logged-in user's provider entry (pre-selected by OpenEMR);
     // fall back to the first real option.
-    provider =
-      providerOptions.find((o) => o.selected && o.value) ??
-      providerOptions.find((o) => o.value) ??
-      null;
+    provider = providerOptions.find((o) => o.selected && o.value) ?? providerOptions.find((o) => o.value) ?? null;
     if (!provider) {
-      throw new ScheduleError(
-        "PROVIDER_NOT_FOUND",
-        "No providers available on the booking form",
-      );
+      throw new ScheduleError("PROVIDER_NOT_FOUND", "No providers available on the booking form");
     }
   }
 
@@ -566,21 +457,15 @@ interface ResolvedPatient {
  * and matches first+last+DOB exactly (case-insensitive). Row ids have the
  * shape "<pid>~<First>~<Last>~<YYYY-MM-DD>", which is unambiguous.
  */
-async function findPatient(
-  page: Page,
-  v: ValidatedParams,
-): Promise<ResolvedPatient | null> {
+async function findPatient(page: Page, v: ValidatedParams): Promise<ResolvedPatient | null> {
   extendTimeout();
   console.log(
-    `[patient] searching by last name "${v.raw.patient.last_name}" for ${v.raw.patient.first_name} ${v.raw.patient.last_name} (DOB ${v.patientDob.iso})`,
+    `[patient] searching by last name "${v.raw.patient.last_name}" for ${v.raw.patient.first_name} ${v.raw.patient.last_name} (DOB ${v.patientDob.iso})`
   );
   await goToUrl({ page, url: PATIENT_SEARCH_URL });
   await page.waitForSelector('select[name="searchby"]', { timeout: 30000 });
 
-  const searchByOptions = await readSelectOptions(
-    page,
-    'select[name="searchby"]',
-  );
+  const searchByOptions = await readSelectOptions(page, 'select[name="searchby"]');
   const byName =
     searchByOptions.find((o) => o.value.toLowerCase() === "last") ??
     searchByOptions.find((o) => /name/i.test(o.label)) ??
@@ -593,26 +478,18 @@ async function findPatient(
   const submit = await page.$('form [type="submit"], form button');
   if (submit) {
     await Promise.all([
-      page
-        .waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 })
-        .catch(() => null),
+      page.waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 }).catch(() => null),
       submit.click(),
     ]);
   } else {
     await Promise.all([
-      page
-        .waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 })
-        .catch(() => null),
+      page.waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 }).catch(() => null),
       page.press('input[name="searchparm"]', "Enter"),
     ]);
   }
 
-  const rows = await page.$$eval("tr.oneresult", (trs) =>
-    trs.map((tr) => tr.id || ""),
-  );
-  console.log(
-    `[patient] search returned ${rows.length} row(s) for last name "${v.raw.patient.last_name}"`,
-  );
+  const rows = await page.$$eval("tr.oneresult", (trs) => trs.map((tr) => tr.id || ""));
+  console.log(`[patient] search returned ${rows.length} row(s) for last name "${v.raw.patient.last_name}"`);
   const wantFirst = v.raw.patient.first_name.trim().toLowerCase();
   const wantLast = v.raw.patient.last_name.trim().toLowerCase();
   for (const id of rows) {
@@ -625,29 +502,18 @@ async function findPatient(
       last.trim().toLowerCase() === wantLast &&
       dob.trim() === v.patientDob.iso
     ) {
-      console.log(
-        `[patient] MATCH → found existing patient pid=${pid} name="${last}, ${first}" dob=${dob.trim()}`,
-      );
-      return {
-        pid,
-        name: `${last}, ${first}`,
-        dob: dob.trim(),
-        created: false,
-      };
+      console.log(`[patient] MATCH → found existing patient pid=${pid} name="${last}, ${first}" dob=${dob.trim()}`);
+      return { pid, name: `${last}, ${first}`, dob: dob.trim(), created: false };
     }
   }
   console.log(
-    `[patient] no row matched first+last+DOB exactly (wanted ${wantFirst} / ${wantLast} / ${v.patientDob.iso})`,
+    `[patient] no row matched first+last+DOB exactly (wanted ${wantFirst} / ${wantLast} / ${v.patientDob.iso})`
   );
   return null;
 }
 
 /** Fills the first matching form field; returns true if one was found. */
-async function fillFirstMatching(
-  page: Page,
-  names: string[],
-  value: string,
-): Promise<boolean> {
+async function fillFirstMatching(page: Page, names: string[], value: string): Promise<boolean> {
   for (const name of names) {
     const el = await page.$(`[name="${name}"]`);
     if (!el) continue;
@@ -655,10 +521,7 @@ async function fillFirstMatching(
     if (tag === "select") {
       // Try by exact value, then by label (case-insensitive).
       const options = await el.$$eval("option", (opts) =>
-        opts.map((o) => ({
-          value: (o as HTMLOptionElement).value,
-          label: (o.textContent || "").trim(),
-        })),
+        opts.map((o) => ({ value: (o as HTMLOptionElement).value, label: (o.textContent || "").trim() }))
       );
       const w = value.trim().toLowerCase();
       const match =
@@ -666,15 +529,13 @@ async function fillFirstMatching(
         options.find((o) => o.label.toLowerCase() === w) ??
         options.find((o) => o.label.toLowerCase().includes(w));
       if (!match) continue;
-      await page
-        .selectOption(`[name="${name}"]`, match.value, { timeout: 5000 })
-        .catch(async () => {
-          // Hidden selects (custom widgets) — set the value directly.
-          await el.evaluate((n, val) => {
-            (n as HTMLSelectElement).value = val;
-            n.dispatchEvent(new Event("change", { bubbles: true }));
-          }, match.value);
-        });
+      await page.selectOption(`[name="${name}"]`, match.value, { timeout: 5000 }).catch(async () => {
+        // Hidden selects (custom widgets) — set the value directly.
+        await el.evaluate((n, val) => {
+          (n as HTMLSelectElement).value = val;
+          n.dispatchEvent(new Event("change", { bubbles: true }));
+        }, match.value);
+      });
     } else {
       await el.fill(value, { timeout: 5000 }).catch(async () => {
         // Hidden inputs / datepickers reject fill; set the value directly.
@@ -696,24 +557,18 @@ async function fillFirstMatching(
  * in-page dialog iframe or a popup window), then re-runs the patient search
  * to obtain the assigned pid.
  */
-async function createPatient(
-  page: Page,
-  context: BrowserContext,
-  v: ValidatedParams,
-): Promise<ResolvedPatient> {
+async function createPatient(page: Page, context: BrowserContext, v: ValidatedParams): Promise<ResolvedPatient> {
   extendTimeout();
   const np = v.raw.new_patient ?? {};
   if (!np.sex) {
     throw new ScheduleError(
       "INVALID_INPUT",
       "new_patient.sex is required to create a patient (Birth Sex is mandatory on the new-patient form)",
-      { field: "new_patient.sex" },
+      { field: "new_patient.sex" }
     );
   }
   await goToUrl({ page, url: NEW_PATIENT_URL });
-  await page.waitForSelector('[name="form_fname"], [name="form_lname"]', {
-    timeout: 30000,
-  });
+  await page.waitForSelector('[name="form_fname"], [name="form_lname"]', { timeout: 30000 });
   // Standalone new.php expects to live inside the OpenEMR tabs frame, which
   // provides restoreSession / get_opener / webroot_url. The duplicate-check
   // dialog iframe (new_search_popup.php) resolves its `opener` through
@@ -734,44 +589,26 @@ async function createPatient(
     }
     if (typeof w.webroot_url === "undefined") w.webroot_url = "/openemr";
   });
-  const okFirst = await fillFirstMatching(
-    page,
-    ["form_fname"],
-    v.raw.patient.first_name,
-  );
-  const okLast = await fillFirstMatching(
-    page,
-    ["form_lname"],
-    v.raw.patient.last_name,
-  );
-  const okDob = await fillFirstMatching(
-    page,
-    ["form_DOB", "form_dob"],
-    v.patientDob.iso,
-  );
+  const okFirst = await fillFirstMatching(page, ["form_fname"], v.raw.patient.first_name);
+  const okLast = await fillFirstMatching(page, ["form_lname"], v.raw.patient.last_name);
+  const okDob = await fillFirstMatching(page, ["form_DOB", "form_dob"], v.patientDob.iso);
   if (!okFirst || !okLast || !okDob) {
     throw new ScheduleError(
       "PATIENT_CREATE_FAILED",
       "Could not locate required name/DOB fields on the new-patient page",
-      { first: okFirst, last: okLast, dob: okDob },
+      { first: okFirst, last: okLast, dob: okDob }
     );
   }
   if (np.sex) {
     await fillFirstMatching(page, ["form_sex"], np.sex);
   }
   // Optional demographics — best-effort.
-  if (np.phone)
-    await fillFirstMatching(
-      page,
-      ["form_phone_home", "form_phone_cell"],
-      np.phone,
-    );
+  if (np.phone) await fillFirstMatching(page, ["form_phone_home", "form_phone_cell"], np.phone);
   if (np.email) await fillFirstMatching(page, ["form_email"], np.email);
   if (np.address) await fillFirstMatching(page, ["form_street"], np.address);
   if (np.city) await fillFirstMatching(page, ["form_city"], np.city);
   if (np.state) await fillFirstMatching(page, ["form_state"], np.state);
-  if (np.postal_code)
-    await fillFirstMatching(page, ["form_postal_code"], np.postal_code);
+  if (np.postal_code) await fillFirstMatching(page, ["form_postal_code"], np.postal_code);
 
   // The duplicate-check may open as a popup window — listen before clicking.
   let popup: Page | null = null;
@@ -782,11 +619,7 @@ async function createPatient(
   page.on("dialog", (d) => d.accept().catch(() => {}));
 
   try {
-    const createBtn = page
-      .locator(
-        'button:has-text("Create New Patient"), input[value="Create New Patient"]',
-      )
-      .first();
+    const createBtn = page.locator('button:has-text("Create New Patient"), input[value="Create New Patient"]').first();
     await createBtn.click({ timeout: 15000 });
 
     // Wait for the duplicate-check UI (new_search_popup.php dialog iframe or a
@@ -800,20 +633,13 @@ async function createPatient(
         navigatedAway = true;
         break;
       }
-      if (
-        popup &&
-        /new_search_popup|patientvalidation/i.test((popup as Page).url())
-      ) {
+      if (popup && /new_search_popup|patientvalidation/i.test((popup as Page).url())) {
         dupCheckSeen = true;
         break;
       }
       const dupFrame = page
         .frames()
-        .find(
-          (f) =>
-            f !== page.mainFrame() &&
-            /new_search_popup|patientvalidation/i.test(f.url()),
-        );
+        .find((f) => f !== page.mainFrame() && /new_search_popup|patientvalidation/i.test(f.url()));
       if (dupFrame) {
         dupCheckSeen = true;
         break;
@@ -821,10 +647,7 @@ async function createPatient(
       await page.waitForTimeout(500);
     }
     if (!dupCheckSeen && !navigatedAway) {
-      throw new ScheduleError(
-        "PATIENT_CREATE_FAILED",
-        "Duplicate-check step never appeared after Create New Patient",
-      );
+      throw new ScheduleError("PATIENT_CREATE_FAILED", "Duplicate-check step never appeared after Create New Patient");
     }
 
     if (!navigatedAway) {
@@ -833,13 +656,10 @@ async function createPatient(
       // frame, so we do not rely on it actually saving.
       const surfaces: (Page | ReturnType<Page["mainFrame"]>)[] = [];
       if (popup) surfaces.push(popup as Page);
-      for (const f of page.frames())
-        if (f !== page.mainFrame()) surfaces.push(f);
+      for (const f of page.frames()) if (f !== page.mainFrame()) surfaces.push(f);
       for (const s of surfaces) {
         const btn = (s as Page)
-          .locator(
-            'button:has-text("Confirm Create New Patient"), input[value*="Confirm Create"]',
-          )
+          .locator('button:has-text("Confirm Create New Patient"), input[value*="Confirm Create"]')
           .first();
         const visible = await btn.isVisible().catch(() => false);
         if (visible) {
@@ -851,9 +671,7 @@ async function createPatient(
       // Direct submit — replicate srcConfirmSave() (document.forms[0].submit())
       // ourselves, bypassing the broken top.* frame plumbing.
       await Promise.all([
-        page
-          .waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 })
-          .catch(() => null),
+        page.waitForNavigation({ waitUntil: "domcontentloaded", timeout: 30000 }).catch(() => null),
         page.evaluate(() => {
           (document.forms[0] as HTMLFormElement).submit();
         }),
@@ -866,47 +684,35 @@ async function createPatient(
   }
 
   // Re-run the search to fetch the assigned pid in a known format.
-  console.log(
-    `[patient] create submitted → re-searching to confirm and fetch assigned pid …`,
-  );
+  console.log(`[patient] create submitted → re-searching to confirm and fetch assigned pid …`);
   const found = await findPatient(page, v);
   if (!found) {
     throw new ScheduleError(
       "PATIENT_CREATE_FAILED",
       "Patient creation appeared to succeed but the patient is not searchable",
-      { patient: v.raw.patient },
+      { patient: v.raw.patient }
     );
   }
-  console.log(
-    `[patient] created new patient pid=${found.pid} name="${found.name}"`,
-  );
+  console.log(`[patient] created new patient pid=${found.pid} name="${found.name}"`);
   return { ...found, created: true };
 }
 
 /** find → (optionally) create → resolved patient with pid. */
-async function resolvePatient(
-  page: Page,
-  context: BrowserContext,
-  v: ValidatedParams,
-): Promise<ResolvedPatient> {
-  console.log(
-    `[patient] resolving patient (create_patient_if_missing=${v.createIfMissing}) …`,
-  );
+async function resolvePatient(page: Page, context: BrowserContext, v: ValidatedParams): Promise<ResolvedPatient> {
+  console.log(`[patient] resolving patient (create_patient_if_missing=${v.createIfMissing}) …`);
   const existing = await findPatient(page, v);
   if (existing) {
-    console.log(
-      `[patient] using existing patient pid=${existing.pid} — no creation needed`,
-    );
+    console.log(`[patient] using existing patient pid=${existing.pid} — no creation needed`);
     return existing;
   }
   if (!v.createIfMissing) {
     console.log(
-      `[patient] not found and create_patient_if_missing=false → SKIPPING creation, raising PATIENT_NOT_FOUND`,
+      `[patient] not found and create_patient_if_missing=false → SKIPPING creation, raising PATIENT_NOT_FOUND`
     );
     throw new ScheduleError(
       "PATIENT_NOT_FOUND",
       `No patient matches ${v.raw.patient.first_name} ${v.raw.patient.last_name} (DOB ${v.patientDob.iso}) and create_patient_if_missing is false`,
-      { patient: v.raw.patient },
+      { patient: v.raw.patient }
     );
   }
   console.log(`[patient] not found → CREATING new patient …`);
@@ -959,17 +765,9 @@ function sameProvider(a: string, b: string): boolean {
  * Reads the patient's dashboard (Appointments card) and returns every entry
  * whose link carries an event id. Mirrors cancel-appointment's reader.
  */
-async function listPatientAppointments(
-  page: Page,
-  pid: string,
-): Promise<ExistingAppointment[]> {
+async function listPatientAppointments(page: Page, pid: string): Promise<ExistingAppointment[]> {
   extendTimeout();
-  await goToUrl({
-    page,
-    url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(
-      pid,
-    )}`,
-  });
+  await goToUrl({ page, url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(pid)}` });
   await page.waitForSelector("body", { timeout: 30000 });
   await page.waitForTimeout(1500);
 
@@ -977,14 +775,11 @@ async function listPatientAppointments(
     const out: any[] = [];
     for (const a of anchors) {
       const onclick = a.getAttribute("onclick") || "";
-      const m = /oldEvt\(\s*['"]?(\d{8})['"]?\s*,\s*['"]?(\d+)['"]?\s*\)/.exec(
-        onclick,
-      );
+      const m = /oldEvt\(\s*['"]?(\d{8})['"]?\s*,\s*['"]?(\d+)['"]?\s*\)/.exec(onclick);
       if (!m) continue;
       const item = a.closest(".list-group-item");
       if (!item) continue;
-      const clean = (s: string | null | undefined) =>
-        (s || "").replace(/\s+/g, " ").trim();
+      const clean = (s: string | null | undefined) => (s || "").replace(/\s+/g, " ").trim();
       const timeText = clean(item.querySelector("small")?.textContent);
       const spans = item.querySelectorAll("div.text-muted span");
       out.push({
@@ -1018,17 +813,13 @@ async function findExistingAppointment(
   page: Page,
   v: ValidatedParams,
   resolved: ResolvedForm,
-  patient: ResolvedPatient,
+  patient: ResolvedPatient
 ): Promise<ExistingAppointment | null> {
   const wantMinutes = v.time.hour24 * 60 + v.time.minute;
   const appts = await listPatientAppointments(page, patient.pid);
   // Provider display is "First Last"; the option label is "Last, First".
-  const [provLast, provFirst] = resolved.provider.label
-    .split(",")
-    .map((s) => s.trim());
-  const providerDisplay = provFirst
-    ? `${provFirst} ${provLast}`
-    : resolved.provider.label;
+  const [provLast, provFirst] = resolved.provider.label.split(",").map((s) => s.trim());
+  const providerDisplay = provFirst ? `${provFirst} ${provLast}` : resolved.provider.label;
   for (const a of appts) {
     if (a.date !== v.date.compact) continue;
     if (a.minutes !== wantMinutes) continue;
@@ -1055,7 +846,7 @@ async function fillBookingForm(
   page: Page,
   v: ValidatedParams,
   resolved: ResolvedForm,
-  patient: ResolvedPatient,
+  patient: ResolvedPatient
 ): Promise<void> {
   extendTimeout();
 
@@ -1064,16 +855,12 @@ async function fillBookingForm(
   // step and stays OUTSIDE the AI fallback below.
   await page.evaluate(
     ({ pid, name }) => {
-      const pidEl = document.querySelector(
-        'input[name="form_pid"]',
-      ) as HTMLInputElement | null;
-      const patEl = document.querySelector(
-        'input[name="form_patient"]',
-      ) as HTMLInputElement | null;
+      const pidEl = document.querySelector('input[name="form_pid"]') as HTMLInputElement | null;
+      const patEl = document.querySelector('input[name="form_patient"]') as HTMLInputElement | null;
       if (pidEl) pidEl.value = pid;
       if (patEl) patEl.value = name;
     },
-    { pid: patient.pid, name: patient.name },
+    { pid: patient.pid, name: patient.name }
   );
 
   const minutePad = String(v.time.minute).padStart(2, "0");
@@ -1101,35 +888,23 @@ async function fillBookingForm(
         `Leave the appointment Status dropdown as-is.`,
       verify: (p) => verifyBookingFormFilled(p, v, resolved),
     },
-    () => fillBookingFormFields(page, v, resolved),
+    () => fillBookingFormFields(page, v, resolved)
   );
 }
 
 /** The deterministic booking-form fill (the fast path; the AI mirrors it on failure). */
-async function fillBookingFormFields(
-  page: Page,
-  v: ValidatedParams,
-  resolved: ResolvedForm,
-): Promise<void> {
+async function fillBookingFormFields(page: Page, v: ValidatedParams, resolved: ResolvedForm): Promise<void> {
   // Category first (fires set_category → default duration), then override.
   // NOTE (demo branch): this selector is intentionally broken ("form_categoryZZZ")
   // to demonstrate the AI fallback recovering a rotted selector. The short
   // timeout just makes the deterministic attempt fail fast before the AI takes
   // over. Real branch uses 'select[name="form_category"]'.
-  await page.selectOption(
-    'select[name="form_categoryZZZ"]',
-    resolved.category.value,
-    {
-      timeout: 3000,
-    },
-  );
+  await page.selectOption('select[name="form_category"]', resolved.category.value, { timeout: 3000 });
   await page.selectOption('select[name="facility"]', resolved.facility.value);
   // Keep the billing facility in sync when present.
   const billing = await page.$('select[name="billing_facility"]');
   if (billing) {
-    await page
-      .selectOption('select[name="billing_facility"]', resolved.facility.value)
-      .catch(() => {});
+    await page.selectOption('select[name="billing_facility"]', resolved.facility.value).catch(() => {});
   }
   const providerSelect = (await page.$('select[name="form_provider"]'))
     ? 'select[name="form_provider"]'
@@ -1139,29 +914,15 @@ async function fillBookingFormFields(
   // Date (YYYY-MM-DD input) — set directly to avoid datepicker interference.
   const okDate = await fillFirstMatching(page, ["form_date"], v.date.iso);
   // Time: separate 24h hour + minute text inputs.
-  const okHour = await fillFirstMatching(
-    page,
-    ["form_hour"],
-    String(v.time.hour24),
-  );
-  const okMin = await fillFirstMatching(
-    page,
-    ["form_minute"],
-    String(v.time.minute).padStart(2, "0"),
-  );
+  const okHour = await fillFirstMatching(page, ["form_hour"], String(v.time.hour24));
+  const okMin = await fillFirstMatching(page, ["form_minute"], String(v.time.minute).padStart(2, "0"));
   // Duration AFTER category.
-  const okDur = await fillFirstMatching(
-    page,
-    ["form_duration"],
-    String(v.durationMinutes),
-  );
+  const okDur = await fillFirstMatching(page, ["form_duration"], String(v.durationMinutes));
   if (!okDate || !okHour || !okMin || !okDur) {
     // Missing fields = the form isn't what we expect (selector rot) — throw a
     // PLAIN Error (not ClientError) so the AI fallback treats it as a real
     // failure to rescue, not a business outcome to pass through.
-    throw new Error(
-      `Booking form fields missing (date=${okDate} hour=${okHour} minute=${okMin} duration=${okDur})`,
-    );
+    throw new Error(`Booking form fields missing (date=${okDate} hour=${okHour} minute=${okMin} duration=${okDur})`);
   }
   if (v.comments) {
     await fillFirstMatching(page, ["form_comments"], v.comments);
@@ -1170,18 +931,9 @@ async function fillBookingFormFields(
 }
 
 /** Deterministic post-fill check (used as the fallback's verify): key fields hold. */
-async function verifyBookingFormFilled(
-  page: Page,
-  v: ValidatedParams,
-  resolved: ResolvedForm,
-): Promise<void> {
+async function verifyBookingFormFilled(page: Page, v: ValidatedParams, resolved: ResolvedForm): Promise<void> {
   const read = async (selector: string): Promise<string | null> =>
-    page
-      .$eval(
-        selector,
-        (el) => (el as HTMLInputElement | HTMLSelectElement).value,
-      )
-      .catch(() => null);
+    page.$eval(selector, (el) => (el as HTMLInputElement | HTMLSelectElement).value).catch(() => null);
 
   const category = await read('select[name="form_category"]');
   const providerSel = (await page.$('select[name="form_provider"]'))
@@ -1196,42 +948,21 @@ async function verifyBookingFormFilled(
   // strings. hour/minute are numeric text inputs the form (or the AI) may
   // zero-pad ("09" vs "9"), so compare them NUMERICALLY, not by exact string.
   const strEq = (a: string | null, b: string): boolean => String(a ?? "") === b;
-  const numEq = (a: string | null, b: number): boolean =>
-    a != null && a.trim() !== "" && parseInt(a, 10) === b;
+  const numEq = (a: string | null, b: number): boolean => a != null && a.trim() !== "" && parseInt(a, 10) === b;
 
   const checks = [
-    {
-      key: "category",
-      got: category,
-      want: resolved.category.value,
-      ok: strEq(category, resolved.category.value),
-    },
-    {
-      key: "provider",
-      got: provider,
-      want: resolved.provider.value,
-      ok: strEq(provider, resolved.provider.value),
-    },
+    { key: "category", got: category, want: resolved.category.value, ok: strEq(category, resolved.category.value) },
+    { key: "provider", got: provider, want: resolved.provider.value, ok: strEq(provider, resolved.provider.value) },
     { key: "date", got: date, want: v.date.iso, ok: strEq(date, v.date.iso) },
-    {
-      key: "hour",
-      got: hour,
-      want: String(v.time.hour24),
-      ok: numEq(hour, v.time.hour24),
-    },
-    {
-      key: "minute",
-      got: minute,
-      want: String(v.time.minute),
-      ok: numEq(minute, v.time.minute),
-    },
+    { key: "hour", got: hour, want: String(v.time.hour24), ok: numEq(hour, v.time.hour24) },
+    { key: "minute", got: minute, want: String(v.time.minute), ok: numEq(minute, v.time.minute) },
   ];
   const mismatches = checks.filter((c) => !c.ok);
   if (mismatches.length) {
     throw new Error(
       `verify: booking form fields not set — ${mismatches
         .map((c) => `${c.key}="${c.got}" (want "${c.want}")`)
-        .join(", ")}`,
+        .join(", ")}`
     );
   }
 }
@@ -1243,11 +974,7 @@ async function verifyBookingFormFilled(
  * leaving the page (it posts to add_edit_event.php; the standalone dlgclose()
  * error is harmless).
  */
-async function saveAppointment(
-  page: Page,
-  context: BrowserContext,
-  v: ValidatedParams,
-): Promise<void> {
+async function saveAppointment(page: Page, context: BrowserContext, v: ValidatedParams): Promise<void> {
   extendTimeout();
 
   const onDialog = async (d: Dialog) => {
@@ -1266,10 +993,7 @@ async function saveAppointment(
   try {
     const saveBtn = await page.$("#form_save");
     if (!saveBtn) {
-      throw new ScheduleError(
-        "SAVE_NOT_CONFIRMED",
-        "Save button (#form_save) not found on the booking form",
-      );
+      throw new ScheduleError("SAVE_NOT_CONFIRMED", "Save button (#form_save) not found on the booking form");
     }
     await saveBtn.click();
 
@@ -1297,7 +1021,7 @@ async function saveAppointment(
   if (!saved) {
     throw new ScheduleError(
       "SAVE_NOT_CONFIRMED",
-      "Save did not complete within the expected time (form still present)",
+      "Save did not complete within the expected time (form still present)"
     );
   }
 }
@@ -1310,7 +1034,7 @@ async function verifyAppointment(
   page: Page,
   v: ValidatedParams,
   resolved: ResolvedForm,
-  patient: ResolvedPatient,
+  patient: ResolvedPatient
 ): Promise<boolean> {
   extendTimeout();
 
@@ -1320,21 +1044,15 @@ async function verifyAppointment(
   const mm = String(v.time.minute).padStart(2, "0");
   const needle = `${v.date.iso} ${hh}:${mm}`;
   // Option label is "Last, First" but the widget prints "First Last".
-  const [provLast, provFirst] = resolved.provider.label
-    .split(",")
-    .map((s) => s.trim());
-  const providerDisplay = provFirst
-    ? `${provFirst} ${provLast}`
-    : resolved.provider.label;
+  const [provLast, provFirst] = resolved.provider.label.split(",").map((s) => s.trim());
+  const providerDisplay = provFirst ? `${provFirst} ${provLast}` : resolved.provider.label;
   try {
     await goToUrl({
       page,
-      url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(
-        patient.pid,
-      )}`,
+      url: `${BASE}/patient_file/summary/demographics.php?set_pid=${encodeURIComponent(patient.pid)}`,
     });
     const dashboardText = await page.evaluate(() =>
-      document.body ? document.body.innerText.replace(/\s+/g, " ") : "",
+      document.body ? document.body.innerText.replace(/\s+/g, " ") : ""
     );
     if (dashboardText.includes(needle)) {
       // Require the provider name near the matched date-time when possible.
@@ -1357,9 +1075,7 @@ async function verifyAppointment(
   // Fallback (negative) check: the booked start time no longer appears as a
   // free slot for that provider/day.
   const url =
-    `${BASE}/main/calendar/find_appt_popup.php?providerid=${encodeURIComponent(
-      resolved.provider.value,
-    )}` +
+    `${BASE}/main/calendar/find_appt_popup.php?providerid=${encodeURIComponent(resolved.provider.value)}` +
     `&catid=${encodeURIComponent(resolved.category.value)}` +
     `&facility=${encodeURIComponent(resolved.facility.value)}` +
     `&startdate=${v.date.iso}&searchdays=1&evdur=${v.durationMinutes}&eid=0`;
@@ -1372,13 +1088,7 @@ async function verifyAppointment(
   while ((match = re.exec(html)) !== null) {
     anySlots = true;
     const [, y, mo, d, h, mi] = match.map(Number) as unknown as number[];
-    if (
-      y === v.date.year &&
-      mo === v.date.month &&
-      d === v.date.day &&
-      h === v.time.hour24 &&
-      mi === v.time.minute
-    ) {
+    if (y === v.date.year && mo === v.date.month && d === v.date.day && h === v.time.hour24 && mi === v.time.minute) {
       bookedStillFree = true;
     }
   }
@@ -1416,61 +1126,34 @@ async function injectProviderShims(page: Page): Promise<void> {
  * hardcoded. When no category / location is given, the form's own pre-selected
  * default is used.
  */
-async function openProviderFormAndResolve(
-  page: Page,
-  v: ValidatedParams,
-): Promise<ResolvedForm> {
+async function openProviderFormAndResolve(page: Page, v: ValidatedParams): Promise<ResolvedForm> {
   extendTimeout();
   await injectProviderShims(page);
   await goToUrl({ page, url: PROVIDER_EVENT_URL(v.date.compact) });
-  await page.waitForSelector('select[name="form_category"]', {
-    timeout: 30000,
-  });
+  await page.waitForSelector('select[name="form_category"]', { timeout: 30000 });
 
-  const categoryOptions = await readSelectOptions(
-    page,
-    'select[name="form_category"]',
-  );
-  const facilityOptions = await readSelectOptions(
-    page,
-    'select[name="facility"]',
-  );
+  const categoryOptions = await readSelectOptions(page, 'select[name="form_category"]');
+  const facilityOptions = await readSelectOptions(page, 'select[name="facility"]');
   // Provider select is "form_provider" (single) or "form_provider[]" in
   // multi-provider mode — support both, same as the patient form.
-  let providerOptions = await readSelectOptions(
-    page,
-    'select[name="form_provider"]',
-  );
+  let providerOptions = await readSelectOptions(page, 'select[name="form_provider"]');
   if (providerOptions.length === 0) {
-    providerOptions = await readSelectOptions(
-      page,
-      'select[name="form_provider[]"]',
-    );
+    providerOptions = await readSelectOptions(page, 'select[name="form_provider[]"]');
   }
 
   let category: SelectOption | null;
   if (v.category) {
     category = matchOption(categoryOptions, v.category);
     if (!category) {
-      throw new ScheduleError(
-        "CATEGORY_NOT_FOUND",
-        `Provider event category "${v.category}" is not offered`,
-        {
-          requested: v.category,
-          available: categoryOptions.map((o) => o.label).filter(Boolean),
-        },
-      );
+      throw new ScheduleError("CATEGORY_NOT_FOUND", `Provider event category "${v.category}" is not offered`, {
+        requested: v.category,
+        available: categoryOptions.map((o) => o.label).filter(Boolean),
+      });
     }
   } else {
-    category =
-      categoryOptions.find((o) => o.selected && o.value) ??
-      categoryOptions.find((o) => o.value) ??
-      null;
+    category = categoryOptions.find((o) => o.selected && o.value) ?? categoryOptions.find((o) => o.value) ?? null;
     if (!category) {
-      throw new ScheduleError(
-        "CATEGORY_NOT_FOUND",
-        "No provider event categories available on the form",
-      );
+      throw new ScheduleError("CATEGORY_NOT_FOUND", "No provider event categories available on the form");
     }
   }
 
@@ -1478,23 +1161,15 @@ async function openProviderFormAndResolve(
   if (v.raw.location) {
     facility = matchOption(facilityOptions, v.raw.location);
     if (!facility) {
-      throw new ScheduleError(
-        "LOCATION_NOT_FOUND",
-        `Facility "${v.raw.location}" not found`,
-        {
-          requested: v.raw.location,
-          available: facilityOptions.map((o) => o.label).filter(Boolean),
-        },
-      );
+      throw new ScheduleError("LOCATION_NOT_FOUND", `Facility "${v.raw.location}" not found`, {
+        requested: v.raw.location,
+        available: facilityOptions.map((o) => o.label).filter(Boolean),
+      });
     }
   } else {
-    facility =
-      facilityOptions.find((o) => o.selected) ?? facilityOptions[0] ?? null;
+    facility = facilityOptions.find((o) => o.selected) ?? facilityOptions[0] ?? null;
     if (!facility) {
-      throw new ScheduleError(
-        "LOCATION_NOT_FOUND",
-        "No facilities available on the form",
-      );
+      throw new ScheduleError("LOCATION_NOT_FOUND", "No facilities available on the form");
     }
   }
 
@@ -1502,25 +1177,15 @@ async function openProviderFormAndResolve(
   if (v.raw.provider) {
     provider = matchOption(providerOptions, v.raw.provider);
     if (!provider) {
-      throw new ScheduleError(
-        "PROVIDER_NOT_FOUND",
-        `Provider "${v.raw.provider}" not found`,
-        {
-          requested: v.raw.provider,
-          available: providerOptions.map((o) => o.label).filter(Boolean),
-        },
-      );
+      throw new ScheduleError("PROVIDER_NOT_FOUND", `Provider "${v.raw.provider}" not found`, {
+        requested: v.raw.provider,
+        available: providerOptions.map((o) => o.label).filter(Boolean),
+      });
     }
   } else {
-    provider =
-      providerOptions.find((o) => o.selected && o.value) ??
-      providerOptions.find((o) => o.value) ??
-      null;
+    provider = providerOptions.find((o) => o.selected && o.value) ?? providerOptions.find((o) => o.value) ?? null;
     if (!provider) {
-      throw new ScheduleError(
-        "PROVIDER_NOT_FOUND",
-        "No providers available on the form",
-      );
+      throw new ScheduleError("PROVIDER_NOT_FOUND", "No providers available on the form");
     }
   }
 
@@ -1532,17 +1197,10 @@ async function openProviderFormAndResolve(
  * onchange rewrites Title + a default duration), then Title and Duration are
  * overridden. There are no patient fields on this form.
  */
-async function fillProviderEventForm(
-  page: Page,
-  v: ValidatedParams,
-  resolved: ResolvedForm,
-): Promise<void> {
+async function fillProviderEventForm(page: Page, v: ValidatedParams, resolved: ResolvedForm): Promise<void> {
   extendTimeout();
   // Category first (fires set_category → rewrites title/duration), then override.
-  await page.selectOption(
-    'select[name="form_category"]',
-    resolved.category.value,
-  );
+  await page.selectOption('select[name="form_category"]', resolved.category.value);
 
   const title = v.title ?? resolved.category.label;
   await fillFirstMatching(page, ["form_title"], title);
@@ -1550,9 +1208,7 @@ async function fillProviderEventForm(
   await page.selectOption('select[name="facility"]', resolved.facility.value);
   const billing = await page.$('select[name="billing_facility"]');
   if (billing) {
-    await page
-      .selectOption('select[name="billing_facility"]', resolved.facility.value)
-      .catch(() => {});
+    await page.selectOption('select[name="billing_facility"]', resolved.facility.value).catch(() => {});
   }
   const providerSelect = (await page.$('select[name="form_provider"]'))
     ? 'select[name="form_provider"]'
@@ -1560,26 +1216,14 @@ async function fillProviderEventForm(
   await page.selectOption(providerSelect, resolved.provider.value);
 
   const okDate = await fillFirstMatching(page, ["form_date"], v.date.iso);
-  const okHour = await fillFirstMatching(
-    page,
-    ["form_hour"],
-    String(v.time.hour24),
-  );
-  const okMin = await fillFirstMatching(
-    page,
-    ["form_minute"],
-    String(v.time.minute).padStart(2, "0"),
-  );
-  const okDur = await fillFirstMatching(
-    page,
-    ["form_duration"],
-    String(v.durationMinutes),
-  );
+  const okHour = await fillFirstMatching(page, ["form_hour"], String(v.time.hour24));
+  const okMin = await fillFirstMatching(page, ["form_minute"], String(v.time.minute).padStart(2, "0"));
+  const okDur = await fillFirstMatching(page, ["form_duration"], String(v.durationMinutes));
   if (!okDate || !okHour || !okMin || !okDur) {
     // Missing fields = the form isn't what we expect (selector rot). Throw a
     // plain Error (a real failure), not a caller-facing ClientError.
     throw new Error(
-      `Provider event form fields missing (date=${okDate} hour=${okHour} minute=${okMin} duration=${okDur})`,
+      `Provider event form fields missing (date=${okDate} hour=${okHour} minute=${okMin} duration=${okDur})`
     );
   }
   if (v.comments) await fillFirstMatching(page, ["form_comments"], v.comments);
@@ -1601,17 +1245,11 @@ async function saveProviderEvent(page: Page): Promise<void> {
   page.on("dialog", onDialog);
   try {
     await Promise.all([
-      page
-        .waitForNavigation({ waitUntil: "domcontentloaded", timeout: 45000 })
-        .catch(() => null),
+      page.waitForNavigation({ waitUntil: "domcontentloaded", timeout: 45000 }).catch(() => null),
       page.evaluate(() => {
-        const form = (
-          document.getElementById("form_action") as HTMLElement
-        )?.closest("form") as HTMLFormElement | null;
+        const form = (document.getElementById("form_action") as HTMLElement)?.closest("form") as HTMLFormElement | null;
         if (!form) throw new Error("provider event form not found");
-        const fa = form.querySelector(
-          "#form_action",
-        ) as HTMLInputElement | null;
+        const fa = form.querySelector("#form_action") as HTMLInputElement | null;
         if (fa) fa.value = "save";
         // recurr_affect stays empty — this is a non-recurring event.
         form.submit();
@@ -1634,10 +1272,7 @@ async function saveProviderEvent(page: Page): Promise<void> {
       await page.waitForTimeout(500);
     }
     if (!saved) {
-      throw new ScheduleError(
-        "SAVE_NOT_CONFIRMED",
-        "Provider event save did not complete (form still present)",
-      );
+      throw new ScheduleError("SAVE_NOT_CONFIRMED", "Provider event save did not complete (form still present)");
     }
   } finally {
     page.off("dialog", onDialog);
@@ -1645,10 +1280,7 @@ async function saveProviderEvent(page: Page): Promise<void> {
 }
 
 /** Books a provider (non-patient) event: resolve → fill → (dry_run|save). */
-async function runProviderEvent(
-  page: Page,
-  v: ValidatedParams,
-): Promise<Record<string, any>> {
+async function runProviderEvent(page: Page, v: ValidatedParams): Promise<Record<string, any>> {
   const resolved = await openProviderFormAndResolve(page, v);
 
   const event = {
@@ -1686,23 +1318,16 @@ async function runProviderEvent(
 export default async function handler(
   params: Params,
   page: Page,
-  context: BrowserContext,
+  context: BrowserContext
 ): Promise<Record<string, any>> {
   // Envelope boundary: a ClientError (business outcome) becomes a
   // `{ success: false, ... }` response (the run SUCCEEDS); a real failure
   // propagates and the run fails. dry_run + ai_fallback ride as envelope meta.
   const dryRun = params?.dry_run ?? false;
-  return withErrorEnvelope(
-    { dry_run: dryRun, ai_fallback: initAiFallbackMeta() },
-    () => run(params, page, context),
-  );
+  return withErrorEnvelope({ dry_run: dryRun, ai_fallback: initAiFallbackMeta() }, () => run(params, page, context));
 }
 
-async function run(
-  params: Params,
-  page: Page,
-  context: BrowserContext,
-): Promise<Record<string, any>> {
+async function run(params: Params, page: Page, context: BrowserContext): Promise<Record<string, any>> {
   const v = validateParams(params);
 
   // Provider (non-patient) events take a separate, simpler path: fill the
@@ -1736,12 +1361,7 @@ async function run(
     if (existing) {
       const result = {
         status: "already_booked",
-        patient: {
-          pid: patient.pid,
-          name: patient.name,
-          dob: patient.dob,
-          created: patient.created,
-        },
+        patient: { pid: patient.pid, name: patient.name, dob: patient.dob, created: patient.created },
         appointment: { ...appointment, eid: existing.eid, verified: true },
       };
       validateDataUsingSchema({ data: result, schema: DATA_SCHEMA });
@@ -1751,20 +1371,13 @@ async function run(
 
   // Re-open the booking form and fill everything.
   await goToUrl({ page, url: BOOKING_URL(v.date.compact) });
-  await page.waitForSelector('select[name="form_category"]', {
-    timeout: 30000,
-  });
+  await page.waitForSelector('select[name="form_category"]', { timeout: 30000 });
   await fillBookingForm(page, v, resolved, patient);
 
   if (v.dryRun) {
     const result = {
       status: "dry_run",
-      patient: {
-        pid: patient.pid,
-        name: patient.name,
-        dob: patient.dob,
-        created: patient.created,
-      },
+      patient: { pid: patient.pid, name: patient.name, dob: patient.dob, created: patient.created },
       appointment,
     };
     validateDataUsingSchema({ data: result, schema: DATA_SCHEMA });
@@ -1777,12 +1390,7 @@ async function run(
 
   const result = {
     status: "booked",
-    patient: {
-      pid: patient.pid,
-      name: patient.name,
-      dob: patient.dob,
-      created: patient.created,
-    },
+    patient: { pid: patient.pid, name: patient.name, dob: patient.dob, created: patient.created },
     appointment: { ...appointment, verified },
   };
   validateDataUsingSchema({ data: result, schema: DATA_SCHEMA });
