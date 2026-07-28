@@ -1,0 +1,33 @@
+{
+  "payload": [
+    {
+      "apiName": "schedule-appointment",
+      "parameters": {
+        "date": "07/19/2026",
+        "start_time": "10:00 AM",
+        "provider": "Lee, Donna",
+        "category": "Office Visit",
+        "duration_minutes": 15,
+        "comments": "Booked via Intuned job",
+        "patient": {
+          "first_name": "OliverTrial",
+          "last_name": "Charlotte",
+          "dob": "12/01/1989"
+        },
+        "create_patient_if_missing": true,
+        "dry_run": true
+      }
+    }
+  ],
+  "configuration": {
+    "maxConcurrentRequests": 1,
+    "retry": {
+      "maximumAttempts": 2
+    }
+  },
+  "auth_session": {
+    "id": "default",
+    "checkAttempts": 3,
+    "createAttempts": 3
+  }
+}

@@ -46,6 +46,7 @@ intuned dev run api <api-name> .parameters/api/<api-name>/default.json
 | [jsdom](./jsdom/) | Web scraping with JSDOM for HTML parsing |
 | [native-crawler](./native-crawler/) | Native web crawler for sitemaps and recursive link following |
 | [network-interception](./network-interception/) | Network interception for CSRF token capture and paginated API data |
+| [openemr-rpa](./openemr-rpa/) | Check OpenEMR availability, schedule, and cancel patient appointments with Auth Sessions |
 | [playwright-basics](./playwright-basics/) | Basic Playwright automation examples |
 | [quick-recipes](./quick-recipes/) | Quick browser automation recipes |
 | [rpa-auth-example](./rpa-auth-example/) | Authenticated consultation booking with Auth Sessions |

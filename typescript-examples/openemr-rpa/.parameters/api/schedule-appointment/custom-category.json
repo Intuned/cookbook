@@ -1,0 +1,13 @@
+{
+  "date": "07/20/2026",
+  "start_time": "11:00 AM",
+  "category": "New Patient",
+  "duration_minutes": 30,
+  "comments": "Initial consult - please prepare intake forms",
+  "patient": {
+    "first_name": "OliverTrial",
+    "last_name": "Charlotte",
+    "dob": "12/01/1989"
+  },
+  "dry_run": true
+}

@@ -1,0 +1,25 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "apiAccess": {
+    "enabled": true
+  },
+  "authSessions": {
+    "enabled": true,
+    "type": "API"
+  },
+  "replication": {
+    "maxCount": 1,
+    "size": "standard"
+  },
+  "metadata": {
+    "defaultRunPlaygroundInput": {
+      "apiName": "get-available-slots",
+      "parameters": {
+        "start_date": "07/19/2026",
+        "end_date": "07/21/2026"
+      }
+    }
+  },
+  "version": "2.0"
+}

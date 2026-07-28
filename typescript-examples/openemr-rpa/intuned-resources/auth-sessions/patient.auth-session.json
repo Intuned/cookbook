@@ -1,0 +1,8 @@
+{
+  "parameters": {
+    "target": "portal",
+    "username": "Susan2",
+    "password": "susan",
+    "email": "nana@invalid.email.com"
+  }
+}
