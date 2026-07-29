@@ -1,16 +1,25 @@
 {
   "payload": [
     {
-      "apiName": "cancel-appointment",
+      "apiName": "get-available-slots",
       "parameters": {
-        "date": "07/20/2026",
+        "start_date": "07/19/2026",
+        "end_date": "07/21/2026"
+      }
+    },
+    {
+      "apiName": "schedule-appointment",
+      "parameters": {
+        "date": "07/19/2026",
         "start_time": "10:00 AM",
+        "provider": "Lee, Donna",
+        "category": "Office Visit",
+        "duration_minutes": 15,
         "patient": {
           "first_name": "OliverTrial",
           "last_name": "Charlotte",
           "dob": "12/01/1989"
         },
-        "mode": "cancel",
         "dry_run": true
       }
     }
@@ -20,7 +29,7 @@
     "retry": { "maximumAttempts": 2 }
   },
   "auth_session": {
-    "id": "default",
+    "id": "test-authsession",
     "checkAttempts": 3,
     "createAttempts": 3
   }

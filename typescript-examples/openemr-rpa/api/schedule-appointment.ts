@@ -518,6 +518,34 @@ async function fillFirstMatching(page: Page, names: string[], value: string): Pr
     const el = await page.$(`[name="${name}"]`);
     if (!el) continue;
     const tag = await el.evaluate((n) => n.tagName.toLowerCase());
+    // Fields in collapsed sections (e.g. Contact on new.php) exist but are not
+    // visible; fill/selectOption would burn their full timeout waiting for
+    // actionability, so set those directly via JS.
+    const visible = await el.isVisible();
+    if (!visible) {
+      if (tag === "select") {
+        const options = await el.$$eval("option", (opts) =>
+          opts.map((o) => ({ value: (o as HTMLOptionElement).value, label: (o.textContent || "").trim() }))
+        );
+        const w = value.trim().toLowerCase();
+        const match =
+          options.find((o) => o.value.toLowerCase() === w) ??
+          options.find((o) => o.label.toLowerCase() === w) ??
+          options.find((o) => o.label.toLowerCase().includes(w));
+        if (!match) continue;
+        await el.evaluate((n, val) => {
+          (n as HTMLSelectElement).value = val;
+          n.dispatchEvent(new Event("change", { bubbles: true }));
+        }, match.value);
+      } else {
+        await el.evaluate((n, val) => {
+          (n as HTMLInputElement).value = val;
+          n.dispatchEvent(new Event("input", { bubbles: true }));
+          n.dispatchEvent(new Event("change", { bubbles: true }));
+        }, value);
+      }
+      return true;
+    }
     if (tag === "select") {
       // Try by exact value, then by label (case-insensitive).
       const options = await el.$$eval("option", (opts) =>

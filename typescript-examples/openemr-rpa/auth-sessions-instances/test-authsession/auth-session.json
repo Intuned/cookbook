@@ -1,0 +1,31 @@
+{
+  "cookies": [
+    {
+      "name": "OpenEMR",
+      "value": "718e6a73ca2531e52d61f6f15487248c",
+      "domain": "demo.openemr.io",
+      "path": "/openemr/",
+      "expires": 1784567893.276198,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "App",
+      "value": "OpenEMR",
+      "domain": "demo.openemr.io",
+      "path": "/",
+      "expires": 1816075881.561048,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [],
+  "sessionStorage": [
+    {
+      "origin": "https://demo.openemr.io",
+      "sessionStorage": []
+    }
+  ]
+}

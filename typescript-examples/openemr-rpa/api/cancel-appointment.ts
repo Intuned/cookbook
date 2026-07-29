@@ -441,7 +441,14 @@ async function reopenEvent(page: Page, eid: string, dateIso: string): Promise<{ 
     page,
     url: `${BASE}/main/calendar/add_edit_event.php?eid=${encodeURIComponent(eid)}&date=${dateIso}`,
   });
-  await page.waitForSelector("#form_action", { state: "attached", timeout: 30000 }).catch(() => {});
+  // A deleted eid renders a bare "An error has occurred." page with no form —
+  // that page IS the answer, so stop waiting as soon as either outcome shows.
+  await page
+    .locator("#form_action")
+    .or(page.getByText("An error has occurred"))
+    .first()
+    .waitFor({ state: "attached", timeout: 30000 })
+    .catch(() => {});
   return page.evaluate(() => {
     const pid = (document.querySelector('input[name="form_pid"]') as HTMLInputElement | null)?.value ?? "";
     const status = (document.querySelector('select[name="form_apptstatus"]') as HTMLSelectElement | null)?.value ?? "";
