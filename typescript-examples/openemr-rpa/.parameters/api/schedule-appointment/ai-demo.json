@@ -1,0 +1,14 @@
+{
+  "date": "07/20/2026",
+  "start_time": "2:00 PM",
+  "patient": {
+    "first_name": "Nora",
+    "last_name": "Vale",
+    "dob": "04/11/1990"
+  },
+  "create_patient_if_missing": true,
+  "new_patient": {
+    "sex": "Female"
+  },
+  "dry_run": true
+}
