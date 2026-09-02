@@ -6,6 +6,7 @@ Based on: https://docs.crawl4ai.com/core/simple-crawling/
 
 from typing import TypedDict
 
+from intuned_runtime import attempt_store
 from playwright.async_api import BrowserContext, Page
 
 from crawl4ai import AsyncWebCrawler
@@ -29,7 +30,9 @@ async def automation(
             "error": "URL parameter is required",
         }
 
-    browser_config = BrowserConfig(verbose=True)
+    # Attach to Intuned's running browser instead of launching a new one
+    cdp_url = attempt_store.get("cdp_url")
+    browser_config = BrowserConfig(browser_mode="custom", cdp_url=cdp_url, verbose=True)
     run_config = CrawlerRunConfig(
         # Content filtering
         word_count_threshold=10,

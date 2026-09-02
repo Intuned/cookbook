@@ -9,6 +9,7 @@ Based on: https://docs.crawl4ai.com/core/content-selection/
 import json
 from typing import Any, TypedDict
 
+from intuned_runtime import attempt_store
 from playwright.async_api import BrowserContext, Page
 
 from crawl4ai import (
@@ -17,6 +18,7 @@ from crawl4ai import (
     CrawlerRunConfig,
     JsonCssExtractionStrategy,
 )
+from crawl4ai.async_configs import BrowserConfig
 
 
 class Params(TypedDict, total=False):
@@ -60,7 +62,12 @@ async def automation(
         verbose=True,
     )
 
-    async with AsyncWebCrawler() as crawler:
+    # Attach to Intuned's running browser instead of launching a new one
+    browser_config = BrowserConfig(
+        browser_mode="custom", cdp_url=attempt_store.get("cdp_url")
+    )
+
+    async with AsyncWebCrawler(config=browser_config) as crawler:
         result = await crawler.arun(url=url, config=config)
 
         if not result.success:

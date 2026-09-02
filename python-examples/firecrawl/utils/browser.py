@@ -1,3 +1,5 @@
+from intuned_runtime import attempt_store
+
 from crawl4ai.async_configs import BrowserConfig
 
 # Mobile Chrome user agent
@@ -21,6 +23,9 @@ def create_browser_config(
     viewport = MOBILE_VIEWPORT if mobile else DESKTOP_VIEWPORT
 
     config_kwargs = {
+        # Attach to Intuned's running browser instead of launching a new one
+        "browser_mode": "custom",
+        "cdp_url": attempt_store.get("cdp_url"),
         "headless": headless,
         "viewport_width": viewport[0],
         "viewport_height": viewport[1],

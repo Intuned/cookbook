@@ -56,6 +56,8 @@ intuned dev deploy
 starter-crawl4ai/
 ├── api/
 │   └── simple-crawl.py                # Crawl a single URL to markdown
+├── hooks/
+│   └── setup_context.py               # Stores the CDP URL of Intuned's browser
 ├── intuned-resources/
 │   └── jobs/
 │       └── simple-crawl.job.jsonc     # Job definition for simple-crawl API

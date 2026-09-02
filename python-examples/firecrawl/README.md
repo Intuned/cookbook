@@ -239,6 +239,8 @@ intuned dev deploy
 │   ├── map.py                # Extract all links from a page
 │   ├── crawl.py              # Deep crawl multiple pages
 │   └── search.py             # Web search with full content
+├── hooks/
+│   └── setup_context.py      # Stores the CDP URL of Intuned's browser
 ├── intuned-resources/
 │   └── jobs/
 │       ├── scrape.job.jsonc

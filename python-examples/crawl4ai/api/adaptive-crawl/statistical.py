@@ -6,9 +6,11 @@ Based on: https://docs.crawl4ai.com/core/adaptive-crawling/
 
 from typing import TypedDict
 
+from intuned_runtime import attempt_store
 from playwright.async_api import BrowserContext, Page
 
 from crawl4ai import AdaptiveConfig, AdaptiveCrawler, AsyncWebCrawler
+from crawl4ai.async_configs import BrowserConfig
 
 
 class Params(TypedDict, total=False):
@@ -42,7 +44,12 @@ async def automation(
         top_k_links=3,
     )
 
-    async with AsyncWebCrawler() as crawler:
+    # Attach to Intuned's running browser instead of launching a new one
+    browser_config = BrowserConfig(
+        browser_mode="custom", cdp_url=attempt_store.get("cdp_url")
+    )
+
+    async with AsyncWebCrawler(config=browser_config) as crawler:
         adaptive = AdaptiveCrawler(crawler, config=config)
 
         await adaptive.digest(

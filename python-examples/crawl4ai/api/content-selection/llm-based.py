@@ -9,11 +9,12 @@ Based on: https://docs.crawl4ai.com/core/content-selection/
 import json
 from typing import TypedDict
 
-from intuned_runtime import get_ai_gateway_config
+from intuned_runtime import attempt_store, get_ai_gateway_config
 from playwright.async_api import BrowserContext, Page
 from pydantic import BaseModel
 
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, LLMConfig, LLMExtractionStrategy
+from crawl4ai.async_configs import BrowserConfig
 
 
 class ArticleData(BaseModel):
@@ -54,7 +55,12 @@ async def automation(
         extraction_strategy=llm_strategy,
     )
 
-    async with AsyncWebCrawler() as crawler:
+    # Attach to Intuned's running browser instead of launching a new one
+    browser_config = BrowserConfig(
+        browser_mode="custom", cdp_url=attempt_store.get("cdp_url")
+    )
+
+    async with AsyncWebCrawler(config=browser_config) as crawler:
         result = await crawler.arun(url=url, config=config)
 
         if not result.success:

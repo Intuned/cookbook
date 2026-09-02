@@ -9,6 +9,7 @@ Based on: https://docs.crawl4ai.com/core/deep-crawling/
 import logging
 from typing import Literal, TypedDict
 
+from intuned_runtime import attempt_store
 from playwright.async_api import BrowserContext, Page
 
 from crawl4ai import AsyncWebCrawler, CrawlerRunConfig
@@ -107,7 +108,11 @@ async def automation(
             url_scorer=url_scorer,
         )
 
-    browser_config = BrowserConfig(verbose=False)
+    # Attach to Intuned's running browser instead of launching a new one
+    cdp_url = attempt_store.get("cdp_url")
+    browser_config = BrowserConfig(
+        browser_mode="custom", cdp_url=cdp_url, verbose=False
+    )
     run_config = CrawlerRunConfig(
         deep_crawl_strategy=strategy,
         scraping_strategy=LXMLWebScrapingStrategy(),
