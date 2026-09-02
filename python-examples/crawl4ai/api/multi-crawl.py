@@ -8,6 +8,7 @@ Based on: https://docs.crawl4ai.com/advanced/multi-url-crawling/
 
 from typing import Literal, TypedDict
 
+from intuned_runtime import attempt_store
 from playwright.async_api import BrowserContext, Page
 
 from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
@@ -57,7 +58,9 @@ async def automation(
             rate_limiter=rate_limiter,
         )
 
-    browser_config = BrowserConfig(headless=True, verbose=True)
+    # Attach to Intuned's running browser instead of launching a new one
+    cdp_url = attempt_store.get("cdp_url")
+    browser_config = BrowserConfig(browser_mode="custom", cdp_url=cdp_url, verbose=True)
     run_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
         verbose=True,

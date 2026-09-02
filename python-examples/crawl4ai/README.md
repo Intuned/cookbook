@@ -88,6 +88,8 @@ intuned dev deploy
 │   └── adaptive-crawl/
 │       ├── statistical.py            # Statistical adaptive crawl
 │       └── embedding.py              # Embedding adaptive crawl
+├── hooks/
+│   └── setup_context.py              # Stores the CDP URL of Intuned's browser
 ├── intuned-resources/
 │   └── jobs/
 │       ├── simple-crawl.job.jsonc
