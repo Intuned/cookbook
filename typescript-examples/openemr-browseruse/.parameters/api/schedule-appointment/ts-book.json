@@ -1,0 +1,12 @@
+{
+  "date": "07/24/2026",
+  "start_time": "1:00 PM",
+  "provider": "Lee, Donna",
+  "patient": {
+    "first_name": "Maya",
+    "last_name": "Winters",
+    "dob": "03/14/1992"
+  },
+  "comments": "browseruse-ts booking test",
+  "dry_run": false
+}

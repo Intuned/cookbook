@@ -1,0 +1,29 @@
+// For more information, see our Intuned settings reference
+// https://intunedhq.com/docs/main/05-references/intuned-json
+{
+  "authSessions": {
+    "enabled": true,
+    "type": "API",
+  },
+
+  "replication": {
+    "maxCount": 1,
+    "size": "standard",
+  },
+  "metadata": {
+    "defaultRunPlaygroundInput": {
+      "apiName": "get-available-slots",
+      "parameters": {
+        "start_date": "07/22/2026",
+        "end_date": "07/24/2026",
+        "provider": "Smith, Billy",
+      },
+    },
+    "template": {
+      "name": "browser-use-ts",
+      "description": "AI-powered browser automation using the browser-use TypeScript port",
+      "tags": ["browser-use", "typescript", "auth-sessions"],
+    },
+  },
+  "version": "2.0",
+}
