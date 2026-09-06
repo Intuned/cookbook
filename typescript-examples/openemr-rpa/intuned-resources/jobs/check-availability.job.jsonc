@@ -1,0 +1,20 @@
+{
+  "payload": [
+    {
+      "apiName": "get-available-slots",
+      "parameters": {
+        "start_date": "07/19/2026",
+        "end_date": "07/21/2026"
+      }
+    }
+  ],
+  "configuration": {
+    "maxConcurrentRequests": 1,
+    "retry": { "maximumAttempts": 3 }
+  },
+  "auth_session": {
+    "id": "test-authsession",
+    "checkAttempts": 3,
+    "createAttempts": 3
+  }
+}

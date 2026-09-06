@@ -1,0 +1,11 @@
+{
+  "event_type": "provider",
+  "date": "07/20/2026",
+  "start_time": "12:00 PM",
+  "provider": "Lee, Donna",
+  "category": "Lunch",
+  "title": "Lunch",
+  "duration_minutes": 30,
+  "comments": "Lunch break",
+  "dry_run": false
+}

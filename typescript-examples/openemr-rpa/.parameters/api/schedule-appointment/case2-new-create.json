@@ -1,0 +1,20 @@
+{
+  "date": "07/20/2026",
+  "start_time": "9:30 AM",
+  "patient": {
+    "first_name": "Nora",
+    "last_name": "Valee",
+    "dob": "04/11/1990"
+  },
+  "create_patient_if_missing": true,
+  "new_patient": {
+    "sex": "Female",
+    "phone": "555-330-1188",
+    "email": "nora.vale@example.com",
+    "address": "8 Maple Court",
+    "city": "Riverton",
+    "state": "NJ",
+    "postal_code": "08077"
+  },
+  "dry_run": false
+}
