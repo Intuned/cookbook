@@ -1,0 +1,11 @@
+{
+  "date": "07/29/2026",
+  "start_time": "10:00 AM",
+  "patient": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "dob": "03/14/2000"
+  },
+  "mode": "delete",
+  "dry_run": false
+}

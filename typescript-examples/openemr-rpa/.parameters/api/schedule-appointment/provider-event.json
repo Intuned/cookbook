@@ -1,0 +1,10 @@
+{
+  "event_type": "provider",
+  "date": "07/20/2026",
+  "start_time": "8:00 AM",
+  "provider": "Smith, Billy",
+  "category": "In Office",
+  "duration_minutes": 480,
+  "comments": "Provider in office (dry run preview)",
+  "dry_run": true
+}
