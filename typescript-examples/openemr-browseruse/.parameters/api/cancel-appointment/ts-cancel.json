@@ -1,0 +1,12 @@
+{
+  "date": "07/24/2026",
+  "start_time": "1:00 PM",
+  "patient": {
+    "first_name": "Maya",
+    "last_name": "Winters",
+    "dob": "03/14/1992"
+  },
+  "provider": "Lee, Donna",
+  "mode": "cancel",
+  "dry_run": false
+}
