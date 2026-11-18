@@ -1,0 +1,20 @@
+{
+  "date": "07/20/2026",
+  "start_time": "9:15 AM",
+  "patient": {
+    "first_name": "Maya",
+    "last_name": "Winters",
+    "dob": "03/14/1992"
+  },
+  "create_patient_if_missing": true,
+  "new_patient": {
+    "sex": "Female",
+    "phone": "555-201-3344",
+    "email": "maya.winters@example.com",
+    "address": "42 Birchwood Lane",
+    "city": "Springfield",
+    "state": "MA",
+    "postal_code": "01103"
+  },
+  "dry_run": true
+}
